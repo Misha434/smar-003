@@ -2,6 +2,7 @@
   "name": "smar_003",
   "private": true,
   "dependencies": {
+    "normalize.css": "^7.0.0",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
@@ -19,6 +20,31 @@
     "eslint-plugin-prettier": "^2.3.1",
     "lint-staged": "^4.2.3",
     "pre-commit": "^1.2.2",
-    "prettier": "^1.7.3"
-  }
+    "prettier": "^1.7.3",
+    "stylelint": "^8.1.1",
+    "stylelint-config-standard": "^17.0.0"
+  },
+  "scripts": {
+    "lint-staged": "$(yarn bin)/lint-staged"
+  },
+  "lint-staged": {
+    "config/webpack/**/*.js": [
+      "prettier --write",
+      "eslint",
+      "git add"
+    ],
+    "frontend/**/*.js": [
+      "prettier --write",
+      "eslint",
+      "git add"
+    ],
+    "frontend/**/*.css": [
+      "prettier --write",
+      "stylelint --fix",
+      "git add"
+    ]
+  },
+  "pre-commit": [
+    "lint-staged"
+  ]
 }
