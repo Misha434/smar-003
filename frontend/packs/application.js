@@ -3,12 +3,11 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 // frontend/packs/application.js
-import "./application.css";
-document.body.insertAdjacentHTML("afterbegin", "Webpacker works!");
+import "init";
 
-require("@rails/ujs").start()
-require("@rails/activestorage").start()
-require("channels")
+// require("@rails/ujs").start()
+// require("@rails/activestorage").start()
+// require("channels")
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
