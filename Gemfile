@@ -27,6 +27,9 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'foreman'
 gem 'devise', '~> 4.7', '>= 4.7.3'
 
+gem 'slim-rails'
+gem 'html2slim'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
