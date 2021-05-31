@@ -11,6 +11,8 @@ window.$ = window.JQuery = JQuery; // eslint-disable-line
 
 import "bootstrap"; // eslint-disable-line
 
+import "@fortawesome/fontawesome-free/js/all"; // eslint-disable-line
+
 import "../src/application.scss"; // eslint-disable-line
 
 require("@rails/ujs").start();
