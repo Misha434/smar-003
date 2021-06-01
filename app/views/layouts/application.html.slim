@@ -2,10 +2,9 @@ doctype html
 html
   head
     title
-      | Smar003
-    = csrf_meta_tags
-    = csp_meta_tag
+      | Sma-r
+    = render 'layouts/rails_default'
+    = render 'layouts/shim'
   body
-    = stylesheet_pack_tag 'application'
-    = javascript_pack_tag 'application'
+    = render 'layouts/rendering_tags'
     = yield
