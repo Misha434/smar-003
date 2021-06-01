@@ -5,6 +5,8 @@
 // frontend/packs/application.js
 import "init";
 
+import "src/pages/pages";
+
 import JQuery from "jquery";
 
 window.$ = window.JQuery = JQuery; // eslint-disable-line
