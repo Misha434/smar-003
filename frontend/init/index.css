@@ -1,1 +1,14 @@
 @import "normalize.css/normalize.css";
+
+html body {
+  background: #dcdde0;
+}
+
+body a {
+  color: black;
+  text-decoration: none;
+}
+
+.navbar-light .navbar-toggler {
+  border-color: rgba(0, 0, 0, 0);
+}
