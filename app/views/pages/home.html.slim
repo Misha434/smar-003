@@ -7,3 +7,4 @@ i.fa.fa-address-book aria-hidden="true"
 
 - @users.each do |user|
 	= user.name
+	= image_tag user.avatar if user.avatar.attached?
