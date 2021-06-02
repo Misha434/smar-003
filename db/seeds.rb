@@ -5,3 +5,17 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+3.times do |n|
+  name  = Faker::Name.name
+  email = "example-#{n+1}@example.org"
+  password = "password"
+  avatar = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/avatars/avatar-photo-#{n}.jpeg")), filename: "avatar-photo-#{n}.jpeg")
+  User.create!(
+    name:  name,
+    email: email,
+    password: password,
+    password_confirmation: password,
+    avatar: avatar 
+    )
+end
