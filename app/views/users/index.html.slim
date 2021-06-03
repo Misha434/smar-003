@@ -1,2 +1,6 @@
-h1 Users#index
-p Find me in app/views/users/index.html.slim
+h1 All Users
+
+ul.users
+  - @users.each do |user|
+    li
+      = link_to user.name, user
