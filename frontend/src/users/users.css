@@ -1,0 +1,9 @@
+@import "normalize.css/normalize.css";
+
+.reviews {
+  list-style: none;
+}
+
+.reviews li {
+  padding: 0;
+}
