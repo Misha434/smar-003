@@ -1,0 +1,4 @@
+- if @user.avatar.attached?
+  = image_tag @user.avatar.variant(resize:'80x80')
+- else
+   i.fa.fa-user-circle.fa-5x.user--default aria-hidden="true"
