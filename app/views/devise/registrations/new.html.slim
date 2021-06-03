@@ -1,24 +1,55 @@
-h2
-  | Sign up
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = render "devise/shared/error_messages", resource: resource
-  .field
-    = f.label :email
-    br
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label :password
-    - if @minimum_password_length
-      em
-        | (
-        = @minimum_password_length
-        |  characters minimum)
-    br
-    = f.password_field :password, autocomplete: "new-password"
-  .field
-    = f.label :password_confirmation
-    br
-    = f.password_field :password_confirmation, autocomplete: "new-password"
-  .actions
-    = f.submit "Sign up"
-= render "devise/shared/links"
+.container
+  .row
+    .col-12.col-md-8.offset-md-2
+      .card.px-3.my-3
+        h2.text-center.mt-3
+          | Sign up
+        = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+          = render "devise/shared/error_messages", resource: resource,  object: f.object
+          .field
+            = f.label :name
+            br
+            = f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control"
+          .field
+            = f.label :email
+            br
+            = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control"
+          .field
+            = f.label :password
+            - if @minimum_password_length
+              em
+                | (
+                = @minimum_password_length
+                |  characters minimum)
+            br
+            = f.password_field :password, autocomplete: "new-password", class: "form-control"
+          .field
+            = f.label :password_confirmation
+            br
+            = f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control"
+          span.avatar
+            = f.file_field :avatar
+          p.demo
+            .flex-row
+              input type="checkbox" id="agreement" autocomplete="off"
+              label for="agreement"
+                .d-flex
+                  p.px-2 I agree with
+                  / p = link_to "Terms of service", terms_path, class: "underlined", target: "_blank", rel: "noopener noreferrer"
+          .actions
+            .d-grid.mb-4
+              = f.submit "Sign up", class: "btn btn-outline-primary", id: "signup--submit", disabled: true
+          javascript:
+            $(function(){
+              $("#signup--submit").prop("disabled", true);
+              $("#agreement").click(function(){
+                if ($(this).prop("checked") == false) {
+                  $("#signup--submit").prop("disabled", true);
+                } else {
+                $("#signup--submit").prop("disabled", false);
+                }
+              });
+            });
+    .row
+      .col-12.col-md-8.offset-md-2
+        = render "devise/shared/links"
