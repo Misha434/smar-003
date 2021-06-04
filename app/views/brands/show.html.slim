@@ -14,7 +14,7 @@
           li.card id = "products-'#{product.id}'"
             .row
               .col-4
-                / = product_image_default(product)
+                = product_image_default(product)
               .col-8
                 p = link_to product.name, product
                 p = link_to pluralize(product.reviews.count,"review"), product
