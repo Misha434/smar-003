@@ -9,7 +9,7 @@
           = link_to edit_user_registration_path, class:"user_edit" do
             i.fa.fa-cog.pt-2.__no_active aria-hidden="true"
   .row
-    / - if @user.reviews.any?
+    - if @user.reviews.any?
       .col-12.col-md-10.offset-md-1
         .d-flex
           .d-block.px-2.text-center
