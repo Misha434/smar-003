@@ -21,7 +21,6 @@ class BrandsController < ApplicationController
 	
 	def show
 		@brand = Brand.find(params[:id])
-		# @products = @brand.products.find_by(brand_id: params[:id])
 	end
 	
 	def destroy
