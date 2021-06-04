@@ -4,9 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_one_attached :avatar
-  # has_many :reviews, dependent: :destroy
-  # has_many :products
-  # has_many :likes
+  has_many :reviews, dependent: :destroy
+  has_many :products
+  has_many :likes
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true, length: {in: 3..254}
   validates :password, presence: true, allow_nil: true
