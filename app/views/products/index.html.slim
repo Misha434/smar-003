@@ -1,0 +1,18 @@
+.container
+  h2 All Products
+
+.container
+  ul.products
+    .container
+      .row
+        ol
+          - @products.each do |product|
+            li id = "#{product.id}"
+              .col-12.col-md-6.card
+                = link_to product.name, product
+                - if user_signed_in?
+                .row
+                  .col-12
+                    = link_to product, method: :delete, data:{confirm: "You sure?"},
+                      class: "delete_link" do
+                      i.fa.fa-trash-o.fa-xs.pull-right
