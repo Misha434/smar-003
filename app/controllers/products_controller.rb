@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @review = Review.find_by(params[:id])
     current_user
-    # @product_like_countup = Like.all.joins(review: :product).where('product_id=?', params[:id]).count
+    @product_like_countup = Like.all.joins(review: :product).where('product_id=?', params[:id]).count
   end
 
   def edit

@@ -1,0 +1,19 @@
+.col-12
+  h3
+    | Antutu
+  ol
+    - @products_sorted_by_antutu.each.with_index(1) do |product, ranking_index|
+      li id="ranking-#{ranking_index}"
+        .card.mx-1.my-1
+         .row.ranking__custom
+            .col-12.col-sm-2 class="ranking-#{ranking_index}"
+              h3.text-center = ranking_index
+            .col-4.col-sm-2.py-2
+              = link_to product_image_default(product), product
+            .col-5.col-sm-4.py-2.d-flex.align-items-center
+              = link_to product.name, product
+            .col-3.col-sm-4.py-2.d-flex.align-items-center
+              p = "#{product.soc_antutu_score}"
+    li.text-center
+      u
+        |#{link_to "view more", new_user_session_path}

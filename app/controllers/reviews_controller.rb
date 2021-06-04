@@ -7,15 +7,15 @@ class ReviewsController < ApplicationController
     if @review.save
       redirect_to current_user
     else 
-      # @brands = Brand.all
-      # @products = Product.all
+      @brands = Brand.all
+      @products = Product.all
       render '/reviews/new'
     end
   end
   
   def new
-    # @brands = Brand.all
-    # @products = Product.all
+    @brands = Brand.all
+    @products = Product.all
     @review = Review.new
   end
   
@@ -28,8 +28,8 @@ class ReviewsController < ApplicationController
   
   def edit
     @review = Review.find(params[:id])
-    # @brands = Brand.all
-    # @products = Product.all
+    @brands = Brand.all
+    @products = Product.all
   end
   
   def update
@@ -38,8 +38,8 @@ class ReviewsController < ApplicationController
     if @review.update(review_params)
       redirect_to current_user
     else
-      # @brands = Brand.all
-      # @products = Product.all
+      @brands = Brand.all
+      @products = Product.all
       render 'edit'
     end
   end
