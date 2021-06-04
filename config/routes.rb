@@ -6,14 +6,13 @@ Rails.application.routes.draw do
   # get '/terms', to: 'pages#terms'
 	root 'pages#home'
   resources :reviews, only: [:create, :destroy, :new, :edit, :update]
-	# resources :products
-	# resources :products do
-	#   post :import, on: :collection
-	# end
+	resources :products do
+	  # post :import, on: :collection
+	end
 	resources :brands 
-	# resources :brands do
+	resources :brands do
 	#   post :import, on: :collection
-	# end
+	end
   # post 'like/:id' => 'likes#create', as: 'create_like'
   # delete 'like/:id' => 'likes#destroy', as: 'destroy_like'
 end

@@ -1,0 +1,15 @@
+.row
+  .col-12
+    .d-flex
+      .d-block.px-2.text-center
+        i.fa.fa-thumbs-o-up aria-hidden="true"
+        / p = "#{@product_like_countup}"
+      .d-block.px-2.text-center
+        i.fa.fa-comments-o aria-hidden="true"
+        p = "#{@product.reviews.count}"
+      .d-block.px-2.text-center
+        i.fa.fa-microchip.fa-xs aria-hidden="true"
+        p = "#{@product.soc_antutu_score}"
+      .d-block.px-2.text-center
+        i.fa.fa-battery-full aria-hidden="true"
+        p = "#{@product.battery_capacity}mAh"
