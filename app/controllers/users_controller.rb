@@ -11,6 +11,6 @@ class UsersController < ApplicationController
     @reviews = @user.reviews
     @brands = Brand.all
     @products = Product.all
-    # @user_received_like_countup = Like.joins(review: :user).where('users.id=?', params[:id]).count
+    @user_received_like_countup = Like.joins(review: :user).where('users.id=?', params[:id]).count
   end
 end
