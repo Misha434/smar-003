@@ -9,7 +9,7 @@
           = link_to edit_user_registration_path, class:"user_edit" do
             i.fa.fa-cog.pt-2.__no_active aria-hidden="true"
   .row
-    / - if @user.reviews.any?
+    - if @user.reviews.any?
       .col-12.col-md-10.offset-md-1
         .d-flex
           .d-block.px-2.text-center
@@ -22,10 +22,10 @@
   .row
     .col-12.col-lg-6.offset-lg-1
       ol.reviews
-        / = render @reviews
+        = render @reviews
     .col-lg-4.d-none.d-lg-block
-      / = render 'reviews/form'
+      = render 'reviews/form'
 
 footer
   .d-lg-none.btn.btn_post.pull-right.fixed-bottom
-    / = link_to  new_review_path, class: "d-lg-none btn btn__post fa fa-pencil-square-o"
+    = link_to  new_review_path, class: "d-lg-none btn btn__post fa fa-pencil-square-o"

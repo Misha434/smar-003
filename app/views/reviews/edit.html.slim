@@ -9,15 +9,15 @@
         .col-12
           = form_with(model: @review, local: true) do |f|
             = render 'shared/error_messages', object: f.object
-            / .field.py-3
-            /   = f.collection_select(:brand_id, @brands, :id, :name, \
-            /     {selected: @review.product.brand.id }, \
-            /     {class: "js-select_field form-control", disabled: true})
+            .field.py-3
+              = f.collection_select(:brand_id, @brands, :id, :name,
+                {selected: @review.product.brand.id },
+                {class: "js-select_field form-control", disabled: true})
           
-            / .field.pb-3
-            /   = f.collection_select(:product_id, @products, :id, :name, \
-            /     {selected: @review.product.id }, {class: "js-receive_field form-control", \
-            /     disabled: true})
+            .field.pb-3
+              = f.collection_select(:product_id, @products, :id, :name,
+                {selected: @review.product.id }, {class: "js-receive_field form-control",
+                disabled: true})
             
             .field.pb-3
               = f.text_area :content, placeholder: "Write down some comment.", class: "form-control" 

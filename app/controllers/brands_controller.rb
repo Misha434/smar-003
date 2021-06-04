@@ -21,7 +21,6 @@ class BrandsController < ApplicationController
 	
 	def show
 		@brand = Brand.find(params[:id])
-		# @products = @brand.products.find_by(brand_id: params[:id])
 	end
 	
 	def destroy
@@ -56,11 +55,11 @@ class BrandsController < ApplicationController
     end
 	end
 	
-	# def import
-  #   if Brand.import(params[:file])
-  #     redirect_to brands_path, notice: "Import is Succeeded"
-  #   end
-  # end
+	def import
+    if Brand.import(params[:file])
+      redirect_to brands_path, notice: "Import is Succeeded"
+    end
+  end
 	
 	private
 		def brand_params
