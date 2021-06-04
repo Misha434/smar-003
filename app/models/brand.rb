@@ -1,11 +1,11 @@
 class Brand < ApplicationRecord
   has_many :products
   has_one_attached :image
-  validates :name, presence: true, \
+  validates :name, presence: true,
     uniqueness: true, length: {maximum: 50}
-  validates :image, content_type: { in: %w[image/jpeg image/gif image/png], \
-    message: "must be a valid image format" }, \
-    size: { less_than: 5.megabytes, \
+  validates :image, content_type: { in: %w[image/jpeg image/gif image/png],
+    message: "must be a valid image format" },
+    size: { less_than: 5.megabytes,
     message: "should be less than 5MB" }
     
   def self.csv_attributes
@@ -23,5 +23,4 @@ class Brand < ApplicationRecord
 			end
 		end
 	end
-	
 end
