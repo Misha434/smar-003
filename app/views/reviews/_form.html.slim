@@ -2,11 +2,11 @@
   = form_with(model: @review, local: true) do |f|
     = render 'shared/error_messages', object: f.object
 
-    / .field.py-3
-    /   = f.collection_select(:brand_id, @brands, :id, :name, {prompt: "Brand Name"}, {class: "js-select_field form-control"})
+    .field.py-3
+      = f.collection_select(:brand_id, @brands, :id, :name, {prompt: "Brand Name"}, {class: "js-select_field form-control"})
 
-    / .field.pb-3
-    /   = f.collection_select(:product_id, @products, :id, :name, {}, {class: "js-receive_field form-control"})
+    .field.pb-3
+      = f.collection_select(:product_id, @products, :id, :name, {}, {class: "js-receive_field form-control"})
 
     .field.pb-3
       = f.text_area :content, placeholder: "Write down some comment.", class: "form-control"
