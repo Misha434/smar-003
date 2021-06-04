@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    # @review = Review.new
+    @review = Review.new
     # @reviews = @user.reviews
     @brands = Brand.all
     @products = Product.all
