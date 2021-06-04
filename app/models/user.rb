@@ -20,7 +20,7 @@ class User < ApplicationRecord
     image.variant(resize_to_limit[44,44])
   end
   
-  # def liked_by?(review_id)
-  #   likes.where(review_id: review_id).exists?
-  # end
+  def liked_by?(review_id)
+    likes.where(review_id: review_id).exists?
+  end
 end
