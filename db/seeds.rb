@@ -6,7 +6,7 @@ User.create!(
   admin: true
   )
 
-3.times do |n|
+20.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@example.org"
   password = "password"
@@ -31,7 +31,7 @@ Brand.create!(
   Brand.create!(
     name: name,
     image: image,
-    )
+  )
 end
 
 Product.create!(
@@ -66,11 +66,25 @@ Review.create!(
   )
 10.times do
   content = Faker::Lorem.sentence(word_count: 5)
-  user_id = Faker::Number.within(range: 1..5)
-  product_id = Faker::Number.within(range: 1..5)
+  user_id = Faker::Number.within(range: 2..20)
+  product_id = Faker::Number.within(range: 2..19)
   Review.create!(
     content: content,
     user_id: user_id,
     product_id: product_id
   )
+end
+
+Like.create!(
+  user_id: 1,
+  review_id: 1,
+  )
+  
+10.times do
+  user_id = rand(2..20)
+  review_id = rand(2..10)
+  Like.create!(
+    user_id: user_id,
+    review_id: review_id,
+    )
 end
