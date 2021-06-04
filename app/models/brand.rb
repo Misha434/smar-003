@@ -8,20 +8,20 @@ class Brand < ApplicationRecord
     size: { less_than: 5.megabytes, \
     message: "should be less than 5MB" }
     
-  # def self.csv_attributes
-	# 	["name"]
-	# end
+  def self.csv_attributes
+		["name"]
+	end
 	
-	# def self.import(file)
-	# 	CSV.foreach(file.path, headers: true) do |row|
-	# 		brand = new
-	# 		brand.attributes = row.to_hash.slice(*csv_attributes)
-	# 		begin
-	# 			brand.save!
-	# 		rescue => e
-	# 			puts e.class
-	# 		end
-	# 	end
-	# end
+	def self.import(file)
+		CSV.foreach(file.path, headers: true) do |row|
+			brand = new
+			brand.attributes = row.to_hash.slice(*csv_attributes)
+			begin
+				brand.save!
+			rescue => e
+				puts e.class
+			end
+		end
+	end
 	
 end
