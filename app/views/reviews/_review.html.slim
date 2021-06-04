@@ -1,0 +1,23 @@
+.card.mb-1
+  li id="review-#{review.id}"
+    .container.py-2
+      .row
+        .col-3.col-lg-3
+          = product_image_default(review.product)
+        .col-9.col-lg-9
+          span.user 
+            h5.my-0 = link_to review.product.name, review.product
+          span.timestamp.count--text
+            | Posted #{time_ago_in_words(review.created_at)} ago
+          - if review.user.name =! current_user
+            p = link_to review.user.name
+      .row
+        .col-12
+          span.content
+            p.my-3 = review.content
+          = render 'reviews/posted_image', review: review
+      
+      .row.span.pt-2
+        .col-12
+          = render 'reviews/like', review: review
+          = render 'reviews/delete', review: review
