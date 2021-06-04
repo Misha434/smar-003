@@ -1,7 +1,7 @@
 .container.py-3
   .row
     .col-4
-      / = product_image_default(@product)
+      = product_image_default(@product)
     .col-8
       h2 = @product.name
       p = link_to @product.brand.name, @product.brand
