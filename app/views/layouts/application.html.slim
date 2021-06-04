@@ -2,7 +2,7 @@ doctype html
 html
   head
     title
-      | Sma-r
+      = full_title(yield(:title))
     = render 'layouts/rails_default'
     = render 'layouts/shim'
   body
