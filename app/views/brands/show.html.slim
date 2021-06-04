@@ -1,0 +1,20 @@
+- provide(:title, @brand.name)
+.container
+  .row
+    .col-3
+      .logo--frame
+        / = logo_image_default(@brand)
+    .col-9  
+      h2 = @brand.name
+.container
+  ol.products
+    - @brand.products.each do |product|
+      .row
+        .col-12.col-md-6
+          li.card id = "products-'#{product.id}'"
+            .row
+              .col-4
+                / = product_image_default(product)
+              .col-8
+                p = link_to product.name, product
+                p = link_to pluralize(product.reviews.count,"review"), product
