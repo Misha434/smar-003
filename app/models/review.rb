@@ -3,7 +3,7 @@ class Review < ApplicationRecord
   belongs_to :product
   has_one_attached :image
   # default_scope -> { order(created_at: :desc)}
-  # has_many :likes, dependent: :destroy
+  has_many :likes, dependent: :destroy
   
   validates :user_id, presence: true
   validates :product_id, presence: true
