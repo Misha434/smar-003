@@ -9,8 +9,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     # @review = Review.new
     # @reviews = @user.reviews
-    # @brands = Brand.all
-    # @products = Product.all
+    @brands = Brand.all
+    @products = Product.all
     # @user_received_like_countup = Like.joins(review: :user).where('users.id=?', params[:id]).count
   end
 end
