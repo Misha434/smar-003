@@ -1,10 +1,10 @@
-h1
-  | Pages#home
-p
-  | Find me in app/views/pages/home.html.erb
-
-i.fa.fa-address-book aria-hidden="true"
-
-- @users.each do |user|
-	= user.name
-	= image_tag user.avatar if user.avatar.attached?
+.container__main
+  .container
+    .row
+      .col-12.offset-md-1.col-md-10.offset-md-1
+        .row
+          = render 'battery_ranking'
+        .row
+          = render 'antutu_ranking'
+        .row
+          = render 'new_release'
