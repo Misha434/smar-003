@@ -9,14 +9,6 @@ module ApplicationHelper
     end
   end
   
-  # def delete_review
-  #   if current_user?(@review.user) == review.user
-  #     link_to review, method: :delete, data:{confirm: "You sure?"} do
-  #       i.fa.fa-trash-o.fa-xs
-  #     end
-  #   end
-  # end
-  
   # def full_title(page_title = '')
   #   base_title = "SmaR"
   #   if page_title.empty?
