@@ -1,8 +1,9 @@
 FactoryBot.define do
   factory :product do
-    name { "MyString" }
-    soc_antutu_score { 1 }
-    battery_capacity { 1 }
-    brand { nil }
+    id { 1 }
+    name { "Phone-1" }
+    soc_antutu_score { 1000 }
+    battery_capacity { 1000 }
+    brand_id { 1 }
   end
 end
