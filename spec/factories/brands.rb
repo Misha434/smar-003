@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :brand do
-    name { "MyString" }
+    id { 1 }
+    name { "Apple" }
   end
 end
