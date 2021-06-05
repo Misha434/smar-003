@@ -36,63 +36,63 @@ RSpec.describe Review, type: :model do
   #レビュー画像 アップロードが有効であること
   it "is valid with a real image data" do
     @review = FactoryBot.build(:review)
-    @review.image = fixture_file_upload("image/image_test_logo.png")
+    @review.image = fixture_file_upload("files/image/image_test_logo.png")
     expect(@review.valid?).to eq true
   end
   
   #gif レビュー画像 アップロードが有効であること
   it "is valid with a GIF image data" do
     @review = FactoryBot.build(:review)
-    @review.image = fixture_file_upload("image/image_test_3kb.gif")
+    @review.image = fixture_file_upload("files/image/image_test_3kb.gif")
     expect(@review.valid?).to eq true
   end
 
   #jpeg レビュー画像 アップロードが有効であること
   it "is valid with a JPEG image data" do
     @review = FactoryBot.build(:review)
-    @review.image = fixture_file_upload("image/image_test_3kb.jpeg")
+    @review.image = fixture_file_upload("files/image/image_test_3kb.jpeg")
     expect(@review.valid?).to eq true
   end
 
   #png レビュー画像 アップロードが有効であること
   it "is valid with a PNG image data" do
     @review = FactoryBot.build(:review)
-    @review.image = fixture_file_upload("image/image_test_3kb.png")
+    @review.image = fixture_file_upload("files/image/image_test_3kb.png")
     expect(@review.valid?).to eq true
   end
 
   #svg レビュー画像 アップロードが無効であること
   it "is invalid with a SVG image data" do
     @review = FactoryBot.build(:review)
-    @review.image = fixture_file_upload("image/image_test_3kb.svg")
+    @review.image = fixture_file_upload("files/image/image_test_3kb.svg")
     expect(@review.valid?).to eq false
   end
   
   #psd レビュー画像 アップロードが無効であること
   it "is invalid with a PSD image data" do
     @review = FactoryBot.build(:review)
-    @review.image = fixture_file_upload("image/image_test_3kb.psd")
+    @review.image = fixture_file_upload("files/image/image_test_3kb.psd")
     expect(@review.valid?).to eq false
   end
 
   #bmp レビュー画像 アップロードが無効であること
   it "is invalid with a BMP image data" do
     @review = FactoryBot.build(:review)
-    @review.image = fixture_file_upload("image/image_test_3kb.bmp")
+    @review.image = fixture_file_upload("files/image/image_test_3kb.bmp")
     expect(@review.valid?).to eq false
   end
   
   # 5MBのレビュー画像 アップロードは有効であること
   it "is valid with a image data 5MB" do
     @review = FactoryBot.build(:review)
-    @review.image = fixture_file_upload("image/image_test_5mb.jpeg")
+    @review.image = fixture_file_upload("files/image/image_test_5mb.jpeg")
     expect(@review.valid?).to eq true
   end
   
   # 6MB以上のレビュー画像 アップロードは無効であること
   it "is invalid with a image data over 6MB" do
     review = FactoryBot.build(:review)
-    review.image = fixture_file_upload("image/image_test_6mb.jpeg")
+    review.image = fixture_file_upload("files/image/image_test_6mb.jpeg")
     expect(review.valid?).to eq false
   end
 end
