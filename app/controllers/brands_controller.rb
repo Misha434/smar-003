@@ -26,7 +26,7 @@ class BrandsController < ApplicationController
 	def destroy
 		@brand = Brand.find(params[:id])
 		if @brand.destroy
-			@brand.image.purge if @brand.image.attched? 
+			# @brand.image.purge if @brand.image.attched? 
 	    flash[:success] = "Brand is deleted"
 	    redirect_to users_url
 	  else
