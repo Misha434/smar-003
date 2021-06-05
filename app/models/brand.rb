@@ -1,8 +1,8 @@
 class Brand < ApplicationRecord
   has_many :products
   has_one_attached :image
-  validates :name, presence: true,
-    uniqueness: true, length: {maximum: 50}
+	validates :name, presence: true, uniqueness: {case_sensitive: false},
+										length: {maximum: 50}
   validates :image, content_type: { in: %w[image/jpeg image/gif image/png],
     message: "must be a valid image format" },
     size: { less_than: 5.megabytes,

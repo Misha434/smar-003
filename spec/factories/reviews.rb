@@ -1,6 +1,8 @@
 FactoryBot.define do
   factory :review do
-    content { "MyText" }
-    user { nil }
+    id { 1 }
+    content { "Awesome" }
+    user_id { 1 }
+    product_id { 1 }
   end
 end

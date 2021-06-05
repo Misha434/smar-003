@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  before_save { email.downcase! }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -8,7 +9,8 @@ class User < ApplicationRecord
   has_many :products
   has_many :likes
   validates :name, presence: true
-  validates :email, presence: true, uniqueness: true, length: {in: 3..254}
+  validates :email, presence: true, uniqueness: {case_sensitive: false},
+                    length: {in: 3..254}
   validates :password, presence: true, allow_nil: true
   validates :password_confirmation, presence: true, allow_nil: true
   
