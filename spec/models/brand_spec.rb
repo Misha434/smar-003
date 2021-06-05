@@ -33,63 +33,63 @@ RSpec.describe Brand, type: :model do
   #ブランド画像 アップロードが有効であること
   it "is valid with a real image data" do
     @brand = FactoryBot.build(:brand)
-    @brand.image = fixture_file_upload("image/image_test_logo.png")
+    @brand.image = fixture_file_upload("files/image/image_test_logo.png")
     expect(@brand.valid?).to eq true
   end
   
   #gif ブランド画像 アップロードが有効であること
   it "is valid with a GIF image data" do
     @brand = FactoryBot.build(:brand)
-    @brand.image = fixture_file_upload("image/image_test_3kb.gif")
+    @brand.image = fixture_file_upload("files/image/image_test_3kb.gif")
     expect(@brand.valid?).to eq true
   end
 
   #jpeg ブランド画像 アップロードが有効であること
   it "is valid with a JPEG image data" do
     @brand = FactoryBot.build(:brand)
-    @brand.image = fixture_file_upload("image/image_test_3kb.jpeg")
+    @brand.image = fixture_file_upload("files/image/image_test_3kb.jpeg")
     expect(@brand.valid?).to eq true
   end
 
   #png ブランド画像 アップロードが有効であること
   it "is valid with a PNG image data" do
     @brand = FactoryBot.build(:brand)
-    @brand.image = fixture_file_upload("image/image_test_3kb.png")
+    @brand.image = fixture_file_upload("files/image/image_test_3kb.png")
     expect(@brand.valid?).to eq true
   end
 
   #svg ブランド画像 アップロードが無効であること
   it "is invalid with a SVG image data" do
     @brand = FactoryBot.build(:brand)
-    @brand.image = fixture_file_upload("image/image_test_3kb.svg")
+    @brand.image = fixture_file_upload("files/image/image_test_3kb.svg")
     expect(@brand.valid?).to eq false
   end
   
   #psd ブランド画像 アップロードが無効であること
   it "is valid with a PSD image data" do
     @brand = FactoryBot.build(:brand)
-    @brand.image = fixture_file_upload("image/image_test_3kb.psd")
+    @brand.image = fixture_file_upload("files/image/image_test_3kb.psd")
     expect(@brand.valid?).to eq false
   end
 
   #bmp ブランド画像 アップロードが無効であること
   it "is valid with a BMP image data" do
     @brand = FactoryBot.build(:brand)
-    @brand.image = fixture_file_upload("image/image_test_3kb.bmp")
+    @brand.image = fixture_file_upload("files/image/image_test_3kb.bmp")
     expect(@brand.valid?).to eq false
   end
   
   # 5MBのブランド画像 アップロードは有効であること
   it "is valid with a image data 5MB" do
     @brand = FactoryBot.build(:brand)
-    @brand.image = fixture_file_upload("image/image_test_5mb.jpeg")
+    @brand.image = fixture_file_upload("files/image/image_test_5mb.jpeg")
     expect(@brand.valid?).to eq true
   end
   
   # 6MB以上のブランド画像 アップロードは無効であること
   it "is invalid with a image data over 6MB" do
     brand = FactoryBot.build(:brand)
-    brand.image = fixture_file_upload("image/image_test_6mb.jpeg")
+    brand.image = fixture_file_upload("files/image/image_test_6mb.jpeg")
     expect(brand.valid?).to eq false
   end
 end
