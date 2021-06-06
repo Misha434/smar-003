@@ -1,6 +1,6 @@
 - if current_user?(review.user)
   = link_to edit_review_path(review) do
-    i.fa.fa-pencil.fa-xs.pull-right.__no_active
-  = link_to review, method: :delete, data:{confirm: "You sure?"}, \
+    i.fas.fa-pencil-alt.fa-xs.__no_active
+  = link_to review, method: :delete, data:{confirm: "You sure?"},
     class: "delete_link" do
-    i.fa.fa-trash-o.fa-xs.pull-right.__no_active
+    i.far.fa-trash-alt.fa-xs.__no_active
