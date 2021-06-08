@@ -19,5 +19,7 @@
       
       .row.span.pt-2
         .col-12
-          = render 'reviews/like', review: review
-          = render 'reviews/delete', review: review
+          .float-start
+            = render 'reviews/like', review: review
+          .float-end
+            = render 'reviews/delete', review: review
