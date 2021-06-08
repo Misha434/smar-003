@@ -9,6 +9,8 @@ import "src/users/users";
 
 import "src/pages/pages";
 
+import "src/products/products";
+
 import JQuery from "jquery";
 
 window.$ = window.JQuery = JQuery; // eslint-disable-line

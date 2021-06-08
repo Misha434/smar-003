@@ -12,3 +12,28 @@ body a {
 .navbar-light .navbar-toggler {
   border-color: rgba(0, 0, 0, 0);
 }
+
+/* User Image */
+.user--default {
+  color: cornflowerblue;
+}
+
+/* flash message */
+.alert-alert {
+  text-align: center;
+  background-color: #b22222;
+  color: white;
+  border-radius: 0;
+}
+
+.alert-notice {
+  text-align: center;
+  background-color: teal;
+  color: white;
+  border-radius: 0;
+}
+
+/* header */
+.navbar-nav .nav-link {
+  padding-left: 1rem;
+}
