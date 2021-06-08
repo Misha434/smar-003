@@ -1,0 +1,26 @@
+@import "normalize.css/normalize.css";
+
+ol {
+  list-style: none;
+}
+
+.reviews {
+  padding-left: 0;
+}
+
+.__active {
+  color: teal;
+}
+
+.__no_active {
+  color: darkgray;
+}
+
+.btn__post {
+  background-color: #8fbc8f;
+  color: white;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  border: none;
+}
