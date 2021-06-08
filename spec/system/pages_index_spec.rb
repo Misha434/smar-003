@@ -108,8 +108,8 @@ RSpec.describe "PagesIndices", type: :system do
         fill_in "Password", with: @user.password
         click_button "Log in"
         expect(page).to have_content 'Signed in'
-        expect(page).to have_content 'Apple'
-        expect(page).to have_content 'Awesome'
+        expect(page).to have_content 'All Products'
+        expect(page).to have_content 'Phone-1'
       end
     end
     
@@ -260,7 +260,7 @@ RSpec.describe "PagesIndices", type: :system do
   describe "As Signed up User", js: false do
     before do
       @user = FactoryBot.create(:user)
-      visit '/users/log_in'
+      visit '/users/sign_in'
     end
     
     it "works Login with a created User" do
@@ -343,6 +343,7 @@ RSpec.describe "PagesIndices", type: :system do
       fill_in "Password", with: @user.password
       click_button "Log in"
       expect(page).to have_content 'Signed in'
+      visit '/users/1'
       first(:css, '.user_edit').click
     end
     
@@ -492,6 +493,7 @@ RSpec.describe "PagesIndices", type: :system do
       click_button "Log in"
       expect(page).to have_content 'Signed in'
       # User Edit
+      visit '/users/1'
       first(:css, '.user_edit').click
       fill_in "Email", with: 'foo@example.org'
       fill_in "Current password", with: @user.password
@@ -528,6 +530,7 @@ RSpec.describe "PagesIndices", type: :system do
       click_button "Log in"
       expect(page).to have_content 'Signed in'
       # User Edit
+      visit '/users/1'
       first(:css, '.user_edit').click
       fill_in "Password", with: 'changedpass'
       fill_in "Password confirmation", with: 'changedpass'
