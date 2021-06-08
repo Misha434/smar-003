@@ -32,18 +32,45 @@ RSpec.describe "PagesIndices", type: :system do
       @brand = FactoryBot.create(:brand)
       @user = FactoryBot.create(:user)
       @product = FactoryBot.create(:product, brand_id: @brand.id)
-      @review = FactoryBot.create(:review, user_id: @user.id, \
+      @review = FactoryBot.create(:review, user_id: @user.id,
       product_id: @product.id)
       visit root_path
     end
     
+    describe 'Ranking' do
+      it "Battery is available" do
+        within('.ranking_battery') do
+          click_link "view more"
+        end
+        expect(page).to have_content 'Log in'
+      end
+      it "Soc Antutu is available" do
+        within('.ranking_antutu') do
+          click_link "view more"
+        end
+        expect(page).to have_content 'Log in'
+      end
+      it "New release require Login" do
+        within('.ranking_new_release') do
+          click_on "Login"
+        end
+        expect(page).to have_content 'Log in'
+      end
+      it "New release require Signup" do
+        within('.ranking_new_release') do
+          click_on "Signup"
+        end
+        expect(page).to have_content 'Sign up'
+      end
+    end
+
     describe 'can access' do
-      it "a root page" do  
+      it "a root page" do
         expect(page).to have_content 'Battery'
         expect(page).to have_content 'Login'
       end
       
-      it "a Signin page" do 
+      it "a Signin page" do
         within('header') do
           click_link "Login"
         end
@@ -81,8 +108,8 @@ RSpec.describe "PagesIndices", type: :system do
         fill_in "Password", with: @user.password
         click_button "Log in"
         expect(page).to have_content 'Signed in'
-        expect(page).to have_content 'Apple'
-        expect(page).to have_content 'Awesome'
+        expect(page).to have_content 'All Products'
+        expect(page).to have_content 'Phone-1'
       end
     end
     
@@ -233,7 +260,7 @@ RSpec.describe "PagesIndices", type: :system do
   describe "As Signed up User", js: false do
     before do
       @user = FactoryBot.create(:user)
-      visit '/users/log_in'
+      visit '/users/sign_in'
     end
     
     it "works Login with a created User" do
@@ -244,6 +271,32 @@ RSpec.describe "PagesIndices", type: :system do
       expect(page).to have_content 'Signed in'
     end
     
+    describe "Ranking" do
+      before do
+      fill_in "Email", with: @user.email
+      fill_in "Password", with: @user.password
+      click_button "Log in"
+      end
+      it "Battery has link 'All Product'" do
+        within('.ranking_battery') do
+          click_on "view more"
+        end
+        expect(page).to have_content('All Products')      
+      end
+      it "Soc Antutu has link 'All Product'" do
+        within('.ranking_antutu') do
+          click_on "view more"
+        end
+        expect(page).to have_content('All Products')      
+      end
+      it "New Release has link 'All Product'" do
+        within('.ranking_new_release') do
+          click_on "view more"
+        end
+        expect(page).to have_content('All Products')      
+      end
+    end
+
     it "doesn't work Login as a created User with nagative email" do
       fill_in "Email", with: "barbuzz@example.com"
       fill_in "Password", with: @user.password
@@ -290,6 +343,7 @@ RSpec.describe "PagesIndices", type: :system do
       fill_in "Password", with: @user.password
       click_button "Log in"
       expect(page).to have_content 'Signed in'
+      visit '/users/1'
       first(:css, '.user_edit').click
     end
     
@@ -439,6 +493,7 @@ RSpec.describe "PagesIndices", type: :system do
       click_button "Log in"
       expect(page).to have_content 'Signed in'
       # User Edit
+      visit '/users/1'
       first(:css, '.user_edit').click
       fill_in "Email", with: 'foo@example.org'
       fill_in "Current password", with: @user.password
@@ -475,6 +530,7 @@ RSpec.describe "PagesIndices", type: :system do
       click_button "Log in"
       expect(page).to have_content 'Signed in'
       # User Edit
+      visit '/users/1'
       first(:css, '.user_edit').click
       fill_in "Password", with: 'changedpass'
       fill_in "Password confirmation", with: 'changedpass'
