@@ -30,3 +30,17 @@ li {
   margin-left: 0;
   margin-right: 0;
 }
+
+.rankings {
+  padding-left: 0;
+}
+
+.row .ranking__custom {
+  --bs-gutter-x: 0;
+}
+
+.count--text {
+  font-size: 0.4rem;
+  color: gray;
+  margin-bottom: 0;
+}

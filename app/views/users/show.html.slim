@@ -27,6 +27,7 @@
       = render 'reviews/form'
 
 footer
-  .d-lg-none.btn.btn_post.pull-right.fixed-bottom
-    = link_to new_review_path, class: "d-lg-none btn btn__post"
-      i.far.fa-edit
+  .d-lg-none.pull-right.fixed-bottom
+    button.btn__post.float-end.m-3
+      = link_to new_review_path, class: "d-lg-none"
+        i.far.fa-edit.fa-lg.btn__post

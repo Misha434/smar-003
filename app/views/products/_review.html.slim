@@ -15,5 +15,8 @@ ol.reviews
             p = review.content
         .row
           .col-12.pb-2
-            = render 'like', review: review
-            = render 'delete', review: review
+            .float-start
+              = render 'like', review: review
+            - if current_user == review.user
+              .float-end
+                = render 'delete', review: review
