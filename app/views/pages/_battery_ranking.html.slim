@@ -1,18 +1,18 @@
 .col-12
   h3
     | Battery
-  ol
+  ol.rankings
     - @products_sorted_by_battery.each.with_index(1) do |product, ranking_index|
       li id="ranking-#{ranking_index}"
         .card.mx-1.my-1
           .row.ranking__custom
             .col-12.col-sm-2 class="ranking-#{ranking_index}"
               h3.text-center = ranking_index
-            .col-4.col-sm-2.py-2
+            .col-4.col-sm-2.p-2
               = link_to product_image_default(product), product
             .col-5.col-sm-4.py-2.d-flex.align-items-center
               = link_to product.name, product
-            .col-3.col-sm-4.py-2.d-flex.align-items-center
+            .col-3.col-sm-4.p-2.d-flex.align-items-center
               = "#{product.battery_capacity} mAh"
     li.text-center
       u
