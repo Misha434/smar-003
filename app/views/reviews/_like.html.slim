@@ -1,6 +1,6 @@
 - if current_user.liked_by?(review.id)   
   = link_to destroy_like_path(review), method: :DELETE, class: "__active", id: "release-like-disable" do
-    i.fa.fa-thumbs-up.fa-xs aria-hidden="true"
+    i.fas.fa-thumbs-up.fa-xs aria-hidden="true"
     span class="each-like-countup"
       = review.likes.count
     javascript:
@@ -13,7 +13,7 @@
       })
 - else 
   = link_to create_like_path(review), method: :POST, class: "__no_active", id: "like-disable" do
-    i.fa.fa-thumbs-o-up.fa-xs aria-hidden="true"
+    i.fas.fa-thumbs-up.fa-xs aria-hidden="true"
     span class="each-like-countup"
       = review.likes.count
     javascript:
