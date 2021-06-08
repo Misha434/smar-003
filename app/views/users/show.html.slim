@@ -7,7 +7,7 @@
         h1.px-3 = @user.name
         - if @user == current_user
           = link_to edit_user_registration_path, class:"user_edit" do
-            i.fa.fa-2x.fa-cog.pt-2.__no_active aria-hidden="true"
+            i.fas.fa-lg.fa-cog.pt-2.__no_active aria-hidden="true"
   .row
     - if @user.reviews.any?
       .col-12.col-md-10.offset-md-1
@@ -28,4 +28,5 @@
 
 footer
   .d-lg-none.btn.btn_post.pull-right.fixed-bottom
-    = link_to  new_review_path, class: "d-lg-none btn btn__post fa fa-pencil-square-o"
+    = link_to new_review_path, class: "d-lg-none btn btn__post"
+      i.far.fa-edit
