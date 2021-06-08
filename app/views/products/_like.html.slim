@@ -1,7 +1,7 @@
 - unless current_user.nil?
   - if current_user.liked_by?(review.id)   
     = link_to destroy_like_path(review), method: :DELETE, class: "__active", id: "release-like-disable" do
-      i.far.fa-thumbs-up.fa-xs aria-hidden="true"
+      i.fas.fa-thumbs-up.fa-xs aria-hidden="true"
       span class="each-like-countup"
         = review.likes.count
       javascript:
