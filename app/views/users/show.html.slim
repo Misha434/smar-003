@@ -7,16 +7,16 @@
         h1.px-3 = @user.name
         - if @user == current_user
           = link_to edit_user_registration_path, class:"user_edit" do
-            i.fa.fa-cog.pt-2.__no_active aria-hidden="true"
+            i.fas.fa-lg.fa-cog.pt-2.__no_active aria-hidden="true"
   .row
     - if @user.reviews.any?
       .col-12.col-md-10.offset-md-1
         .d-flex
           .d-block.px-2.text-center
-            i.fa.fa-thumbs-o-up aria-hidden="true"
+            i.fa.fa-thumbs-up aria-hidden="true"
             p = @user_received_like_countup
           .d-block.px-2.text-center
-            i.fa.fa-comments-o aria-hidden="true"
+            i.fa.fa-comments aria-hidden="true"
             p = @user.reviews.count
 .container
   .row
@@ -28,4 +28,5 @@
 
 footer
   .d-lg-none.btn.btn_post.pull-right.fixed-bottom
-    = link_to  new_review_path, class: "d-lg-none btn btn__post fa fa-pencil-square-o"
+    = link_to new_review_path, class: "d-lg-none btn btn__post"
+      i.far.fa-edit
