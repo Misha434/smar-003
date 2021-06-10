@@ -1,0 +1,12 @@
+.col-12.offset-md-3.col-md-6.card.mb-2
+  .row.p-2
+    .col-4
+      = product_image_default(product)
+    .col-8
+      = link_to product.name, product
+  - if user_signed_in?
+    .row
+      .col-12
+        = link_to product, method: :delete, data:{confirm: "You sure?"},
+          class: "delete_link" do
+          i.fas.fa-trash-alt.fa-xs.float-end

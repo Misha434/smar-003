@@ -2,9 +2,10 @@
 
 ol {
   list-style: none;
+  margin-left: 0;
 }
 
-.reviews {
+.products {
   padding-left: 0;
 }
 
