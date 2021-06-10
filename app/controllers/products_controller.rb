@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
 	before_action :authenticate_user!, only: [:index, :new, :create, :edit, :destroy]
 	before_action :admin_user, only: [:new, :create, :edit, :update, :destroy]
-	
+	include Pagy::Backend
   def show
     @product = Product.find(params[:id])
     @select_product_reviews = @product.reviews.all
@@ -41,7 +41,7 @@ class ProductsController < ApplicationController
   end
   
   def index
-    @products = Product.all
+    @pagy, @products = pagy(Product.all)
   end
   
   def destroy
