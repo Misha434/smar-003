@@ -3,10 +3,10 @@
     = render 'shared/error_messages', object: f.object
 
     .field.py-3
-      = f.collection_select(:brand_id, @brands, :id, :name, {prompt: "Brand Name"}, {class: "js-select_field form-control"})
+      = f.collection_select(:brand_id, @brands, :id, :name, {prompt: "Brand"}, {class: "js-select_field form-control"})
 
     .field.pb-3
-      = f.collection_select(:product_id, @products, :id, :name, {}, {class: "js-receive_field form-control"})
+      = f.collection_select(:product_id, @products, :id, :name, {prompt: "Product"}, {class: "js-receive_field form-control", disabled: true})
 
     .field.pb-3
       = f.text_area :content, placeholder: "Write down some comment.", class: "form-control"
@@ -25,3 +25,22 @@
       $("#review_image").val("");
       }
     });
+    $(function () {
+      var selectField = $('.js-select_field').on('change', function (){
+      var brand_id = selectField.val();
+      $.ajax({
+        type: 'GET',
+        url: '/reviews/picks',
+        data: { brand_id: brand_id },
+        dataType: 'json'
+      })
+      .done(function (data) {
+        $('#review_product_id').children().remove();
+        $(data.product).each(function(i) {
+        $('.js-receive_field').removeAttr('disabled');
+        $('.js-receive_field').append(
+          $("<option>").val(`${data.product[i].id}`).text(`${data.product[i].name}`));
+          });
+          });
+        });
+      });

@@ -5,8 +5,11 @@ Rails.application.routes.draw do
   # get '/contact', to: 'pages#contact'
   get '/terms', to: 'pages#terms'
 	root 'pages#home'
+  namespace :reviews do 
+    resources :picks, only: :index, defaults: { format: :json }
+  end
   resources :reviews, only: [:create, :destroy, :new, :edit, :update]
-	resources :products do
+  resources :products do
 	  # post :import, on: :collection
 	end
 	resources :brands 
