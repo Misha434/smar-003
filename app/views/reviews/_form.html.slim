@@ -25,3 +25,21 @@
       $("#review_image").val("");
       }
     });
+    $(function () {
+      var selectField = $('.js-select_field').on('change', function (){
+      var brand_id = selectField.val();
+      $.ajax({
+        type: 'GET',
+        url: '/reviews/picks',
+        data: { brand_id: brand_id },
+        dataType: 'json'
+      })
+      .done(function (data) {
+        $('#review_product_id').children().remove();
+        $(data.product).each(function(i) {
+        $('.js-receive_field').append(
+          $("<option>").val(`${data.product[i].id}`).text(`${data.product[i].name}`));
+          });
+          });
+        });
+      });
