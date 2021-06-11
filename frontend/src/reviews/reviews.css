@@ -1,0 +1,46 @@
+@import "normalize.css/normalize.css";
+
+.container__main {
+  margin: 0.5rem;
+}
+
+li {
+  list-style: none;
+}
+
+.ranking-1 {
+  background-color: gold;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.ranking-2 {
+  background-color: silver;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.ranking-3 {
+  background-color: sandybrown;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.ranking__custom {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.rankings {
+  padding-left: 0;
+}
+
+.row .ranking__custom {
+  --bs-gutter-x: 0;
+}
+
+.count--text {
+  font-size: 0.4rem;
+  color: gray;
+  margin-bottom: 0;
+}
