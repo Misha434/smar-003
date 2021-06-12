@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Review, type: :system do
   
+  def ensure_browser_size(width = 1280, height = 720)
+    Capybara.current_session.driver.browser.manage.window.resize_to(width, height)
+  end
+
   describe 'Review Page can access'
     describe 'as Pre-Login User' do
       describe 'Access Authenticate' do
@@ -161,7 +165,7 @@ RSpec.describe Review, type: :system do
         click_button "Log in"
         expect(page).to have_content 'Signed in'
       end
-      it 'create a new review in new page' do
+      it 'create a new review in new page', js: true do
         visit '/reviews/new'
         fill_in 'review[content]', with: @review.content
         select "Apple"
@@ -199,12 +203,12 @@ RSpec.describe Review, type: :system do
         expect(page).to have_content "too long"
       end
       
-      it 'create a new review with a review image' do
+      it 'create a new review with a review image', js: true do
         visit '/reviews/new'
         fill_in 'review[content]', with: @review.content
         select "Apple"
         select "Phone-1"
-        attach_file "review_image", \
+        attach_file "review_image",
           "#{Rails.root}/spec/fixtures/files/image/image_test_product.jpeg"
         click_button "Post"
         expect(page).to have_content 'Awesome'
@@ -270,34 +274,50 @@ RSpec.describe Review, type: :system do
         click_button "Post"
         expect(page).to have_content 'Post Review'
       end
+      it 'cannot create a new review with an image greater than 6mb(JS)', js: true do
+        visit '/reviews/new'
+        fill_in 'review[content]', with: @review.content
+        select "Apple"
+        select "Phone-1"
+        attach_file "review_image",
+          "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
+          expect(page.driver.browser.switch_to.alert.text).to eq "Maximum file size is 5MB. Please choose a smaller file."
+          page.driver.browser.switch_to.alert.dismiss
+      end
       it 'cannot create a new review with an bmp image' do
         visit '/reviews/new'
         fill_in 'review[content]', with: @review.content
         select "Apple"
         select "Phone-1"
-        attach_file "review_image", \
+        attach_file "review_image",
           "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
         click_button "Post"
         expect(page).to have_content 'Post Review'
+        expect(page).to have_content 'valid image format'
       end
       it 'cannot create a new review with an psd image' do
         visit '/reviews/new'
         fill_in 'review[content]', with: @review.content
         select "Apple"
         select "Phone-1"
-        attach_file "review_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.psd"
+        attach_file "review_image",
+        "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.psd"
         click_button "Post"
         expect(page).to have_content 'Post Review'
+        expect(page).to have_content 'valid image format'
       end
       
-      it 'create a new review in Current User page' do
+      it 'create a new review in Current User page', js: true do
         visit '/users/1'
+        ensure_browser_size if Capybara.current_driver == :selenium_chrome_headless
         fill_in 'review[content]', with: @review.content
         select "Apple"
         select "Phone-1"
         click_button "Post"
         expect(page).to have_content 'Aaron'
+        expect(page).to have_content 'Apple'
+        expect(page).to have_content 'Phone-1'
+        expect(page).to have_content 'Awesome'
       end
       
       it 'edit the Content Awesome to Great' do
