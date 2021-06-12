@@ -131,7 +131,7 @@ RSpec.describe Review, type: :system do
         end
       end
       describe 'edit' do
-        it 'xx can access review edit page' do
+        it 'can access review edit page' do
           visit '/reviews/1/edit'
           expect(page).to have_content('Edit Review')
         end
@@ -228,7 +228,7 @@ RSpec.describe Review, type: :system do
         fill_in 'review[content]', with: @review.content
         select "Apple"
         select "Phone-1"
-        attach_file "review_image", \
+        attach_file "review_image",
           "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
         click_button "Post"
         expect(page).to have_content 'Awesome'
@@ -238,7 +238,7 @@ RSpec.describe Review, type: :system do
         fill_in 'review[content]', with: @review.content
         select "Apple"
         select "Phone-1"
-        attach_file "review_image", \
+        attach_file "review_image",
           "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.png"
         click_button "Post"
         expect(page).to have_content 'Awesome'
@@ -248,7 +248,7 @@ RSpec.describe Review, type: :system do
         fill_in 'review[content]', with: @review.content
         select "Apple"
         select "Phone-1"
-        attach_file "review_image", \
+        attach_file "review_image",
           "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.gif"
         click_button "Post"
         expect(page).to have_content 'Awesome'
@@ -259,7 +259,7 @@ RSpec.describe Review, type: :system do
         fill_in 'review[content]', with: @review.content
         select "Apple"
         select "Phone-1"
-        attach_file "review_image", \
+        attach_file "review_image",
           "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
         click_button "Post"
         expect(page).to have_content 'Post Review'
@@ -269,7 +269,7 @@ RSpec.describe Review, type: :system do
         fill_in 'review[content]', with: @review.content
         select "Apple"
         select "Phone-1"
-        attach_file "review_image", \
+        attach_file "review_image",
           "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
         click_button "Post"
         expect(page).to have_content 'Post Review'
@@ -360,7 +360,7 @@ RSpec.describe Review, type: :system do
       it 'edit a review with a product image' do
         @review = FactoryBot.create(:review)
         visit '/reviews/1/edit'
-        attach_file "review_image", \
+        attach_file "review_image",
           "#{Rails.root}/spec/fixtures/files/image/image_test_product.jpeg"
         click_button "Edit"
         expect(page).to have_content 'Phone-1'
@@ -376,7 +376,7 @@ RSpec.describe Review, type: :system do
       it 'can edit the review with an image less than 6mb' do
         @review = FactoryBot.create(:review)
         visit '/reviews/1/edit'
-        attach_file "review_image", \
+        attach_file "review_image",
           "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
         click_button "Edit"
         expect(page).to have_content 'Phone-1'
@@ -385,7 +385,7 @@ RSpec.describe Review, type: :system do
       it 'can edit the review with an png' do
         @review = FactoryBot.create(:review)
         visit '/reviews/1/edit'
-        attach_file "review_image", \
+        attach_file "review_image",
           "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.png"
         click_button "Edit"
         expect(page).to have_content 'Phone-1'
@@ -394,7 +394,7 @@ RSpec.describe Review, type: :system do
       it 'can edit the review with an gif' do
         @review = FactoryBot.create(:review)
         visit '/reviews/1/edit'
-        attach_file "review_image", \
+        attach_file "review_image",
           "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.gif"
         click_button "Edit"
         expect(page).to have_content 'Phone-1'
@@ -404,7 +404,7 @@ RSpec.describe Review, type: :system do
       it 'cannot edit the review with an svg' do
         @review = FactoryBot.create(:review)
         visit '/reviews/1/edit'
-        attach_file "review_image", \
+        attach_file "review_image",
           "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
         click_button "Edit"
         expect(page).to have_content 'Edit Review'
@@ -413,7 +413,7 @@ RSpec.describe Review, type: :system do
       it 'cannot edit the review with an image greater than 6mb' do
         @review = FactoryBot.create(:review)
         visit '/reviews/1/edit'
-        attach_file "review_image", \
+        attach_file "review_image",
           "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
         click_button "Edit"
         expect(page).to have_content 'Edit Review'
@@ -422,7 +422,7 @@ RSpec.describe Review, type: :system do
       it 'cannot edit the review with an bmp image' do
         @review = FactoryBot.create(:review)
         visit '/reviews/1/edit'
-        attach_file "review_image", \
+        attach_file "review_image",
           "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
         click_button "Edit"
         expect(page).to have_content 'Edit Review'
@@ -431,7 +431,7 @@ RSpec.describe Review, type: :system do
       it 'cannot edit the review with a New Brand' do
         @review = FactoryBot.create(:review)
         visit '/reviews/1/edit'
-        attach_file "review_image", \
+        attach_file "review_image",
           "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.psd"
         click_button "Edit"
         expect(page).to have_content 'Edit Review'
