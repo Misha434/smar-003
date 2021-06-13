@@ -27,16 +27,7 @@ Layout/AccessModifierIndentation:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.
 # SupportedStyles: with_first_argument, with_fixed_indentation
-Layout/ArgumentAlignment:
-  Exclude:
-    - 'app/helpers/application_helper.rb'
-    - 'app/helpers/brands_helper.rb'
-    - 'bin/webpack'
-    - 'bin/webpack-dev-server'
-    - 'config/application.rb'
-    - 'spec/system/brands_spec.rb'
-    - 'spec/system/products_spec.rb'
-    - 'spec/system/reviews_spec.rb'
+
 
 # Offense count: 3
 # Cop supports --auto-correct.

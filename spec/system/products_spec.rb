@@ -123,7 +123,7 @@ RSpec.describe Product, type: :system do
         fill_in 'Soc antutu score', with: 2000
         fill_in 'Battery capacity', with: 2000
         attach_file "product_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_product.jpeg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_product.jpeg"
         click_button "Create New Product"
         expect(page).to have_content 'test-phone'
         expect(page).to have_css("img[src$='image_test_product.jpeg']")
@@ -160,7 +160,7 @@ RSpec.describe Product, type: :system do
         fill_in 'Soc antutu score', with: 2000
         fill_in 'Battery capacity', with: 2000
         attach_file "product_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
         click_button "Create New Product"
         expect(page).to have_content 'test-phone'
       end
@@ -171,7 +171,7 @@ RSpec.describe Product, type: :system do
         fill_in 'Soc antutu score', with: 2000
         fill_in 'Battery capacity', with: 2000
         attach_file "product_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.png"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.png"
         click_button "Create New Product"
         expect(page).to have_content 'test-phone'
       end
@@ -182,7 +182,7 @@ RSpec.describe Product, type: :system do
         fill_in 'Soc antutu score', with: 2000
         fill_in 'Battery capacity', with: 2000
         attach_file "product_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.gif"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.gif"
         click_button "Create New Product"
         expect(page).to have_content 'test-phone'
       end
@@ -194,7 +194,7 @@ RSpec.describe Product, type: :system do
         fill_in 'Soc antutu score', with: 2000
         fill_in 'Battery capacity', with: 2000
         attach_file "product_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
         click_button "Create New Product"
         expect(page).to have_content 'Add New Product'
       end
@@ -205,7 +205,7 @@ RSpec.describe Product, type: :system do
         fill_in 'Soc antutu score', with: 2000
         fill_in 'Battery capacity', with: 2000
         attach_file "product_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
         click_button "Create New Product"
         expect(page).to have_content 'Add New Product'
       end
@@ -216,7 +216,7 @@ RSpec.describe Product, type: :system do
         fill_in 'Soc antutu score', with: 2000
         fill_in 'Battery capacity', with: 2000
         attach_file "product_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
         click_button "Create New Product"
         expect(page).to have_content 'Add New Product'
       end
@@ -227,7 +227,7 @@ RSpec.describe Product, type: :system do
         fill_in 'Soc antutu score', with: 2000
         fill_in 'Battery capacity', with: 2000
         attach_file "product_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.psd"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.psd"
         click_button "Create New Product"
         expect(page).to have_content 'Add New Product'
       end
@@ -290,7 +290,7 @@ RSpec.describe Product, type: :system do
       it 'edit a Product with a product image' do
         visit '/products/1/edit'
         attach_file "product_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_product.jpeg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_product.jpeg"
         click_button "Update Product"
         expect(page).to have_content 'Phone-1'
         expect(page).to have_css("img[src$='image_test_product.jpeg']")
@@ -304,14 +304,14 @@ RSpec.describe Product, type: :system do
       it 'can edit product with an image less than 6mb' do
         visit '/products/1/edit'
         attach_file "product_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
         click_button "Update Product"
         expect(page).to have_content 'Phone-1'
       end
       it 'can edit product with an png' do
         visit '/products/1/edit'
         attach_file "product_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.png"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.png"
         click_button "Update Product"
         expect(page).to have_content 'Phone-1'
         expect(page).to have_css("img[src$='image_test_3kb.png']")
@@ -319,7 +319,7 @@ RSpec.describe Product, type: :system do
       it 'can edit product with an gif' do
         visit '/products/1/edit'
         attach_file "product_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.gif"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.gif"
         click_button "Update Product"
         expect(page).to have_content 'Phone-1'
         expect(page).to have_css("img[src$='image_test_3kb.gif']")
@@ -328,28 +328,28 @@ RSpec.describe Product, type: :system do
       it 'cannot edit product with an svg' do
         visit '/products/1/edit'
         attach_file "product_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
         click_button "Update Product"
         expect(page).to have_content 'Edit Product'
       end
       it 'cannot edit product with an image greater than 6mb' do
         visit '/products/1/edit'
         attach_file "product_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
         click_button "Update Product"
         expect(page).to have_content 'Edit Product'
       end
       it 'cannot edit product with an bmp image' do
         visit '/products/1/edit'
         attach_file "product_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
         click_button "Update Product"
         expect(page).to have_content 'Edit Product'
       end
       it 'cannot edit product with a New Brand' do
         visit '/products/1/edit'
         attach_file "product_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.psd"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.psd"
         click_button "Update Product"
         expect(page).to have_content 'Edit Product'
       end

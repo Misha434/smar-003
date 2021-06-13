@@ -209,7 +209,7 @@ RSpec.describe Review, type: :system do
         select "Apple"
         select "Phone-1"
         attach_file "review_image",
-          "#{Rails.root}/spec/fixtures/files/image/image_test_product.jpeg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_product.jpeg"
         click_button "Post"
         expect(page).to have_content 'Awesome'
         expect(page).to have_css("img[src$='image_test_product.jpeg']")
@@ -229,7 +229,7 @@ RSpec.describe Review, type: :system do
         select "Apple"
         select "Phone-1"
         attach_file "review_image",
-          "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
         click_button "Post"
         expect(page).to have_content 'Awesome'
       end
@@ -239,7 +239,7 @@ RSpec.describe Review, type: :system do
         select "Apple"
         select "Phone-1"
         attach_file "review_image",
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.png"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.png"
         click_button "Post"
         expect(page).to have_content 'Awesome'
       end
@@ -249,7 +249,7 @@ RSpec.describe Review, type: :system do
         select "Apple"
         select "Phone-1"
         attach_file "review_image",
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.gif"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.gif"
         click_button "Post"
         expect(page).to have_content 'Awesome'
       end
@@ -260,7 +260,7 @@ RSpec.describe Review, type: :system do
         select "Apple"
         select "Phone-1"
         attach_file "review_image",
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
         click_button "Post"
         expect(page).to have_content 'Post Review'
       end
@@ -270,7 +270,7 @@ RSpec.describe Review, type: :system do
         select "Apple"
         select "Phone-1"
         attach_file "review_image",
-          "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
         click_button "Post"
         expect(page).to have_content 'Post Review'
       end
@@ -280,7 +280,7 @@ RSpec.describe Review, type: :system do
         select "Apple"
         select "Phone-1"
         attach_file "review_image",
-          "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
           expect(page.driver.browser.switch_to.alert.text).to eq "Maximum file size is 5MB. Please choose a smaller file."
           page.driver.browser.switch_to.alert.dismiss
       end
@@ -290,7 +290,7 @@ RSpec.describe Review, type: :system do
         select "Apple"
         select "Phone-1"
         attach_file "review_image",
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
         click_button "Post"
         expect(page).to have_content 'Post Review'
         expect(page).to have_content 'valid image format'
@@ -301,7 +301,7 @@ RSpec.describe Review, type: :system do
         select "Apple"
         select "Phone-1"
         attach_file "review_image",
-        "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.psd"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.psd"
         click_button "Post"
         expect(page).to have_content 'Post Review'
         expect(page).to have_content 'valid image format'
@@ -361,7 +361,7 @@ RSpec.describe Review, type: :system do
         @review = FactoryBot.create(:review)
         visit '/reviews/1/edit'
         attach_file "review_image",
-          "#{Rails.root}/spec/fixtures/files/image/image_test_product.jpeg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_product.jpeg"
         click_button "Edit"
         expect(page).to have_content 'Phone-1'
         expect(page).to have_css("img[src$='image_test_product.jpeg']")
@@ -377,7 +377,7 @@ RSpec.describe Review, type: :system do
         @review = FactoryBot.create(:review)
         visit '/reviews/1/edit'
         attach_file "review_image",
-          "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
         click_button "Edit"
         expect(page).to have_content 'Phone-1'
         expect(page).to have_css("img[src$='image_test_5mb.jpeg']")
@@ -386,7 +386,7 @@ RSpec.describe Review, type: :system do
         @review = FactoryBot.create(:review)
         visit '/reviews/1/edit'
         attach_file "review_image",
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.png"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.png"
         click_button "Edit"
         expect(page).to have_content 'Phone-1'
         expect(page).to have_css("img[src$='image_test_3kb.png']")
@@ -395,7 +395,7 @@ RSpec.describe Review, type: :system do
         @review = FactoryBot.create(:review)
         visit '/reviews/1/edit'
         attach_file "review_image",
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.gif"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.gif"
         click_button "Edit"
         expect(page).to have_content 'Phone-1'
         expect(page).to have_css("img[src$='image_test_3kb.gif']")
@@ -405,7 +405,7 @@ RSpec.describe Review, type: :system do
         @review = FactoryBot.create(:review)
         visit '/reviews/1/edit'
         attach_file "review_image",
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
         click_button "Edit"
         expect(page).to have_content 'Edit Review'
         expect(page).to_not have_css("img[src$='image/image_test_3kb.svg']")
@@ -414,7 +414,7 @@ RSpec.describe Review, type: :system do
         @review = FactoryBot.create(:review)
         visit '/reviews/1/edit'
         attach_file "review_image",
-          "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
         click_button "Edit"
         expect(page).to have_content 'Edit Review'
         expect(page).to_not have_css("img[src$='image_test_6mb.jpeg']")
@@ -423,7 +423,7 @@ RSpec.describe Review, type: :system do
         @review = FactoryBot.create(:review)
         visit '/reviews/1/edit'
         attach_file "review_image",
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
         click_button "Edit"
         expect(page).to have_content 'Edit Review'
         expect(page).to_not have_css("img[src$='image_test_3kb.bmp']")
@@ -432,7 +432,7 @@ RSpec.describe Review, type: :system do
         @review = FactoryBot.create(:review)
         visit '/reviews/1/edit'
         attach_file "review_image",
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.psd"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.psd"
         click_button "Edit"
         expect(page).to have_content 'Edit Review'
         expect(page).to_not have_css("img[src$='image_test_3kb.psd']")
