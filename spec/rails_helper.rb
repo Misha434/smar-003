@@ -30,6 +30,12 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -65,12 +71,6 @@ RSpec.configure do |config|
     FactoryBot.reload
   end
   require 'capybara/rspec'
-  Shoulda::Matchers.configure do |config|
-    config.integrate do |with|
-      with.test_framework :rspec
-      with.library :rails
-    end
-  end
   config.include ActionDispatch::TestProcess::FixtureFile
   config.include Devise::Test::IntegrationHelpers, type: :system
 end
