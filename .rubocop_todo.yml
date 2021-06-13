@@ -1,33 +1,3 @@
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: outdent, indent
-
-# Offense count: 56
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: with_first_argument, with_fixed_indentation
-
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleAlignWith.
-# SupportedStylesAlignWith: either, start_of_block, start_of_line
-Layout/BlockAlignment:
-  include:
-    # - 'config/routes.rb'
-    # - 'spec/system/brands_spec.rb'
-
-# Offense count: 14
-# Cop supports --auto-correct.
-Layout/ClosingParenthesisIndentation:
-  Exclude:
-    - 'db/seeds.rb'
-    - 'spec/models/user_spec.rb'
-    - 'spec/system/brands_spec.rb'
-    - 'spec/system/products_spec.rb'
-    - 'spec/system/reviews_spec.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 Layout/CommentIndentation:
