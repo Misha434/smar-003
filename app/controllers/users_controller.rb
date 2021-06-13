@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :show]
+  before_action :authenticate_user!, only: %i[index show]
   before_action :admin_user, only: :index
-	include Pagy::Backend
+  include Pagy::Backend
   def index
     @pagy, @users = pagy(User.all)
   end
