@@ -5,11 +5,10 @@ class LikesController < ApplicationController
     @like = Like.new(user_id: current_user.id, review_id: params[:id])
     if @like.save
       flash[:notice] = "Like is success"
-      redirect_to request.referrer
     else
       flash[:alert] = "Like is fail"
-      redirect_to request.referrer
     end
+    redirect_to request.referrer
   end
 
   def destroy
