@@ -4,7 +4,7 @@ module ApplicationHelper
       link_to image_tag(product.image, width: "75px",
       class: "img-fluid"), product_path(product)
     else
-      link_to image_tag("product_no_image.jpeg",
+      link_to image_pack_tag("product_no_image.jpeg",
       width: "75px", class: "img-fluid"), product_path(product)
     end
   end
