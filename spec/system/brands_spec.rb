@@ -86,10 +86,10 @@ RSpec.describe Brand, type: :system do
       before do
         @brand = FactoryBot.create(:brand)
         @admin_user = FactoryBot.create(:user,
-                    id: 2,
-                    name: 'Admin',
-                    email: 'buzz@example.com',
-                    admin: true,
+                                        id: 2,
+                                        name: 'Admin',
+                                        email: 'buzz@example.com',
+                                        admin: true,
                     )
         visit '/users/sign_in'
         fill_in "Email", with: @admin_user.email
@@ -134,10 +134,10 @@ RSpec.describe Brand, type: :system do
       before do
         @brand = FactoryBot.create(:brand)
         @admin_user = FactoryBot.create(:user,
-                    id: 2,
-                    name: 'Admin',
-                    email: 'buzz@example.com',
-                    admin: true,
+                                        id: 2,
+                                        name: 'Admin',
+                                        email: 'buzz@example.com',
+                                        admin: true,
                     )
         visit '/users/sign_in'
         fill_in "Email", with: @admin_user.email
@@ -149,7 +149,7 @@ RSpec.describe Brand, type: :system do
         visit '/brands/new'
         fill_in 'Name', with: 'example-company-2'
         attach_file "brand_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_logo.png"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_logo.png"
         click_button "Create a new brand"
         expect(page).to have_content 'example-company-2'
         expect(page).to have_css("img[src$='image_test_logo.png']")
@@ -179,7 +179,7 @@ RSpec.describe Brand, type: :system do
         visit '/brands/new'
         fill_in 'Name', with: 'example-company-2'
         attach_file "brand_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
         click_button "Create a new brand"
         expect(page).to have_content 'example-company-2'
       end
@@ -187,7 +187,7 @@ RSpec.describe Brand, type: :system do
         visit '/brands/new'
         fill_in 'Name', with: 'example-company-2'
         attach_file "brand_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.png"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.png"
         click_button "Create a new brand"
         expect(page).to have_content 'example-company-2'
       end
@@ -195,7 +195,7 @@ RSpec.describe Brand, type: :system do
         visit '/brands/new'
         fill_in 'Name', with: 'example-company-2'
         attach_file "brand_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.gif"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.gif"
         click_button "Create a new brand"
         expect(page).to have_content 'example-company-2'
       end
@@ -204,7 +204,7 @@ RSpec.describe Brand, type: :system do
         visit '/brands/new'
         fill_in 'Name', with: 'example-company-2'
         attach_file "brand_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
         click_button "Create a new brand"
         expect(page).to have_content 'Add a New Brand'
       end
@@ -212,7 +212,7 @@ RSpec.describe Brand, type: :system do
         visit '/brands/new'
         fill_in 'Name', with: 'example-company-2'
         attach_file "brand_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
         click_button "Create a new brand"
         expect(page).to have_content 'Add a New Brand'
       end
@@ -220,7 +220,7 @@ RSpec.describe Brand, type: :system do
         visit '/brands/new'
         fill_in 'Name', with: 'example-company-2'
         attach_file "brand_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
         click_button "Create a new brand"
         expect(page).to have_content 'Add a New Brand'
       end
@@ -228,7 +228,7 @@ RSpec.describe Brand, type: :system do
         visit '/brands/new'
         fill_in 'Name', with: 'example-company-2'
         attach_file "brand_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.psd"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.psd"
         click_button "Create a new brand"
         expect(page).to have_content 'Add a New Brand'
       end
@@ -258,7 +258,7 @@ RSpec.describe Brand, type: :system do
       it 'edit brand with an brand logo image' do
         visit '/brands/1/edit'
         attach_file "brand_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_logo.png"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_logo.png"
         click_button "Update Brand"
         expect(page).to have_content 'Apple'
         expect(page).to have_css("img[src$='image_test_logo.png']")
@@ -272,7 +272,7 @@ RSpec.describe Brand, type: :system do
       it 'can edit brand with an image less than 6mb' do
         visit '/brands/1/edit'
         attach_file "brand_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
         click_button "Update Brand"
         expect(page).to have_content 'Apple'
         expect(page).to have_css("img[src$='image_test_5mb.jpeg']")
@@ -280,7 +280,7 @@ RSpec.describe Brand, type: :system do
       it 'can edit brand with an png' do
         visit '/brands/1/edit'
         attach_file "brand_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.png"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.png"
         click_button "Update Brand"
         expect(page).to have_content 'Apple'
         expect(page).to have_css("img[src$='image_test_3kb.png']")
@@ -288,7 +288,7 @@ RSpec.describe Brand, type: :system do
       it 'can edit brand with an gif' do
         visit '/brands/1/edit'
         attach_file "brand_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.gif"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.gif"
         click_button "Update Brand"
         expect(page).to have_content 'Apple'
         expect(page).to have_css("img[src$='image_test_3kb.gif']")
@@ -297,7 +297,7 @@ RSpec.describe Brand, type: :system do
       it 'cannot edit brand with an svg' do
         visit '/brands/1/edit'
         attach_file "brand_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
         click_button "Update Brand"
         expect(page).to have_content 'Edit a New Brand'
         
@@ -305,21 +305,21 @@ RSpec.describe Brand, type: :system do
       it 'cannot edit brand with an image greater than 6mb' do
         visit '/brands/1/edit'
         attach_file "brand_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
         click_button "Update Brand"
         expect(page).to have_content 'Edit a New Brand'
       end
       it 'cannot edit brand with an bmp image' do
         visit '/brands/1/edit'
         attach_file "brand_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
         click_button "Update Brand"
         expect(page).to have_content 'Edit a New Brand'
       end
       it 'cannot edit brand with an psd image' do
         visit '/brands/1/edit'
         attach_file "brand_image", \
-          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.psd"
+                    "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.psd"
         click_button "Update Brand"
         expect(page).to have_content 'Edit a New Brand'
       end
