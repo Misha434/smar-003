@@ -16,3 +16,46 @@ Layout/BlockAlignment:
 Layout/AccessModifierIndentation:
   Exclude:
     - 'bin/bundle'
+Layout/EmptyLineAfterGuardClause:
+  Exclude:
+    - 'bin/bundle'
+Layout/EmptyLines:
+  Exclude:
+    - 'db/migrate/20210530074837_devise_create_users.rb'
+Layout/EmptyLinesAroundBlockBody:
+  Exclude:
+    - 'db/schema.rb'
+Layout/SpaceInsideArrayLiteralBrackets:
+  Exclude:
+    - 'db/migrate/20210531072122_create_active_storage_tables.active_storage.rb'
+Style/AsciiComments:
+  Exclude:
+    - 'app/helpers/sessions_helper.rb'
+    - 'spec/models/brand_spec.rb'
+    - 'spec/models/product_spec.rb'
+    - 'spec/models/review_spec.rb'
+    - 'spec/models/user_spec.rb'
+    - 'spec/requests/pages_request_spec.rb'
+    - 'spec/system/pages_index_spec.rb'
+Style/ExpandPathArguments:
+  Exclude:
+    - 'bin/bundle'
+    - 'bin/rails'
+    - 'bin/rake'
+    - 'bin/rspec'
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/IfUnlessModifier:
+  Exclude:
+    - 'bin/bundle'
+Style/PerlBackrefs:
+  Exclude:
+    - 'bin/bundle'
+Style/RedundantBegin:
+  Exclude:
+    - 'bin/yarn'
+Style/StderrPuts:
+  Exclude:
+    - 'bin/yarn'
+Style/StringLiterals:
+  Enabled: false

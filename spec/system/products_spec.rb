@@ -1,105 +1,104 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :system do
-  
   describe 'Product Page can access'
-    describe 'as Pre-Login User' do
-      describe 'Access Authenticate' do
-        it 'cannot access product new page' do
-          visit '/products/new'
-          expect(page).to have_content('Log in')
+  describe 'as Pre-Login User' do
+    describe 'Access Authenticate' do
+      it 'cannot access product new page' do
+        visit '/products/new'
+        expect(page).to have_content('Log in')
+      end
+      describe 'product show' do
+        before do
+          @brand = FactoryBot.create(:brand)
+          @product = FactoryBot.create(:product)
+          @user = FactoryBot.create(:user)
         end
-        describe 'product show' do
-          before do
-            @brand = FactoryBot.create(:brand)
-            @product = FactoryBot.create(:product)
-            @user = FactoryBot.create(:user)
-          end
-          it 'can access product show page' do
-            visit '/products/1'
-            expect(page).to have_content('Phone-1')
-          end
+        it 'can access product show page' do
+          visit '/products/1'
+          expect(page).to have_content('Phone-1')
         end
-        describe 'edit' do
-          before do
-            @brand = FactoryBot.create(:brand)
-            @product = FactoryBot.create(:product)
-          end
-          it 'cannot access product edit page' do
-            visit '/products/1/edit'
-            expect(page).to have_content('Login')
-          end
+      end
+      describe 'edit' do
+        before do
+          @brand = FactoryBot.create(:brand)
+          @product = FactoryBot.create(:product)
         end
-        describe 'destroy' do
-          before do
-            @brand = FactoryBot.create(:brand)
-            @product = FactoryBot.create(:product)
-            @user = FactoryBot.create(:user)
-          end
-          it 'cannot access product destroy page' do
-            page.driver.submit :delete, '/products/1', {}
-            expect(page).to have_content('Login')
-            fill_in "Email", with: @user.email
-            fill_in "Password", with: @user.password
-            click_button "Log in"
-            visit '/products/1'
-            expect(page).to have_content('Apple')
-            expect(page).to have_content('Phone-1')
-          end
+        it 'cannot access product edit page' do
+          visit '/products/1/edit'
+          expect(page).to have_content('Login')
+        end
+      end
+      describe 'destroy' do
+        before do
+          @brand = FactoryBot.create(:brand)
+          @product = FactoryBot.create(:product)
+          @user = FactoryBot.create(:user)
+        end
+        it 'cannot access product destroy page' do
+          page.driver.submit :delete, '/products/1', {}
+          expect(page).to have_content('Login')
+          fill_in "Email", with: @user.email
+          fill_in "Password", with: @user.password
+          click_button "Log in"
+          visit '/products/1'
+          expect(page).to have_content('Apple')
+          expect(page).to have_content('Phone-1')
         end
       end
     end
-    
-    describe 'As a Login User' do
-      before do
-        @brand = FactoryBot.create(:brand)
-        @product = FactoryBot.create(:product)
-        @user = FactoryBot.create(:user)
-        visit '/users/sign_in'
-        fill_in "Email", with: @user.email
-        fill_in "Password", with: @user.password
-        click_button "Log in"
-        expect(page).to have_content 'Signed in'
+  end
+
+  describe 'As a Login User' do
+    before do
+      @brand = FactoryBot.create(:brand)
+      @product = FactoryBot.create(:product)
+      @user = FactoryBot.create(:user)
+      visit '/users/sign_in'
+      fill_in "Email", with: @user.email
+      fill_in "Password", with: @user.password
+      click_button "Log in"
+      expect(page).to have_content 'Signed in'
+    end
+    describe 'Access Authenticate' do
+      it 'cannot access product new page' do
+        visit '/products/new'
+        expect(page).to have_content('Aaron')
       end
-      describe 'Access Authenticate' do
-        it 'cannot access product new page' do
-          visit '/products/new'
+      describe 'product show' do
+        it 'can access product show page' do
+          visit '/products/1'
+          expect(page).to have_content('Phone-1')
+        end
+      end
+      describe 'edit' do
+        it 'cannot access product edit page' do
+          visit '/products/1/edit'
           expect(page).to have_content('Aaron')
         end
-        describe 'product show' do
-          it 'can access product show page' do
-            visit '/products/1'
-            expect(page).to have_content('Phone-1')
-          end
-        end
-        describe 'edit' do
-          it 'cannot access product edit page' do
-            visit '/products/1/edit'
-            expect(page).to have_content('Aaron')
-          end
-        end
-        describe 'destroy' do
-          it 'cannot access product destroy page' do
-            page.driver.submit :delete, '/products/1', {}
-            visit '/products/1'
-            expect(page).to have_content('Apple')
-            expect(page).to have_content('Phone-1')
-          end
+      end
+      describe 'destroy' do
+        it 'cannot access product destroy page' do
+          page.driver.submit :delete, '/products/1', {}
+          visit '/products/1'
+          expect(page).to have_content('Apple')
+          expect(page).to have_content('Phone-1')
         end
       end
     end
-  
+  end
+
   describe 'CRUD' do
     describe 'As Admin User' do
       before do
         @brand = FactoryBot.create(:brand)
         @product = FactoryBot.create(:product)
         @admin_user = FactoryBot.create(
-                  :user,
-                  id: 2,
-                  email: 'buzz@example.com',
-                  admin: true,
-                )
+          :user,
+          id: 2,
+          email: 'buzz@example.com',
+          admin: true
+        )
         visit '/users/sign_in'
         fill_in "Email", with: @admin_user.email
         fill_in "Password", with: @admin_user.password
@@ -115,7 +114,7 @@ RSpec.describe Product, type: :system do
         click_button "Create New Product"
         expect(page).to have_content 'test-phone'
       end
-      
+
       it 'create a new Product with a product image' do
         visit '/products/new'
         fill_in 'Name', with: 'test-phone'
@@ -137,7 +136,7 @@ RSpec.describe Product, type: :system do
         click_button "Create New Product"
         expect(page).to have_content 'test-phone'
       end
-      
+
       it 'cannot create a new product with a name field is blank' do
         visit '/products/new'
         fill_in 'Name', with: ''
@@ -152,7 +151,7 @@ RSpec.describe Product, type: :system do
         expect(page).to have_content 'Add New Product'
         expect(page).to have_content "Name can't be blank"
       end
-      
+
       it 'can create a new product with an image less than 6mb' do
         visit '/products/new'
         fill_in 'Name', with: 'test-phone'
@@ -186,7 +185,7 @@ RSpec.describe Product, type: :system do
         click_button "Create New Product"
         expect(page).to have_content 'test-phone'
       end
-      
+
       it 'cannot create a new product with an svg' do
         visit '/products/new'
         fill_in 'Name', with: 'test-phone'
@@ -231,7 +230,7 @@ RSpec.describe Product, type: :system do
         click_button "Create New Product"
         expect(page).to have_content 'Add New Product'
       end
-      
+
       it 'cannot edit product with a name field is blank' do
         visit '/products/1/edit'
         fill_in 'Name', with: ''
@@ -242,7 +241,7 @@ RSpec.describe Product, type: :system do
         expect(page).to have_content 'Edit Product'
         expect(page).to have_content "Name can't be blank"
       end
-      
+
       it 'cannot edit product with a antutu field is blank' do
         visit '/products/1/edit'
         fill_in 'Name', with: 'Phone-1'
@@ -286,7 +285,7 @@ RSpec.describe Product, type: :system do
         expect(page).to have_content "Battery capacity can't be blank"
         expect(page).to have_content "Name can't be blank"
       end
-      
+
       it 'edit a Product with a product image' do
         visit '/products/1/edit'
         attach_file "product_image", \
@@ -300,7 +299,7 @@ RSpec.describe Product, type: :system do
         click_button "Update Product"
         expect(page).to have_content 'Phone-1'
       end
-      
+
       it 'can edit product with an image less than 6mb' do
         visit '/products/1/edit'
         attach_file "product_image", \
@@ -324,7 +323,7 @@ RSpec.describe Product, type: :system do
         expect(page).to have_content 'Phone-1'
         expect(page).to have_css("img[src$='image_test_3kb.gif']")
       end
-      
+
       it 'cannot edit product with an svg' do
         visit '/products/1/edit'
         attach_file "product_image", \
@@ -353,7 +352,7 @@ RSpec.describe Product, type: :system do
         click_button "Update Product"
         expect(page).to have_content 'Edit Product'
       end
-      
+
       it 'edit the Name Phone-1 to product-0' do
         visit '/products/1/edit'
         select "Apple"

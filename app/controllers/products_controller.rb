@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
-	before_action :authenticate_user!, only: [:index, :new, :create, :edit, :destroy]
-	before_action :admin_user, only: [:new, :create, :edit, :update, :destroy]
-	include Pagy::Backend
+  before_action :authenticate_user!, only: %i[index new create edit destroy]
+  before_action :admin_user, only: %i[new create edit update destroy]
+  include Pagy::Backend
   def show
     @product = Product.find(params[:id])
     @select_product_reviews = @product.reviews.all
@@ -17,18 +17,18 @@ class ProductsController < ApplicationController
     @product = Product.new
     @brands = Brand.all
   end
-  
+
   def create
     @product = Product.new(product_params)
     if @product.save
       flash[:success] = "Add Product Successfully"
-			redirect_to @product
+      redirect_to @product
     else
-      @brands = Brand.all 
+      @brands = Brand.all
       render 'new'
     end
   end
-  
+
   def update
     @product = Product.find(params[:id])
     if @product.update(product_params)
@@ -39,25 +39,26 @@ class ProductsController < ApplicationController
       render 'edit'
     end
   end
-  
+
   def index
     @pagy, @products = pagy(Product.all)
   end
-  
+
   def destroy
     Product.find(params[:id]).destroy
     redirect_to products_path
   end
-  
+
   # Add import method in Brand controller
   # def import
   #   if Brand.import(params[:file])
   #     redirect_to products_path, notice: "Import is Succeeded"
   #   end
   # end
-  
+
   private
-    def product_params
-      params.require(:product).permit(:name, :brand_id, :soc_antutu_score, :battery_capacity, :image)
-    end
+
+  def product_params
+    params.require(:product).permit(:name, :brand_id, :soc_antutu_score, :battery_capacity, :image)
+  end
 end
