@@ -12,3 +12,6 @@ AllCops:
     - Gemfile.lock
     - 'tmp/**/*'
     - 'node_modules/**/*'
+Layout/BlockAlignment:
+  include:
+    - 'config/routes.rb'
