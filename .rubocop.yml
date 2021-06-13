@@ -8,8 +8,6 @@ AllCops:
     - bin/*
     - db/**/*
     - config/**/*
-    - Gemfile
-    - Gemfile.lock
     - 'tmp/**/*'
     - 'node_modules/**/*'
 Layout/BlockAlignment:
