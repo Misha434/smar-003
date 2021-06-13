@@ -16,8 +16,3 @@ Metrics/AbcSize:
 Style/GuardClause:
   Exclude:
     - 'app/controllers/pages_controller.rb'
-
-# Offense count: 2
-Style/IdenticalConditionalBranches:
-  Exclude:
-    - 'app/controllers/likes_controller.rb'
