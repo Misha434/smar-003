@@ -80,7 +80,7 @@ RSpec.describe Brand, type: :system do
       end
     
     end
-  end
+end
 
     describe 'As Admin User' do
       before do
@@ -113,7 +113,7 @@ RSpec.describe Brand, type: :system do
           visit '/brands/1/edit'
           expect(page).to have_content('Edit')
         end
-      end
+    end
   
   describe 'has Title' do
     before do
