@@ -13,3 +13,6 @@ AllCops:
 Layout/BlockAlignment:
   include:
     - 'config/routes.rb'
+Layout/AccessModifierIndentation:
+  Exclude:
+    - 'bin/bundle'
