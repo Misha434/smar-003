@@ -62,3 +62,5 @@ Style/StringLiterals:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+Metrics/MethodLength:
+  Max: 11
