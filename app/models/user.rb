@@ -9,14 +9,14 @@ class User < ApplicationRecord
   has_many :products
   has_many :likes
   validates :name, presence: true
-  validates :email, presence: true, uniqueness: {case_sensitive: false},
-                    length: {in: 3..254}
+  validates :email, presence: true, uniqueness: { case_sensitive: false },
+                    length: { in: 3..254 }
   validates :password, presence: true, allow_nil: true
   validates :password_confirmation, presence: true, allow_nil: true
   
-  validates :avatar, content_type: {in: %w[image/jpeg image/gif image/png],
+  validates :avatar, content_type: { in: %w[image/jpeg image/gif image/png],
     message: "must be a valid image format" },
-    size: {less_than: 5.megabytes, message: "should be less than 5MB"}
+    size: { less_than: 5.megabytes, message: "should be less than 5MB" }
   
   def display_image
     image.variant(resize_to_limit[44,44])
