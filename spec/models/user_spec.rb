@@ -13,7 +13,7 @@ RSpec.describe User, type: :model do
       email: "test@example.com",
       password: "password",
       password_confirmation: "password",
-      )
+    )
     expect(user).to be_valid
   end
   

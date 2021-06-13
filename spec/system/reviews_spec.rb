@@ -61,7 +61,7 @@ RSpec.describe Review, type: :system do
                         id: 1,
                         email: 'buzz@example.com',
                         admin: true,
-                        )
+                      )
         @review = FactoryBot.create(:review)
         visit '/users/sign_in'
         fill_in "Email", with: @admin_user.email
@@ -104,14 +104,14 @@ RSpec.describe Review, type: :system do
                         id: 2,
                         name: 'fizzy',
                         email: 'fizz@example.com',
-                        )
+                      )
       @review = FactoryBot.create(:review)
       @other_review = FactoryBot.create(
                           :review,
                           id: 2,
                           user_id: 2,
                           content: 'Epic'
-                          )
+                        )
       visit '/users/sign_in'
       fill_in "Email", with: @user.email
       fill_in "Password", with: @user.password
