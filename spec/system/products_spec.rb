@@ -99,7 +99,7 @@ RSpec.describe Product, type: :system do
                   id: 2,
                   email: 'buzz@example.com',
                   admin: true,
-                  )
+                )
         visit '/users/sign_in'
         fill_in "Email", with: @admin_user.email
         fill_in "Password", with: @admin_user.password

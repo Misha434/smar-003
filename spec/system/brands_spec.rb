@@ -90,7 +90,7 @@ end
                                         name: 'Admin',
                                         email: 'buzz@example.com',
                                         admin: true,
-                    )
+                                       )
         visit '/users/sign_in'
         fill_in "Email", with: @admin_user.email
         fill_in "Password", with: @admin_user.password
@@ -138,7 +138,7 @@ end
                                         name: 'Admin',
                                         email: 'buzz@example.com',
                                         admin: true,
-                    )
+                                       )
         visit '/users/sign_in'
         fill_in "Email", with: @admin_user.email
         fill_in "Password", with: @admin_user.password
