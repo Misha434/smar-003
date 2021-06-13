@@ -3,7 +3,7 @@ class Product < ApplicationRecord
   has_many :reviews
   has_one_attached :image
   validates :brand_id, presence: true
-  validates :name, presence: true, length: {in: 1..50}
+  validates :name, presence: true, length: { in: 1..50 }
   validates :soc_antutu_score, presence: true
   validates :battery_capacity, presence: true
   validates :image, content_type: { in: %w[image/jpeg image/gif image/png],
