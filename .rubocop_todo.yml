@@ -34,9 +34,9 @@ Layout/AccessModifierIndentation:
 # Configuration parameters: EnforcedStyleAlignWith.
 # SupportedStylesAlignWith: either, start_of_block, start_of_line
 Layout/BlockAlignment:
-  Exclude:
-    - 'config/routes.rb'
-    - 'spec/system/brands_spec.rb'
+  include:
+    # - 'config/routes.rb'
+    # - 'spec/system/brands_spec.rb'
 
 # Offense count: 14
 # Cop supports --auto-correct.
