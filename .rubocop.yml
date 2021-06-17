@@ -1,0 +1,85 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 2.6
+  TargetRailsVersion: 6.0
+  Exclude:
+    - vendor/bundle/**/*
+    - bin/*
+    - db/**/*
+    - config/**/*
+    - 'tmp/**/*'
+    - 'node_modules/**/*'
+Layout/BlockAlignment:
+  include:
+    - 'config/routes.rb'
+Layout/AccessModifierIndentation:
+  Exclude:
+    - 'bin/bundle'
+Layout/EmptyLineAfterGuardClause:
+  Exclude:
+    - 'bin/bundle'
+Layout/EmptyLines:
+  Exclude:
+    - 'db/migrate/20210530074837_devise_create_users.rb'
+Layout/EmptyLinesAroundBlockBody:
+  Exclude:
+    - 'db/schema.rb'
+Layout/SpaceInsideArrayLiteralBrackets:
+  Exclude:
+    - 'db/migrate/20210531072122_create_active_storage_tables.active_storage.rb'
+Style/AsciiComments:
+  Exclude:
+    - 'app/helpers/sessions_helper.rb'
+    - 'spec/models/brand_spec.rb'
+    - 'spec/models/product_spec.rb'
+    - 'spec/models/review_spec.rb'
+    - 'spec/models/user_spec.rb'
+    - 'spec/requests/pages_request_spec.rb'
+    - 'spec/system/pages_index_spec.rb'
+Style/ExpandPathArguments:
+  Exclude:
+    - 'bin/bundle'
+    - 'bin/rails'
+    - 'bin/rake'
+    - 'bin/rspec'
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/IfUnlessModifier:
+  Exclude:
+    - 'bin/bundle'
+Style/PerlBackrefs:
+  Exclude:
+    - 'bin/bundle'
+Style/RedundantBegin:
+  Exclude:
+    - 'bin/yarn'
+Style/StderrPuts:
+  Exclude:
+    - 'bin/yarn'
+Style/StringLiterals:
+  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+Metrics/MethodLength:
+  Max: 11
+Style/Documentation:
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+    - 'app/controllers/application_controller.rb'
+    - 'app/controllers/brands_controller.rb'
+    - 'app/controllers/likes_controller.rb'
+    - 'app/controllers/pages_controller.rb'
+    - 'app/controllers/products_controller.rb'
+    - 'app/controllers/reviews/picks_controller.rb'
+    - 'app/controllers/reviews_controller.rb'
+    - 'app/controllers/users/registrations_controller.rb'
+    - 'app/controllers/users_controller.rb'
+    - 'app/helpers/application_helper.rb'
+    - 'app/helpers/brands_helper.rb'
+    - 'app/helpers/sessions_helper.rb'
+    - 'app/models/application_record.rb'
+    - 'app/models/brand.rb'
+    - 'app/models/user.rb'
