@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :system do
-  
   describe 'Access Authenticate' do
     describe 'Users Index' do
       before do
@@ -9,7 +8,7 @@ RSpec.describe User, type: :system do
         @user = FactoryBot.create(:user)
         @product = FactoryBot.create(:product, brand_id: @brand.id)
         @review = FactoryBot.create(:review, user_id: @user.id, \
-        product_id: @product.id)
+                                             product_id: @product.id)
         @admin_user = FactoryBot.create(:user, id: 2, name: "admin", email: "buzz@example.com", admin: true)
         visit root_path
       end
