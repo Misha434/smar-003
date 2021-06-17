@@ -3,24 +3,8 @@
     i.fas.fa-thumbs-up.fa-xs aria-hidden="true"
     span class="each-like-countup"
       = review.likes.count
-    / javascript:
-    /   $(function(){
-    /     $('a#release-like-disable').on('click',function(){
-    /       $(this).click(function(){
-    /         $(this).prop('disabled', true);
-    /       })
-    /     })
-    /   })
 - else 
   = link_to create_like_path(review), method: :POST, class: "__no_active", id: "like-disable", remote: true do
     i.fas.fa-thumbs-up.fa-xs aria-hidden="true"
     span class="each-like-countup"
       = review.likes.count
-    / javascript:
-    /   $(function(){
-    /     $('a#like-disable').on('click',function(){
-    /       $(this).click(function(){
-    /         $(this).prop('disabled', true);
-    /       })
-    /     })
-    /   })
