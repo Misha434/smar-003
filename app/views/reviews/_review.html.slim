@@ -16,10 +16,10 @@
           span.content
             p.my-3 = review.content
           = render 'reviews/posted_image', review: review
-      
       .row.span.pt-2
         .col-12
           .float-start
-            = render 'reviews/like', review: review
+            div id ="review-like-#{review.id}"
+              = render 'reviews/like', review: review
           .float-end
             = render 'reviews/delete', review: review
