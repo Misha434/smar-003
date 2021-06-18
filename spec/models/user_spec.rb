@@ -318,5 +318,55 @@ RSpec.describe User, type: :model do
         end
       end
     end
+    describe "Avatar" do
+      describe "File" do
+        context "has a GIF format" do
+          it "is valid" do
+            @user.avatar = fixture_file_upload("files/image/image_test_3kb.gif")
+            expect(@user).to be_valid
+          end
+        end
+        context "has a GIF format" do
+          it "is valid" do
+            @user.avatar = fixture_file_upload("files/image/image_test_3kb.jpeg")
+            expect(@user).to be_valid
+          end
+        end
+        context "has a PNG format" do
+          it "is valid" do
+            @user.avatar = fixture_file_upload("files/image/image_test_3kb.png")
+            expect(@user).to be_valid
+          end
+        end
+        context "has a SVG format" do
+          it "is invalid" do
+            @user.avatar = fixture_file_upload("files/image/image_test_3kb.svg")
+            expect(@user).to_not be_valid
+          end
+        end
+        context "has a PSD format" do
+          it "is invalid" do
+            @user.avatar = fixture_file_upload("files/image/image_test_3kb.psd")
+            expect(@user).to_not be_valid
+          end
+        end
+        context "has a BMP format" do
+          it "is invalid" do
+            @user.avatar = fixture_file_upload("files/image/image_test_3kb.bmp")
+            expect(@user).to_not be_valid
+          end
+        end
+      end
+      describe "File size" do
+        it "5MB is valid" do
+          @user.avatar = fixture_file_upload("files/image/image_test_5mb.jpeg")
+          expect(@user).to be_valid
+        end
+        it "6MB is invalid" do
+          @user.avatar = fixture_file_upload("files/image/image_test_6mb.jpeg")
+          expect(@user).to_not be_valid
+        end
+      end
+    end
   end
 end
