@@ -2,15 +2,21 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   # Modified Format Start
+  before do
+    @user = FactoryBot.build(:user)
+  end
   describe 'All Forms filled-out (Name, Email, Password, Confirm Password)' do
-    before do
-      @user = FactoryBot.build(:user)
-    end
     it 'is a valid' do
       expect(@user).to be_valid
     end
     it 'with an attached image is a valid' do
       @user.avatar = fixture_file_upload("files/image/image_test_logo.png")
+      expect(@user).to be_valid
+    end
+  end
+  describe "Create Admin User" do
+    it "is valid" do
+      @user.admin = true
       expect(@user).to be_valid
     end
   end
