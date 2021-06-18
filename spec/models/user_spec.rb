@@ -97,6 +97,106 @@ RSpec.describe User, type: :model do
       expect(same_name_user).to be_valid
     end
   end
+  describe "Email Form" do
+    describe "filled with word length" do
+      it { is_expected.to validate_presence_of :email }
+      it { should_not validate_length_of(:email).is_at_least(2) }
+      it do
+        should validate_length_of(:email).
+        is_at_least(3).is_at_most(254)
+      end
+      it { should_not validate_length_of(:email).is_at_most(255) }
+    end
+    describe "included Charactor Type" do
+      context "漢字" do
+        it "is invalid" do
+          user = FactoryBot.build(:user, email: "test亜@example.com")
+          expect(user).to_not be_valid
+        end
+      end
+      context "ひらがな" do
+        it "is invalid" do
+          user = FactoryBot.build(:user, email: "testあ@example.com")
+          expect(user).to_not be_valid
+        end
+      end
+      context "全角カタカナ" do
+        it "is invalid" do
+          user = FactoryBot.build(:user, email: "testア@example.com")
+          expect(user).to_not be_valid
+        end
+      end
+      context "半角カタカナ" do
+        it "is invalid" do
+          user = FactoryBot.build(:user, email: "ﾜtest@example.com")
+          expect(user).to_not be_valid
+        end
+      end
+      context "English" do
+        it "Upper Case is invalid" do
+          user = FactoryBot.build(:user, email: "TEST@EXAMPLE.COM")
+          expect(user).to_not be_valid
+        end
+        it "Down Case is valid" do
+          user = FactoryBot.build(:user)
+          expect(user).to be_valid
+        end
+      end
+      context "symbol" do
+        it "is valid" do
+          user = FactoryBot.build(:user, email: "test1@example.com")
+          expect(user).to be_valid
+        end
+        it "others are invalid" do
+          user = FactoryBot.build(:user, email: "test※@example.com")
+          expect(user).to_not be_valid
+        end
+      end
+      context "Number" do
+        it "full-width is invalid" do
+          user = FactoryBot.build(:user, email: "test１@example.com")
+          expect(user).to be_valid
+        end
+        it "harf-width is invalid" do
+          user = FactoryBot.build(:user, email: "test1@example.com")
+          expect(user).to_not be_valid
+        end
+      end
+      context "space" do
+        it "blank(beginning of sentence) is invalid" do
+          user = FactoryBot.build(:user, email: " test@example.com")
+          expect(user).to_not be_valid
+        end
+        it "blank(in the sentences) is invalid" do
+          user = FactoryBot.build(:user, email: "te st@example.com")
+          expect(user).to_not be_valid
+        end
+        it "blank(end of sentences) is invalid" do
+          user = FactoryBot.build(:user, email: "test@example.com ")
+          expect(user).to_not be_valid
+        end
+      end
+      context "Emoji" do
+        it "is invalid" do
+          user = FactoryBot.build(:user, email: "test👨‍👩‍👦‍👦@example.com")
+          expect(user).to_not be_valid
+        end
+      end
+    end
+    describe "Registrated Email" do
+      before do
+        @user.save!
+      end
+      it "is invalid" do
+        same_email_user = FactoryBot.build(:user)
+        expect(same_email_user).to_not be_valid
+      end
+      it "mixed Upper/Down cases is invalid" do
+        same_email_user = FactoryBot.build(:user, email: "teSt@eXamPle.com")
+        expect(same_email_user).to_not be_valid
+      end
+    end
+  end
   # Modified Format End
   
   # 有効なファクトリを持つこと
