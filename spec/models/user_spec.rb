@@ -1,6 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  # Modified Format Start
+  describe 'All Forms filled-out (Name, Email, Password, Confirm Password)' do
+    before do
+      @user = FactoryBot.build(:user)
+    end
+    it 'is a valid' do
+      expect(@user).to be_valid
+    end
+    it 'with an attached image is a valid' do
+      @user.avatar = fixture_file_upload("files/image/image_test_logo.png")
+      expect(@user).to be_valid
+    end
+  end
+  # Modified Format End
+
   # 有効なファクトリを持つこと
   it "has a valid factory" do
     expect(FactoryBot.build(:user)).to be_valid
