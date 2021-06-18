@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  # Modified Format Start
   before do
     @user = FactoryBot.build(:user)
   end
@@ -296,88 +295,28 @@ RSpec.describe User, type: :model do
         end
       end
     end
-  end
-  # Modified Format End
-  
-  
-  # 有効なファクトリを持つこと
-  it "has a valid factory" do
-    expect(FactoryBot.build(:user)).to be_valid
-  end
-
-  # 名前、メール、パスワードがあれば有効な状態であること
-  it "is valid with a name, email and password" do
-    user = User.new(
-      name: "John",
-      email: "test@example.com",
-      password: "password",
-      password_confirmation: "password"
-    )
-    expect(user).to be_valid
-  end
-
-  # 名前の入力がなければ無効な状態であること
-  it "is invalid without name" do
-    user = FactoryBot.build(:user, name: "")
-    user.valid?
-    expect(user.errors[:name]).to include("can't be blank")
-  end
-
- 
-
-  
-
-  # 大文字で入力されたemailが小文字で登録されること
-  it "is invalid email with 255 characters" do
-    pending("something else getting finished")
-    this_should_not_get_executed
-  end
-
-  # 大小文字混在したemailで登録済みEmailと一致したら無効になること
-  it "x" do
-    pending("something else getting finished")
-    this_should_not_get_executed
-    # user = FactoryBot.build(:user)
-    # user.email && User.find_by(params[:email])
-  end
-
-  # Passwordの入力がなければ無効な状態であること
-  it "is invalid without Password" do
-    user = FactoryBot.build(:user, password: "")
-    user.valid?
-    expect(user.errors[:password]).to include("can't be blank")
-  end
-
-  # Password Confirmationの入力がなければ無効な状態であること
-  it "is invalid without Password Confirmation" do
-    user = FactoryBot.build(:user, password_confirmation: "")
-    user.valid?
-    expect(user.errors[:password_confirmation]).to include("can't be blank")
-  end
-
-  # 重複したメールアドレスなら無効な状態であること
-  it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
-
-  # パスワードとパスワード確認に異なる値が入力されたら無効であること
-  it "is invalid with a diffirent Password from Password Confirmation" do
-    user = FactoryBot.build(:user, password_confirmation: "passwor")
-    user.valid?
-    expect(user.password_confirmation).to_not eq user.password
-    expect(user.errors[:password_confirmation]).to include("doesn't match Password")
-  end
-
-  # スペルが同じでパスワード(小文字)・パスワード確認(大文字)が入力されたら無効であること
-  it "is invalid with same Passwords what is UPPER or down cases" do
-    user = FactoryBot.build(:user, password_confirmation: "PASSWORD")
-    user.valid?
-    expect(user.password_confirmation).to_not eq user.password
-  end
-
-  # Passwordの入力が５文字ならば無効な状態であること
-  it "is invalid with a Password in 5 charactors" do
-    user = FactoryBot.build(:user, password: 'a' * 5, \
-                                   password_confirmation: "aaaaa")
-    user.valid?
-    expect(user.errors[:password]).to include("is too short (minimum is 6 characters)")
+    describe "Password Confirm Form" do
+      it { should validate_confirmation_of(:password) }
+      describe "with blank" do
+        it "is invalid" do
+          user = FactoryBot.build(:user, password_confirmation: "")
+          expect(user).to_not be_valid
+        end
+      end
+      describe "included a nagetive password" do
+        it "is invalid" do
+          user = FactoryBot.build(:user, password_confirmation: "passwor")
+          expect(user).to_not be_valid
+        end
+        it "(with Upper case) is invalid" do
+          user = FactoryBot.build(:user, password_confirmation: "PASSWORD")
+          expect(user).to_not be_valid
+        end
+        it "(with space) is invalid" do
+          user = FactoryBot.build(:user, password_confirmation: " password")
+          expect(user).to_not be_valid
+        end
+      end
+    end
   end
 end
