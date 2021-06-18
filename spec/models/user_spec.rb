@@ -20,8 +20,85 @@ RSpec.describe User, type: :model do
       expect(@user).to be_valid
     end
   end
+  describe "Name Form" do
+    describe "filled with word length" do
+      context "is 0(zero)" do
+        it "is invalid" do
+          user = FactoryBot.build(:user, name: "")
+          expect(user).to_not be_valid
+        end
+      end
+      context "is 1" do
+        it "is valid" do
+          user = FactoryBot.build(:user, name: "a")
+          expect(user).to be_valid
+        end
+      end
+      context "is 140" do
+        it "is valid" do
+          user = FactoryBot.build(:user, name: "Adolph Blaine Charles David Earl Frederick Gerald Hubert Irvin John Kenneth Lloyd Martin  Oliver Paul Quincy Randolph Sherman Thomas, Senior")
+          expect(user).to be_valid
+        end
+      end
+      context "is 141" do
+        it "is invalid" do
+          user = FactoryBot.build(:user, name: "Adolphe Blaine Charles David Earl Frederick Gerald Hubert Irvin John Kenneth Lloyd Martin  Oliver Paul Quincy Randolph Sherman Thomas, Senior")
+          expect(user).to_not be_valid
+        end
+      end
+    end
+  end
+  describe "Charactor Type" do
+    context "漢字・ひらがな・カタカナ(全角)" do
+      it "is valid" do
+        user = FactoryBot.build(:user, name: "吾輩は猫である。名前はまだ無い。どこで生れたか見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。この書生というのは時々我々を捕まえて")
+        expect(user).to be_valid
+      end
+    end
+    context "半角カタカナ" do
+      it "is valid" do
+        user = FactoryBot.build(:user, name: "ﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂｶﾇ｡ﾅﾝﾃﾞﾓｳｽｸﾞﾗｲｼﾞﾒｼﾞﾒｼﾀﾄｺﾛﾃﾞﾆｬｰﾆｬｰﾅｲﾃｲﾀｺﾄﾀﾞｹﾊｷｵｸｼﾃｲﾙ｡ﾜｶﾞﾊｲﾊｺｺﾃﾞﾊｼﾞﾒﾃﾆﾝｹﾞﾝﾄｲｳﾓﾉｦﾐﾀ｡ｼｶﾓｱﾄﾃﾞｷｸﾄｿﾚﾊｼｮｾｲﾄ")
+        expect(user).to be_valid
+      end
+    end
+    context "English(Upper/Down Case)" do
+      it "is valid" do
+        user = FactoryBot.build(:user, name: "From fairest creatures we desire increase, That thereby beauty's rose might never die, But as the riper should by time decease, His tender h")
+        expect(user).to be_valid
+      end
+    end
+    context "symbol" do
+      it "is valid" do
+        user = FactoryBot.build(:user, name: "。,.・:;?!_〃々〆―‐/～()〔〕{}〈〉《》「」『』【】()〔〕[]{}〈〉《》「」『』【】-±×÷≠<>≦≧∞∴♂♀°′″℃\$￠￡%#&*@§☆★○×●◎◇◆□■△▲▽▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξ")
+        expect(user).to be_valid
+      end
+    end
+    context "Number" do
+      it "is valid" do
+        user = FactoryBot.build(:user, name: "88991646493833403４５３１７５１９０２４８７５１０４３６５１８２７４６１８２5583930475933309375106426114774904555295339660573207200961918790742222502268864235692475344959")
+        expect(user).to be_valid
+      end
+    end
+    context "Emoji" do
+      it "is valid" do
+        user = FactoryBot.build(:user, name: "👨‍👩‍👦‍👦"*140)
+        expect(user).to be_valid
+      end
+      it "is invalid 141 charactors" do
+        user = FactoryBot.build(:user, name: "👨‍👩‍👦‍👦"*141)
+        expect(user).to_not be_valid
+      end
+    end
+  end
+  describe "Registrated Name" do
+    it "is valid" do
+      @user.save!
+      same_name_user = FactoryBot.build(:user, email: "test1@example.com")
+      expect(same_name_user).to be_valid
+    end
+  end
   # Modified Format End
-
+  
   # 有効なファクトリを持つこと
   it "has a valid factory" do
     expect(FactoryBot.build(:user)).to be_valid
@@ -45,19 +122,9 @@ RSpec.describe User, type: :model do
     expect(user.errors[:name]).to include("can't be blank")
   end
 
-  # emailの入力がなければ無効な状態であること
-  it { is_expected.to validate_presence_of :email }
+ 
 
-  # emailの文字数が(最小)3文字ならば有効であること
-  it { should validate_length_of(:email).is_at_least(3) }
-
-  # emailの文字数が(最大) 254文字ならば有効であること
-  it { should validate_length_of(:email).is_at_most(254) }
-
-  # emailの文字数が(最小)2文字ならば無効であること
-  it { should_not validate_length_of(:email).is_at_least(2) }
-  # emailの文字数が(最大)255文字ならば無効であること
-  it { should_not validate_length_of(:email).is_at_most(255) }
+  
 
   # 大文字で入力されたemailが小文字で登録されること
   it "is invalid email with 255 characters" do
