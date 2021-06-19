@@ -105,6 +105,20 @@ RSpec.describe Brand, type: :model do
         expect(same_name_brand).to_not be_valid
       end
     end
+    describe 'in Japanese,' do
+      it "ひらがな and 全角カタカナ is valid" do
+        same_name_brand_hiragana = FactoryBot.build(:brand, name: "あっぷる")
+        same_name_brand_full_width_katakana = FactoryBot.build(:brand, name: "アップル")
+        expect(same_name_brand_hiragana).to be_valid
+        expect(same_name_brand_full_width_katakana).to be_valid
+      end
+      it "半角カタカナ and 全角カタカナ is valid" do
+        same_name_brand_half_width_katakana = FactoryBot.build(:brand, name: "ｱｯﾌﾟﾙ")
+        same_name_brand_full_width_katakana = FactoryBot.build(:brand, name: "アップル")
+        expect(same_name_brand_half_width_katakana).to be_valid
+        expect(same_name_brand_full_width_katakana).to be_valid
+      end
+    end
   end
   describe "image" do
     describe "File" do
@@ -114,7 +128,7 @@ RSpec.describe Brand, type: :model do
           expect(@brand).to be_valid
         end
       end
-      context "has a JPEG format" do
+      context "has a  format" do
         it "is valid" do
           @brand.image = fixture_file_upload("files/image/image_test_3kb.jpeg")
           expect(@brand).to be_valid
