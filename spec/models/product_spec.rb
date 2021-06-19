@@ -70,21 +70,21 @@ RSpec.describe Product, type: :model do
         @product.save!
       end
       describe 'in same Upper/Down cases' do
-        it "is invalid" do
+        it "is valid" do
           same_name_product = FactoryBot.build(:product)
-          expect(same_name_product).to_not be_valid
+          expect(same_name_product).to be_valid
         end
       end
       describe 'in same Upper cases' do
-        it "is invalid" do
+        it "is valid" do
           same_name_product = FactoryBot.build(:product, name: "PHONE-1")
-          expect(same_name_product).to_not be_valid
+          expect(same_name_product).to be_valid
         end
       end
       describe 'in same down cases' do
-        it "is invalid" do
+        it "is valid" do
           same_name_product = FactoryBot.build(:product, name: "phone-1")
-          expect(same_name_product).to_not be_valid
+          expect(same_name_product).to be_valid
         end
       end
       describe 'in Japanese,' do
@@ -163,9 +163,9 @@ RSpec.describe Product, type: :model do
         end
       end
       context "Emoji" do
-        it "is valid" do
+        it "is invalid" do
           product = FactoryBot.build(:product, brand_id: "👨‍👩‍👦‍👦")
-          expect(product).to be_valid
+          expect(product).to_not be_valid
         end
       end
     end
@@ -209,13 +209,13 @@ RSpec.describe Product, type: :model do
           end
         end
         context "Number" do
-          it "(harf-width) is valid" do
+          it "(half-width) is invalid" do
             product = FactoryBot.build(:product, soc_antutu_score: "1")
-            expect(product).to be_valid
+            expect(product).to_not be_valid
           end
-          it "(full-width) is valid" do
+          it "(full-width) is invalid" do
             product = FactoryBot.build(:product, soc_antutu_score: "１")
-            expect(product).to be_valid
+            expect(product).to_not be_valid
           end
         end
         context "Emoji" do
