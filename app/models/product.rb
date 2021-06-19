@@ -4,8 +4,12 @@ class Product < ApplicationRecord
   has_one_attached :image
   validates :brand_id, presence: true
   validates :name, presence: true, length: { in: 1..50 }
-  validates :soc_antutu_score, presence: true
-  validates :battery_capacity, presence: true
+  validates :soc_antutu_score, presence: true,
+                               numericality: { only_integer: true,
+                                               greater_than_or_equal_to: 1 }
+  validates :battery_capacity, presence: true,
+                               numericality: { only_integer: true,
+                                               grater_than_or_equal_to: 1 }
   validates :image, content_type: { in: %w[image/jpeg image/gif image/png],
                                     message: "must be a valid image format" },
                     size: { less_than: 5.megabytes,
