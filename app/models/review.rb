@@ -5,8 +5,11 @@ class Review < ApplicationRecord
   # default_scope -> { order(created_at: :desc)}
   has_many :likes, dependent: :destroy
 
-  validates :user_id, presence: true
-  validates :product_id, presence: true
+  validates :user_id, presence: true,
+                      numericality: { only_integer: true,greater_than_or_equal_to: 1 }
+  validates :product_id, presence: true,
+                         numericality: { only_integer: true,
+                                         greater_than_or_equal_to: 1 }
   validates :content, presence: true, length: { in: 1..140 }
   validates :image, content_type: { in: %w[image/jpeg image/gif image/png],
                                     message: "must be a valid image format" },

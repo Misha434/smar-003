@@ -3,96 +3,259 @@ require 'rails_helper'
 RSpec.describe Review, type: :model do
   before do
     @brand = FactoryBot.create(:brand)
+    @product = FactoryBot.create(:product)
     @user = FactoryBot.create(:user)
-    @product = FactoryBot.create(:product, brand_id: @brand.id)
-
-    @review = FactoryBot.create(:review, user_id: @user.id, \
-                                         product_id: @product.id)
-  end
-
-  # 有効なファクトリを持つこと
-  it "has a valid factory" do
-    expect(@review).to be_valid
-  end
-
-  # contentの入力がなければ無効な状態であること
-  it { should validate_presence_of(:content) }
-
-  # product_idの入力がなければ無効な状態であること
-  it { should validate_presence_of(:product_id) }
-
-  # contentの入力が140文字までであれば有効な状態であること
-  it { should validate_length_of(:content).is_at_most(140) }
-
-  # contentの入力が1文字であれば有効な状態であること
-  it { should validate_length_of(:content).is_at_least(1) }
-
-  # contentの入力が141文字であれば無効な状態であること
-  it "has an invalid review with an 141 charactor" do
-    @review = FactoryBot.build(:review, content: "a" * 141)
-    expect(@review).to_not be_valid
-  end
-
-  # レビュー画像 アップロードが有効であること
-  it "is valid with a real image data" do
     @review = FactoryBot.build(:review)
-    @review.image = fixture_file_upload("files/image/image_test_logo.png")
-    expect(@review.valid?).to eq true
   end
-
-  # gif レビュー画像 アップロードが有効であること
-  it "is valid with a GIF image data" do
-    @review = FactoryBot.build(:review)
-    @review.image = fixture_file_upload("files/image/image_test_3kb.gif")
-    expect(@review.valid?).to eq true
+  describe 'Content Form filled-out' do
+    it 'is a valid' do
+      expect(@review).to be_valid
+    end
+    it 'with an attached image is a valid' do
+      @review.image = fixture_file_upload("files/image/image_test_logo.png")
+      expect(@review).to be_valid
+    end
   end
-
-  # jpeg レビュー画像 アップロードが有効であること
-  it "is valid with a JPEG image data" do
-    @review = FactoryBot.build(:review)
-    @review.image = fixture_file_upload("files/image/image_test_3kb.jpeg")
-    expect(@review.valid?).to eq true
+  describe 'Select Product form' do
+    context "about ID range" do
+      it 'is a invalid with empty' do
+        review = FactoryBot.build(:review, product_id: nil)
+        expect(review).to_not be_valid
+      end
+      it 'is a invalid with space' do
+        review = FactoryBot.build(:review, product_id: " 　")
+        expect(review).to_not be_valid
+      end
+      it 'is a invalid with not existing product_id: 0' do
+        review = FactoryBot.build(:review, product_id: -1)
+        expect(review).to_not be_valid
+      end
+      it 'is a invalid with not existing product_id: 0' do
+        review = FactoryBot.build(:review, product_id: 0)
+        expect(review).to_not be_valid
+      end
+      it 'is a invalid with not existing product_id selected' do
+        review = FactoryBot.build(:review, product_id: 2)
+        expect(review).to_not be_valid
+      end
+    end
+    context "about data-type" do
+      it 'of string or text is a valid' do
+        review = FactoryBot.build(:review, product_id: 1)
+        expect(review).to be_valid
+      end
+      it 'of string or text has full-width charactor is a invalid' do
+        pending 'E2E test has passed'
+        review = FactoryBot.build(:review, product_id: １)
+        expect(review).to be_valid
+      end
+      it 'of integer is a invalid' do
+        pending "Consider after System Spec"
+        review = FactoryBot.build(:review, product_id: "1")
+        expect(review).to_not be_valid
+      end
+      it 'of float is a invalid' do
+        review = FactoryBot.build(:review, product_id: 1.1)
+        expect(review).to_not be_valid
+      end
+      it 'of boolean true is a invalid' do
+        review = FactoryBot.build(:review, product_id: true)
+        expect(review).to_not be_valid
+      end
+      it 'of boolean false is a invalid' do
+        review = FactoryBot.build(:review, product_id: false)
+        expect(review).to_not be_valid
+      end
+    end
   end
-
-  # png レビュー画像 アップロードが有効であること
-  it "is valid with a PNG image data" do
-    @review = FactoryBot.build(:review)
-    @review.image = fixture_file_upload("files/image/image_test_3kb.png")
-    expect(@review.valid?).to eq true
+  describe 'Reviewer User' do
+    context "about ID range" do
+      it 'is a invalid with empty' do
+        review = FactoryBot.build(:review, user_id: nil)
+        expect(review).to_not be_valid
+      end
+      it 'is a invalid with space' do
+        review = FactoryBot.build(:review, user_id: " 　")
+        expect(review).to_not be_valid
+      end
+      it 'is a invalid with not existing user_id: 0' do
+        review = FactoryBot.build(:review, user_id: -1)
+        expect(review).to_not be_valid
+      end
+      it 'is a invalid with not existing user_id: 0' do
+        review = FactoryBot.build(:review, user_id: 0)
+        expect(review).to_not be_valid
+      end
+      it 'is a invalid with not existing user_id selected' do
+        review = FactoryBot.build(:review, user_id: 2)
+        expect(review).to_not be_valid
+      end
+    end
+    context "about data-type" do
+      it 'of string or text is a valid' do
+        review = FactoryBot.build(:review, user_id: 1)
+        expect(review).to be_valid
+      end
+      it 'of string or text has full-width charactor is a invalid' do
+        pending "It is passed on E2E Test"
+        review = FactoryBot.build(:review, user_id: １)
+        expect(review).to be_valid
+      end
+      it 'of integer is a invalid' do
+        pending "Consider after System Spec"
+        review = FactoryBot.build(:review, user_id: "1")
+        expect(review).to_not be_valid
+      end
+      it 'of float is a invalid' do
+        review = FactoryBot.build(:review, user_id: 1.1)
+        expect(review).to_not be_valid
+      end
+      it 'of boolean true is a invalid' do
+        review = FactoryBot.build(:review, user_id: true)
+        expect(review).to_not be_valid
+      end
+      it 'of boolean false is a invalid' do
+        review = FactoryBot.build(:review, user_id: false)
+        expect(review).to_not be_valid
+      end
+    end
   end
-
-  # svg レビュー画像 アップロードが無効であること
-  it "is invalid with a SVG image data" do
-    @review = FactoryBot.build(:review)
-    @review.image = fixture_file_upload("files/image/image_test_3kb.svg")
-    expect(@review.valid?).to eq false
+  describe "Content Form" do
+    describe "filled with word length" do
+      context "is 0(zero)" do
+        it "is invalid" do
+          review = FactoryBot.build(:review, content: "")
+          expect(review).to_not be_valid
+        end
+      end
+      context "is 1" do
+        it "is valid" do
+          review = FactoryBot.build(:review, content: "a")
+          expect(review).to be_valid
+        end
+      end
+      context "is 140" do
+        it "is valid" do
+          review = FactoryBot.build(:review, content: "Adolph Blain Charles Dave Frederick Hubert Adolph Blaine Charles Dave Early Frederick Hubert Adolph Blaine Charles Dave Early Frederick Dave")
+          expect(review).to be_valid
+        end
+      end
+      context "is 141" do
+        it "is invalid" do
+          review = FactoryBot.build(:review, content: "Adolphe Blain Charles Dave Frederick Hubert Adolph Blaine Charles Dave Early Frederick Hubert Adolph Blaine Charles Dave Early Frederick Dave")
+          expect(review).to_not be_valid
+        end
+      end
+    end
   end
-
-  # psd レビュー画像 アップロードが無効であること
-  it "is invalid with a PSD image data" do
-    @review = FactoryBot.build(:review)
-    @review.image = fixture_file_upload("files/image/image_test_3kb.psd")
-    expect(@review.valid?).to eq false
+  describe "Charactor Type" do
+    context "漢字・ひらがな・カタカナ(全角)" do
+      it "is valid" do
+        review = FactoryBot.build(:review, content: "吾輩は猫である。名前はまだ無い。どこで生れたか見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー吾輩は猫である。名前はまだ無い。どこで生れたか見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー吾輩は猫である。名前はまだ無い。どこで生れたか見当がつかぬ。何でも薄暗いじめじめ")
+        expect(review).to be_valid
+      end
+    end
+    context "半角カタカナ" do
+      it "is valid" do
+        review = FactoryBot.build(:review, content: "ﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂｶﾇ｡ﾅﾝﾃﾞﾓｳｽﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂｶﾇ｡ﾅﾝﾃﾞﾓｳｽﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂ")
+        expect(review).to be_valid
+      end
+    end
+    context "English(Upper/Down Case)" do
+      it "is valid" do
+        review = FactoryBot.build(:review, content: "From fairest creatures we desire increase, That From fairest creatures we desire increase, That From fairest creatures we desire increase fa")
+        expect(review).to be_valid
+      end
+    end
+    context "symbol" do
+      it "is valid" do
+        review = FactoryBot.build(:review, content: "▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμν▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμν▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγ")
+        expect(review).to be_valid
+      end
+    end
+    context "Number" do
+      it "is valid" do
+        review = FactoryBot.build(:review, content: "88991646493833403４５３１７５１９０２４８７５１０４３６５１８２７４６１８２558388991646493833403４５３１７５１９０２４８７５１０４３６５１８２７４６１８２558388991646493833403４５３１７５１９０２４８７５１０４３６５１８２")
+        expect(review).to be_valid
+      end
+    end
+    context "Emoji" do
+      it "is invalid (4Byte)" do
+        review = FactoryBot.build(:review, content: "👨"*140)
+        expect(review).to be_valid
+      end
+      it "is valid (over 5Byte)" do
+        review = FactoryBot.build(:review, content: "👨‍👩‍👦‍👦"*140)
+        expect(review).to_not be_valid
+      end
+    end
   end
-
-  # bmp レビュー画像 アップロードが無効であること
-  it "is invalid with a BMP image data" do
-    @review = FactoryBot.build(:review)
-    @review.image = fixture_file_upload("files/image/image_test_3kb.bmp")
-    expect(@review.valid?).to eq false
+  describe "Posted Review" do
+    before do
+      @review.save!
+    end
+    context "for the same product" do
+      it "is invalid" do
+        review = FactoryBot.build(:review)
+        expect(review).to_not be_valid
+      end
+    end
+    context "for other product" do
+      it "is valid" do
+        FactoryBot.create(:product, id: 2, name: "Phone-2")
+        review = FactoryBot.build(:review, product_id: 2)
+        expect(review).to be_valid
+      end
+    end
   end
-
-  # 5MBのレビュー画像 アップロードは有効であること
-  it "is valid with a image data 5MB" do
-    @review = FactoryBot.build(:review)
-    @review.image = fixture_file_upload("files/image/image_test_5mb.jpeg")
-    expect(@review.valid?).to eq true
-  end
-
-  # 6MB以上のレビュー画像 アップロードは無効であること
-  it "is invalid with a image data over 6MB" do
-    review = FactoryBot.build(:review)
-    review.image = fixture_file_upload("files/image/image_test_6mb.jpeg")
-    expect(review.valid?).to eq false
+  describe "image" do
+    describe "File" do
+      context "has a GIF format" do
+        it "is valid" do
+          @review.image = fixture_file_upload("files/image/image_test_3kb.gif")
+          expect(@review).to be_valid
+        end
+      end
+      context "has a  format" do
+        it "is valid" do
+          @review.image = fixture_file_upload("files/image/image_test_3kb.jpeg")
+          expect(@review).to be_valid
+        end
+      end
+      context "has a PNG format" do
+        it "is valid" do
+          @review.image = fixture_file_upload("files/image/image_test_3kb.png")
+          expect(@review).to be_valid
+        end
+      end
+      context "has a SVG format" do
+        it "is invalid" do
+          @review.image = fixture_file_upload("files/image/image_test_3kb.svg")
+          expect(@review).to_not be_valid
+        end
+      end
+      context "has a PSD format" do
+        it "is invalid" do
+          @review.image = fixture_file_upload("files/image/image_test_3kb.psd")
+          expect(@review).to_not be_valid
+        end
+      end
+      context "has a BMP format" do
+        it "is invalid" do
+          @review.image = fixture_file_upload("files/image/image_test_3kb.bmp")
+          expect(@review).to_not be_valid
+        end
+      end
+    end
+    describe "File size" do
+      it "5MB is valid" do
+        @review.image = fixture_file_upload("files/image/image_test_5mb.jpeg")
+        expect(@review).to be_valid
+      end
+      it "6MB is invalid" do
+        @review.image = fixture_file_upload("files/image/image_test_6mb.jpeg")
+        expect(@review).to_not be_valid
+      end
+    end
   end
 end
