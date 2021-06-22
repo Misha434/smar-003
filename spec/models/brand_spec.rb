@@ -74,11 +74,11 @@ RSpec.describe Brand, type: :model do
     end
     context "Emoji" do
       it "is valid" do
-        brand = FactoryBot.build(:brand, name: "👨‍👩‍👦‍👦"*50)
+        brand = FactoryBot.build(:brand, name: "👨"*50)
         expect(brand).to be_valid
       end
       it "is invalid 51 charactors" do
-        brand = FactoryBot.build(:brand, name: "👨‍👩‍👦‍👦"*51)
+        brand = FactoryBot.build(:brand, name: "👨"*51)
         expect(brand).to_not be_valid
       end
     end
@@ -128,7 +128,7 @@ RSpec.describe Brand, type: :model do
           expect(@brand).to be_valid
         end
       end
-      context "has a  format" do
+      context "has a jpeg format" do
         it "is valid" do
           @brand.image = fixture_file_upload("files/image/image_test_3kb.jpeg")
           expect(@brand).to be_valid
