@@ -1,83 +1,180 @@
 require 'rails_helper'
 
 RSpec.describe Brand, type: :system do
+  
+  # Modify format Start 
+  describe 'As Admin User,' do
+    describe 'Create Action' do
+      context 'filled in Name field' do
+        it 'is available' do
+          
+        end
+      end
+      context 'filled in Name field and image' do
+        it 'is available' do
+          
+        end
+      end
+      describe 'about Name field' do
+        describe 'charactor count' do
+          context 'is 0(zero)' do
+            it 'is unavailable' do
+              
+            end
+          end
+          # context '' do
+          #   it 'is available' do
+          
+          #   end
+          # end
+          # context '' do
+          #   it 'is unavailable' do
+          
+          #   end
+          # end
+        end
+        describe 'charactor type' do
+          context 'is 漢字・ひらがな・全角カタカナ' do
+            it 'is available' do
+              
+            end
+          end
+          context 'is 半角カタカナ' do
+            it 'is available' do
+              
+            end
+          end
+        end
+        describe 'registrated' do
+          it 'is available' do
+          end
+        end
+      end
+      describe 'about image field' do
+        describe 'file format' do
+          context 'jpeg' do
+            it 'is available' do
+            end
+          end
+          context 'png' do
+            it 'is available' do
+            end
+          end
+          context 'svg' do
+            it 'is unavailable' do
+            end
+          end
+          context 'gif' do
+            it 'is unavailable' do
+            end
+          end
+          context 'bmp' do
+            it 'is unavailable' do
+            end
+          end
+        end
+        describe 'file size' do
+          context '6MB' do
+            it 'is available' do
+            end
+          end
+          context 'over 6MB' do
+            it 'is unavailable' do
+            end
+          end
+        end
+      end
+      describe 'about image field(JS)' do
+      end
+    end
+    describe 'Show Action' do
+    
+    end
+    describe 'Update Action' do
+    
+    end
+    describe 'Delete Action' do
+    
+    end
+  end
+  # Modify format End 
   describe 'Brand Page'
-  describe 'Access Authenticate' do
-    describe 'as Pre-Login User,' do
-      it 'is validate brand index page' do
-        visit '/brands'
-        expect(page).to have_content('Brand')
-      end
-      it 'is not validate brand new page' do
-        visit '/brands/new'
-        expect(page).to have_content('Log in')
-      end
-    end
-    describe 'brand show' do
-      before do
-        @brand = FactoryBot.create(:brand)
-      end
-      it 'can access brand show page' do
-        visit '/brands/1'
-        expect(page).to have_content('Apple')
-      end
-    end
-    describe 'Edit page' do
-      before do
-        @brand = FactoryBot.create(:brand)
-      end
-      it 'cannot be accessable' do
-        visit '/brands/1/edit'
-        expect(page).to have_content('Login')
-      end
-    end
-    describe 'destroy' do
-      before do
-        @brand = FactoryBot.create(:brand)
-      end
-      it 'can access brand destroy page' do
-        page.driver.submit :delete, '/brands/1', {}
-        expect(page).to have_content('Login')
-      end
-    end
-
-    describe 'As a Normal Login User' do
-      before do
-        @brand = FactoryBot.create(:brand)
-        @user = FactoryBot.create(:user)
-        visit '/users/sign_in'
-        fill_in "Email", with: @user.email
-        fill_in "Password", with: @user.password
-        click_button "Log in"
-        expect(page).to have_content 'Signed in'
-      end
-      describe 'has Access Authenticate' do
-        it 'to access brand index page' do
+    describe 'Access Authenticate' do
+      describe 'as Pre-Login User,' do
+        it 'is validate brand index page' do
           visit '/brands'
-          expect(page).to have_content('Apple')
+          expect(page).to have_content('Brand')
         end
-        it 'not to access brand new page' do
+        it 'is not validate brand new page' do
           visit '/brands/new'
-          expect(page).to have_content('Aaron')
+          expect(page).to have_content('Log in')
         end
-        it 'to access brand show page' do
+      end
+      describe 'brand show' do
+        before do
+          @brand = FactoryBot.create(:brand)
+        end
+        it 'can access brand show page' do
           visit '/brands/1'
           expect(page).to have_content('Apple')
         end
-
-        it 'not to access brand edit page' do
-          visit '/brands/1/edit'
-          expect(page).to have_content('Aaron')
+      end
+      describe 'Edit page' do
+        before do
+          @brand = FactoryBot.create(:brand)
         end
-
+        it 'cannot be accessable' do
+          visit '/brands/1/edit'
+          expect(page).to have_content('Login')
+        end
+      end
+      describe 'destroy' do
+        before do
+          @brand = FactoryBot.create(:brand)
+        end
         it 'can access brand destroy page' do
           page.driver.submit :delete, '/brands/1', {}
-          visit '/brands'
-          expect(page).to have_content('Apple')
+          expect(page).to have_content('Login')
+        end
+      end
+
+      describe 'As a Normal Login User' do
+        before do
+          @brand = FactoryBot.create(:brand)
+          @user = FactoryBot.create(:user)
+          visit '/users/sign_in'
+          fill_in "Email", with: @user.email
+          fill_in "Password", with: @user.password
+          click_button "Log in"
+          expect(page).to have_content 'Signed in'
+        end
+        describe 'has Access Authenticate' do
+          it 'to access brand index page' do
+            visit '/brands'
+            expect(page).to have_content('Apple')
+          end
+          it 'not to access brand new page' do
+            visit '/brands/new'
+            expect(page).to have_content('Aaron')
+          end
+          it 'to access brand show page' do
+            visit '/brands/1'
+            expect(page).to have_content('Apple')
+          end
+
+          it 'not to access brand edit page' do
+            visit '/brands/1/edit'
+            expect(page).to have_content('Aaron')
+          end
+
+          it 'can access brand destroy page' do
+            page.driver.submit :delete, '/brands/1', {}
+            visit '/brands'
+            expect(page).to have_content('Apple')
+          end
         end
       end
     end
-  end
 end
 
 describe 'As Admin User' do
