@@ -1,6 +1,7 @@
 class BrandsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit destroy]
   before_action :admin_user, only: %i[new create edit update destroy]
+  include Pagy::Backend
   def new
     @brand = Brand.new
   end
@@ -16,7 +17,7 @@ class BrandsController < ApplicationController
   end
 
   def index
-    @brands = Brand.all
+    @pagy, @brands = pagy(Brand.all)
   end
 
   def show
