@@ -216,7 +216,17 @@ RSpec.describe Brand, type: :system do
         end
       end
     end
-    xdescribe 'Show Action' do
+    describe 'Index Action' do
+      before do
+        
+        within('header') do
+          click_on 'Brands'
+        end
+      end
+      describe '' do
+      end
+    end
+    describe 'Show Action' do
     
     end
     describe 'Update Action' do
