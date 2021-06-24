@@ -34,6 +34,7 @@ RSpec.describe Brand, type: :system do
   describe 'As Admin User,' do
     before do
       @brand = FactoryBot.build(:brand)
+      @product = FactoryBot.build(:product)
       @admin_user = FactoryBot.create(:user, admin: true)
       visit root_path
       within('header') do
@@ -309,7 +310,55 @@ RSpec.describe Brand, type: :system do
     end
 
     describe 'Show Action' do
-    
+      before do
+        @brand.save!
+        @product.save!
+        click_on 'Brands'
+        click_on 'Apple'
+        visit current_path
+      end
+      describe 'each product' do
+        it 'indicates correct name' do
+          expect(page).to have_content('Apple')
+          within('#product-1') do
+            expect(page).to have_content('Phone-1')
+          end
+        end
+      end
+      describe 'product link' do
+        it 'is available' do
+          within('#product-1') do
+            expect(page).to have_content('Phone-1')
+          end
+          expect(page).to have_content('Apple')
+          expect(page).to have_content('Phone-1')
+        end
+      end
+      describe 'review count' do
+        before do
+          within('#product-1') do
+            expect(page).to have_content('Phone-1')
+          end
+        end
+        context 'if 1 review exist' do
+          it 'is correct' do
+            FactoryBot.create(:review)
+            visit current_path
+            expect(page).to have_content('1 review')
+          end
+        end
+        context 'if 2 reviews exist' do
+          it 'is correct' do
+            FactoryBot.create(:user, id: 2, name: 'user2', email: "test-1@example.com")
+            FactoryBot.create(:review)
+            FactoryBot.create(:review, id: 2, user_id: 2)
+            visit current_path
+            within('#product-1') do
+              expect(page).to have_content('2 reviews')
+            end
+          end
+        end
+      end
     end
     describe 'Update Action' do
     
