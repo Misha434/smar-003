@@ -2,6 +2,34 @@ require 'rails_helper'
 
 RSpec.describe Brand, type: :system do
   
+  def create_brand(i)
+    i = i.to_i
+    i.times do |n|
+      name = "Brand-#{ n + 1 }"
+      Brand.create!(
+        id: n + 1,
+        name: name
+      )
+    end
+  end
+  def create_product(i)
+    i = i.to_i
+    i.times do |n|
+      name = "Phone-#{ n + 1 }"
+      soc_antutu_score = 100
+      battery_capacity = ( n + 1 ) * 1000
+      brand_id = 1
+      image= ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
+      filename: "product-photo-#{n}.jpeg")
+      Product.create!(
+        name: name,
+        soc_antutu_score: soc_antutu_score,
+        battery_capacity: battery_capacity,
+        brand_id: brand_id,
+        image: image
+      )
+    end
+  end
   # Modify format Start 
   describe 'As Admin User,' do
     before do
@@ -218,14 +246,68 @@ RSpec.describe Brand, type: :system do
     end
     describe 'Index Action' do
       before do
-        
-        within('header') do
-          click_on 'Brands'
+        click_on 'Brands'
+      end
+      describe 'each brand' do
+        before do
+          @brand.save!
+          visit current_path
+        end
+        it 'link is available' do
+          click_on 'Apple' 
+          expect(page).to have_content('Apple')
+        end
+        it 'Product count is correct(product no exist)' do
+          expect(page).to have_content('0 Products')
+        end
+        it 'Product count is correct(1 product exist)' do
+          FactoryBot.create(:product)
+          visit current_path
+          expect(page).to have_content('1 Product')
+        end
+        it 'Product count is correct(2 products exist)' do
+          create_product(2)
+          visit current_path
+          expect(page).to have_content('2 Products')
+        end
+        it 'Edit link is available' do
+          pending 'Write after adding edit link'
         end
       end
-      describe '' do
+      describe 'Pagination' do
+        describe 'if brands exist equal to and less than 10' do
+          before do
+            create_brand(10)
+            visit current_path
+          end
+          it 'is disable' do
+            expect(page).to have_content('Brand-1')
+            expect(page).to have_content('Brand-5')
+            expect(page).to have_content('Brand-10')
+            expect(page).to_not have_css('.page-item')
+          end
+        end
+        describe 'if brands exist greater than 10' do
+          before do
+            create_brand(11)
+            visit current_path
+          end
+          it 'is available' do
+            expect(page).to have_content('Brand-1')
+            expect(page).to have_content('Brand-5')
+            expect(page).to have_content('Brand-10')
+            expect(page).to have_css('.page-item')
+            within('.page-item.next') do
+              click_on 'Next' 
+            end
+            expect(page).to have_content('Brand-11')
+            click_on 'Brand-11'
+            expect(page).to have_content('Brand-11')
+          end
+        end
       end
     end
+
     describe 'Show Action' do
     
     end
