@@ -11,7 +11,7 @@
     - @brand.products.each do |product|
       .row
         .col-12.col-md-6
-          li.card id = "products-'#{product.id}'"
+          li.card id = "product-#{product.id}"
             .row
               .col-4
                 = product_image_default(product)
