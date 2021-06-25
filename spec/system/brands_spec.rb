@@ -272,7 +272,8 @@ RSpec.describe Brand, type: :system do
           expect(page).to have_content('2 Products')
         end
         it 'Edit link is available' do
-          pending 'Write after adding edit link'
+          find(:css,'.edit_link').click
+          expect(page).to have_content('Edit a New Brand')
         end
       end
       describe 'Pagination' do
