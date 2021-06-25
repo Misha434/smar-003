@@ -309,7 +309,6 @@ RSpec.describe Brand, type: :system do
         end
       end
     end
-
     describe 'Show Action' do
       before do
         @brand.save!
@@ -318,9 +317,19 @@ RSpec.describe Brand, type: :system do
         click_on 'Apple'
         visit current_path
       end
+      describe 'Brand Title' do
+        it 'indicates correct brand name' do
+          expect(page).to have_content('Apple')
+        end
+        it 'edits brand link is available' do
+          within('.brand_title') do
+            find(:css,'.edit_link').click
+          end
+          expect(page).to have_content('Edit a New Brand')
+        end
+      end
       describe 'each product' do
         it 'indicates correct name' do
-          expect(page).to have_content('Apple')
           within('#product-1') do
             expect(page).to have_content('Phone-1')
           end
@@ -333,6 +342,12 @@ RSpec.describe Brand, type: :system do
           end
           expect(page).to have_content('Apple')
           expect(page).to have_content('Phone-1')
+        end
+        it 'for editing product is available' do
+          within('#product-1') do
+            find(:css,'.edit_link').click
+          end
+          expect(page).to have_content('Edit Product')
         end
       end
       describe 'review count' do
