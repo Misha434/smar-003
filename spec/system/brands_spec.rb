@@ -377,7 +377,216 @@ RSpec.describe Brand, type: :system do
       end
     end
     describe 'Update Action' do
-    
+      before do
+        @brand.save!
+        @product.save!
+        click_on 'Brands'
+      end
+      describe 'from brands#index' do
+        it 'is available' do
+          within('#brand-1') do
+            find(:css,'.edit_link').click
+          end
+          fill_in 'Name', with: 'Example Inc'
+          click_button "Update Brand"
+          expect(page).to have_content 'Example Inc'
+        end
+      end
+      describe 'from brands#show' do
+        it 'is available' do
+          click_on 'Apple'
+          within('.brand_title') do
+            find(:css,'.edit_link').click
+          end
+          fill_in 'Name', with: 'Example Inc'
+          click_button "Update Brand"
+          expect(page).to have_content 'Example Inc'
+        end
+      end
+      describe 'Edit form validation' do
+        before do
+          within('#brand-1') do
+            find(:css,'.edit_link').click
+          end
+        end
+        describe 'charactor count' do
+          context 'is 0(zero)' do
+            it 'is unavailable' do
+              fill_in 'Name', with: ''
+              click_button "Update Brand"
+              expect(page).to have_content 'Edit a New Brand'
+              expect(page).to have_content "Name can't be blank"
+            end
+          end
+          context 'is 1' do
+            it 'is available' do
+              fill_in 'Name', with: 'X'
+              click_button "Update Brand"
+              expect(page).to have_content 'X'
+            end
+          end
+          context 'is 50' do
+            it 'is available' do
+              testdata_brand_name = 'Aaron and associates Example Company East Asia Inc'
+              fill_in 'Name', with: testdata_brand_name
+              click_button "Update Brand"
+              expect(page).to have_content testdata_brand_name
+            end
+          end
+          context 'is 51' do
+            it 'is unavailable' do
+              testdata_brand_name = 'Philip and associates Example Company East Asia Inc'
+              fill_in 'Name', with: testdata_brand_name
+              click_button "Update Brand"
+              expect(page).to have_content 'Edit a New Brand'
+              expect(page).to have_content "Name is too long"
+            end
+          end
+          describe 'charactor type' do
+            context 'is 漢字・ひらがな・全角カタカナ' do
+              it 'is available' do
+                testdata_brand_name = '株式会社東アジア・フィリップ・スミス・アンド・すずきたろう・アンド・さとうじろう・アソシエイツインク'
+                fill_in 'Name', with: testdata_brand_name
+                click_button "Update Brand"
+                expect(page).to have_content testdata_brand_name
+              end
+            end
+            context 'is 半角カタカナ' do
+              it 'is available' do
+                testdata_brand_name = 'ﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂｶﾇ｡ﾅﾝﾃﾞﾓｳｽ'
+                fill_in 'Name', with: testdata_brand_name
+                click_button "Update Brand"
+                expect(page).to have_content testdata_brand_name
+              end
+            end
+          end
+          context "English(Upper/Down Case)" do
+            it "is available" do
+              testdata_brand_name = "From fairest creatures we desire increase, That th"
+              fill_in 'Name', with: testdata_brand_name
+              click_button "Update Brand"
+              expect(page).to have_content testdata_brand_name
+            end
+          end
+          context "symbol" do
+            it "is available" do
+              testdata_brand_name = "▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμν"
+              fill_in 'Name', with: testdata_brand_name
+              click_button "Update Brand"
+              expect(page).to have_content testdata_brand_name
+            end
+          end
+          context "Number" do
+            it "is available" do
+              testdata_brand_name = "88991646493833403４５３１７５１９０２４８７５１０４３６５１８２７４６１８２5583"
+              fill_in 'Name', with: testdata_brand_name
+              click_button "Update Brand"
+              expect(page).to have_content testdata_brand_name
+            end
+          end
+          context "Emoji" do
+            it "is available" do
+              testdata_brand_name = "👨" * 50
+              fill_in 'Name', with: testdata_brand_name
+              click_button "Update Brand"
+              expect(page).to have_content testdata_brand_name
+            end
+            it "is unavailable 51 charactors" do
+              testdata_brand_name = "👨" * 51
+              fill_in 'Name', with: testdata_brand_name
+              click_button "Update Brand"
+              expect(page).to have_content 'Edit a New Brand'
+            end
+          end
+          context "space" do
+            it "only is unavailable" do
+              fill_in 'Name', with: ' 　'
+              expect(page).to have_content 'Edit a New Brand'
+            end
+          end
+          describe 'registrated' do
+            before do
+              @brand.save!
+              visit current_path #reload
+            end
+            it 'is unavailable' do
+              fill_in 'Name', with: @brand.name
+              expect(page).to have_content 'Edit a New Brand'
+            end
+          end
+          describe 'about image field' do
+            before do
+              @brand.save!
+              visit current_path #reload
+            end
+            describe 'file format' do
+              context 'gif' do
+                it 'is available' do
+                  attach_file "brand_image",
+                              "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.gif"
+                  click_button "Update Brand"
+                  expect(page).to have_content @brand.name
+                  expect(page).to have_css("img[src$='image_test_3kb.gif']")
+                end
+              end
+              context 'jpeg' do
+                it 'is available' do
+                  attach_file "brand_image",
+                              "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.jpeg"
+                  click_button "Update Brand"
+                  expect(page).to have_content @brand.name
+                  expect(page).to have_css("img[src$='image_test_3kb.jpeg']")
+                end
+              end
+              context 'png' do
+                it 'is available' do
+                  attach_file "brand_image",
+                              "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.png"
+                  click_button "Update Brand"
+                  expect(page).to have_content @brand.name
+                  expect(page).to have_css("img[src$='image_test_3kb.png']")
+                end
+              end
+              context 'svg' do
+                it 'is unavailable' do
+                  attach_file "brand_image",
+                              "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
+                  click_button "Update Brand"
+                  expect(page).to have_content 'Edit a New Brand'
+                end
+              end
+              context 'bmp' do
+                it 'is unavailable' do
+                  attach_file "brand_image",
+                              "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
+                  click_button "Update Brand"
+                  expect(page).to have_content 'Edit a New Brand'
+                end
+              end
+            end
+            describe 'file size' do
+              context 'less then 5MB' do
+                it 'is available' do
+                  attach_file "brand_image",
+                              "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
+                  click_button "Update Brand"
+                  expect(page).to have_content 'Apple'
+                  expect(page).to have_css("img[src$='image_test_5mb.jpeg']")
+                end
+              end
+              context 'greater than 6MB' do
+                it 'is unavailable' do
+                  attach_file "brand_image",
+                              "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
+                  click_button "Update Brand"
+                  expect(page).to have_content 'Edit a New Brand'
+                  expect(page).to have_content 'Image should be less than 5MB'
+                end
+              end
+            end
+          end
+        end
+      end
     end
     describe 'Delete Action' do
     
