@@ -21,9 +21,8 @@
               - if user_signed_in?
                 .row
                   .col-12
-                    = link_to brand, method: :delete, data:{confirm: "You sure?"}, 
-                      class: "delete_link" do
-                      i.fas.fa-trash-alt.fa-xs.pull-right
+                    = link_to edit_brand_path(brand), class: "edit_link" do
+                      i.fas.fa-pencil-alt.fa-xs.pull-right
         - if @pagy.vars[:count] > 10
           .d-flex.justify-content-center.mb-2
             == pagy_bootstrap_nav(@pagy)
