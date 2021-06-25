@@ -4,8 +4,10 @@
     .col-3
       .logo--frame
         = logo_image_default(@brand)
-    .col-9  
+    .col-9.d-flex
       h2 = @brand.name
+      = link_to edit_brand_path(@brand), class: "edit_link px-2" do
+                      i.fas.fa-pencil-alt.fa-xs.pull-right
 .container
   ol.products
     - @brand.products.each do |product|
@@ -16,5 +18,8 @@
               .col-4
                 = product_image_default(product)
               .col-8
-                p = link_to product.name, product
+                .d-flex
+                  p = link_to product.name, product
+                  = link_to edit_product_path(product), class: "edit_link px-2" do
+                    i.fas.fa-pencil-alt.fa-xs.pull-right
                 p = link_to pluralize(product.reviews.count,"review"), product
