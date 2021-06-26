@@ -1,6 +1,6 @@
 class Brand < ApplicationRecord
-  has_many :products
-  has_one_attached :image
+  has_many :products, dependent: :destroy
+  has_one_attached :image, dependent: :destroy
   validates :name, presence: true, uniqueness: { case_sensitive: false },
                    length: { maximum: 50 }
   validates :image, content_type: { in: %w[image/jpeg image/gif image/png],
