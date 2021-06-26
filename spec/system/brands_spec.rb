@@ -589,7 +589,45 @@ RSpec.describe Brand, type: :system do
       end
     end
     describe 'Delete Action' do
-    
+      before do
+        @brand.save!
+        @product.save!
+        FactoryBot.create(:review)
+        click_on 'Brands'
+        click_on 'Apple'
+        within('.brand_title') do
+          find(:css,'.edit_link').click
+        end
+      end
+      describe 'in brands#edit' do
+        it 'is available' do
+          expect(page).to have_content 'Edit a New Brand'
+          within('.d-grid') do
+            click_on 'Delete'
+          end
+          expect(page).to have_content 'Apple'
+        end
+        describe 'works dependency' do
+          before do
+            within('.d-grid') do
+              click_on 'Delete'
+            end
+          end
+          it 'in products#index' do
+            visit '/products'
+            expect(page).to_not have_content 'Phone-1'
+          end
+          it 'in products#show' do
+            visit '/products/1'
+            expect(page).to have_content 'Phone-1'
+            click_on 'Apple'
+            find(:css, 'h2') do
+              expect(page).to have_content 'ブランド'
+            end
+            expect(page).to have_content 'Brand is not exist'
+          end
+        end
+      end
     end
   end
   # Modify format End 
