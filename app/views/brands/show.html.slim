@@ -6,8 +6,13 @@
         = logo_image_default(@brand)
     .col-9.d-flex
       h2 = @brand.name
-      = link_to edit_brand_path(@brand), class: "edit_link px-2" do
-                      i.fas.fa-pencil-alt.fa-xs.pull-right
+      - if current_user.nil?
+        return nil
+      - elsif current_user.admin?
+        = link_to edit_brand_path(@brand), class: "edit_link px-2" do
+                        i.fas.fa-pencil-alt.fa-xs.pull-right
+      - else
+        return nil
 .container
   ol.products
     - @brand.products.each do |product|
@@ -20,6 +25,11 @@
               .col-8
                 .d-flex
                   p = link_to product.name, product
-                  = link_to edit_product_path(product), class: "edit_link px-2" do
+                  - if current_user.nil?
+                    return nil
+                  - elsif current_user.admin?
+                    = link_to edit_product_path(product), class: "edit_link px-2" do
                     i.fas.fa-pencil-alt.fa-xs.pull-right
+                  - else
+                    return nil
                 p = link_to pluralize(product.reviews.count,"review"), product
