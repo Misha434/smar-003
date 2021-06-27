@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
   belongs_to :brand
-  has_many :reviews
+  has_many :reviews, dependent: :destroy
   has_one_attached :image
   validates :brand_id, presence: true
   validates :name, presence: true, length: { in: 1..50 }
