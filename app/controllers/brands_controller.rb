@@ -22,6 +22,12 @@ class BrandsController < ApplicationController
 
   def show
     @brand = Brand.find(params[:id])
+    if @brand.nil?
+      flash[:denger] = "Brand is not exist"
+      redirect_to brands_path
+    else
+      @brand
+    end
   end
 
   def destroy
@@ -29,7 +35,7 @@ class BrandsController < ApplicationController
     if @brand.destroy
       # @brand.image.purge if @brand.image.attched?
       flash[:success] = "Brand is deleted"
-      redirect_to users_url
+      redirect_to brands_path
     elsif current_user.admin == true
       flash[:denger] = "Fail to delete Brand"
       render 'edit'
