@@ -7,6 +7,6 @@
   - if user_signed_in?
     .row
       .col-12
-        = link_to product, method: :delete, data:{confirm: "You sure?"},
-          class: "delete_link" do
-          i.fas.fa-trash-alt.fa-xs.float-end
+        - if user_signed_in? && current_user.admin?
+          = link_to edit_product_path(product), class: "edit_link" do
+            i.fas.fa-pencil-alt.fa-xs.float-right
