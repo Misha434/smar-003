@@ -3,13 +3,13 @@
     .d-flex
       .d-block.px-2.text-center
         i.far.fa-thumbs-up aria-hidden="true"
-        p = "#{@product_like_countup}"
+        p.like_count = "#{@product_like_countup}"
       .d-block.px-2.text-center
         i.far.fa-comments aria-hidden="true"
-        p = "#{@product.reviews.count}"
+        p.review_count = "#{@product.reviews.count}"
       .d-block.px-2.text-center
         i.fa.fa-microchip.fa-xs aria-hidden="true"
-        p = "#{@product.soc_antutu_score}"
+        p.value_antutu = "#{@product.soc_antutu_score}"
       .d-block.px-2.text-center
         i.fa.fa-battery-full aria-hidden="true"
-        p = "#{@product.battery_capacity}mAh"
+        p.value_battery = "#{@product.battery_capacity}mAh"

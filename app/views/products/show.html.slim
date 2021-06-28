@@ -3,7 +3,11 @@
     .col-4
       = product_image_default(@product)
     .col-8
-      h2 = @product.name
+      .d-flex
+        h2.product_title = @product.name
+        - if user_signed_in? && current_user.admin?
+          = link_to edit_product_path(@product), class: "edit_link" do
+            i.fas.fa-pencil-alt.fa-xs.pull-right
       p = link_to @product.brand.name, @product.brand
     .col-12
       = render 'product_info'
