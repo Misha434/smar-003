@@ -25,12 +25,20 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+    begin
     if @product.save
       flash[:success] = "Add Product Successfully"
       redirect_to @product
     else
       @brands = Brand.all
       render 'new'
+    end
+    rescue ActiveRecord::RecordNotUnique => e
+      @brands = Brand.all
+      flash[:danger] = "Cannot add a same product as same brand"
+      render 'new'
+    rescue => e
+      puts e
     end
   end
 
