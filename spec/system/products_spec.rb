@@ -643,7 +643,7 @@ RSpec.describe Product, type: :system do
         end
       end
     end
-    xdescribe 'Delete Action', js: true do
+    describe 'Delete Action' do
       before do
         @brand.save!
         @product.save!
@@ -654,17 +654,15 @@ RSpec.describe Product, type: :system do
         end
         click_on 'Brands'
       end
-      describe 'in brands#show', js: true do
+      describe 'in brands#show' do
         it 'is available' do
           click_on 'Apple'
           within('#product-1') do
             find(:css,'.edit_link').click
           end
-          expect(page).to have_content 'Edit Product'
-          page.accept_confirm do
-            click_button 'Delete'
-          end
-          click_button 'Apple'
+          expect(page).to have_content 'Edit Product'          
+          find(:css, '.delete_link').click
+          expect(page).to have_content 'All Products'
           expect(page).to_not have_content 'Phone-1'
         end
         describe 'works dependency' do
@@ -674,9 +672,7 @@ RSpec.describe Product, type: :system do
             within('#product-1') do
               find(:css,'.edit_link').click
             end
-            within('.d-grid') do
-              click_on 'Delete'
-            end
+            find(:css, '.delete_link').click
           end
           it 'in products#index' do
             visit '/products'
@@ -684,12 +680,8 @@ RSpec.describe Product, type: :system do
           end
           it 'in products#show' do
             visit '/products/1'
-            expect(page).to have_content 'Phone-1'
-            click_on 'Apple'
-            find(:css, 'h2') do
-              expect(page).to have_content 'ブランド'
-            end
-            expect(page).to have_content 'Brand is not exist'
+            expect(page).to have_content 'All Products'
+            expect(page).to have_content 'Product does not exist'
           end
         end
       end
@@ -861,170 +853,135 @@ RSpec.describe Product, type: :system do
     end
   end
 
-  # describe 'As Guest User,' do
-  #   before do
-  #     @registrated_user = FactoryBot.create(:user)
-  #   end
-  #   describe 'Create Action' do
-  #     it 'is not available' do
-  #       visit '/brands/new'
-  #       expect(page).to_not have_content 'Add New Product'
-  #       expect(page).to have_content 'Log in'
-  #       fill_in "Email", with: @registrated_user.email
-  #       fill_in "Password", with: @registrated_user.password
-  #       click_button "Log in"
-  #       expect(page).to have_content 'Access denied'
-  #     end
-  #   end
-  #   describe 'Index Action' do
-  #     before do
-  #       click_on 'Brands'
-  #     end
-  #     describe 'each brand' do
-  #       before do
-  #         @brand.save!
-  #         visit current_path
-  #       end
-  #       it 'link is available' do
-  #         click_on 'Apple' 
-  #         expect(page).to have_content('Apple')
-  #       end
-  #       it 'Product count is correct(product no exist)' do
-  #         expect(page).to have_content('0 Products')
-  #       end
-  #       it 'Product count is correct(1 product exist)' do
-  #         FactoryBot.create(:product)
-  #         visit current_path
-  #         expect(page).to have_content('1 Product')
-  #       end
-  #       it 'Product count is correct(2 products exist)' do
-  #         create_product(2)
-  #         visit current_path
-  #         expect(page).to have_content('2 Products')
-  #       end
-  #       it 'Edit link is not available' do
-  #         expect(page).to_not have_css('.edit_link')
-  #       end
-  #     end
-  #     describe 'Pagination' do
-  #       describe 'if brands exist equal to and less than 10' do
-  #         before do
-  #           create_brand(10)
-  #           visit current_path
-  #         end
-  #         it 'is disable' do
-  #           expect(page).to have_content('Brand-1')
-  #           expect(page).to have_content('Brand-5')
-  #           expect(page).to have_content('Brand-10')
-  #           expect(page).to_not have_css('.page-item')
-  #         end
-  #       end
-  #       describe 'if brands exist greater than 10' do
-  #         before do
-  #           create_brand(11)
-  #           visit current_path
-  #         end
-  #         it 'is available' do
-  #           expect(page).to have_content('Brand-1')
-  #           expect(page).to have_content('Brand-5')
-  #           expect(page).to have_content('Brand-10')
-  #           expect(page).to have_css('.page-item')
-  #           within('.page-item.next') do
-  #             click_on 'Next' 
-  #           end
-  #           expect(page).to have_content('Brand-11')
-  #           click_on 'Brand-11'
-  #           expect(page).to have_content('Brand-11')
-  #         end
-  #       end
-  #     end
-  #   end
-  #   describe 'Show Action' do
-  #     before do
-  #       @brand.save!
-  #       @product.save!
-  #       click_on 'Brands'
-  #       click_on 'Apple'
-  #       visit current_path
-  #     end
-  #     describe 'Brand Title' do
-  #       it 'indicates correct brand name' do
-  #         expect(page).to have_content('Apple')
-  #       end
-  #       it 'edits brand link is not available' do
-  #         expect(page).to_not have_css('.edit_link')
-  #       end
-  #     end
-  #     describe 'each product' do
-  #       it 'indicates correct name' do
-  #         within('#product-1') do
-  #           expect(page).to have_content('Phone-1')
-  #         end
-  #       end
-  #     end
-  #     describe 'product link' do
-  #       it 'is available' do
-  #         within('#product-1') do
-  #           expect(page).to have_content('Phone-1')
-  #         end
-  #         expect(page).to have_content('Apple')
-  #         expect(page).to have_content('Phone-1')
-  #       end
-  #       it 'for editing product is not available' do
-  #         expect(page).to_not have_css('.edit_link')
-  #       end
-  #     end
-  #     describe 'review count' do
-  #       before do
-  #         within('#product-1') do
-  #           expect(page).to have_content('Phone-1')
-  #         end
-  #       end
-  #       context 'if 1 review exist' do
-  #         it 'is correct' do
-  #           FactoryBot.create(:review)
-  #           visit current_path
-  #           expect(page).to have_content('1 review')
-  #         end
-  #       end
-  #       context 'if 2 reviews exist' do
-  #         it 'is correct' do
-  #           FactoryBot.create(:user, id: 2, name: 'user2', email: "test-1@example.com")
-  #           FactoryBot.create(:review)
-  #           FactoryBot.create(:review, id: 2, user_id: 2)
-  #           visit current_path
-  #           within('#product-1') do
-  #             expect(page).to have_content('2 reviews')
-  #           end
-  #         end
-  #       end
-  #     end
-  #   end
-  #   describe 'Edit Action' do
-  #     before do
-  #       @brand.save!
-  #     end
-  #     it 'is not available' do
-  #       visit '/brands/1/edit'
-  #       expect(page).to have_content 'Log in'
-  #       fill_in "Email", with: @registrated_user.email
-  #       fill_in "Password", with: @registrated_user.password
-  #       click_button "Log in"
-  #       expect(page).to have_content 'Access denied'
-  #     end
-  #   end
-  #   describe 'Delete Action' do
-  #     before do
-  #       @brand.save!
-  #     end
-  #     it 'can access brand destroy page' do
-  #       page.driver.submit :delete, '/brands/1', {}
-  #       expect(page).to have_content 'Log in'
-  #       fill_in "Email", with: @registrated_user.email
-  #       fill_in "Password", with: @registrated_user.password
-  #       click_button "Log in"
-  #       click_on "Brands"
-  #       expect(page).to have_content 'Apple'
-  #     end
-  #   end
+  describe 'As Guest User,' do
+    before do
+      @registrated_user = FactoryBot.create(:user)
+    end
+    describe 'Create Action' do
+      it 'is not available' do
+        visit '/products/new'
+        expect(page).to_not have_content 'Add New Product'
+        expect(page).to have_content 'Log in'
+        fill_in "Email", with: @registrated_user.email
+        fill_in "Password", with: @registrated_user.password
+        click_button "Log in"
+        expect(page).to have_content 'Access denied'
+      end
+    end
+    describe 'Index Action' do
+      before do
+        @brand.save!
+        @product.save!
+        click_on 'All Products'
+      end
+      it 'requires Login' do
+        expect(page).to have_content('Log in')
+        expect(page).to have_content('You need to sign in or sign up before continuing')
+      end
+      it 'is available after login' do
+        fill_in "Email", with: @registrated_user.email
+        fill_in "Password", with: @registrated_user.password
+        click_button "Log in"
+        click_on "All Products"
+        expect(page).to have_content "All Products"
+        expect(page).to have_content "Phone-1"
+      end
+    end
+    describe 'Show Action' do
+      before do
+        @brand.save!
+        @product.save!
+        click_on 'Brands'
+        click_on 'Apple'
+        click_on 'Phone-1'
+      end
+      describe 'Product Title' do
+        before do
+          FactoryBot.create(:review)
+        end
+        it 'indicates correct product name' do
+          expect(page).to have_content('Phone-1')
+        end
+        it 'edits product link is not available' do
+          expect(page).to_not have_css('.edit_link')
+        end
+      end
+      describe 'each review' do
+        before do
+          FactoryBot.create(:review)
+        end
+        it 'indicates correct user' do
+          expect(page).to have_content('Aaron')
+        end
+      end
+      describe 'user link' do
+        before do
+          FactoryBot.create(:review)
+          visit current_path
+        end
+        it 'is available' do
+          click_on 'Aaron'
+          expect(page).to have_content('Aaron')
+          expect(page).to have_content('Phone-1')
+          expect(page).to have_content('Awesome')
+        end
+        it 'for editing product is not available' do
+          expect(page).to_not have_css('.edit_link')
+        end
+      end
+      describe 'review count' do
+        before do
+          within('review_count') 
+        end
+        context 'if 0 reviews exist' do
+          it 'is correct' do
+            expect(page).to have_content('0')
+          end
+        end
+        context 'if 1 review exist' do
+          it 'is correct' do
+            FactoryBot.create(:review)
+            visit current_path
+            expect(page).to have_content('1')
+          end
+        end
+        context 'if 2 reviews exist' do
+          it 'is correct' do
+            FactoryBot.create(:user, id: 2, name: 'user2', email: "test-1@example.com")
+            FactoryBot.create(:review)
+            FactoryBot.create(:review, id: 2, user_id: 2)
+            visit current_path
+            expect(page).to have_content('2')
+          end
+        end
+      end
+    end
+    describe 'Edit Action' do
+      before do
+        @brand.save!
+      end
+      it 'is not available' do
+        visit '/brands/1/edit'
+        expect(page).to have_content 'Log in'
+        fill_in "Email", with: @registrated_user.email
+        fill_in "Password", with: @registrated_user.password
+        click_button "Log in"
+        expect(page).to have_content 'Access denied'
+      end
+    end
+    describe 'Delete Action' do
+      before do
+        @brand.save!
+      end
+      it 'can access brand destroy page' do
+        page.driver.submit :delete, '/brands/1', {}
+        expect(page).to have_content 'Log in'
+        fill_in "Email", with: @registrated_user.email
+        fill_in "Password", with: @registrated_user.password
+        click_button "Log in"
+        click_on "Brands"
+        expect(page).to have_content 'Apple'
+      end
+    end
+  end
 end
