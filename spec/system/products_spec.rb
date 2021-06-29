@@ -307,7 +307,9 @@ RSpec.describe Product, type: :system do
           expect(page).to have_content('Phone-1')
         end
         it 'Edit link is available' do
-          find(:css,'.edit_link').click
+          within('#1') do
+            find(:css,'.edit_link').click
+          end
           expect(page).to have_content('Edit Product')
         end
       end
@@ -334,9 +336,7 @@ RSpec.describe Product, type: :system do
             expect(page).to have_content('Phone-5')
             expect(page).to have_content('Phone-10')
             expect(page).to have_css('.page-item')
-            within('.page-item.next') do
-              click_on 'Next'
-            end
+            click_on 'Next'
             expect(page).to have_content('Phone-11')
             click_on 'Phone-11'
             expect(page).to have_content('Phone-11')
@@ -365,24 +365,18 @@ RSpec.describe Product, type: :system do
       end
       describe 'each product' do
         it 'indicates correct product name' do
-          within('#product-1') do
+          within('.product_title') do
             expect(page).to have_content('Phone-1')
           end
         end
       end
-      describe 'product link' do
+      describe 'brand link' do
         it 'is available' do
-          within('#product-1') do
-            click_on 'Phone-1'
+          within('.brand_link') do
+            click_on 'Apple'
           end
-          expect(page).to have_content('Phone-1')
           expect(page).to have_content('Apple')
-        end
-        it 'for editing is available' do
-          within('#product-1') do
-            find(:css,'.edit_link').click
-          end
-          expect(page).to have_content('Edit Product')
+          expect(page).to have_content('Phone-1')
         end
       end
       describe 'like count' do
@@ -720,52 +714,56 @@ RSpec.describe Product, type: :system do
           click_on 'Phone-1'
           expect(page).to have_content('Phone-1')
         end
-        it 'Review count is correct(Review no exist)' do
+        xit 'Review count is correct(Review no exist)' do
           expect(page).to have_content('0 Reviews')
         end
-        it 'Review count is correct(1 Review exist)' do
+        xit 'Review count is correct(1 Review exist)' do
           FactoryBot.create(:review)
           visit current_path
           expect(page).to have_content('1 Review')
         end
-        it 'Review count is correct(2 Reviews exist)' do
+        xit 'Review count is correct(2 Reviews exist)' do
           create_review(2)
           visit current_path
           expect(page).to have_content('2 Reviews')
         end
         it 'Edit link is not available' do
           expect(page).to_not have_css('.edit_link')
+          visit '/products/1/edit'
+          expect(page).to have_content('Access denied')
         end
       end
       describe 'Pagination' do
-        describe 'if brands exist equal to and less than 10' do
+        describe 'if products exist equal to and less than 10' do
           before do
-            create_brand(10)
+            @brand.save!
+            create_product(10)
             visit current_path
           end
           it 'is disable' do
-            expect(page).to have_content('Brand-1')
-            expect(page).to have_content('Brand-5')
-            expect(page).to have_content('Brand-10')
+            expect(page).to have_content('Phone-1')
+            expect(page).to have_content('Phone-5')
+            expect(page).to have_content('Phone-10')
             expect(page).to_not have_css('.page-item')
           end
         end
         describe 'if brands exist greater than 10' do
           before do
-            create_brand(11)
+            @brand.save!
+            create_product(11)
             visit current_path
           end
           it 'is available' do
-            expect(page).to have_content('Brand-1')
-            expect(page).to have_content('Brand-5')
-            expect(page).to have_content('Brand-10')
+            expect(page).to have_content('Phone-1')
+            expect(page).to have_content('Phone-5')
+            expect(page).to have_content('Phone-10')
             expect(page).to have_css('.page-item')
             within('.page-item.next') do
               click_on 'Next' 
             end
-            expect(page).to have_content('Brand-11')
-            click_on 'Brand-11'
-            expect(page).to have_content('Brand-11')
+            expect(page).to have_content('Phone-11')
+            click_on 'Phone-11'
+            expect(page).to have_content('Phone-11')
           end
         end
       end
@@ -842,12 +840,13 @@ RSpec.describe Product, type: :system do
         expect(page).to have_content 'Access denied'
       end
     end
-    xdescribe 'Delete Action' do
+    describe 'Delete Action' do
       before do
         @brand.save!
+        @product.save!
       end
       it 'can access brand destroy page' do
-        page.driver.submit :delete, '/brands/1', {}
+        page.driver.submit :delete, '/products/1', {}
         expect(page).to have_content 'Access denied'
       end
     end
@@ -909,6 +908,7 @@ RSpec.describe Product, type: :system do
       describe 'each review' do
         before do
           FactoryBot.create(:review)
+          visit current_path
         end
         it 'indicates correct user' do
           expect(page).to have_content('Aaron')
@@ -920,6 +920,7 @@ RSpec.describe Product, type: :system do
           visit current_path
         end
         it 'is available' do
+          pending 'Set after Setting access control for users#show'
           click_on 'Aaron'
           expect(page).to have_content('Aaron')
           expect(page).to have_content('Phone-1')
