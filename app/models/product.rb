@@ -9,7 +9,7 @@ class Product < ApplicationRecord
                                                greater_than_or_equal_to: 1 }
   validates :battery_capacity, presence: true,
                                numericality: { only_integer: true,
-                                               grater_than_or_equal_to: 1 }
+                                               greater_than_or_equal_to: 1 }
   validates :image, content_type: { in: %w[image/jpeg image/gif image/png],
                                     message: "must be a valid image format" },
                     size: { less_than: 5.megabytes,

@@ -124,9 +124,6 @@ RSpec.describe "Pages", type: :system do
     within('.ranking_antutu') do
       click_on 'view more'
     end
-    within('h2') do
-      expect(page).to have_content('All Products')
-    end
   end
   before do
     create_brand
@@ -197,6 +194,9 @@ RSpec.describe "Pages", type: :system do
       end
       it "Link is valid" do
         check_product_link_ranking_antutu
+        within('h2') do
+          expect(page).to have_content('All Products')
+        end
       end
     end
     describe "Within New lerease Ranking," do
@@ -270,6 +270,9 @@ RSpec.describe "Pages", type: :system do
       end
       it "Link is valid" do
         check_product_link_ranking_antutu
+        within('h2') do
+          expect(page).to have_content("All Products")
+        end
       end
     end
     describe "Within New release Ranking," do
@@ -302,15 +305,17 @@ RSpec.describe "Pages", type: :system do
         click_on "Brands"
         expect(page).to have_content('ブランド')
       end
-      it "Logout link is valid" do
-        click_link "Log out"
-        expect(page).to have_content('Battery')
-        expect(page).to have_content('Antutu')
-        expect(page).to have_content('New release')
+      it "Login link is valid" do
         within('header') do
-          expect(page).to have_content('Login')
-          expect(page).to have_content('Signup')
+          click_link "Login"
         end
+        expect(page).to have_content('Login')
+      end
+      it "Signup link is valid" do
+        within('header') do
+          click_link "Signup"
+        end
+        expect(page).to have_content('Login')
       end
     end
     describe "Within Battery Ranking," do
@@ -322,7 +327,30 @@ RSpec.describe "Pages", type: :system do
         check_product_ranking_battery_correction
       end
       it "Link is valid" do
-        check_product_link_ranking_battery
+        within('.ranking_battery') do
+          click_on 'Phone-4'
+        end
+        expect(page).to have_content('Phone-4')
+        expect(page).to have_content('Brand-4')
+        visit root_path
+        within('.ranking_battery') do
+          click_on 'Phone-3'
+        end
+        expect(page).to have_content('Phone-3')
+        expect(page).to have_content('Brand-3')
+        visit root_path
+        within('.ranking_battery') do
+          click_on 'Phone-2'
+        end
+        expect(page).to have_content('Phone-2')
+        expect(page).to have_content('Brand-2')
+        visit root_path
+        within('.ranking_battery') do
+          click_on 'view more'
+        end
+        within('h2') do
+          expect(page).to have_content('Log in')
+        end
       end
     end
     describe "Within Antutu Ranking," do
@@ -335,6 +363,9 @@ RSpec.describe "Pages", type: :system do
       end
       it "Link is valid" do
         check_product_link_ranking_antutu
+        within('h2') do
+          expect(page).to have_content('Log in')
+        end
       end
     end
     describe "Within New release Ranking," do
