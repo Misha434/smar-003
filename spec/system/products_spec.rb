@@ -1,27 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :system do
-  
   def create_brand(i)
     i = i.to_i
     i.times do |n|
-      name = "Brand-#{ n + 1 }"
+      name = "Brand-#{n + 1}"
       Brand.create!(
         id: n + 1,
         name: name
       )
     end
   end
+
   def create_product(i)
     i = i.to_i
     i.times do |n|
       id = n + 1
-      name = "Phone-#{ n + 1 }"
+      name = "Phone-#{n + 1}"
       soc_antutu_score = 100
-      battery_capacity = ( n + 1 ) * 1000
+      battery_capacity = (n + 1) * 1000
       brand_id = 1
-      image= ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
-      filename: "product-photo-#{n}.jpeg")
+      image = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
+                                                     filename: "product-photo-#{n}.jpeg")
       Product.create!(
         id: id,
         name: name,
@@ -32,6 +32,7 @@ RSpec.describe Product, type: :system do
       )
     end
   end
+
   def fill_in_all_forms
     fill_in 'Name', with: @product.name
     select "Apple"
@@ -43,7 +44,7 @@ RSpec.describe Product, type: :system do
     @product = FactoryBot.build(:product)
     visit root_path
   end
-  # Modify format Start 
+  # Modify format Start
   describe 'As Admin User,' do
     before do
       @admin_user = FactoryBot.create(:user, admin: true)
@@ -207,7 +208,7 @@ RSpec.describe Product, type: :system do
         describe 'registrated' do
           before do
             @product.save!
-            visit current_path #reload
+            visit current_path # reload
           end
           it 'as same brand is unavailable' do
             fill_in_all_forms
@@ -235,7 +236,7 @@ RSpec.describe Product, type: :system do
           context 'jpeg' do
             it 'is available' do
               attach_file "product_image",
-              "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.jpeg"
+                          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.jpeg"
               click_button "Create New Product"
               expect(page).to have_content @product.name
               expect(page).to have_content 'Apple'
@@ -245,7 +246,7 @@ RSpec.describe Product, type: :system do
           context 'png' do
             it 'is available' do
               attach_file "product_image",
-              "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.png"
+                          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.png"
               click_button "Create New Product"
               expect(page).to have_content @product.name
               expect(page).to have_content 'Apple'
@@ -255,7 +256,7 @@ RSpec.describe Product, type: :system do
           context 'svg' do
             it 'is unavailable' do
               attach_file "product_image",
-              "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
+                          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
               click_button "Create New Product"
               expect(page).to have_content 'Add New Product'
             end
@@ -263,7 +264,7 @@ RSpec.describe Product, type: :system do
           context 'bmp' do
             it 'is unavailable' do
               attach_file "product_image",
-              "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
+                          "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
               click_button "Create New Product"
               expect(page).to have_content 'Add New Product'
             end
@@ -273,7 +274,7 @@ RSpec.describe Product, type: :system do
           context 'less then 5MB' do
             it 'is available' do
               attach_file "product_image",
-              "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
+                          "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
               click_button "Create New Product"
               expect(page).to have_content 'Apple'
               expect(page).to have_css("img[src$='image_test_5mb.jpeg']")
@@ -282,7 +283,7 @@ RSpec.describe Product, type: :system do
           context 'greater than 6MB' do
             it 'is unavailable' do
               attach_file "product_image",
-              "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
+                          "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
               click_button "Create New Product"
               expect(page).to have_content 'Add New Product'
               expect(page).to have_content 'Image should be less than 5MB'
@@ -308,7 +309,7 @@ RSpec.describe Product, type: :system do
         end
         it 'Edit link is available' do
           within('#1') do
-            find(:css,'.edit_link').click
+            find(:css, '.edit_link').click
           end
           expect(page).to have_content('Edit Product')
         end
@@ -358,7 +359,7 @@ RSpec.describe Product, type: :system do
         end
         it 'edits brand link is available' do
           within('.product_title') do
-            find(:css,'.edit_link').click
+            find(:css, '.edit_link').click
           end
           expect(page).to have_content('Edit Product')
         end
@@ -436,7 +437,7 @@ RSpec.describe Product, type: :system do
       describe 'from products#index' do
         it 'is available' do
           within('#1') do
-            find(:css,'.edit_link').click
+            find(:css, '.edit_link').click
           end
           fill_in 'Name', with: 'Phone-X'
           click_button "Update Product"
@@ -446,7 +447,7 @@ RSpec.describe Product, type: :system do
       describe 'from products#show' do
         it 'is available' do
           click_on 'Phone-1'
-          find(:css,'.edit_link').click
+          find(:css, '.edit_link').click
           fill_in 'Name', with: 'Phone-X'
           click_button "Update Product"
           expect(page).to have_content 'Phone-X'
@@ -455,7 +456,7 @@ RSpec.describe Product, type: :system do
       describe 'Edit form validation' do
         before do
           within('#1') do
-            find(:css,'.edit_link').click
+            find(:css, '.edit_link').click
           end
         end
         describe 'charactor count' do
@@ -556,7 +557,7 @@ RSpec.describe Product, type: :system do
           describe 'registrated' do
             before do
               @brand.save!
-              visit current_path #reload
+              visit current_path # reload
             end
             it 'is unavailable' do
               fill_in 'Name', with: @brand.name
@@ -566,7 +567,7 @@ RSpec.describe Product, type: :system do
           describe 'about image field' do
             before do
               @brand.save!
-              visit current_path #reload
+              visit current_path # reload
             end
             describe 'file format' do
               context 'gif' do
@@ -652,9 +653,9 @@ RSpec.describe Product, type: :system do
         it 'is available' do
           click_on 'Apple'
           within('#product-1') do
-            find(:css,'.edit_link').click
+            find(:css, '.edit_link').click
           end
-          expect(page).to have_content 'Edit Product'          
+          expect(page).to have_content 'Edit Product'
           find(:css, '.delete_link').click
           expect(page).to have_content 'All Products'
           expect(page).to_not have_content 'Phone-1'
@@ -664,7 +665,7 @@ RSpec.describe Product, type: :system do
             expect(page).to have_content 'Apple'
             click_on 'Apple'
             within('#product-1') do
-              find(:css,'.edit_link').click
+              find(:css, '.edit_link').click
             end
             find(:css, '.delete_link').click
           end
@@ -759,7 +760,7 @@ RSpec.describe Product, type: :system do
             expect(page).to have_content('Phone-10')
             expect(page).to have_css('.page-item')
             within('.page-item.next') do
-              click_on 'Next' 
+              click_on 'Next'
             end
             expect(page).to have_content('Phone-11')
             click_on 'Phone-11'
@@ -932,7 +933,7 @@ RSpec.describe Product, type: :system do
       end
       describe 'review count' do
         before do
-          within('review_count') 
+          within('review_count')
         end
         context 'if 0 reviews exist' do
           it 'is correct' do

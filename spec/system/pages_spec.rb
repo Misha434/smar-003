@@ -3,21 +3,22 @@ require 'rails_helper'
 RSpec.describe "Pages", type: :system do
   def create_brand
     4.times do |n|
-      name = "Brand-#{ n + 1 }"
+      name = "Brand-#{n + 1}"
       Brand.create!(
         id: n + 1,
         name: name
       )
     end
   end
+
   def create_product_sort_battery
     4.times do |n|
-      name = "Phone-#{ n + 1 }"
+      name = "Phone-#{n + 1}"
       soc_antutu_score = 100
-      battery_capacity = ( n + 1 ) * 1000
+      battery_capacity = (n + 1) * 1000
       brand_id = n + 1
-      image= ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
-      filename: "product-photo-#{n}.jpeg")
+      image = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
+                                                     filename: "product-photo-#{n}.jpeg")
       Product.create!(
         name: name,
         soc_antutu_score: soc_antutu_score,
@@ -27,14 +28,15 @@ RSpec.describe "Pages", type: :system do
       )
     end
   end
+
   def create_product_sort_antutu
     4.times do |n|
-      name = "Phone-#{ n + 1 }"
-      soc_antutu_score = ( n + 1 ) * 100
+      name = "Phone-#{n + 1}"
+      soc_antutu_score = (n + 1) * 100
       battery_capacity = 1000
       brand_id = n + 1
-      image= ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
-      filename: "product-photo-#{n}.jpeg")
+      image = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
+                                                     filename: "product-photo-#{n}.jpeg")
       Product.create!(
         name: name,
         soc_antutu_score: soc_antutu_score,
@@ -44,6 +46,7 @@ RSpec.describe "Pages", type: :system do
       )
     end
   end
+
   def check_product_ranking_battery_correction
     within('.ranking_battery') do
       within('#ranking-1') do
@@ -60,6 +63,7 @@ RSpec.describe "Pages", type: :system do
       end
     end
   end
+
   def check_product_link_ranking_battery
     within('.ranking_battery') do
       click_on 'Phone-4'
@@ -86,6 +90,7 @@ RSpec.describe "Pages", type: :system do
       expect(page).to have_content('All Products')
     end
   end
+
   def check_product_ranking_antutu_correction
     within('.ranking_antutu') do
       within('#ranking-1') do
@@ -102,6 +107,7 @@ RSpec.describe "Pages", type: :system do
       end
     end
   end
+
   def check_product_link_ranking_antutu
     within('.ranking_antutu') do
       click_on 'Phone-4'
