@@ -12,10 +12,6 @@ RSpec.describe Like, type: :model do
       @like = Like.create(id: 1, user_id: 1, review_id: 1)
       expect(@like).to be_valid
     end
-    it 'is not working without PK' do
-      @like = Like.create(id: '', user_id: 1, review_id: 1)
-      expect(@like).to_not be_valid
-    end
     it 'is not working without user_id' do
       @like = Like.create(id: 1, user_id: '', review_id: 1)
       expect(@like).to_not be_valid
