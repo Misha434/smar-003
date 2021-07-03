@@ -20,10 +20,11 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    @review = Review.find(params[:id])
-    @review.destroy
-    flash[:success] = "Review deleted"
-    redirect_to request.referrer || root_url
+    @review = Review.find_by(params[:id])
+    if @review.destroy
+      flash[:success] = "Review is deleted"
+      redirect_to @review.product || root_url
+    end
   end
 
   def edit

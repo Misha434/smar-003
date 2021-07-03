@@ -27,7 +27,7 @@
             
             .d-grid
               = f.submit "Edit", class: "btn btn-primary mb-3"
-          = link_to @review, method: :delete, data:{confirm: 'You sure?'}, class: 'd-grid' do
+          = link_to @review, method: :delete, data:{confirm: 'You sure?'}, class: 'd-grid delete_link' do
             button.btn.btn-outline-danger.mb-3 Delete
           javascript:
             $("#review_image").bind("change", function() {

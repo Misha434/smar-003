@@ -3,16 +3,17 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  :recoverable, :rememberable, :validatable
   has_one_attached :avatar
   has_many :reviews, dependent: :destroy
   has_many :products
   has_many :likes
-  validates :name, presence: true
+  validates :name, presence: true, length: { in: 1..140 }
   validates :email, presence: true, uniqueness: { case_sensitive: false },
-                    length: { in: 3..254 }
-  validates :password, presence: true, allow_nil: true
-  validates :password_confirmation, presence: true, allow_nil: true
+  length: { in: 3..254 }
+  VALID_PASSWORD_REGEX = /\A[\w!@#%^&*]{8,}\z/
+  validates :password, presence: true, allow_nil: true, format: { with: VALID_PASSWORD_REGEX }
+  validates :password_confirmation, presence: true, allow_nil: true, format: { with: VALID_PASSWORD_REGEX }
 
   validates :avatar, content_type: { in: %w[image/jpeg image/gif image/png],
                                      message: "must be a valid image format" },

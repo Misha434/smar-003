@@ -80,11 +80,11 @@ RSpec.describe User, type: :model do
     end
     context "Emoji" do
       it "is valid" do
-        user = FactoryBot.build(:user, name: "👨‍👩‍👦‍👦"*140)
+        user = FactoryBot.build(:user, name: "👨"*140)
         expect(user).to be_valid
       end
       it "is invalid 141 charactors" do
-        user = FactoryBot.build(:user, name: "👨‍👩‍👦‍👦"*141)
+        user = FactoryBot.build(:user, name: "👨"*141)
         expect(user).to_not be_valid
       end
     end
@@ -132,9 +132,11 @@ RSpec.describe User, type: :model do
         end
       end
       context "English" do
-        it "Upper Case is invalid" do
+        it "Upper Case is valid and should be saved with downcase" do
           user = FactoryBot.build(:user, email: "TEST@EXAMPLE.COM")
-          expect(user).to_not be_valid
+          expect(user).to be_valid
+          user.save!
+          expect(user.email).to eq 'test@example.com'
         end
         it "Down Case is valid" do
           user = FactoryBot.build(:user)
@@ -154,30 +156,34 @@ RSpec.describe User, type: :model do
       context "Number" do
         it "full-width is invalid" do
           user = FactoryBot.build(:user, email: "test１@example.com")
-          expect(user).to be_valid
-        end
-        it "harf-width is invalid" do
-          user = FactoryBot.build(:user, email: "test1@example.com")
           expect(user).to_not be_valid
+        end
+        it "half-width is valid" do
+          user = FactoryBot.build(:user, email: "test1@example.com")
+          expect(user).to be_valid
         end
       end
       context "space" do
-        it "blank(beginning of sentence) is invalid" do
+        it "blank(beginning of sentence) is valid and saved after removed" do
           user = FactoryBot.build(:user, email: " test@example.com")
-          expect(user).to_not be_valid
+          expect(user).to be_valid
+          user.save!
+          expect(user.email).to eq 'test@example.com'
         end
         it "blank(in the sentences) is invalid" do
           user = FactoryBot.build(:user, email: "te st@example.com")
           expect(user).to_not be_valid
         end
-        it "blank(end of sentences) is invalid" do
+        it "blank(end of sentences) is invalid and saved after removed" do
           user = FactoryBot.build(:user, email: "test@example.com ")
-          expect(user).to_not be_valid
+          expect(user).to be_valid
+          user.save!
+          expect(user.email).to eq 'test@example.com'
         end
       end
       context "Emoji" do
         it "is invalid" do
-          user = FactoryBot.build(:user, email: "test👨‍👩‍👦‍👦@example.com")
+          user = FactoryBot.build(:user, email: "test👨@example.com")
           expect(user).to_not be_valid
         end
       end
@@ -198,64 +204,72 @@ RSpec.describe User, type: :model do
     describe "Password Form" do
       describe "filled with word length" do
         it { is_expected.to validate_presence_of :password }
-        it { should_not validate_length_of(:password).is_at_least(5) }
+        it { should_not validate_length_of(:password).is_at_least(7) }
         it do
           should validate_length_of(:password).
-          is_at_least(6).is_at_most(128)
+          is_at_least(8).is_at_most(128)
         end
         it { should_not validate_length_of(:password).is_at_most(129) }
       end
       describe "included Charactor Type" do
         context "漢字" do
           it "is invalid" do
-            user = FactoryBot.build(:user, password: "password漢")
+            password = "password漢"
+            user = FactoryBot.build(:user, password: password, password_confirmation: password)
             expect(user).to_not be_valid
           end
         end
         context "ひらがな" do
           it "is invalid" do
-            user = FactoryBot.build(:user, password: "passwordあ")
+            password = "passwordあ"
+            user = FactoryBot.build(:user, password: password, password_confirmation: password)
             expect(user).to_not be_valid
           end
         end
         context "全角カタカナ" do
           it "is invalid" do
-            user = FactoryBot.build(:user, password: "passwordカ")
+            password = "passwordカ"
+            user = FactoryBot.build(:user, password: password, password_confirmation: password)
             expect(user).to_not be_valid
           end
         end
         context "半角カタカナ" do
           it "is invalid" do
-            user = FactoryBot.build(:user, password: "ﾜpassword")
+            password = "passwordカ"
+            user = FactoryBot.build(:user, password: password, password_confirmation: password)
             expect(user).to_not be_valid
           end
         end
         context "English" do
           it "Upper Case is invalid" do
-            user = FactoryBot.build(:user, password: "PASSWORD")
+            password = "PASSWORD"
+            user = FactoryBot.build(:user, password: password, password_confirmation: password)
             expect(user).to be_valid
           end
           it "Down Case is valid" do
-            user = FactoryBot.build(:user, email: "test1@example.com", password: "password")
+            user = FactoryBot.build(:user, email: "test1@example.com", password: "password", password_confirmation: "password")
             expect(user).to be_valid
           end
         end
-        context "symbol" do
+        context "symbol(!@#%^&*)" do
           it "is valid" do
-            user = FactoryBot.build(:user, password: "password/")
+            password = "aA!@#%^&*"
+            user = FactoryBot.build(:user, password: password, password_confirmation: password )
             expect(user).to be_valid
           end
           it "others are invalid" do
-            user = FactoryBot.build(:user, password: "password*&")
+            password = "aA/\{},="
+            user = FactoryBot.build(:user, password: password, password_confirmation: password )
             expect(user).to_not be_valid
           end
         end
         context "Number" do
-          it "full-width is invalid" do
-            user = FactoryBot.build(:user, password: "password1234567890")
+          it "half-width is invalid" do
+            password = "password1234567890"
+            user = FactoryBot.build(:user, password: password, password_confirmation: password )
             expect(user).to be_valid
           end
-          it "harf-width is invalid" do
+          it "full-width is invalid" do
             user = FactoryBot.build(:user, password: "password１２３４５６７８９０")
             expect(user).to_not be_valid
           end
@@ -276,7 +290,7 @@ RSpec.describe User, type: :model do
         end
         context "Emoji" do
           it "is invalid" do
-            user = FactoryBot.build(:user, password: "👨‍👩‍👦‍👦password")
+            user = FactoryBot.build(:user, password: "👨password")
             expect(user).to_not be_valid
           end
         end
