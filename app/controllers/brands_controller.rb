@@ -47,7 +47,14 @@ class BrandsController < ApplicationController
   end
 
   def edit
-    @brand = Brand.find(params[:id])
+    begin
+      @brand = Brand.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+      flash[:danger] = "Brand does not exist"
+      redirect_to request.referrer || brands_path
+    rescue StandardError => e
+      puts e
+    end
   end
 
   def update

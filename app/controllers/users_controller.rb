@@ -7,11 +7,19 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    @review = Review.new
-    @reviews = @user.reviews
-    @brands = Brand.all
-    @products = Product.all
-    @user_received_like_countup = Like.joins(review: :user).where('users.id=?', params[:id]).count
+    begin
+      @user = User.find(params[:id])
+      @reviews = @user.reviews
+    rescue ActiveRecord::RecordNotFound => e
+      @brands = Brand.all
+      flash[:danger] = "User does not exist"
+      redirect_to request.referrer || root_path
+    rescue StandardError => e
+      puts e
+    end
+      @review = Review.new
+      @brands = Brand.all
+      @products = Product.all
+      @user_received_like_countup = Like.joins(review: :user).where('users.id=?', params[:id]).count
   end
 end
