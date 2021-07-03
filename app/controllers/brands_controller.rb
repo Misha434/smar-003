@@ -12,6 +12,7 @@ class BrandsController < ApplicationController
       flash[:success] = "Add Brand Successfully"
       redirect_to @brand
     else
+      flash[:denger] = "Add Brand is failed"
       render 'new'
     end
   end
@@ -55,6 +56,7 @@ class BrandsController < ApplicationController
       flash[:success] = "Brand is updated"
       redirect_to @brand
     else
+      flash[:denger] = "Updating is faild"
       render 'edit'
     end
   end
