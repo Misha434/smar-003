@@ -61,7 +61,7 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
 Metrics/MethodLength:
-  Max: 11
+  Max: 24
 Style/Documentation:
   Exclude:
     - 'spec/**/*'
@@ -81,3 +81,11 @@ Style/Documentation:
     - 'app/models/application_record.rb'
     - 'app/models/brand.rb'
     - 'app/models/user.rb'
+Naming/AsciiIdentifiers:
+  Exclude:
+    - 'spec/models/review_spec.rb'
+Naming/MethodParameterName:
+  Exclude:
+    - 'spec/system/brands_spec.rb'
+    - 'spec/system/products_spec.rb'
+    - 'spec/system/reviews_spec.rb'
