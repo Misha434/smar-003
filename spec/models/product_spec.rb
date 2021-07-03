@@ -209,9 +209,10 @@ RSpec.describe Product, type: :model do
           end
         end
         context "Number" do
-          it "(half-width) is invalid" do
+          it "(half-width) is valid and saved data is integer" do
             product = FactoryBot.build(:product, soc_antutu_score: "1")
-            expect(product).to_not be_valid
+            expect(product).to be_valid
+            expect(product.soc_antutu_score.is_a?(Integer)).to eq true
           end
           it "(full-width) is invalid" do
             product = FactoryBot.build(:product, soc_antutu_score: "１")
@@ -219,15 +220,15 @@ RSpec.describe Product, type: :model do
           end
         end
         context "Emoji" do
-          it "is valid" do
-            product = FactoryBot.build(:product, soc_antutu_score: "👨‍👩‍👦‍👦")
-            expect(product).to be_valid
+          it "is invalid" do
+            product = FactoryBot.build(:product, soc_antutu_score: "👨")
+            expect(product).to_not be_valid
           end
         end
       end
     end
     describe "data-type(integer)" do
-      context 'harf-width' do
+      context 'half-width' do
         it "-1 is valid" do
           product = FactoryBot.build(:product, soc_antutu_score: -1)
           expect(product).to_not be_valid
@@ -242,22 +243,12 @@ RSpec.describe Product, type: :model do
         end
       end
       context 'full-width' do
-        it "-１ is invalid" do
-          product = FactoryBot.build(:product, soc_antutu_score: -１)
-          expect(product).to_not be_valid
-        end
-        it "０ is invalid" do
-          product = FactoryBot.build(:product, soc_antutu_score: ０)
-          expect(product).to_not be_valid
-        end
-        it "１ is invalid" do
-          product = FactoryBot.build(:product, soc_antutu_score: １)
-          expect(product).to_not be_valid
+        it "should be rejected" do
         end
       end
     end
     describe "data-type(float)" do
-      context 'harf-width' do
+      context 'half-width' do
         it "-1.1 is invalid" do
           product = FactoryBot.build(:product, soc_antutu_score: -1.1)
           expect(product).to_not be_valid
@@ -317,30 +308,31 @@ RSpec.describe Product, type: :model do
           end
         end
         context "Number" do
-          it "(harf-width) is valid" do
+          it "(half-width) is valid and saved as Interger data" do
             product = FactoryBot.build(:product, battery_capacity: "1")
             expect(product).to be_valid
+            expect(product.battery_capacity.is_a?(Integer)).to eq true
           end
-          it "(full-width) is valid" do
+          it "(full-width) is invalid" do
             product = FactoryBot.build(:product, battery_capacity: "１")
-            expect(product).to be_valid
+            expect(product).to_not be_valid
           end
         end
         context "Emoji" do
-          it "is valid" do
+          it "is invalid" do
             product = FactoryBot.build(:product, battery_capacity: "👨‍👩‍👦‍👦")
-            expect(product).to be_valid
+            expect(product).to_not be_valid
           end
         end
       end
     end
     describe "data-type(integer)" do
-      context 'harf-width' do
-        it "-1 is valid" do
+      context 'half-width' do
+        it "-1 is invalid" do
           product = FactoryBot.build(:product, battery_capacity: -1)
           expect(product).to_not be_valid
         end
-        it "0(zero) is valid" do
+        it "0(zero) is invalid" do
           product = FactoryBot.build(:product, battery_capacity: 0)
           expect(product).to_not be_valid
         end
@@ -350,22 +342,12 @@ RSpec.describe Product, type: :model do
         end
       end
       context 'full-width' do
-        it "-１ is invalid" do
-          product = FactoryBot.build(:product, battery_capacity: -１)
-          expect(product).to_not be_valid
-        end
-        it "０ is invalid" do
-          product = FactoryBot.build(:product, battery_capacity: ０)
-          expect(product).to_not be_valid
-        end
-        it "１ is invalid" do
-          product = FactoryBot.build(:product, battery_capacity: １)
-          expect(product).to_not be_valid
+        it "is rejected" do
         end
       end
     end
     describe "data-type(float)" do
-      context 'harf-width' do
+      context 'half-width' do
         it "-1.1 is invalid" do
           product = FactoryBot.build(:product, battery_capacity: -1.1)
           expect(product).to_not be_valid
