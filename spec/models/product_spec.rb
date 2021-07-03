@@ -16,10 +16,10 @@ RSpec.describe Product, type: :model do
   end
   describe "Name Form" do
     describe "filled with word length" do
-      it { should validate_presence_of(:name) }      
+      it { should validate_presence_of(:name) }
       it do
-        should validate_length_of(:name).
-        is_at_least(1).is_at_most(50)
+        should validate_length_of(:name)
+          .is_at_least(1).is_at_most(50)
       end
       it { should_not validate_length_of(:name).is_at_most(51) }
     end
@@ -56,11 +56,11 @@ RSpec.describe Product, type: :model do
       end
       context "Emoji" do
         it "is valid" do
-          product = FactoryBot.build(:product, name: "👨‍👩‍👦‍👦"*50)
+          product = FactoryBot.build(:product, name: "👨‍👩‍👦‍👦" * 50)
           expect(product).to_not be_valid
         end
         it "is invalid 51 charactors" do
-          product = FactoryBot.build(:product, name: "👨‍👩‍👦‍👦"*51)
+          product = FactoryBot.build(:product, name: "👨‍👩‍👦‍👦" * 51)
           expect(product).to_not be_valid
         end
       end

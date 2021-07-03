@@ -3,7 +3,6 @@ class ProductsController < ApplicationController
   before_action :admin_user, only: %i[new create edit update destroy]
   include Pagy::Backend
   def show
-    begin
     @product = Product.find(params[:id])
     if @product
       @select_product_reviews = @product.reviews.all
@@ -12,13 +11,12 @@ class ProductsController < ApplicationController
       redirect_to products_path
       flash[:danger] = 'Product does not exist'
     end
-    rescue ActiveRecord::RecordNotFound => e
-      @brands = Brand.all
-      flash[:danger] = "Product does not exist"
-      redirect_to request.referrer || root_path
-    rescue => e
-      puts e
-    end
+  rescue ActiveRecord::RecordNotFound => e
+    @brands = Brand.all
+    flash[:danger] = "Product does not exist"
+    redirect_to request.referrer || root_path
+  rescue StandardError => e
+    puts e
   end
 
   def edit
@@ -34,18 +32,18 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     begin
-    if @product.save
-      flash[:success] = "Add Product Successfully"
-      redirect_to @product
-    else
-      @brands = Brand.all
-      render 'new'
-    end
+      if @product.save
+        flash[:success] = "Add Product Successfully"
+        redirect_to @product
+      else
+        @brands = Brand.all
+        render 'new'
+      end
     rescue ActiveRecord::RecordNotUnique => e
       @brands = Brand.all
       flash[:danger] = "Cannot add a same product as same brand"
       render 'new'
-    rescue => e
+    rescue StandardError => e
       puts e
     end
   end

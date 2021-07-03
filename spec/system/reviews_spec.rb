@@ -1,34 +1,36 @@
 require 'rails_helper'
 
 RSpec.describe Review, type: :system do
-  
   def ensure_browser_size(width = 1280, height = 720)
     Capybara.current_session.driver.browser.manage.window.resize_to(width, height)
   end
+
   def fill_in_review_form
     select "Apple"
     select "Phone-1"
     fill_in 'review[content]', with: @review.content
   end
+
   def create_review(i)
     i = i.to_i
     i.times do |n|
-      content = "review #{ n + 1 }"
+      content = "review #{n + 1}"
       Brand.create!(
         id: n + 1,
         content: content
       )
     end
   end
+
   def create_product(i)
     i = i.to_i
     i.times do |n|
-      name = "Phone-#{ n + 1 }"
+      name = "Phone-#{n + 1}"
       soc_antutu_score = 100
-      battery_capacity = ( n + 1 ) * 1000
+      battery_capacity = (n + 1) * 1000
       brand_id = 1
-      image= ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
-      filename: "product-photo-#{n}.jpeg")
+      image = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
+                                                     filename: "product-photo-#{n}.jpeg")
       Product.create!(
         name: name,
         soc_antutu_score: soc_antutu_score,
@@ -45,7 +47,7 @@ RSpec.describe Review, type: :system do
     @like = FactoryBot.build(:like, user_id: 1, review_id: 1)
     visit root_path
   end
-  # Modify format Start 
+  # Modify format Start
   describe 'As Admin User,' do
     before do
       @admin_user = FactoryBot.create(:user, admin: true)
@@ -188,7 +190,7 @@ RSpec.describe Review, type: :system do
           describe 'registrated' do
             before do
               @brand.save!
-              visit current_path #reload
+              visit current_path # reload
             end
             it 'is unavailable' do
               fill_in 'review[content]', with: @review.content
@@ -240,7 +242,7 @@ RSpec.describe Review, type: :system do
             context 'bmp' do
               it 'is unavailable' do
                 attach_file "review_image",
-                "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
+                            "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
                 click_button "Post"
                 expect(page).to have_content 'Post Review'
                 expect(page).to have_content 'Image must be a valid image format'
@@ -414,7 +416,7 @@ RSpec.describe Review, type: :system do
           describe 'registrated' do
             before do
               @brand.save!
-              visit current_path #reload
+              visit current_path # reload
             end
             it 'is unavailable' do
               fill_in 'review[content]', with: @review.content
@@ -504,9 +506,9 @@ RSpec.describe Review, type: :system do
         it 'is available' do
           click_on 'All Products'
           click_on 'Phone-1'
-          find(:css,'.review_edit_link').click
+          find(:css, '.review_edit_link').click
           expect(page).to have_content 'Edit Review'
-          find(:css,'.delete_link').click
+          find(:css, '.delete_link').click
           expect(page).to have_content 'Phone-1'
           expect(page).to have_content 'Review is deleted'
           expect(page).to_not have_content 'Awesome'
@@ -523,8 +525,8 @@ RSpec.describe Review, type: :system do
             within('.like_count') do
               expect(page).to have_content '1'
             end
-            find(:css,'.review_edit_link').click
-            find(:css,'.delete_link').click
+            find(:css, '.review_edit_link').click
+            find(:css, '.delete_link').click
           end
           it 'in products#show(Brand, Product is still exist)' do
             expect(page).to have_content 'Phone-1'
@@ -691,7 +693,7 @@ RSpec.describe Review, type: :system do
           describe 'registrated' do
             before do
               @brand.save!
-              visit current_path #reload
+              visit current_path # reload
             end
             it 'is unavailable' do
               fill_in 'review[content]', with: @review.content
@@ -743,7 +745,7 @@ RSpec.describe Review, type: :system do
             context 'bmp' do
               it 'is unavailable' do
                 attach_file "review_image",
-                "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
+                            "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
                 click_button "Post"
                 expect(page).to have_content 'Post Review'
                 expect(page).to have_content 'Image must be a valid image format'
@@ -920,7 +922,7 @@ RSpec.describe Review, type: :system do
           describe 'registrated' do
             before do
               @brand.save!
-              visit current_path #reload
+              visit current_path # reload
             end
             it 'is unavailable' do
               fill_in 'review[content]', with: @review.content
@@ -1010,9 +1012,9 @@ RSpec.describe Review, type: :system do
         it 'is available' do
           click_on 'All Products'
           click_on 'Phone-1'
-          find(:css,'.review_edit_link').click
+          find(:css, '.review_edit_link').click
           expect(page).to have_content 'Edit Review'
-          find(:css,'.delete_link').click
+          find(:css, '.delete_link').click
           expect(page).to have_content 'Phone-1'
           expect(page).to have_content 'Review is deleted'
           expect(page).to_not have_content 'Awesome'
@@ -1029,8 +1031,8 @@ RSpec.describe Review, type: :system do
             within('.like_count') do
               expect(page).to have_content '1'
             end
-            find(:css,'.review_edit_link').click
-            find(:css,'.delete_link').click
+            find(:css, '.review_edit_link').click
+            find(:css, '.delete_link').click
           end
           it 'Brand, Product is still exist' do
             expect(page).to have_content 'Phone-1'
