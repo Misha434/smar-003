@@ -9,6 +9,9 @@
       = f.collection_select(:product_id, @products, :id, :name, {prompt: "Product"}, {class: "js-receive_field form-control", disabled: true})
 
     .field.pb-3
+      = f.select(:rate, [["1 : Bad", 1], ["2", 2], ["3 : Good", 3], ["4", 4], ["5 : Great", 5]]), class: "btn btn-primary mb-3", placeholder: "Rate"
+
+    .field.pb-3
       = f.text_area :content, placeholder: "Write down some comment.", class: "form-control"
 
     .field.pb-3
