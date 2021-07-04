@@ -12,6 +12,7 @@ class BrandsController < ApplicationController
       flash[:success] = "Add Brand Successfully"
       redirect_to @brand
     else
+      flash[:denger] = "Add Brand is failed"
       render 'new'
     end
   end
@@ -21,19 +22,19 @@ class BrandsController < ApplicationController
   end
 
   def show
-    @brand = Brand.find(params[:id])
-    if @brand.nil?
-      flash[:denger] = "Brand is not exist"
-      redirect_to brands_path
-    else
-      @brand
+    begin
+      @brand = Brand.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+      flash[:danger] = "Brand does not exist"
+      redirect_to request.referrer || brands_path
+    rescue StandardError => e
+      puts e
     end
   end
 
   def destroy
     @brand = Brand.find(params[:id])
     if @brand.destroy
-      # @brand.image.purge if @brand.image.attched?
       flash[:success] = "Brand is deleted"
       redirect_to brands_path
     elsif current_user.admin == true
@@ -46,7 +47,14 @@ class BrandsController < ApplicationController
   end
 
   def edit
-    @brand = Brand.find(params[:id])
+    begin
+      @brand = Brand.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+      flash[:danger] = "Brand does not exist"
+      redirect_to request.referrer || brands_path
+    rescue StandardError => e
+      puts e
+    end
   end
 
   def update
@@ -55,6 +63,7 @@ class BrandsController < ApplicationController
       flash[:success] = "Brand is updated"
       redirect_to @brand
     else
+      flash[:denger] = "Updating is faild"
       render 'edit'
     end
   end
