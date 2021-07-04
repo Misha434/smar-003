@@ -6,7 +6,7 @@ class Review < ApplicationRecord
   has_many :likes, dependent: :destroy
 
   validates :user_id, presence: true,
-                      numericality: { only_integer: true,greater_than_or_equal_to: 1 }
+                      numericality: { only_integer: true, greater_than_or_equal_to: 1 }
   validates :product_id, presence: true,
                          numericality: { only_integer: true,
                                          greater_than_or_equal_to: 1 }

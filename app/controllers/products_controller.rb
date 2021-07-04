@@ -4,26 +4,34 @@ class ProductsController < ApplicationController
   include Pagy::Backend
   def show
     begin
-    @product = Product.find(params[:id])
-    if @product
-      @select_product_reviews = @product.reviews.all
-      @product_like_countup = Like.all.joins(review: :product).where('product_id=?', params[:id]).count
-    else
-      redirect_to products_path
-      flash[:danger] = 'Product does not exist'
-    end
+      @product = Product.find(params[:id])
+      if @product
+        @select_product_reviews = @product.reviews.all
+        @product_like_countup = Like.all.joins(review: :product).where('product_id=?', params[:id]).count
+      else
+        redirect_to products_path
+        flash[:danger] = 'Product does not exist'
+      end
     rescue ActiveRecord::RecordNotFound => e
       @brands = Brand.all
       flash[:danger] = "Product does not exist"
       redirect_to request.referrer || root_path
-    rescue => e
+    rescue StandardError => e
       puts e
     end
   end
-
+  
   def edit
-    @product = Product.find(params[:id])
-    @brands = Brand.all
+    begin
+      @product = Product.find(params[:id])
+      @brands = Brand.all
+    rescue ActiveRecord::RecordNotFound => e
+      @brands = Brand.all
+      flash[:danger] = "Product does not exist"
+      redirect_to request.referrer || root_path
+    rescue StandardError => e
+      puts e
+    end
   end
 
   def new
@@ -32,20 +40,20 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
     begin
-    if @product.save
-      flash[:success] = "Add Product Successfully"
-      redirect_to @product
-    else
-      @brands = Brand.all
-      render 'new'
-    end
+    @product = Product.new(product_params)
+      if @product.save
+        flash[:success] = "Add Product Successfully"
+        redirect_to @product
+      else
+        @brands = Brand.all
+        render 'new'
+      end
     rescue ActiveRecord::RecordNotUnique => e
       @brands = Brand.all
       flash[:danger] = "Cannot add a same product as same brand"
       render 'new'
-    rescue => e
+    rescue StandardError => e
       puts e
     end
   end

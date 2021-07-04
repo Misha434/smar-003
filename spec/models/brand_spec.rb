@@ -74,11 +74,11 @@ RSpec.describe Brand, type: :model do
     end
     context "Emoji" do
       it "is valid" do
-        brand = FactoryBot.build(:brand, name: "👨"*50)
+        brand = FactoryBot.build(:brand, name: "👨" * 50)
         expect(brand).to be_valid
       end
       it "is invalid 51 charactors" do
-        brand = FactoryBot.build(:brand, name: "👨"*51)
+        brand = FactoryBot.build(:brand, name: "👨" * 51)
         expect(brand).to_not be_valid
       end
     end

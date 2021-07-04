@@ -136,13 +136,15 @@ RSpec.describe Review, type: :model do
       end
       context "is 140" do
         it "is valid" do
-          review = FactoryBot.build(:review, content: "Adolph Blain Charles Dave Frederick Hubert Adolph Blaine Charles Dave Early Frederick Hubert Adolph Blaine Charles Dave Early Frederick Dave")
+          review = FactoryBot.build(:review,
+                                    content: "Adolph Blain Charles Dave Frederick Hubert Adolph Blaine Charles Dave Early Frederick Hubert Adolph Blaine Charles Dave Early Frederick Dave")
           expect(review).to be_valid
         end
       end
       context "is 141" do
         it "is invalid" do
-          review = FactoryBot.build(:review, content: "Adolphe Blain Charles Dave Frederick Hubert Adolph Blaine Charles Dave Early Frederick Hubert Adolph Blaine Charles Dave Early Frederick Dave")
+          review = FactoryBot.build(:review,
+                                    content: "Adolphe Blain Charles Dave Frederick Hubert Adolph Blaine Charles Dave Early Frederick Hubert Adolph Blaine Charles Dave Early Frederick Dave")
           expect(review).to_not be_valid
         end
       end
@@ -151,41 +153,46 @@ RSpec.describe Review, type: :model do
   describe "Charactor Type" do
     context "漢字・ひらがな・カタカナ(全角)" do
       it "is valid" do
-        review = FactoryBot.build(:review, content: "吾輩は猫である。名前はまだ無い。どこで生れたか見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー吾輩は猫である。名前はまだ無い。どこで生れたか見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー吾輩は猫である。名前はまだ無い。どこで生れたか見当がつかぬ。何でも薄暗いじめじめ")
+        review = FactoryBot.build(:review,
+                                  content: "吾輩は猫である。名前はまだ無い。どこで生れたか見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー吾輩は猫である。名前はまだ無い。どこで生れたか見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー吾輩は猫である。名前はまだ無い。どこで生れたか見当がつかぬ。何でも薄暗いじめじめ")
         expect(review).to be_valid
       end
     end
     context "半角カタカナ" do
       it "is valid" do
-        review = FactoryBot.build(:review, content: "ﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂｶﾇ｡ﾅﾝﾃﾞﾓｳｽﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂｶﾇ｡ﾅﾝﾃﾞﾓｳｽﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂ")
+        review = FactoryBot.build(:review,
+                                  content: "ﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂｶﾇ｡ﾅﾝﾃﾞﾓｳｽﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂｶﾇ｡ﾅﾝﾃﾞﾓｳｽﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂ")
         expect(review).to be_valid
       end
     end
     context "English(Upper/Down Case)" do
       it "is valid" do
-        review = FactoryBot.build(:review, content: "From fairest creatures we desire increase, That From fairest creatures we desire increase, That From fairest creatures we desire increase fa")
+        review = FactoryBot.build(:review,
+                                  content: "From fairest creatures we desire increase, That From fairest creatures we desire increase, That From fairest creatures we desire increase fa")
         expect(review).to be_valid
       end
     end
     context "symbol" do
       it "is valid" do
-        review = FactoryBot.build(:review, content: "▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμν▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμν▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγ")
+        review = FactoryBot.build(:review,
+                                  content: "▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμν▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμν▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγ")
         expect(review).to be_valid
       end
     end
     context "Number" do
       it "is valid" do
-        review = FactoryBot.build(:review, content: "88991646493833403４５３１７５１９０２４８７５１０４３６５１８２７４６１８２558388991646493833403４５３１７５１９０２４８７５１０４３６５１８２７４６１８２558388991646493833403４５３１７５１９０２４８７５１０４３６５１８２")
+        review = FactoryBot.build(:review,
+                                  content: "88991646493833403４５３１７５１９０２４８７５１０４３６５１８２７４６１８２558388991646493833403４５３１７５１９０２４８７５１０４３６５１８２７４６１８２558388991646493833403４５３１７５１９０２４８７５１０４３６５１８２")
         expect(review).to be_valid
       end
     end
     context "Emoji" do
       it "is invalid (4Byte)" do
-        review = FactoryBot.build(:review, content: "👨"*140)
+        review = FactoryBot.build(:review, content: "👨" * 140)
         expect(review).to be_valid
       end
       it "is valid (over 5Byte)" do
-        review = FactoryBot.build(:review, content: "👨‍👩‍👦‍👦"*140)
+        review = FactoryBot.build(:review, content: "👨‍👩‍👦‍👦" * 140)
         expect(review).to_not be_valid
       end
     end
