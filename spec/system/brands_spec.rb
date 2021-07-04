@@ -1,26 +1,26 @@
 require 'rails_helper'
 
 RSpec.describe Brand, type: :system do
-  
   def create_brand(i)
     i = i.to_i
     i.times do |n|
-      name = "Brand-#{ n + 1 }"
+      name = "Brand-#{n + 1}"
       Brand.create!(
         id: n + 1,
         name: name
       )
     end
   end
+
   def create_product(i)
     i = i.to_i
     i.times do |n|
-      name = "Phone-#{ n + 1 }"
+      name = "Phone-#{n + 1}"
       soc_antutu_score = 100
-      battery_capacity = ( n + 1 ) * 1000
+      battery_capacity = (n + 1) * 1000
       brand_id = 1
-      image= ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
-      filename: "product-photo-#{n}.jpeg")
+      image = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
+                                                     filename: "product-photo-#{n}.jpeg")
       Product.create!(
         name: name,
         soc_antutu_score: soc_antutu_score,
@@ -35,7 +35,7 @@ RSpec.describe Brand, type: :system do
     @product = FactoryBot.build(:product)
     visit root_path
   end
-  # Modify format Start 
+  # Modify format Start
   describe 'As Admin User,' do
     before do
       @admin_user = FactoryBot.create(:user, admin: true)
@@ -168,7 +168,7 @@ RSpec.describe Brand, type: :system do
         describe 'registrated' do
           before do
             @brand.save!
-            visit current_path #reload
+            visit current_path # reload
           end
           it 'is unavailable' do
             fill_in 'Name', with: @brand.name
@@ -257,7 +257,7 @@ RSpec.describe Brand, type: :system do
           visit current_path
         end
         it 'link is available' do
-          click_on 'Apple' 
+          click_on 'Apple'
           expect(page).to have_content('Apple')
         end
         it 'Product count is correct(product no exist)' do
@@ -274,7 +274,7 @@ RSpec.describe Brand, type: :system do
           expect(page).to have_content('2 Products')
         end
         it 'Edit link is available' do
-          find(:css,'.edit_link').click
+          find(:css, '.edit_link').click
           expect(page).to have_content('Edit a New Brand')
         end
       end
@@ -302,7 +302,7 @@ RSpec.describe Brand, type: :system do
             expect(page).to have_content('Brand-10')
             expect(page).to have_css('.page-item')
             within('.page-item.next') do
-              click_on 'Next' 
+              click_on 'Next'
             end
             expect(page).to have_content('Brand-11')
             click_on 'Brand-11'
@@ -325,7 +325,7 @@ RSpec.describe Brand, type: :system do
         end
         it 'edits brand link is available' do
           within('.brand_title') do
-            find(:css,'.edit_link').click
+            find(:css, '.edit_link').click
           end
           expect(page).to have_content('Edit a New Brand')
         end
@@ -347,7 +347,7 @@ RSpec.describe Brand, type: :system do
         end
         it 'for editing product is available' do
           within('#product-1') do
-            find(:css,'.edit_link').click
+            find(:css, '.edit_link').click
           end
           expect(page).to have_content('Edit Product')
         end
@@ -387,7 +387,7 @@ RSpec.describe Brand, type: :system do
       describe 'from brands#index' do
         it 'is available' do
           within('#brand-1') do
-            find(:css,'.edit_link').click
+            find(:css, '.edit_link').click
           end
           fill_in 'Name', with: 'Example Inc'
           click_button "Update Brand"
@@ -398,7 +398,7 @@ RSpec.describe Brand, type: :system do
         it 'is available' do
           click_on 'Apple'
           within('.brand_title') do
-            find(:css,'.edit_link').click
+            find(:css, '.edit_link').click
           end
           fill_in 'Name', with: 'Example Inc'
           click_button "Update Brand"
@@ -408,7 +408,7 @@ RSpec.describe Brand, type: :system do
       describe 'Edit form validation' do
         before do
           within('#brand-1') do
-            find(:css,'.edit_link').click
+            find(:css, '.edit_link').click
           end
         end
         describe 'charactor count' do
@@ -509,7 +509,7 @@ RSpec.describe Brand, type: :system do
           describe 'registrated' do
             before do
               @brand.save!
-              visit current_path #reload
+              visit current_path # reload
             end
             it 'is unavailable' do
               fill_in 'Name', with: @brand.name
@@ -519,7 +519,7 @@ RSpec.describe Brand, type: :system do
           describe 'about image field' do
             before do
               @brand.save!
-              visit current_path #reload
+              visit current_path # reload
             end
             describe 'file format' do
               context 'gif' do
@@ -598,7 +598,7 @@ RSpec.describe Brand, type: :system do
         click_on 'Brands'
         click_on 'Apple'
         within('.brand_title') do
-          find(:css,'.edit_link').click
+          find(:css, '.edit_link').click
         end
       end
       xdescribe 'in brands#edit' do
@@ -659,7 +659,7 @@ RSpec.describe Brand, type: :system do
           visit current_path
         end
         it 'link is available' do
-          click_on 'Apple' 
+          click_on 'Apple'
           expect(page).to have_content('Apple')
         end
         it 'Product count is correct(product no exist)' do
@@ -703,7 +703,7 @@ RSpec.describe Brand, type: :system do
             expect(page).to have_content('Brand-10')
             expect(page).to have_css('.page-item')
             within('.page-item.next') do
-              click_on 'Next' 
+              click_on 'Next'
             end
             expect(page).to have_content('Brand-11')
             click_on 'Brand-11'
@@ -820,7 +820,7 @@ RSpec.describe Brand, type: :system do
           visit current_path
         end
         it 'link is available' do
-          click_on 'Apple' 
+          click_on 'Apple'
           expect(page).to have_content('Apple')
         end
         it 'Product count is correct(product no exist)' do
@@ -864,7 +864,7 @@ RSpec.describe Brand, type: :system do
             expect(page).to have_content('Brand-10')
             expect(page).to have_css('.page-item')
             within('.page-item.next') do
-              click_on 'Next' 
+              click_on 'Next'
             end
             expect(page).to have_content('Brand-11')
             click_on 'Brand-11'

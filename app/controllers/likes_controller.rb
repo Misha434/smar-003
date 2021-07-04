@@ -1,5 +1,6 @@
 class LikesController < ApplicationController
   before_action :review_params, only: %i[create destroy]
+  before_action :authenticate_user!, only: %i[create destroy]
 
   def create
     Like.create(user_id: current_user.id, review_id: params[:id])

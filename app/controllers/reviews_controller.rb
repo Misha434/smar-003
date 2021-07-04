@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
   before_action :correct_user, only: %i[destroy edit update]
 
   def create
-    @review = current_user.reviews.build(review_params)      
+    @review = current_user.reviews.build(review_params)
     if @review.save
       redirect_to current_user
     else
