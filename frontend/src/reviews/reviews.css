@@ -44,3 +44,11 @@ li {
   color: gray;
   margin-bottom: 0;
 }
+
+.active_star {
+  color: gold;
+}
+
+.no_active_star {
+  color: lightgray;
+}
