@@ -62,16 +62,19 @@ end
 Review.create!(
   content: "Good",
   user_id: 1,
-  product_id: 1
+  product_id: 1,
+  rate: 3
   )
 10.times do
   content = Faker::Lorem.sentence(word_count: 5)
   user_id = Faker::Number.within(range: 2..20)
   product_id = Faker::Number.within(range: 2..19)
+  rate = rand(1..5)
   Review.create!(
     content: content,
     user_id: user_id,
-    product_id: product_id
+    product_id: product_id,
+    rate: rate
   )
 end
 
