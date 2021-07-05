@@ -12,9 +12,16 @@
           - if review.user.name =! current_user
             p = link_to review.user.name
       .row
-        .col-12
+        .col-12.mt-2
+          span.rate
+            - review.rate.times do
+              = content_tag(:i,"",class: "fas fa-star active_star")
+            - (5 - review.rate).times do
+              = content_tag(:i,"",class: "far fa-star no_active_star")
+      .row
+        .col-12.pt-1
           span.content
-            p.my-3 = review.content
+            p.mt-1 = review.content
           = render 'reviews/posted_image', review: review
       .row.span.pt-2
         .col-12
