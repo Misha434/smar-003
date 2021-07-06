@@ -8,6 +8,7 @@ class ProductsController < ApplicationController
       if @product
         @select_product_reviews = @product.reviews.all
         @product_like_countup = Like.all.joins(review: :product).where('product_id=?', params[:id]).count
+        @review_rate_average = Review.where('product_id=?', params[:id]).average(:rate)
       else
         redirect_to products_path
         flash[:danger] = 'Product does not exist'
