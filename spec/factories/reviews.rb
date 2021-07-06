@@ -4,5 +4,6 @@ FactoryBot.define do
     content { "Awesome" }
     user_id { 1 }
     product_id { 1 }
+    rate { 3 }
   end
 end
