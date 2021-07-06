@@ -120,6 +120,61 @@ RSpec.describe Review, type: :model do
       end
     end
   end
+  describe 'Rate' do
+    context "about value range" do
+      it 'is a invalid with empty' do
+        review = FactoryBot.build(:review, rate: nil)
+        expect(review).to_not be_valid
+      end
+      it 'is a invalid with space' do
+        review = FactoryBot.build(:review, rate: " 　")
+        expect(review).to_not be_valid
+      end
+      it 'is a invalid with not existing rate: -1' do
+        review = FactoryBot.build(:review, rate: -1)
+        expect(review).to_not be_valid
+      end
+      it 'is a invalid with not existing rate: 0' do
+        review = FactoryBot.build(:review, rate: 0)
+        expect(review).to_not be_valid
+      end
+      it 'is a valid with existing rate: 1' do
+        review = FactoryBot.build(:review, rate: 1)
+        expect(review).to be_valid
+      end
+      it 'is a valid with existing rate: 5' do
+        review = FactoryBot.build(:review, rate: 5)
+        expect(review).to be_valid
+      end
+      it 'is a invalid with not existing rate selected' do
+        review = FactoryBot.build(:review, rate: 6)
+        expect(review).to_not be_valid
+      end
+    end
+    context "about data-type" do
+      it 'of string or text is a valid' do
+        review = FactoryBot.build(:review, rate: 3)
+        expect(review).to be_valid
+      end
+      it 'of integer is a invalid' do
+        pending "Consider after System Spec"
+        review = FactoryBot.build(:review, rate: "1")
+        expect(review).to_not be_valid
+      end
+      it 'of float is a invalid' do
+        review = FactoryBot.build(:review, rate: 1.1)
+        expect(review).to_not be_valid
+      end
+      it 'of boolean true is a invalid' do
+        review = FactoryBot.build(:review, rate: true)
+        expect(review).to_not be_valid
+      end
+      it 'of boolean false is a invalid' do
+        review = FactoryBot.build(:review, rate: false)
+        expect(review).to_not be_valid
+      end
+    end
+  end
   describe "Content Form" do
     describe "filled with word length" do
       context "is 0(zero)" do

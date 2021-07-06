@@ -8,6 +8,7 @@ RSpec.describe Review, type: :system do
   def fill_in_review_form
     select "Apple"
     select "Phone-1"
+    select "★★★☆☆"
     fill_in 'review[content]', with: @review.content
   end
 
@@ -285,6 +286,7 @@ RSpec.describe Review, type: :system do
           within('#review-1') do
             find(:css, '.review_edit_link').click
           end
+          select "★★★☆☆"
         end
         it 'is available' do
           content = '吾輩は猫である。名前はまだ無い。どこで生れたか見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。この書生というのは時々我々を捕まえて'
