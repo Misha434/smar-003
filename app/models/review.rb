@@ -16,7 +16,7 @@ class Review < ApplicationRecord
                                    less_than_or_equal_to: 5 }
   validates :content, presence: true, length: { in: 1..140 }
   validates :image, content_type: { in: %w[image/jpeg image/gif image/png],
-                                    message: "must be valid image format" },
+                                    message: "must be a valid image format" },
                     size: { less_than: 5.megabytes,
                             message: "should be less than 5MB" }
 end
