@@ -20,6 +20,7 @@ RSpec.describe "Pages", type: :system do
       image = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
                                                      filename: "product-photo-#{n}.jpeg")
       Product.create!(
+        id: n + 1,
         name: name,
         soc_antutu_score: soc_antutu_score,
         battery_capacity: battery_capacity,
@@ -38,11 +39,25 @@ RSpec.describe "Pages", type: :system do
       image = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
                                                      filename: "product-photo-#{n}.jpeg")
       Product.create!(
+        id: n + 1,
         name: name,
         soc_antutu_score: soc_antutu_score,
         battery_capacity: battery_capacity,
         brand_id: brand_id,
         image: image
+      )
+    end
+  end
+
+  def create_review(i)
+    i = i.to_i
+    i.times do |n|
+      content = "review #{n + 1}"
+      Review.create!(
+        user_id: 1,
+        product_id: n + 1,
+        content: content,
+        rate: 3
       )
     end
   end
@@ -181,6 +196,7 @@ RSpec.describe "Pages", type: :system do
     describe "Within Battery Ranking," do
       before do
         create_product_sort_battery
+        create_review(3)
         visit current_path # Reload Page
       end
       it "Rank is correct" do
@@ -193,6 +209,7 @@ RSpec.describe "Pages", type: :system do
     describe "Within Antutu Ranking," do
       before do
         create_product_sort_antutu
+        create_review(3)
         visit current_path # Reload Page
       end
       it "Rank is correct" do
@@ -257,6 +274,7 @@ RSpec.describe "Pages", type: :system do
     describe "Within Battery Ranking," do
       before do
         create_product_sort_battery
+        create_review(3)
         visit current_path # Reload Page
       end
       it "Rank is correct" do
@@ -269,6 +287,7 @@ RSpec.describe "Pages", type: :system do
     describe "Within Antutu Ranking," do
       before do
         create_product_sort_antutu
+        create_review(3)
         visit current_path # Reload Page
       end
       it "Rank is correct" do
@@ -287,6 +306,7 @@ RSpec.describe "Pages", type: :system do
   end
   describe "Visit the site as Guest User," do
     before do
+      FactoryBot.create(:user)
       visit root_path
     end
     context "Title" do
@@ -327,6 +347,7 @@ RSpec.describe "Pages", type: :system do
     describe "Within Battery Ranking," do
       before do
         create_product_sort_battery
+        create_review(3)
         visit current_path # Reload Page
       end
       it "Rank is correct" do
@@ -362,6 +383,7 @@ RSpec.describe "Pages", type: :system do
     describe "Within Antutu Ranking," do
       before do
         create_product_sort_antutu
+        create_review(3)
         visit current_path # Reload Page
       end
       it "Rank is correct" do
