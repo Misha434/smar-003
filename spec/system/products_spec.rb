@@ -407,6 +407,95 @@ RSpec.describe Product, type: :system do
           end
         end
       end
+      # describe 'review count' do
+      #   before do
+      #     @review = FactoryBot.build(:review)
+      #     within('.review_count')
+      #   end
+      #   context 'if 0 reviews exist' do
+      #     it 'is correct' do
+      #       expect(page).to have_content('0')
+      #     end
+      #   end
+      #   context 'if 1 review exist' do
+      #     it 'is correct' do
+      #       @review.save!
+      #       visit current_path
+      #       expect(page).to have_content('1')
+      #     end
+      #   end
+      #   context 'if 2 review exist' do
+      #     it 'is correct' do
+      #       @review.save!
+      #       FactoryBot.create(:user, id: 2, email: 'test@example.org')
+      #       FactoryBot.create(:review, id: 2, user_id: 2)
+      #       visit current_path
+      #       expect(page).to have_content('2')
+      #     end
+      #   end
+      # end
+      describe 'Review Avg rate' do
+        before do
+          FactoryBot.create(:user, id: 2, email: 'test@example.org')
+          FactoryBot.create(:user, id: 3, email: 'test@example.jp')
+          FactoryBot.create(:user, id: 4, email: 'test-1@example.com')
+          @review = FactoryBot.build(:review)
+          within('.review_rate')
+        end
+        context 'if 0 reviews exist' do
+          it 'indicate -' do
+            expect(page).to have_content('-')
+          end
+        end
+        context 'when 1 review has rate 1' do
+          it 'indicate 1.0' do
+            FactoryBot.create(:review, rate: 1)
+            visit current_path
+            expect(page).to have_content('1.0')
+          end
+        end
+        context 'when 1 review has rate 3' do
+          it 'indicate 3.0' do
+            @review.save!
+            visit current_path
+            expect(page).to have_content('3.0')
+          end
+        end
+        context 'when 1 review has rate 5' do
+          it 'indicate 5.0' do
+            FactoryBot.create(:review)
+            visit current_path
+            expect(page).to have_content('5.0')
+          end
+        end
+        context 'when 2 review has rate 3, 4' do
+          it 'indicate 3.5' do
+            @review.save!
+            FactoryBot.create(:review, id: 2, user_id: 2, rate: 4)
+            visit current_path
+            expect(page).to have_content('3.5')
+          end
+        end
+        context 'when 3 review has rate 3, 4, 4' do
+          it 'indicate 3.6' do
+            @review.save!
+            FactoryBot.create(:review, id: 2, user_id: 2, rate: 4)
+            FactoryBot.create(:review, id: 3, user_id: 3, rate: 4)
+            visit current_path
+            expect(page).to have_content('3.6')
+          end
+        end
+        context 'when 4 review has rate 3, 4, 4, 4' do
+          it 'indicate 3.7' do
+            @review.save!
+            FactoryBot.create(:review, id: 2, user_id: 2, rate: 4)
+            FactoryBot.create(:review, id: 3, user_id: 3, rate: 4)
+            FactoryBot.create(:review, id: 4, user_id: 4, rate: 4)
+            visit current_path
+            expect(page).to have_content('3.7')
+          end
+        end
+      end
       describe 'Antutu Value' do
         before do
           within('.value_antutu')
