@@ -407,33 +407,33 @@ RSpec.describe Product, type: :system do
           end
         end
       end
-      # describe 'review count' do
-      #   before do
-      #     @review = FactoryBot.build(:review)
-      #     within('.review_count')
-      #   end
-      #   context 'if 0 reviews exist' do
-      #     it 'is correct' do
-      #       expect(page).to have_content('0')
-      #     end
-      #   end
-      #   context 'if 1 review exist' do
-      #     it 'is correct' do
-      #       @review.save!
-      #       visit current_path
-      #       expect(page).to have_content('1')
-      #     end
-      #   end
-      #   context 'if 2 review exist' do
-      #     it 'is correct' do
-      #       @review.save!
-      #       FactoryBot.create(:user, id: 2, email: 'test@example.org')
-      #       FactoryBot.create(:review, id: 2, user_id: 2)
-      #       visit current_path
-      #       expect(page).to have_content('2')
-      #     end
-      #   end
-      # end
+      describe 'review count' do
+        before do
+          @review = FactoryBot.build(:review)
+          within('.review_count')
+        end
+        context 'if 0 reviews exist' do
+          it 'is correct' do
+            expect(page).to have_content('0')
+          end
+        end
+        context 'if 1 review exist' do
+          it 'is correct' do
+            @review.save!
+            visit current_path
+            expect(page).to have_content('1')
+          end
+        end
+        context 'if 2 review exist' do
+          it 'is correct' do
+            @review.save!
+            FactoryBot.create(:user, id: 2, email: 'test@example.org')
+            FactoryBot.create(:review, id: 2, user_id: 2)
+            visit current_path
+            expect(page).to have_content('2')
+          end
+        end
+      end
       describe 'Review Avg rate' do
         before do
           FactoryBot.create(:user, id: 2, email: 'test@example.org')
