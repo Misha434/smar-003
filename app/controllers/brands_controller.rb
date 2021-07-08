@@ -22,14 +22,12 @@ class BrandsController < ApplicationController
   end
 
   def show
-    begin
-      @brand = Brand.find(params[:id])
-    rescue ActiveRecord::RecordNotFound => e
-      flash[:danger] = "Brand does not exist"
-      redirect_to request.referrer || brands_path
-    rescue StandardError => e
-      puts e
-    end
+    @brand = Brand.find(params[:id])
+  rescue ActiveRecord::RecordNotFound => e
+    flash[:danger] = "Brand does not exist"
+    redirect_to request.referrer || brands_path
+  rescue StandardError => e
+    puts e
   end
 
   def destroy
@@ -47,14 +45,12 @@ class BrandsController < ApplicationController
   end
 
   def edit
-    begin
-      @brand = Brand.find(params[:id])
-    rescue ActiveRecord::RecordNotFound => e
-      flash[:danger] = "Brand does not exist"
-      redirect_to request.referrer || brands_path
-    rescue StandardError => e
-      puts e
-    end
+    @brand = Brand.find(params[:id])
+  rescue ActiveRecord::RecordNotFound => e
+    flash[:danger] = "Brand does not exist"
+    redirect_to request.referrer || brands_path
+  rescue StandardError => e
+    puts e
   end
 
   def update
