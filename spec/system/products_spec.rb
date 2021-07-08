@@ -398,7 +398,7 @@ RSpec.describe Product, type: :system do
             expect(page).to have_content('1')
           end
         end
-        context 'if 2 reviews exist' do
+        context 'if 2 likes exist' do
           it 'is correct' do
             FactoryBot.create(:like, user_id: 1, review_id: 1)
             FactoryBot.create(:like, user_id: 2, review_id: 1)
