@@ -393,10 +393,47 @@ RSpec.describe Review, type: :system do
       end
       describe 'Edit form validation' do
         before do
+          within('header') do
+            find(:css, "button.navbar-toggler").click
+          end
           click_on 'All Products'
           click_on 'Phone-1'
           within('#review-1') do
             find(:css, '.review_edit_link').click
+          end
+        end
+        context 'select fields(Rate)' do
+          describe 'Form' do
+            it 'selected 1 is available' do
+              select '★☆☆☆☆'
+              click_button "Edit"
+              expect(page).to have_selector('.active_star', count: 1)
+              expect(page).to have_selector('.no_active_star', count: 4)
+            end
+            it 'selected 2 is available' do
+              select '★★☆☆☆'
+              click_button "Edit"
+              expect(page).to have_selector('.active_star', count: 2)
+              expect(page).to have_selector('.no_active_star', count: 3)
+            end
+            it 'selected 3 is available' do
+              select '★★★☆☆'
+              click_button "Edit"
+              expect(page).to have_selector('.active_star', count: 3)
+              expect(page).to have_selector('.no_active_star', count: 2)
+            end
+            it 'selected 4 is available' do
+              select '★★★★☆'
+              click_button "Edit"
+              expect(page).to have_selector('.active_star', count: 4)
+              expect(page).to have_selector('.no_active_star', count: 1)
+            end
+            it 'selected 5 is available' do
+              select '★★★★★'
+              click_button "Edit"
+              expect(page).to have_selector('.active_star', count: 5)
+              expect(page).to_not have_selector('.no_active_star')
+            end
           end
         end
         describe 'charactor count' do
