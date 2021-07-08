@@ -5,8 +5,12 @@ RSpec.describe Like, type: :system do
     before do
       @brand = FactoryBot.create(:brand)
       @product = FactoryBot.create(:product)
+      @product_2 = FactoryBot.create(:product, id: 2, name: "Phone-2")
+      @product_3 = FactoryBot.create(:product, id: 3, name: "Phone-3")
       @user = FactoryBot.create(:user)
       @review = FactoryBot.create(:review)
+      @review_2 = FactoryBot.create(:review, id: 2, product_id: 2)
+      @review_3 = FactoryBot.create(:review, id: 3, product_id: 3)
       visit '/users/sign_in'
       fill_in "Email", with: @user.email
       fill_in "Password", with: @user.password

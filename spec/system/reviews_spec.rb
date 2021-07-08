@@ -8,6 +8,7 @@ RSpec.describe Review, type: :system do
   def fill_in_review_form
     select "Apple"
     select "Phone-1"
+    select "★★★☆☆"
     fill_in 'review[content]', with: @review.content
   end
 
@@ -85,6 +86,85 @@ RSpec.describe Review, type: :system do
             expect(page).to have_content 'Aaron'
             expect(page).to have_content 'Awesome'
             expect(page).to have_css("img[src$='image_test_logo.png']")
+          end
+        end
+        context 'about select fields(Brand, Product)', js:true do
+          describe 'Form' do
+            before do
+              FactoryBot.create(:brand, id: 2, name: "Example Inc")
+              FactoryBot.create(:brand, id: 3, name: "Example Exp")
+              FactoryBot.create(:product, id: 2, name: "Phone-2")
+              FactoryBot.create(:product, id: 3, brand_id: 2, name: "Phone-3")
+              visit current_path
+              fill_in_review_form
+            end
+            it 'Product are indicated correctry(selected Apple)' do
+              select 'Apple'
+              select 'Phone-2'
+              click_button "Post"
+              expect(page).to have_content 'Aaron'
+              expect(page).to have_content 'Awesome'
+              expect(page).to have_content 'Phone-2'
+            end
+            it 'Product are indicated correctry(selected Example Inc)' do
+              select 'Example Inc'
+              select 'Phone-3'
+              click_button "Post"
+              expect(page).to have_content 'Aaron'
+              expect(page).to have_content 'Awesome'
+              expect(page).to have_content 'Phone-3'
+            end
+            it 'Brand is enpty, should be invalid' do
+              select '--- Brand ---'
+              click_button "Post"
+              expect(page).to have_content 'Post Review'
+            end
+            it 'Product is enpty, should be invalid' do
+              select 'Example Exp'
+              click_button "Post"
+              expect(page).to have_content 'Post Review'
+            end
+            it 'is enpty should be invalid (after selected Product)' do
+              select 'Apple'
+              select 'Phone-2'
+              select '--- Brand ---'
+              click_button "Post"
+              expect(page).to have_content 'Post Review'
+            end
+          end
+        end
+        context 'about select fields(Rate)', js: true do
+          describe 'Form' do
+            it 'selected 1 is available' do
+              select '★☆☆☆☆'
+              click_button "Post"
+              expect(page).to have_selector('svg.active_star', count: 1)
+              expect(page).to have_selector('svg.no_active_star', count: 4)
+            end
+            it 'selected 2 is available' do
+              select '★★☆☆☆'
+              click_button "Post"
+              expect(page).to have_selector('svg.active_star', count: 2)
+              expect(page).to have_selector('svg.no_active_star', count: 3)
+            end
+            it 'selected 3 is available' do
+              select '★★★☆☆'
+              click_button "Post"
+              expect(page).to have_selector('svg.active_star', count: 3)
+              expect(page).to have_selector('svg.no_active_star', count: 2)
+            end
+            it 'selected 4 is available' do
+              select '★★★★☆'
+              click_button "Post"
+              expect(page).to have_selector('svg.active_star', count: 4)
+              expect(page).to have_selector('svg.no_active_star', count: 1)
+            end
+            it 'selected 5 is available' do
+              select '★★★★★'
+              click_button "Post"
+              expect(page).to have_selector('svg.active_star', count: 5)
+              expect(page).to_not have_selector('svg.no_active_star')
+            end
           end
         end
         describe 'about content field' do
@@ -285,6 +365,7 @@ RSpec.describe Review, type: :system do
           within('#review-1') do
             find(:css, '.review_edit_link').click
           end
+          select "★★★☆☆"
         end
         it 'is available' do
           content = '吾輩は猫である。名前はまだ無い。どこで生れたか見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。この書生というのは時々我々を捕まえて'
@@ -312,10 +393,47 @@ RSpec.describe Review, type: :system do
       end
       describe 'Edit form validation' do
         before do
+          within('header') do
+            find(:css, "button.navbar-toggler").click
+          end
           click_on 'All Products'
           click_on 'Phone-1'
           within('#review-1') do
             find(:css, '.review_edit_link').click
+          end
+        end
+        context 'select fields(Rate)' do
+          describe 'Form' do
+            it 'selected 1 is available' do
+              select '★☆☆☆☆'
+              click_button "Edit"
+              expect(page).to have_selector('.active_star', count: 1)
+              expect(page).to have_selector('.no_active_star', count: 4)
+            end
+            it 'selected 2 is available' do
+              select '★★☆☆☆'
+              click_button "Edit"
+              expect(page).to have_selector('.active_star', count: 2)
+              expect(page).to have_selector('.no_active_star', count: 3)
+            end
+            it 'selected 3 is available' do
+              select '★★★☆☆'
+              click_button "Edit"
+              expect(page).to have_selector('.active_star', count: 3)
+              expect(page).to have_selector('.no_active_star', count: 2)
+            end
+            it 'selected 4 is available' do
+              select '★★★★☆'
+              click_button "Edit"
+              expect(page).to have_selector('.active_star', count: 4)
+              expect(page).to have_selector('.no_active_star', count: 1)
+            end
+            it 'selected 5 is available' do
+              select '★★★★★'
+              click_button "Edit"
+              expect(page).to have_selector('.active_star', count: 5)
+              expect(page).to_not have_selector('.no_active_star')
+            end
           end
         end
         describe 'charactor count' do

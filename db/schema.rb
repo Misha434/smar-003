@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_29_070456) do
+ActiveRecord::Schema.define(version: 2021_07_04_064514) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2021_06_29_070456) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "product_id", null: false
+    t.integer "rate"
     t.index ["product_id", "user_id"], name: "index_reviews_on_product_id_and_user_id", unique: true
     t.index ["product_id"], name: "index_reviews_on_product_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
