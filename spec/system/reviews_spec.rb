@@ -88,7 +88,7 @@ RSpec.describe Review, type: :system do
             expect(page).to have_css("img[src$='image_test_logo.png']")
           end
         end
-        context 'about select fields(Brand, Product)', js:true do
+        context 'about select fields(Brand, Product)', js: true do
           describe 'Form' do
             before do
               FactoryBot.create(:brand, id: 2, name: "Example Inc")

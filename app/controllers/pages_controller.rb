@@ -14,7 +14,7 @@ class PagesController < ApplicationController
           @products_sort_rate_average << Product.find(@each_product_rate_average[i][0])
           @average_rate << @each_product_rate_average[i][1]
         end
-      elsif product_count > 0 && product_count < 3
+      elsif product_count.positive? && product_count < 3
         product_amount = product_count
         product_amount.times do |i|
           @products_sort_rate_average << Product.find(@each_product_rate_average[i][0])

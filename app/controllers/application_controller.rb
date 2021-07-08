@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   prepend_view_path Rails.root.join("frontend")
   before_action :configure_permitted_parameters, if: :devise_controller?
-  
+
   private
 
   def admin_user

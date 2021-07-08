@@ -3,40 +3,34 @@ class ProductsController < ApplicationController
   before_action :admin_user, only: %i[new create edit update destroy]
   include Pagy::Backend
   def show
-    begin
-      @product = Product.find(params[:id])
-      if @product
-        @select_product_reviews = @product.reviews.all
-        @product_like_countup = Like.all.joins(review: :product).where('product_id=?', params[:id]).count
-        @review_rate_average = Review.where('product_id=?', params[:id]).average(:rate)
-        unless @review_rate_average == nil
-          @review_rate_average = @review_rate_average.floor(1)
-        end
-        @review_rate_average ||= '-'
-      else
-        redirect_to products_path
-        flash[:danger] = 'Product does not exist'
-      end
-    rescue ActiveRecord::RecordNotFound => e
-      @brands = Brand.all
-      flash[:danger] = "Product does not exist"
-      redirect_to request.referrer || root_path
-    rescue StandardError => e
-      puts e
+    @product = Product.find(params[:id])
+    if @product
+      @select_product_reviews = @product.reviews.all
+      @product_like_countup = Like.all.joins(review: :product).where('product_id=?', params[:id]).count
+      @review_rate_average = Review.where('product_id=?', params[:id]).average(:rate)
+      @review_rate_average = @review_rate_average.floor(1) unless @review_rate_average.nil?
+      @review_rate_average ||= '-'
+    else
+      redirect_to products_path
+      flash[:danger] = 'Product does not exist'
     end
+  rescue ActiveRecord::RecordNotFound => e
+    @brands = Brand.all
+    flash[:danger] = "Product does not exist"
+    redirect_to request.referrer || root_path
+  rescue StandardError => e
+    puts e
   end
-  
+
   def edit
-    begin
-      @product = Product.find(params[:id])
-      @brands = Brand.all
-    rescue ActiveRecord::RecordNotFound => e
-      @brands = Brand.all
-      flash[:danger] = "Product does not exist"
-      redirect_to request.referrer || root_path
-    rescue StandardError => e
-      puts e
-    end
+    @product = Product.find(params[:id])
+    @brands = Brand.all
+  rescue ActiveRecord::RecordNotFound => e
+    @brands = Brand.all
+    flash[:danger] = "Product does not exist"
+    redirect_to request.referrer || root_path
+  rescue StandardError => e
+    puts e
   end
 
   def new
@@ -45,22 +39,20 @@ class ProductsController < ApplicationController
   end
 
   def create
-    begin
     @product = Product.new(product_params)
-      if @product.save
-        flash[:success] = "Add Product Successfully"
-        redirect_to @product
-      else
-        @brands = Brand.all
-        render 'new'
-      end
-    rescue ActiveRecord::RecordNotUnique => e
+    if @product.save
+      flash[:success] = "Add Product Successfully"
+      redirect_to @product
+    else
       @brands = Brand.all
-      flash[:danger] = "Cannot add a same product as same brand"
       render 'new'
-    rescue StandardError => e
-      puts e
     end
+  rescue ActiveRecord::RecordNotUnique => e
+    @brands = Brand.all
+    flash[:danger] = "Cannot add a same product as same brand"
+    render 'new'
+  rescue StandardError => e
+    puts e
   end
 
   def update
