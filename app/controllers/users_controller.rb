@@ -17,9 +17,9 @@ class UsersController < ApplicationController
     rescue StandardError => e
       puts e
     end
-      @review = Review.new
-      @brands = Brand.all
-      @products = Product.all
-      @user_received_like_countup = Like.joins(review: :user).where('users.id=?', params[:id]).count
+    @review = Review.new
+    @brands = Brand.all
+    @products = Product.all
+    @user_received_like_countup = Like.joins(review: :user).where('users.id=?', params[:id]).count
   end
 end
