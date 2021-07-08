@@ -11,6 +11,14 @@ ol.reviews
                 = link_to review.user.name, review.user
               p.card-text.count--text
                 = review.updated_at.strftime('%Y/%m/%d')
+        .row
+          .col-12.my-1
+            span.rate
+              - review.rate.times do
+                = content_tag(:i,"",class: "fas fa-star active_star")
+              - (5 - review.rate).times do
+                = content_tag(:i,"",class: "far fa-star no_active_star")
+        .row
           .col-12
             p = review.content
         .row

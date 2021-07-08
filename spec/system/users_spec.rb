@@ -6,9 +6,13 @@ RSpec.describe User, type: :system do
       before do
         @brand = FactoryBot.create(:brand)
         @user = FactoryBot.create(:user)
-        @product = FactoryBot.create(:product, brand_id: @brand.id)
-        @review = FactoryBot.create(:review, user_id: @user.id, \
+        @product = FactoryBot.create(:product)
+        @product_2 = FactoryBot.create(:product, id: 2, name: "Phone-2")
+        @product_3 = FactoryBot.create(:product, id: 3, name: "Phone-3")
+        @review = FactoryBot.create(:review, user_id: @user.id,
                                              product_id: @product.id)
+        @review_2 = FactoryBot.create(:review, id: 2, product_id: 2)
+        @review_3 = FactoryBot.create(:review, id: 3, product_id: 3)
         @admin_user = FactoryBot.create(:user, id: 2, name: "admin", email: "buzz@example.com", admin: true)
         visit root_path
       end
