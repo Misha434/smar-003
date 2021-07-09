@@ -12,7 +12,7 @@
                 = link_to product_image_default(product), product
               .col-8
                 p = link_to product.name, product
-                p.count--text = "#{product.created_at.strftime("%Y/%m/%d")}"
+                p.count--text = "#{product.release_date.strftime("%Y/%m/%d")}"
       li.text-center
         u
           |#{link_to "view more", new_user_session_path}
