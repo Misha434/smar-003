@@ -8,12 +8,14 @@
         i.far.fa-comments aria-hidden="true"
         p.review_count = "#{@product.reviews.count}"
       .d-block.px-2.text-center
-        i.fa.fa-microchip.fa-xs aria-hidden="true"
+        i.fas.fa-microchip aria-hidden="true"
         p.value_antutu = "#{@product.soc_antutu_score}"
       .d-block.px-2.text-center
-        i.fa.fa-battery-full aria-hidden="true"
+        i.fas.fa-battery-full aria-hidden="true"
         p.value_battery = "#{@product.battery_capacity}mAh"
       .d-block.px-2.text-center
         i.fas.fa-star
-        .d-flex
-          p.value_rate_avarage = "#{@review_rate_average} / 5.0"
+        p.value_rate_avarage = "#{@review_rate_average} / 5.0"
+      .d-block.px-2.text-center
+        i.fas.fa-table aria-hidden="true"
+        p.release_date = "#{@product.release_date.strftime("%Y/%m/%d")}"
