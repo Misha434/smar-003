@@ -39,6 +39,7 @@ Product.create!(
   soc_antutu_score: 100,
   battery_capacity: 1000,
   brand_id: 1,
+  release_date: DateTime.now,
   image: ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/product_fujitsu_1.jpeg")),
   filename: "product_fujitsu_1.jpeg")
   )
@@ -48,14 +49,16 @@ Product.create!(
   soc_antutu_score = rand(100..10000)
   battery_capacity = rand(1000..5000)
   brand_id = Faker::Number.within(range: 1..19)
-  image= ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
+  release_date = DateTime.now - n - 1
+  image = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
   filename: "product-photo-#{n}.jpeg")
   Product.create!(
     name: name,
     soc_antutu_score: soc_antutu_score,
     battery_capacity: battery_capacity,
     brand_id: brand_id,
-    image: image
+    image: image,
+    release_date: release_date
   )
 end
 

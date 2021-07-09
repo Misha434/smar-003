@@ -17,6 +17,7 @@ RSpec.describe "Pages", type: :system do
       soc_antutu_score = 100
       battery_capacity = (n + 1) * 1000
       brand_id = n + 1
+      release_date = DateTime.now
       image = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
                                                      filename: "product-photo-#{n}.jpeg")
       Product.create!(
@@ -25,6 +26,7 @@ RSpec.describe "Pages", type: :system do
         soc_antutu_score: soc_antutu_score,
         battery_capacity: battery_capacity,
         brand_id: brand_id,
+        release_date: release_date,
         image: image
       )
     end
@@ -36,6 +38,7 @@ RSpec.describe "Pages", type: :system do
       soc_antutu_score = (n + 1) * 100
       battery_capacity = 1000
       brand_id = n + 1
+      release_date = DateTime.now
       image = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
                                                      filename: "product-photo-#{n}.jpeg")
       Product.create!(
@@ -44,6 +47,7 @@ RSpec.describe "Pages", type: :system do
         soc_antutu_score: soc_antutu_score,
         battery_capacity: battery_capacity,
         brand_id: brand_id,
+        release_date: release_date,
         image: image
       )
     end
