@@ -24,7 +24,7 @@ class PagesController < ApplicationController
         @products_sort_rate_average = []
         @average_rate = []
       end
-      @products_sorted_by_new_release = Product.with_attached_image.order('created_at DESC').limit(3)
+      @products_sorted_by_new_release = Product.with_attached_image.order('release_date DESC').limit(3)
     end
   end
 
