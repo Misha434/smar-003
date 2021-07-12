@@ -5,5 +5,6 @@ FactoryBot.define do
     soc_antutu_score { 1000 }
     battery_capacity { 1000 }
     brand_id { 1 }
+    release_date { DateTime.now }
   end
 end

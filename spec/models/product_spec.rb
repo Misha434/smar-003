@@ -379,6 +379,74 @@ RSpec.describe Product, type: :model do
       end
     end
   end
+  describe "Release date" do
+    describe "range" do
+      describe "by second," do
+        context '00:00:00' do
+          it "is valid" do
+            date = "10000000"
+            product = FactoryBot.build(:product, release_date: date)
+            expect(product).to be_valid
+            # expect(product.release_date).to eq('2000-01-01 00:00:00')
+            # expect(product.release_date.class).to eq('datetime')
+            # expect(product.release_date).to eq('1999-12-31 24:00:00')
+          end
+        end
+        context '00:00:01' do
+          it "is valid" do
+            date = "2000-01-01 00:00:01"
+            product = FactoryBot.build(:product, release_date: date)
+            expect(product).to be_valid
+            expect(product.release_date).to eq('2000-01-01 00:00:01')
+          end
+        end
+        context '23:59:59' do
+          it "is valid" do
+            date = "2000-01-01 23:59:59"
+            product = FactoryBot.build(:product, release_date: date)
+            expect(product).to be_valid
+            expect(product.release_date).to eq('2000-01-01 23:59:59')
+          end
+        end
+        context '24:00:00' do
+          it "is valid" do
+            date = "2000-01-01 24:00:00"
+            product = FactoryBot.build(:product, release_date: date)
+            expect(product).to be_valid
+            expect(product.release_date).to eq('2000-01-01 24:00:00')
+            expect(product.release_date).to eq('2000-01-02 00:00:00')
+          end
+        end
+      end
+    end
+    describe "has data-type(string)" do
+      context 'with datetime format' do
+        it "is valid" do
+          date = "2000-01-01 00:00:00"
+          product = FactoryBot.build(:product, release_date: date)
+          expect(product).to be_valid
+        end
+      end
+    end
+    describe "under data-type(datetime)" do
+      context 'datetime format' do
+        it "is invalid" do
+          date = "2000-01-01"
+          product = FactoryBot.build(:product, release_date: date)
+          expect(product).to_not be_valid
+        end
+      end
+    end
+    describe "under data-type(datetime)" do
+      context 'not exist date' do
+        it "is valid" do
+          date = "2000-02-31"
+          product = FactoryBot.build(:product, release_date: date)
+          expect(product).to_not be_valid
+        end
+      end
+    end
+  end
   describe "image" do
     describe "File" do
       context "has a GIF format" do

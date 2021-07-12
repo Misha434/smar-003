@@ -19,6 +19,9 @@
 
         = f.label :battery_capacity, class: "col-12 col-md-12"
         = f.number_field :battery_capacity, class: "col-12 col-md-12 form-control"
+
+        = f.label :release_date, class: "col-12 col-md-12"
+        = f.datetime_field :release_date, class: "col-12 col-md-12", value: Time.current.strftime('%Y-%m-%dT00:00:00')
         
         = f.file_field :image, class: "col-12 col-md-12 form-control mb-2", accept: "image/jpeg,image/gif,image/png"
         
