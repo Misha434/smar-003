@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :reviews, only: [:create, :destroy, :new, :edit, :update]
   resources :products do
 	  # post :import, on: :collection
+    get :search, on: :collection
 	end
 	resources :brands 
 	resources :brands do

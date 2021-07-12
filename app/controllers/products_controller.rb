@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!, only: %i[index new create edit destroy]
   before_action :admin_user, only: %i[new create edit update destroy]
+  before_action :set_q, only: [:index, :search]
   include Pagy::Backend
   def show
     @product = Product.find(params[:id])
@@ -75,6 +76,10 @@ class ProductsController < ApplicationController
     redirect_to products_path
   end
 
+  def search
+    @results = @q.result
+  end
+
   # Add import method in Brand controller
   # def import
   #   if Brand.import(params[:file])
@@ -86,5 +91,9 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:name, :brand_id, :soc_antutu_score, :battery_capacity, :image)
+  end
+
+  def set_q
+    @q = Product.ransack(params[:q])
   end
 end
