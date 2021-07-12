@@ -1,14 +1,24 @@
 .container
-  h2 All Products
-
+  h2.text-center All Products
 .container
-  ul.products
-    .container
-      .row
-        ol
-          - @products.each do |product|
-            li id = "#{product.id}"
-              = render 'products/product', product: product
-          - if @pagy.vars[:count] > 10
-            .d-flex.justify-content-center.mb-2
-              == pagy_bootstrap_nav(@pagy)
+  .row
+    .col-12
+      .container
+        .row
+          .col-12
+            = search_form_for @q, url: search_products_path do |f| 
+              = f.label :name_cont, 'Product Name'
+              = f.search_field :name_cont
+              br
+              = f.submit 'Search', required: true
+      .container
+        ul.products
+          .row
+            .col-12
+              ol
+                - @products.each do |product|
+                  li id = "#{product.id}"
+                    = render 'products/product', product: product
+                - if @pagy.vars[:count] > 10
+                  .d-flex.justify-content-center.mb-2
+                    == pagy_bootstrap_nav(@pagy)
