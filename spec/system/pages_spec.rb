@@ -53,6 +53,27 @@ RSpec.describe "Pages", type: :system do
     end
   end
 
+  def create_product_sort_new_release
+    4.times do |n|
+      name = "Phone-#{n + 1}"
+      soc_antutu_score = 100
+      battery_capacity = 1000
+      brand_id = n + 1
+      release_date = "2021-07-10".to_date - n
+      image = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
+                                                     filename: "product-photo-#{n}.jpeg")
+      Product.create!(
+        id: n + 1,
+        name: name,
+        soc_antutu_score: soc_antutu_score,
+        battery_capacity: battery_capacity,
+        brand_id: brand_id,
+        release_date: release_date,
+        image: image
+      )
+    end
+  end
+
   def create_review(i)
     i = i.to_i
     i.times do |n|
@@ -150,6 +171,48 @@ RSpec.describe "Pages", type: :system do
       click_on 'view more'
     end
   end
+
+  def check_product_ranking_new_release_correction
+    within('.ranking_new_release') do
+      within('#ranking-1') do
+        expect(page).to have_content('Phone-1')
+        expect(page).to have_content('2021/07/10')
+      end
+      within('#ranking-2') do
+        expect(page).to have_content('Phone-2')
+        expect(page).to have_content('2021/07/09')
+      end
+      within('#ranking-3') do
+        expect(page).to have_content('Phone-3')
+        expect(page).to have_content('2021/07/08')
+      end
+    end
+  end
+
+  def check_product_link_new_release
+    within('.ranking_new_release') do
+      click_on 'Phone-1'
+    end
+    expect(page).to have_content('Phone-1')
+    expect(page).to have_content('Brand-1')
+    visit root_path
+    within('.ranking_new_release') do
+      click_on 'Phone-2'
+    end
+    expect(page).to have_content('Phone-2')
+    expect(page).to have_content('Brand-2')
+    visit root_path
+    within('.ranking_new_release') do
+      click_on 'Phone-3'
+    end
+    expect(page).to have_content('Phone-3')
+    expect(page).to have_content('Brand-3')
+    visit root_path
+    within('.ranking_new_release') do
+      click_on 'view more'
+    end
+  end
+
   before do
     create_brand
   end
@@ -227,7 +290,20 @@ RSpec.describe "Pages", type: :system do
       end
     end
     describe "Within New lerease Ranking," do
-      pending "Write after adding column lerease_year to products"
+      before do
+        create_product_sort_new_release
+        create_review(3)
+        visit current_path # Reload Page
+      end
+      it "Rank is correct" do
+        check_product_ranking_new_release_correction
+      end
+      it "Link is valid" do
+        check_product_link_new_release
+        within('h2') do
+          expect(page).to have_content('All Products')
+        end
+      end
     end
   end
 
@@ -304,8 +380,21 @@ RSpec.describe "Pages", type: :system do
         end
       end
     end
-    describe "Within New release Ranking," do
-      pending "Write after adding column lerease_year to products"
+    describe "Within New lerease Ranking," do
+      before do
+        create_product_sort_new_release
+        create_review(3)
+        visit current_path # Reload Page
+      end
+      it "Rank is correct" do
+        check_product_ranking_new_release_correction
+      end
+      it "Link is valid" do
+        check_product_link_new_release
+        within('h2') do
+          expect(page).to have_content('All Products')
+        end
+      end
     end
   end
   describe "Visit the site as Guest User," do
@@ -400,8 +489,21 @@ RSpec.describe "Pages", type: :system do
         end
       end
     end
-    describe "Within New release Ranking," do
-      pending "Write after adding column release_year to products"
+    describe "Within New lerease Ranking," do
+      before do
+        create_product_sort_new_release
+        create_review(3)
+        visit current_path # Reload Page
+      end
+      it "Rank is correct" do
+        check_product_ranking_new_release_correction
+      end
+      it "Link is valid" do
+        check_product_link_new_release
+        within('h2') do
+          expect(page).to have_content('All Products')
+        end
+      end
     end
   end
 end
