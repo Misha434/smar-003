@@ -20,6 +20,7 @@ RSpec.describe Product, type: :system do
       soc_antutu_score = 100
       battery_capacity = (n + 1) * 1000
       brand_id = 1
+      release_date = DateTime.now
       image = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
                                                      filename: "product-photo-#{n}.jpeg")
       Product.create!(
@@ -28,6 +29,7 @@ RSpec.describe Product, type: :system do
         soc_antutu_score: soc_antutu_score,
         battery_capacity: battery_capacity,
         brand_id: brand_id,
+        release_date: release_date,
         image: image
       )
     end
@@ -36,6 +38,7 @@ RSpec.describe Product, type: :system do
   def fill_in_all_forms
     fill_in 'Name', with: @product.name
     select "Apple"
+    fill_in 'Release date', with: @product.release_date
     fill_in 'Soc antutu score', with: @product.soc_antutu_score
     fill_in 'Battery capacity', with: @product.battery_capacity
   end
