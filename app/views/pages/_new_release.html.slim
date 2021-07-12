@@ -3,15 +3,21 @@
     | New release
 .col-12
   ol.rankings
-    - @products_sorted_by_new_release.each.with_index(1) do |product, ranking_index|
-      li id="ranking-#{ranking_index}"
-        .card.m-2.p-2
-          .row
-            .col-4
-              = link_to product_image_default(product), product
-            .col-8
-              p = link_to product.name, product
-              p.count--text = "#{product.release_date.strftime("%Y/%m/%d")}"
+    - if @products_sorted_by_new_release.nil?
+      .card.m-2.p-2
+        .row
+          .col-12
+            p No Products
+    - else
+      - @products_sorted_by_new_release.each.with_index(1) do |product, ranking_index|
+        li id="ranking-#{ranking_index}"
+          .card.m-2.p-2
+            .row
+              .col-4
+                = link_to product_image_default(product), product
+              .col-8
+                p = link_to product.name, product
+                p.count--text = "#{product.release_date.strftime("%Y/%m/%d")}"
     li.text-center
       u
         - if user_signed_in?
