@@ -85,6 +85,6 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :brand_id, :soc_antutu_score, :battery_capacity, :image)
+    params.require(:product).permit(:name, :brand_id, :soc_antutu_score, :battery_capacity, :image, :release_date)
   end
 end
