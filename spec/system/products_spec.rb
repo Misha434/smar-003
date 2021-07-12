@@ -38,6 +38,7 @@ RSpec.describe Product, type: :system do
   def fill_in_all_forms
     fill_in 'Name', with: @product.name
     select "Apple"
+    fill_in 'Release date', with: @product.release_date
     fill_in 'Soc antutu score', with: @product.soc_antutu_score
     fill_in 'Battery capacity', with: @product.battery_capacity
   end
