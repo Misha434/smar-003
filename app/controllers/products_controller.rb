@@ -68,7 +68,7 @@ class ProductsController < ApplicationController
   end
 
   def index
-    @pagy, @products = pagy(Product.all)
+    @pagy, @products = pagy(Product.includes(:brand).all)
   end
 
   def destroy
@@ -77,7 +77,7 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @results = @q.result
+    @pagy, @results = pagy(@q.result)
   end
 
   # Add import method in Brand controller
