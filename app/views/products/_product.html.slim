@@ -4,6 +4,8 @@
       = product_image_default(product)
     .col-8
       = link_to product.name, product
+      br
+      = link_to product.brand.name, product.brand, class: "count--text"
   - if user_signed_in?
     .row
       .col-12
