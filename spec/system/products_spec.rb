@@ -371,6 +371,15 @@ RSpec.describe Product, type: :system do
               expect(page).to_not have_css('.page-item')
             end
           end
+          context "form filled with Not exist 'No Results in All Products'" do
+            before do
+              fill_in 'Product Name', with: 'Hello'
+              click_on 'Search'
+            end
+            it 'show No results' do
+              expect(page).to have_content('No Results in All Products')
+            end
+          end
         end
       end
       describe 'each product' do
