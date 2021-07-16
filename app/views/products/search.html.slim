@@ -4,10 +4,10 @@
       h2 Search Result
 .container
   .row
-    .col-12
+    .col-12.pb-1
       = search_form_for @q, url: search_products_path do |f| 
         = f.label :name_cont, 'Product Name'
-        = f.search_field :name_cont
+        = f.search_field :name_cont, required: true
         = f.submit 'Search'
 .products
   .container
