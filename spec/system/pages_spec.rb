@@ -489,7 +489,7 @@ RSpec.describe "Pages", type: :system do
         end
       end
     end
-    describe "Within New lerease Ranking," do
+    describe "Within New release Ranking," do
       before do
         create_product_sort_new_release
         create_review(3)
@@ -497,11 +497,12 @@ RSpec.describe "Pages", type: :system do
       end
       it "Rank is correct" do
         check_product_ranking_new_release_correction
+        expect(page).to have_content('All Products')
       end
       it "Link is valid" do
         check_product_link_new_release
         within('h2') do
-          expect(page).to have_content('All Products')
+          expect(page).to have_content('Log in')
         end
       end
     end
