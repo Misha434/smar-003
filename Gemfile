@@ -40,6 +40,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 4.0.1'
+	gem 'ransack'
 end
 
 group :development do
