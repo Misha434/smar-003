@@ -5,12 +5,8 @@
     .col-12
       .container
         .row
-          .col-12
-            = search_form_for @q, url: search_products_path do |f| 
-              = f.label :name_cont, 'Product Name'
-              = f.search_field :name_cont
-              br
-              = f.submit 'Search', required: true
+          .col-12.mb-3
+            = render 'products/search_form'
       .container
         ul.products
           .row
