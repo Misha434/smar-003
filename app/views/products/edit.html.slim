@@ -25,7 +25,7 @@
         
         = f.file_field :image, class: "col-12 col-md-12 form-control mb-2", accept: "image/jpeg,image/gif,image/png"
         
-        = f.submit "Update Product", class: "btn btn-primary my-1"
+        = f.submit "Update Product", class: "btn btn-primary my-1 d-grid col-12 col-md-12"
         
       = link_to @product, method: :delete, data:{confirm: 'You sure?'}, class: 'd-grid delete_link' do
         button.btn.btn-outline-danger.mb-3 Delete
