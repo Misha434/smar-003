@@ -300,6 +300,91 @@ RSpec.describe Product, type: :system do
         @brand.save!
         click_on 'All Products'
       end
+      describe 'Search feature' do
+        before do
+          create_product(11)
+          FactoryBot.create(:product, id: 12, name: "Test-12")
+          visit current_path
+        end
+        describe "Searching" do
+          context "form filled with blank" do
+            before do
+              click_on 'Search'
+            end
+            it 'make result count collectly' do
+              expect(page).to have_content('12 results')
+            end
+            it 'show an available product link' do
+              click_on 'Phone-1'
+              expect(page).to have_content('Phone-1')
+            end
+            it 'show an available brand link' do
+              within('#1') do
+                click_on 'Apple'
+              end
+              expect(page).to have_content('Apple')
+            end
+            it 'pagination and link is available' do
+              click_on 'Next'
+              click_on 'Test-12'
+              expect(page).to have_content('Test-12')
+            end
+          end
+          context "form filled with Phone" do
+            before do
+              fill_in 'Product Name', with: 'Phone'
+              click_on 'Search'
+            end
+            it 'make result count collectly' do
+              expect(page).to have_content('11 results')
+            end
+            it 'show an available product link' do
+              click_on 'Phone-10'
+              expect(page).to have_content('Phone-10')
+            end
+            it 'show an available brand link' do
+              within('#10') do
+                click_on 'Apple'
+              end
+              expect(page).to have_content('Apple')
+            end
+            it 'pagination and link is available' do
+              click_on 'Next'
+              click_on 'Phone-11'
+              expect(page).to have_content('Phone-11')
+            end
+          end
+          context "form filled with 'Test'" do
+            before do
+              fill_in 'Product Name', with: 'Test'
+              click_on 'Search'
+            end
+            it 'make result count collectly' do
+              expect(page).to have_content('1 result')
+            end
+            it 'show an available product link' do
+              click_on 'Test-12'
+              expect(page).to have_content('Test-12')
+            end
+            it 'show an available brand link' do
+              click_on 'Apple'
+              expect(page).to have_content('Apple')
+            end
+            it 'pagination and link is disable' do
+              expect(page).to_not have_css('.page-item')
+            end
+          end
+          context "form filled with Not exist 'No Results in All Products'" do
+            before do
+              fill_in 'Product Name', with: 'Hello'
+              click_on 'Search'
+            end
+            it 'show No results' do
+              expect(page).to have_content('No Results in All Products')
+            end
+          end
+        end
+      end
       describe 'each product' do
         before do
           create_product(11)
