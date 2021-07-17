@@ -46,9 +46,9 @@ li {
 }
 
 .active_star {
-  color: gold;
+  color: orange;
 }
 
 .no_active_star {
-  color: lightgray;
+  color: silver;
 }
