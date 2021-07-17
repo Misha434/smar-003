@@ -1,7 +1,9 @@
 class BrandsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit destroy]
   before_action :admin_user, only: %i[new create edit update destroy]
+  before_action :set_brand, only: %i[show destroy edit update]
   include Pagy::Backend
+
   def new
     @brand = Brand.new
   end
@@ -21,21 +23,13 @@ class BrandsController < ApplicationController
     @pagy, @brands = pagy(Brand.all)
   end
 
-  def show
-    @brand = Brand.find(params[:id])
-  rescue ActiveRecord::RecordNotFound => e
-    flash[:danger] = "Brand does not exist"
-    redirect_to request.referrer || brands_path
-  rescue StandardError => e
-    puts e
-  end
+  def show; end
 
   def destroy
-    @brand = Brand.find(params[:id])
     if @brand.destroy
       flash[:success] = "Brand is deleted"
       redirect_to brands_path
-    elsif current_user.admin == true
+    elsif current_user.admin?
       flash[:denger] = "Fail to delete Brand"
       render 'edit'
     else
@@ -44,17 +38,9 @@ class BrandsController < ApplicationController
     end
   end
 
-  def edit
-    @brand = Brand.find(params[:id])
-  rescue ActiveRecord::RecordNotFound => e
-    flash[:danger] = "Brand does not exist"
-    redirect_to request.referrer || brands_path
-  rescue StandardError => e
-    puts e
-  end
+  def edit; end
 
   def update
-    @brand = Brand.find(params[:id])
     if @brand.update(brand_params)
       flash[:success] = "Brand is updated"
       redirect_to @brand
@@ -72,5 +58,14 @@ class BrandsController < ApplicationController
 
   def brand_params
     params.require(:brand).permit(:name, :image)
+  end
+
+  def set_brand
+    @brand = Brand.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+      flash[:danger] = "Brand does not exist"
+      redirect_to request.referrer || brands_path
+    rescue StandardError => e
+      puts e
   end
 end
