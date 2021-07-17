@@ -12,21 +12,24 @@
                 = link_to product_image_default(product), product
               .col-8
                 p = link_to product.name, product
-                p = "#{@average_rate[ranking_index - 1]}"
+                .d-flex
+                  span.rate
+                    - @average_rate[ranking_index - 1].floor.times do
+                      = content_tag(:i,"",class: "fas fa-star active_star")
+                    - if @average_rate[ranking_index - 1] - @average_rate[ranking_index - 1].floor >= 0.5 
+                      = content_tag(:i,"",class: "fas fa-star-half-alt active_star")
+                    - if @average_rate[ranking_index - 1] = 5
+                      return
+                    - elsif @average_rate[ranking_index - 1].floor > 4
+                      = content_tag(:i,"",class: "far fa-star no_active_star")
+                    - else
+                      - (5 - @average_rate[ranking_index - 1].round).times do
+                        = content_tag(:i,"",class: "far fa-star no_active_star")
+                  p = "#{@average_rate[ranking_index - 1]}"
       li.text-center
         u
           |#{link_to "view more", products_path}
 - else
   .col-12
     .card.p-3
-      .col-12
-        p.text-center Read only Login User
-      .col-12
-        .d-flex
-          .offset-1
-          .col-4.d-grid
-            = link_to "Login", new_user_session_path, class: "btn btn-outline-primary"
-          .offset-2
-          .col-4.d-grid
-            = link_to "Signup", new_user_registration_path, class: "btn btn-outline-secondary"
-          .offset-1
+      = render 'pages/registrated_user_content'
