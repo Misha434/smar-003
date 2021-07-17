@@ -1,21 +1,32 @@
 .row
   .col-12
+    .d-flex.my-2
+      .d-flex.px-2.text-center
+        i.fas.fa-table.mt-1
+        .mx-2.release_date = "#{@product.release_date.strftime("%Y/%m/%d")}"
+      .d-flex.px-2.text-center
+        - if @review_rate_average == '-'
+          i.fas.fa-star.mt-1
+        - else
+          - @review_rate_average.floor.times do
+            i.fas.fa-star.active_star.mt-1
+          - if (@review_rate_average - @review_rate_average.floor) >= 0.5
+            i.fas.fa-star-half-alt.active_star.mt-1
+          - if @review_rate_average <= 4
+            - (5 - @review_rate_average.round).times do
+              i.far.fa-star.no_active_star.mt-1
+        .value_rate_avarage.mx-2 = "#{@review_rate_average} / 5.0"
+  .col-12
     .d-flex
-      .d-block.px-2.text-center
-        i.far.fa-thumbs-up aria-hidden="true"
-        p.like_count = "#{@product_like_countup}"
-      .d-block.px-2.text-center
-        i.far.fa-comments aria-hidden="true"
-        p.review_count = "#{@product.reviews.count}"
-      .d-block.px-2.text-center
-        i.fas.fa-microchip aria-hidden="true"
-        p.value_antutu = "#{@product.soc_antutu_score}"
-      .d-block.px-2.text-center
-        i.fas.fa-battery-full aria-hidden="true"
-        p.value_battery = "#{@product.battery_capacity}mAh"
-      .d-block.px-2.text-center
-        i.fas.fa-star
-        p.value_rate_avarage = "#{@review_rate_average} / 5.0"
-      .d-block.px-2.text-center
-        i.fas.fa-table aria-hidden="true"
-        p.release_date = "#{@product.release_date.strftime("%Y/%m/%d")}"
+      .d-flex.px-2.text-center
+        i.far.fa-thumbs-up.mt-1 aria-hidden="true"
+        p.like_count.mx-2 = "#{@product_like_countup}"
+      .d-flex.px-2.text-center
+        i.far.fa-comments.mt-1 aria-hidden="true"
+        p.review_count.mx-2 = "#{@product.reviews.count}"
+      .d-flex.px-2.text-center
+        i.fas.fa-microchip.mt-1 aria-hidden="true"
+        p.value_antutu.mx-2 = "#{@product.soc_antutu_score}"
+      .d-flex.px-2.text-center
+        i.fas.fa-battery-full.mt-1 aria-hidden="true"
+        p.value_battery.mx-2 = "#{@product.battery_capacity}mAh"
