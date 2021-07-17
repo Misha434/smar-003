@@ -4,6 +4,4 @@ ul.users
   - @users.each do |user|
     li
       = link_to user.name, user
-- if @pagy.vars[:count] > 0
-	.d-flex.justify-content-center.mb-2
-		== pagy_bootstrap_nav(@pagy)
+= render 'shared/pagination_bar'
