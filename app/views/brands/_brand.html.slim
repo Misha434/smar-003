@@ -1,0 +1,14 @@
+li id = "brand-#{brand.id}"
+  .card.col-12.col-md-6.my-1
+    .row
+      .col-4.col-md-4
+        = logo_image_default(brand)
+      .col-8.col-md-8
+        p = link_to brand.name, brand
+        p = link_to pluralize(brand.products.count,
+          "Product"), brand, class: "count--text"
+    - if user_signed_in? && current_user.admin?
+      .row
+        .col-12
+          = link_to edit_brand_path(brand), class: "edit_link" do
+            i.fas.fa-pencil-alt.fa-xs.pull-right
