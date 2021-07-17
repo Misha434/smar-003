@@ -10,18 +10,8 @@
         = link_to edit_brand_path(@brand), class: "edit_link px-2" do
           i.fas.fa-pencil-alt.fa-xs.pull-right
 .container
-  ol.products
-    - @brand.products.each do |product|
-      .row
-        .col-12.col-md-6
-          li.card.mb-1 id = "product-#{product.id}"
-            .row.p-1
-              .col-4
-                = product_image_default(product)
-              .col-8
-                .d-flex
-                  p = link_to product.name, product
-                  - if user_signed_in? && current_user.admin?
-                    = link_to edit_product_path(product), class: "edit_link px-2" do
-                      i.fas.fa-pencil-alt.fa-xs.pull-right
-                p = link_to pluralize(product.reviews.count,"review"), product, class: "count--text"
+  .row
+    .col-12.col-md-6
+      ol.products
+        - @brand.products.each do |product|
+          = render 'brands/product', product: product
