@@ -20,7 +20,4 @@
                 p.count--text = "#{product.release_date.strftime("%Y/%m/%d")}"
     li.text-center
       u
-        - if user_signed_in?
-          |#{link_to "view more", products_path}
-        - else
-          |#{link_to "view more", new_user_session_path}
+        |#{link_to "view more", products_path}
