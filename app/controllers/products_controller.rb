@@ -3,6 +3,7 @@ class ProductsController < ApplicationController
   before_action :admin_user, only: %i[new create edit update destroy]
   before_action :set_q, only: [:index, :search]
   include Pagy::Backend
+
   def show
     if @product = Product.find(params[:id])
       @select_product_reviews = @product.reviews.includes(:user).with_attached_image
@@ -78,13 +79,6 @@ class ProductsController < ApplicationController
   def search
     @pagy, @results = pagy(@q.result.with_attached_image.includes(:brand))
   end
-
-  # Add import method in Brand controller
-  # def import
-  #   if Brand.import(params[:file])
-  #     redirect_to products_path, notice: "Import is Succeeded"
-  #   end
-  # end
 
   private
 
