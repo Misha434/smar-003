@@ -89,4 +89,5 @@ class ProductsController < ApplicationController
   def set_q
     @q = Product.ransack(params[:q])
   end
+  
 end
