@@ -1,7 +1,11 @@
+/ [ranking_index - 1] means index of each product avg. rate
 - @average_rate[ranking_index - 1].floor.times do
   = content_tag(:i,"",class: "fas fa-star active_star")
+/ 0.5 means base value for half-star should be indicated
 - if @average_rate[ranking_index - 1] - @average_rate[ranking_index - 1].floor >= 0.5 
   = content_tag(:i,"",class: "fas fa-star-half-alt active_star")
+/ 4 means base value for no-active-star should be indicated
 - if @average_rate[ranking_index - 1] <= 4
+  / 5 means max value of rating
   - (5 - @average_rate[ranking_index - 1].round).times do
     = content_tag(:i,"",class: "far fa-star no_active_star")
