@@ -9,10 +9,10 @@ Rails.application.routes.draw do
     resources :picks, only: :index, defaults: { format: :json }
   end
   resources :reviews, only: [:create, :destroy, :new, :edit, :update]
-  resources :products do
-	  # post :import, on: :collection
-    get :search, on: :collection
-	end
+  namespace :products do 
+    resources :searches, only: :index
+  end
+  resources :products
 	resources :brands 
 	resources :brands do
 	  post :import, on: :collection
