@@ -1,7 +1,5 @@
 h1 All Users
 
 ul.users
-  - @users.each do |user|
-    li
-      = link_to user.name, user
+  = render @users
 = render 'shared/pagination_bar'

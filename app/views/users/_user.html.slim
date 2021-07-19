@@ -1,0 +1,12 @@
+.container
+  .row.py-3
+    .col-4.text-center
+      - if user.avatar.attached?
+        = image_tag user.avatar.variant(resize:'80x80')
+      - else
+        i.fa.fa-user-circle.fa-5x.user--default aria-hidden="true"
+    .col-8.py-4
+      .d-flex
+        = link_to user.name, user_path(user)
+        - if user == current_user
+          = link_to "[x]", registration_path(user), data: { confirm: "Are you sure?" }, method: :delete
