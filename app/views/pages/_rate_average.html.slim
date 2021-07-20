@@ -16,7 +16,7 @@
                   span.rate
                     = render 'pages/star_indicator', product: product, ranking_index: ranking_index
                   / [ranking_index - 1] means index of each product avg. rate
-                  p = "#{@average_rate[ranking_index - 1]}"
+                  p = "#{@average_rate[ranking_index - 1].floor(1)}"
       li.text-center
         u
           |#{link_to "view more", products_path}
