@@ -3,14 +3,13 @@ class ProductsController < ApplicationController
   before_action :admin_user, only: %i[new create edit update destroy]
   before_action :set_q, only: [:index, :search]
   include Pagy::Backend
+
   def show
-    @product = Product.find(params[:id])
-    if @product
-      @select_product_reviews = @product.reviews.all
-      @product_like_countup = Like.all.joins(review: :product).where('product_id=?', params[:id]).count
+    if @product = Product.find(params[:id])
+      @select_product_reviews = @product.reviews.includes(:user).with_attached_image
+      @product_like_countup = Like.joins(review: :product).includes([:review, :product]).where('product_id=?', params[:id]).count
       @review_rate_average = Review.where('product_id=?', params[:id]).average(:rate)
-      @review_rate_average = @review_rate_average.floor(1) unless @review_rate_average.nil?
-      @review_rate_average ||= '-'
+      @review_rate_average.nil? ? @review_rate_average = '-' : @review_rate_average = @review_rate_average.floor(1)
     else
       redirect_to products_path
       flash[:danger] = 'Product does not exist'
@@ -64,11 +63,12 @@ class ProductsController < ApplicationController
     else
       @brands = Brand.all
       render 'edit'
+      flash[:success] = "Fail to update"
     end
   end
 
   def index
-    @pagy, @products = pagy(Product.includes(:brand).all)
+    @pagy, @products = pagy(Product.with_attached_image.includes(:brand).all)
   end
 
   def destroy
@@ -77,15 +77,8 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @pagy, @results = pagy(@q.result)
+    @pagy, @results = pagy(@q.result.with_attached_image.includes(:brand))
   end
-
-  # Add import method in Brand controller
-  # def import
-  #   if Brand.import(params[:file])
-  #     redirect_to products_path, notice: "Import is Succeeded"
-  #   end
-  # end
 
   private
 
@@ -96,4 +89,5 @@ class ProductsController < ApplicationController
   def set_q
     @q = Product.ransack(params[:q])
   end
+  
 end

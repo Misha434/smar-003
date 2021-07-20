@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def set_q
+    @q = Product.ransack(params[:q])
+  end
+
   protected
 
   def configure_permitted_parameters
