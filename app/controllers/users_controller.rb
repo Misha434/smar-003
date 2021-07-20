@@ -3,13 +3,13 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :index
   include Pagy::Backend
   def index
-    @pagy, @users = pagy(User.all)
+    @pagy, @users = pagy(User.with_attached_avatar.all)
   end
 
   def show
     begin
       @user = User.find(params[:id])
-      @reviews = @user.reviews
+      @reviews = @user.reviews.with_attached_image
     rescue ActiveRecord::RecordNotFound => e
       @brands = Brand.all
       flash[:danger] = "User does not exist"
