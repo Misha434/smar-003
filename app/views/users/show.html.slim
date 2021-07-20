@@ -25,8 +25,9 @@
     .col-lg-4.d-none.d-lg-block
       = render 'reviews/form'
 
-footer
-  .d-lg-none.pull-right.fixed-bottom
-    button.btn__post.float-end.m-3
-      = link_to new_review_path, class: "d-lg-none"
-        i.far.fa-edit.fa-lg.btn__post
+- if @user == current_user
+  footer
+    .d-lg-none.pull-right.fixed-bottom
+      button.btn__post.float-end.m-3
+        = link_to new_review_path, class: "d-lg-none"
+          i.far.fa-edit.fa-lg.btn__post
