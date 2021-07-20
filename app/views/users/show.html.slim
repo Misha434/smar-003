@@ -11,20 +11,12 @@
   .row
     .col-12.col-md-10.offset-md-1
       .d-flex
-        - if @user.reviews.any?
-          .d-block.px-2.text-center
-            i.fa.fa-thumbs-up aria-hidden="true"
-            p.like_count = @user_received_like_countup
-          .d-block.px-2.text-center
-            i.fa.fa-comments aria-hidden="true"
-            p.review_count = @user.reviews.count
-        - else 
-          .d-block.px-2.text-center
-            i.fa.fa-thumbs-up aria-hidden="true"
-            p.like_count = '0'
-          .d-block.px-2.text-center
-            i.fa.fa-comments aria-hidden="true"
-            p.review_count = '0'
+        .d-block.px-2.text-center
+          i.far.fa-thumbs-up aria-hidden="true"
+          p.like_count = @user.likes.count
+        .d-block.px-2.text-center
+          i.far.fa-comments aria-hidden="true"
+          p.review_count = @user.reviews.count
 .container
   .row
     .col-12.col-lg-6.offset-lg-1
@@ -33,8 +25,9 @@
     .col-lg-4.d-none.d-lg-block
       = render 'reviews/form'
 
-footer
-  .d-lg-none.pull-right.fixed-bottom
-    button.btn__post.float-end.m-3
-      = link_to new_review_path, class: "d-lg-none"
-        i.far.fa-edit.fa-lg.btn__post
+- if @user == current_user
+  footer
+    .d-lg-none.pull-right.fixed-bottom
+      button.btn__post.float-end.m-3
+        = link_to new_review_path, class: "d-lg-none"
+          i.far.fa-edit.fa-lg.btn__post
