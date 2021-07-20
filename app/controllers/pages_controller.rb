@@ -1,6 +1,5 @@
 class PagesController < ApplicationController
   def home
-    @user = current_user
     @products_sorted_by_battery = Product.with_attached_image.order('battery_capacity DESC').limit(3)
     @products_sorted_by_antutu = Product.with_attached_image.order('soc_antutu_score DESC').limit(3)
     product_count = Product.count
@@ -10,13 +9,13 @@ class PagesController < ApplicationController
     if product_count >= 3
       product_amount = 3
       product_amount.times do |i|
-        @products_sort_rate_average << Product.find(@each_product_rate_average[i][0])
+        @products_sort_rate_average << Product.with_attached_image.find(@each_product_rate_average[i][0])
         @average_rate << @each_product_rate_average[i][1]
       end
     elsif product_count.positive? && product_count < 3
       product_amount = product_count
       product_amount.times do |i|
-        @products_sort_rate_average << Product.find(@each_product_rate_average[i][0])
+        @products_sort_rate_average << Product.with_attached_image.find(@each_product_rate_average[i][0])
         @average_rate << @each_product_rate_average[i][1]
       end
     else
