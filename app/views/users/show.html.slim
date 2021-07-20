@@ -11,20 +11,12 @@
   .row
     .col-12.col-md-10.offset-md-1
       .d-flex
-        - if @user.reviews.any?
-          .d-block.px-2.text-center
-            i.fa.fa-thumbs-up aria-hidden="true"
-            p.like_count = @user_received_like_countup
-          .d-block.px-2.text-center
-            i.fa.fa-comments aria-hidden="true"
-            p.review_count = @user.reviews.count
-        - else 
-          .d-block.px-2.text-center
-            i.fa.fa-thumbs-up aria-hidden="true"
-            p.like_count = '0'
-          .d-block.px-2.text-center
-            i.fa.fa-comments aria-hidden="true"
-            p.review_count = '0'
+        .d-block.px-2.text-center
+          i.far.fa-thumbs-up aria-hidden="true"
+          p.like_count = @user.likes.count
+        .d-block.px-2.text-center
+          i.far.fa-comments aria-hidden="true"
+          p.review_count = @user.reviews.count
 .container
   .row
     .col-12.col-lg-6.offset-lg-1
