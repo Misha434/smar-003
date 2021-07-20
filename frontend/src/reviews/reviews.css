@@ -49,6 +49,10 @@ li {
   color: orange;
 }
 
+.active_star_half {
+  color: orange;
+}
+
 .no_active_star {
   color: silver;
 }
