@@ -9,8 +9,6 @@
             h5.my-0 = link_to review.product.name, review.product
           span.timestamp.count--text
             | Posted #{time_ago_in_words(review.created_at)} ago
-          - if review.user.name =! current_user
-            p = link_to review.user.name
       .row
         .col-12.mt-2
           span.rate
