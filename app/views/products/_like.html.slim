@@ -1,4 +1,4 @@
-- unless current_user.nil?
+- if user_signed_in?
   - if current_user.liked_by?(review.id)   
     = link_to destroy_like_path(review), method: :DELETE, class: "__active", id: "release-like-disable", remote: true do
       i.fas.fa-thumbs-up.fa-xs aria-hidden="true"
