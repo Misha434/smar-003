@@ -3,7 +3,7 @@
     | Rate Average
 - if user_signed_in?
   .col-12
-    ol.rankings
+    ol.ranking_rate_average
       - @products_sort_rate_average.each.with_index(1) do |product, ranking_index|
         li id="ranking-#{ranking_index}"
           .card.m-2.p-2

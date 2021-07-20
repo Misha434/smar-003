@@ -305,6 +305,138 @@ RSpec.describe "Pages", type: :system do
         end
       end
     end
+    describe "Within Rate Average Ranking," do
+      before do
+        FactoryBot.create(:product)
+        2.times do |n|
+          FactoryBot.create(:user, id: n + 2, email: "test-#{ n + 2 }@example.com")
+          FactoryBot.create(:product, id: n + 2 , name: "Phone-#{ n + 2 }")
+        end
+      end
+      # Test Format: RateAvg ( EachReviewRate / Reviewer Amount ) 
+      # eg (2 persons give rate 1.0): 1.0 ( 1 + 1 / 2 ) 
+      context '5.0 ( 5 / 1 )' do
+        before do
+          FactoryBot.create(:review, rate: 5)
+          FactoryBot.create(:review, id: 2, product_id: 2)
+          FactoryBot.create(:review, id: 3, product_id: 3)
+          visit current_path # Reload Page
+        end
+        it "Rank has correct rate, order and star" do
+          within('.ranking_rate_average') do
+            within('#ranking-1') do
+              expect(page).to have_content('Phone-1')
+              expect(page).to have_content('5.0')
+              expect(page).to have_selector('.active_star', count: 5)
+              expect(page).to_not have_selector('.no_active_star')
+            end
+            within('#ranking-2') do
+              expect(page).to have_content('Phone-2')
+              expect(page).to have_content('3.0')
+              expect(page).to have_selector('.active_star', count: 3)
+              expect(page).to have_selector('.no_active_star', count: 2)
+            end
+            within('#ranking-3') do
+              expect(page).to have_content('Phone-3')
+              expect(page).to have_content('3.0')
+              expect(page).to have_selector('.active_star', count: 3)
+              expect(page).to have_selector('.no_active_star', count: 2)
+            end
+          end
+        end
+        it "Link is valid" do
+          within('.ranking_rate_average') do
+            within('#ranking-1') do
+              click_on 'Phone-1'
+            end
+          end
+          expect(page).to have_content('Phone-1')
+          expect(page).to have_content('Brand-1')
+          visit root_path
+          within('.ranking_rate_average') do
+            within('#ranking-2') do
+              click_on 'Phone-2'
+            end
+          end
+          expect(page).to have_content('Phone-2')
+          expect(page).to have_content('Brand-1')
+          visit root_path
+          within('.ranking_rate_average') do
+            within('#ranking-3') do
+              click_on 'Phone-3'
+            end
+          end
+          expect(page).to have_content('Phone-3')
+          expect(page).to have_content('Brand-1')
+          visit root_path
+          within('.ranking_rate_average') do
+            click_on 'view more'
+          end
+          expect(page).to have_content('All Products')
+        end
+      end
+      context '5.0 ( 5 + 5 / 2 )' do
+        before do
+          FactoryBot.create(:review, rate: 5)
+          FactoryBot.create(:review, id: 2, rate: 5, user_id: 2)
+          FactoryBot.create(:review, id: 3, product_id: 2)
+          FactoryBot.create(:review, id: 4, product_id: 3)
+          visit current_path # Reload Page
+        end
+        it "Rank has correct rate, order and star" do
+          within('.ranking_rate_average') do
+            within('#ranking-1') do
+              expect(page).to have_content('Phone-1')
+              expect(page).to have_content('5.0')
+              expect(page).to have_selector('.active_star', count: 5)
+              expect(page).to_not have_selector('.no_active_star')
+            end
+            within('#ranking-2') do
+              expect(page).to have_content('Phone-2')
+              expect(page).to have_content('3.0')
+              expect(page).to have_selector('.active_star', count: 3)
+              expect(page).to have_selector('.no_active_star', count: 2)
+            end
+            within('#ranking-3') do
+              expect(page).to have_content('Phone-3')
+              expect(page).to have_content('3.0')
+              expect(page).to have_selector('.active_star', count: 3)
+              expect(page).to have_selector('.no_active_star', count: 2)
+            end
+          end
+        end
+        it "Link is valid" do
+          within('.ranking_rate_average') do
+            within('#ranking-1') do
+              click_on 'Phone-1'
+            end
+          end
+          expect(page).to have_content('Phone-1')
+          expect(page).to have_content('Brand-1')
+          visit root_path
+          within('.ranking_rate_average') do
+            within('#ranking-2') do
+              click_on 'Phone-2'
+            end
+          end
+          expect(page).to have_content('Phone-2')
+          expect(page).to have_content('Brand-1')
+          visit root_path
+          within('.ranking_rate_average') do
+            within('#ranking-3') do
+              click_on 'Phone-3'
+            end
+          end
+          expect(page).to have_content('Phone-3')
+          expect(page).to have_content('Brand-1')
+          visit root_path
+          within('.ranking_rate_average') do
+            click_on 'view more'
+          end
+          expect(page).to have_content('All Products')
+        end
+      end
+    end
   end
 
   describe "Visit the site as Registrated User," do
