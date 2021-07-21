@@ -66,13 +66,23 @@ RSpec.describe User, type: :system do
         expect(page).to have_content('Signup')
       end
       describe 'Signup action' do
-        describe 'with all form filled in' do
+        describe 'with all form filled in', js: true do
           it 'is available' do
-            expect(page).to have_content('Signup')
+            fill_in_all_form
+            click_button "Sign up"
+            expect(page).to have_content 'Welcome'
           end
         end
       end
-
     end
+  end
+  private
+
+  def fill_in_all_form
+    fill_in "Name", with: 'Michael Smith'
+    fill_in "Email", with: 'michael-m@example.com'
+    fill_in "Password", with: 'password'
+    fill_in "Password confirmation", with: 'password'
+    find(:css, "#agreement").set(true)
   end
 end
