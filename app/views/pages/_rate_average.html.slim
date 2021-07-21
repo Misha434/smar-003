@@ -3,7 +3,7 @@
     | Rate Average
 - if user_signed_in?
   .col-12
-    ol.rankings
+    ol.ranking_rate_average
       - @products_sort_rate_average.each.with_index(1) do |product, ranking_index|
         li id="ranking-#{ranking_index}"
           .card.m-2.p-2
@@ -16,7 +16,7 @@
                   span.rate
                     = render 'pages/star_indicator', product: product, ranking_index: ranking_index
                   / [ranking_index - 1] means index of each product avg. rate
-                  p = "#{@average_rate[ranking_index - 1]}"
+                  p = "#{@average_rate[ranking_index - 1].floor(1)}"
       li.text-center
         u
           |#{link_to "view more", products_path}
