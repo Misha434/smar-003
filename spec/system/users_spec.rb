@@ -65,7 +65,7 @@ RSpec.describe User, type: :system do
       it 'Signup page is accessable' do
         expect(page).to have_content('Signup')
       end
-      describe 'Signup action', js: true do
+      describe 'Signup action' do
         before do
           fill_in_all_form
         end
@@ -85,6 +85,8 @@ RSpec.describe User, type: :system do
     fill_in "Email", with: 'michael-m@example.com'
     fill_in "Password", with: 'password'
     fill_in "Password confirmation", with: 'password'
-    find(:css, "#agreement").set(true)
+    # # agreement checkbox Start
+    # find(:css, "#agreement").set(true)
+    # # agreement checkbox End
   end
 end
