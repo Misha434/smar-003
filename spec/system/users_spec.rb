@@ -65,10 +65,12 @@ RSpec.describe User, type: :system do
       it 'Signup page is accessable' do
         expect(page).to have_content('Signup')
       end
-      describe 'Signup action' do
-        describe 'with all form filled in', js: true do
+      describe 'Signup action', js: true do
+        before do
+          fill_in_all_form
+        end
+        describe 'with all form filled in' do
           it 'is available' do
-            fill_in_all_form
             click_button "Sign up"
             expect(page).to have_content 'Welcome'
           end
