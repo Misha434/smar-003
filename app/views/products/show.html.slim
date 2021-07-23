@@ -12,5 +12,20 @@
     .col-12
       = render 'products/product_info'
 .container
+  - if user_signed_in? && current_user.reviews.where('product_id=?', params[:id]).empty?
+    .row.m-1
+      .card
+        .row
+          .col-12.col-md-6
+            p.text-center.my-2 You have this?
+          .col-12.col-md-6
+            p.text-center.my-2 Please leave some review.
+          .col-12.my-2
+            = form_with model: @review, local: true do |f|
+              = f.hidden_field :user_id, value: current_user.id
+              = f.hidden_field :product_id, value: @product.id
+              = f.select(:rate, [["★☆☆☆☆", 1], ["★★☆☆☆", 2], ["★★★☆☆", 3], ["★★★★☆", 4], ["★★★★★", 5]], prompt: "--- Rate ---", class: "form-control")
+              = f.text_field :content, placeholder: "Review ...", class: "form-control mb-2"
+              = f.submit "Post", class: "btn btn-primary g-grid col-12 my-2"
   .row
     = render 'products/review'

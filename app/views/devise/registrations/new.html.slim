@@ -29,17 +29,22 @@
             = f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control"
           span.avatar
             = f.file_field :avatar
-          p.demo
+          / / agreement checkbox Start
+          / p.demo
             .flex-row
               input type="checkbox" id="agreement" autocomplete="off"
               label for="agreement"
                 .d-flex
                   p.px-2 I agree with
                   p = link_to "Terms of service", terms_path, class: "underlined", target: "_blank", rel: "noopener noreferrer"
+          / / agreement checkbox End
           .actions
             .d-grid.mb-4
-              = f.submit "Sign up", class: "btn btn-outline-primary", id: "signup--submit", disabled: true
-          javascript:
+              / / agreement checkbox Start
+              / = f.submit "Sign up", class: "btn btn-outline-primary", id: "signup--submit", disabled: true
+              / / agreement checkbox End
+              = f.submit "Sign up", class: "btn btn-outline-primary", id: "signup--submit"
+          / javascript:
             $(function(){
               $("#signup--submit").prop("disabled", true);
               $("#agreement").click(function(){
