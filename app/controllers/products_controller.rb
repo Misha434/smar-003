@@ -6,6 +6,7 @@ class ProductsController < ApplicationController
 
   def show
     if @product = Product.find(params[:id])
+      @review = current_user.reviews.build if user_signed_in?
       @select_product_reviews = @product.reviews.includes(:user).with_attached_image
       @product_like_countup = Like.joins(review: :product).includes([:review, :product]).where('product_id=?', params[:id]).count
       @review_rate_average = Review.where('product_id=?', params[:id]).average(:rate)
