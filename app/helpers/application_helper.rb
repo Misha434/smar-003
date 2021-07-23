@@ -17,4 +17,9 @@ module ApplicationHelper
       "#{page_title} - #{base_title}"
     end
   end
+
+  def set_forms_brands_products
+    @brands = Brand.all
+    @products = Product.all
+  end
 end

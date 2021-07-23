@@ -5,43 +5,42 @@ class ReviewsController < ApplicationController
   def create
     @review = current_user.reviews.build(review_params)
     if @review.save
-      redirect_to current_user
+      flash[:success] = "Review is created"
+      redirect_to @review.product
     else
-      @brands = Brand.all
-      @products = Product.all
+      set_forms_brands_products
+      flash[:danger] = "Fail to create"
       render '/reviews/new'
     end
   end
 
   def new
-    @brands = Brand.all
-    @products = Product.all
+    set_forms_brands_products
     @review = Review.new
   end
 
   def destroy
-    @review = Review.find_by(params[:id])
     if @review.destroy
       flash[:success] = "Review is deleted"
       redirect_to @review.product || root_url
+    else
+      flash[:danger] = "Failed to Delete"
+      render 'reviews/edit'
     end
   end
-
+  
   def edit
-    @review = Review.find(params[:id])
-    @brands = Brand.all
-    @products = Product.all
+    set_forms_brands_products
   end
-
+  
   def update
-    # @review.image.purge if @review.image.attached?
-    @review = Review.find(params[:id])
     if @review.update(review_params)
+      flash[:success] = "Review is updated"
       redirect_to current_user
     else
-      @brands = Brand.all
-      @products = Product.all
-      render 'edit'
+      set_forms_brands_products
+      flash[:danger] = "Updated is failed"
+      render 'reviews/edit'
     end
   end
 
@@ -52,8 +51,7 @@ class ReviewsController < ApplicationController
   end
 
   def correct_user
-    @review = Review.find(params[:id])
+    @review = current_user.reviews.find_by(id: params[:id])
     redirect_to root_url if @review.nil?
-    redirect_to current_user || root_url unless current_user.id == @review.user_id
   end
 end
