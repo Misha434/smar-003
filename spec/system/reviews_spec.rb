@@ -138,32 +138,42 @@ RSpec.describe Review, type: :system do
             it 'selected 1 is available' do
               select '★☆☆☆☆'
               click_button "Post"
-              expect(page).to have_selector('svg.active_star', count: 1)
-              expect(page).to have_selector('svg.no_active_star', count: 4)
+              within("#review-#{Review.last.id}") do
+                expect(page).to have_selector('.active_star', count: 1)
+                expect(page).to have_selector('.no_active_star', count: 4)
+              end
             end
             it 'selected 2 is available' do
               select '★★☆☆☆'
               click_button "Post"
-              expect(page).to have_selector('svg.active_star', count: 2)
-              expect(page).to have_selector('svg.no_active_star', count: 3)
+              within("#review-#{Review.last.id}") do
+                expect(page).to have_selector('.active_star', count: 2)
+                expect(page).to have_selector('.no_active_star', count: 3)
+              end
             end
             it 'selected 3 is available' do
               select '★★★☆☆'
               click_button "Post"
-              expect(page).to have_selector('svg.active_star', count: 3)
-              expect(page).to have_selector('svg.no_active_star', count: 2)
+              within("#review-#{Review.last.id}") do
+                expect(page).to have_selector('.active_star', count: 3)
+                expect(page).to have_selector('.no_active_star', count: 2)
+              end
             end
             it 'selected 4 is available' do
               select '★★★★☆'
               click_button "Post"
-              expect(page).to have_selector('svg.active_star', count: 4)
-              expect(page).to have_selector('svg.no_active_star', count: 1)
+              within("#review-#{Review.last.id}") do
+                expect(page).to have_selector('.active_star', count: 4)
+                expect(page).to have_selector('.no_active_star', count: 1)
+              end
             end
             it 'selected 5 is available' do
               select '★★★★★'
               click_button "Post"
-              expect(page).to have_selector('svg.active_star', count: 5)
-              expect(page).to_not have_selector('svg.no_active_star')
+              within("#review-#{Review.last.id}") do
+                expect(page).to have_selector('.active_star', count: 5)
+                expect(page).to_not have_selector('.no_active_star')
+              end
             end
           end
         end

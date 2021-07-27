@@ -22,6 +22,7 @@ ol.reviews
         .row
           .col-12
             p = review.content
+            = render 'reviews/posted_image', review: review
         .row
           .col-12.pb-2
             .float-start
