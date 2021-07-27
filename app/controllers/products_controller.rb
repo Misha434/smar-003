@@ -77,9 +77,9 @@ class ProductsController < ApplicationController
     redirect_to products_path
   end
 
-  def search
-    @pagy, @results = pagy(@q.result.with_attached_image.includes(:brand))
-  end
+  # def search
+  #   @pagy, @results = pagy(@q.result.with_attached_image.includes(:brand))
+  # end
 
   private
 
