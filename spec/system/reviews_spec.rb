@@ -377,10 +377,13 @@ RSpec.describe Review, type: :system do
             expect(page).to have_content 'Awesome'
           end
           it 'with image is available' do
+            attach_file "review_image",
+                        "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.jpeg"
             click_button "Post"
             expect(page).to have_content 'Phone-1'
             expect(page).to have_content 'Aaron'
             expect(page).to have_content 'Awesome'
+            expect(page).to have_css("img[src$='image_test_3kb.jpeg']")
           end
         end
       end
