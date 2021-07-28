@@ -362,6 +362,28 @@ RSpec.describe Review, type: :system do
       describe 'users#show' do
         pending 'WIP'
       end
+      describe 'products#show' do
+        before do
+          click_on 'All Products'
+          click_on 'Phone-1'
+          select "★★★☆☆"
+          fill_in 'review[content]', with: @review.content
+        end
+        context 'filled in content field' do
+          it 'is available' do
+            click_button "Post"
+            expect(page).to have_content 'Phone-1'
+            expect(page).to have_content 'Aaron'
+            expect(page).to have_content 'Awesome'
+          end
+          it 'with image is available' do
+            click_button "Post"
+            expect(page).to have_content 'Phone-1'
+            expect(page).to have_content 'Aaron'
+            expect(page).to have_content 'Awesome'
+          end
+        end
+      end
     end
     describe 'Update Action' do
       before do
