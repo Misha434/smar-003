@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!, only: %i[index new create edit destroy]
   before_action :admin_user, only: %i[new create edit update destroy]
-  before_action :set_q, only: [:index, :search]
+  before_action :set_q, only: %i[index search]
   include Pagy::Backend
 
   def show
@@ -21,6 +21,10 @@ class ProductsController < ApplicationController
     redirect_to request.referrer || root_path
   rescue StandardError => e
     puts e
+  end
+
+  def index
+    @pagy, @products = pagy(Product.with_attached_image.includes(:brand).all)
   end
 
   def edit
@@ -68,18 +72,10 @@ class ProductsController < ApplicationController
     end
   end
 
-  def index
-    @pagy, @products = pagy(Product.with_attached_image.includes(:brand).all)
-  end
-
   def destroy
     Product.find(params[:id]).destroy
     redirect_to products_path
   end
-
-  # def search
-  #   @pagy, @results = pagy(@q.result.with_attached_image.includes(:brand))
-  # end
 
   private
 
@@ -90,5 +86,5 @@ class ProductsController < ApplicationController
   def set_q
     @q = Product.ransack(params[:q])
   end
-  
+
 end
