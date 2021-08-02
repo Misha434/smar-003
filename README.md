@@ -1,52 +1,66 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Sma-R
 
-Things you may want to cover:
+### Home 画面
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-## バッジ
-## プロジェクトのタイトル
-## ロゴやバナー画像
-
-- 名前の由来
-求めるスマートフォンの架け橋となるアプリを目指しました。
-Sma : SmartPhone
-R : Research
--> Sma-R
-
-- シンプルでモダンなロゴを選定しました。
+![smar-003_home](https://user-images.githubusercontent.com/61964919/127863912-82c82f47-4c6d-4a9a-8626-8ef358af2e89.png)
 
 ## プロジェクトの概要説明
-スマホを買い換える時に、「バッテリーの持ちがいい」、「予算度外視でサクサク動くものにしたい」ものを直感的に調べるサイトがあればいいなと思った。
+
+スマホを買い換える時に、「バッテリーの持ちがいい」、「予算度外視でサクサク動くものにしたい」自分の望む視点でスマホを直感的に調べるサイトがあればいいなと思い作成しました。
+
+## 実装機能 一覧
+
+ビューはスマホ利用を主要として作成しました。今後タブレット以上の
+
+|  機能  |  概要 ( [ ]内は管理者のみ )  |
+| ---- | ---- |
+|  ユーザー登録・ログイン機能  |  ユーザー登録・登録内容変更・ログイン・削除  |
+|  製品 項目別ランキング  | バッテリー容量, Antutu(SoC性能), 口コミ評価平均値 等の上位順にランキング表示 |
+|  製品情報表示  | スペック詳細情報確認・いいね&口コミ数表示 <br> [ 製品登録・登録内容変更・削除 ]  |
+|  ブランド  | ブランドごとの製品一覧表示機能 <br> [ ブランド登録・登録内容変更・削除 ]  |
+|  口コミ投稿機能  | 製品ごとの口コミ投稿・投稿内容変更・内容変更・削除  |
+|  口コミいいね機能  | 口コミにいいね(Ajax) |
+|  製品検索機能  | 製品一覧から製品名で検索 |
+
 ## サービスのスクリーンショット画像 or GIFアニメ（デモ）
-## 目次
-## 必要条件
+
 ## 使用言語、環境、テクノロジー
+
+- Ruby 2.6.3
+- Rails 6.0.3 (asset pipline未使用)
+- MySQL
+
+### 開発環境
+
+- AWS Cloud9 (Ubuntu)
+- Vagrant (CentOS 7)
+
+## ER図
+
+![ER_diagram_20210802](https://user-images.githubusercontent.com/61964919/127835343-8de7124c-3b0c-461f-9e35-e97d18052baa.png)
+
 ## システム構成図
+
 ![Infrastracture_Diagram_20210802](https://user-images.githubusercontent.com/61964919/127831467-0f09fabb-7116-48d4-97c2-672a809c6716.png)
+
 ## 使い方
+
 ### インストール方法
+
 ### テスト方法
+
 ### デプロイ方法
-## こだわりポイント
+
+## こだわり・苦戦したポイント
+
+### ランキング機能
+
+### 投稿機能
+
+### 
+
 ## ライセンス情報
-## 今後の計画 
+
+## 今後の計画
