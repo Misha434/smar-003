@@ -42,6 +42,7 @@ R : Research
 ## 必要条件
 ## 使用言語、環境、テクノロジー
 ## システム構成図
+![Infrastracture_Diagram_20210802](https://user-images.githubusercontent.com/61964919/127831467-0f09fabb-7116-48d4-97c2-672a809c6716.png)
 ## 使い方
 ### インストール方法
 ### テスト方法
