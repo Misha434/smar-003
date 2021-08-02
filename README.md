@@ -41,6 +41,8 @@ R : Research
 ## 目次
 ## 必要条件
 ## 使用言語、環境、テクノロジー
+## ER図
+![ER_diagram_20210802](https://user-images.githubusercontent.com/61964919/127835343-8de7124c-3b0c-461f-9e35-e97d18052baa.png)
 ## システム構成図
 ![Infrastracture_Diagram_20210802](https://user-images.githubusercontent.com/61964919/127831467-0f09fabb-7116-48d4-97c2-672a809c6716.png)
 ## 使い方
