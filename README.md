@@ -35,9 +35,9 @@
 
 ### フロントエンド
 
-- CSS FW: Bootstrap 5
+- CSS フレームワーク: Bootstrap 5
 - Icon: Font-Awesome
-- JavaScript FW: jQuery
+- JavaScript ライブラリ: jQuery
 
 ### バックエンド
 
@@ -45,12 +45,20 @@
 - Rails 6.0.3 (Asset Pipline未使用)
 - MySQL
 
+
 ### インフラ
 
 - AWS EC2
   - アプリケーションサーバー: Unicorn
   - Webサーバー: Nginx
 - AWS Route 53
+
+当初は Heroku へのデプロイでのリリースを検討していましたが以下の理由で AWS 導入することにしました。
+
+- 可能な限り無料枠を利用・低予算で開発したかった
+- Heroku(無料枠) 
+  - サーバー起動時間がかかる
+  - MySQLのアドオンは容量1GB以上だと有料であること
 
 ### その他
 
@@ -75,6 +83,29 @@
 
 ### インストール方法
 
+```
+
+$ git clone https://github.com/Misha434/smar-003.git
+
+$ yarn install --check-file
+
+$ bundle install --without production
+
+$ rails db:create
+
+$ rails db:migrate
+
+$ rails db:seed
+
+### unique varidation に引っかかった場合
+$ rails db:migrate:reset
+$ rails db:migrate:seed
+
+### 開発環境のサーバー起動
+$ foreman start
+```
+
+
 ### テスト方法
 
 - 正常系
@@ -96,6 +127,10 @@
 
 自己プロフィール画面から口コミ投稿する際に、ブランドから製品を絞り込む Ajax処理を実装しました。
 
-## ライセンス情報
-
 ## 今後の計画
+
+- レスポンシブ対応
+
+- SPA化: 開発にあたって、フロント側でバリデーションを実装する際に JavaScript の重要性を感じる場面が多々ありました。 JavaScript の学習をかねてSPA化を行って行きたいです。
+
+- Docker化
