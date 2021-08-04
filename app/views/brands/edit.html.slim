@@ -13,7 +13,7 @@ h1 Edit a New Brand
         
         = f.submit "Update Brand", class: "btn btn-primary col-12 col-md-12 form-control mb-2"
       
-      = link_to @brand, method: :delete, data:{confirm: 'You sure?'}, class: 'd-grid' do
+      = link_to @brand, method: :delete, data:{confirm: 'You sure?'}, class: 'd-grid delete_link' do
         button.btn.btn-outline-danger.mb-3 Delete
       javascript:
         $("#brand_image").bind("change", function() {
