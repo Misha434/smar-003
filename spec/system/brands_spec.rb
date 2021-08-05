@@ -1,43 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Brand, type: :system do
-  def create_brand(i)
-    i = i.to_i
-    i.times do |n|
-      name = "Brand-#{n + 1}"
-      Brand.create!(
-        id: n + 1,
-        name: name
-      )
-    end
-  end
-
-  def create_product(i)
-    i = i.to_i
-    i.times do |n|
-      name = "Phone-#{n + 1}"
-      soc_antutu_score = 100
-      battery_capacity = (n + 1) * 1000
-      brand_id = 1
-      release_date = DateTime.now
-      image = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
-      filename: "product-photo-#{n}.jpeg")
-      Product.create!(
-        name: name,
-        soc_antutu_score: soc_antutu_score,
-        battery_capacity: battery_capacity,
-        brand_id: brand_id,
-        release_date: release_date,
-        image: image
-      )
-    end
-  end
   before do
     @brand = FactoryBot.build(:brand)
     @product = FactoryBot.build(:product)
     visit root_path
   end
-  # Modify format Start
   describe 'As Admin User,' do
     before do
       @admin_user = FactoryBot.create(:user, admin: true)
@@ -597,36 +565,39 @@ RSpec.describe Brand, type: :system do
         @brand.save!
         @product.save!
         FactoryBot.create(:review)
+        FactoryBot.create(:like, user_id: 1, review_id: 1)
         click_on 'Brands'
         click_on 'Apple'
         within('.brand_title') do
           find(:css, '.edit_link').click
         end
       end
-      xdescribe 'in brands#edit' do
+      describe 'in brands#edit' do
         it 'is available' do
-          expect(page).to have_content 'Edit a New Brand'
-          click_button 'Delete'
-          expect(page).to have_content 'Apple'
+          find(:css, '.delete_link').click
+          expect(page).to_not have_content 'Edit a New Brand'
+          expect(page).to have_content 'ブランド'
+          expect(page).to_not have_content 'Apple'
         end
         describe 'works dependency' do
           before do
-            within('.d-grid') do
-              click_on 'Delete'
-            end
+            find(:css, '.delete_link').click
           end
           it 'in products#index' do
-            visit '/products'
+            expect(page).to have_content 'ブランド'
+            expect(page).to_not have_content 'Apple'
+            click_on 'Brands'
             expect(page).to_not have_content 'Phone-1'
           end
-          it 'in products#show' do
-            visit '/products/1'
-            expect(page).to have_content 'Phone-1'
-            click_on 'Apple'
-            find(:css, 'h2') do
-              expect(page).to have_content 'ブランド'
+          it 'in users#show' do
+            click_on 'Profiles'
+            expect(page).to_not have_content 'Phone-1'
+            within('.like_count') do
+              expect(page).to have_content '0'
             end
-            expect(page).to have_content 'Brand is not exist'
+            within('.review_count') do
+              expect(page).to have_content '0'
+            end
           end
         end
       end
@@ -953,7 +924,7 @@ RSpec.describe Brand, type: :system do
       before do
         @brand.save!
       end
-      it 'can access brand destroy page' do
+      it 'is not available' do
         page.driver.submit :delete, '/brands/1', {}
         expect(page).to have_content 'Log in'
         fill_in "Email", with: @registrated_user.email
@@ -962,6 +933,40 @@ RSpec.describe Brand, type: :system do
         click_on "Brands"
         expect(page).to have_content 'Apple'
       end
+    end
+  end
+
+  private
+
+  def create_brand(i)
+    i = i.to_i
+    i.times do |n|
+      name = "Brand-#{n + 1}"
+      Brand.create!(
+        id: n + 1,
+        name: name
+      )
+    end
+  end
+
+  def create_product(i)
+    i = i.to_i
+    i.times do |n|
+      name = "Phone-#{n + 1}"
+      soc_antutu_score = 100
+      battery_capacity = (n + 1) * 1000
+      brand_id = 1
+      release_date = DateTime.now
+      image = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
+      filename: "product-photo-#{n}.jpeg")
+      Product.create!(
+        name: name,
+        soc_antutu_score: soc_antutu_score,
+        battery_capacity: battery_capacity,
+        brand_id: brand_id,
+        release_date: release_date,
+        image: image
+      )
     end
   end
 end
