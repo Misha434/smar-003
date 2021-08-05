@@ -10,14 +10,14 @@
   .col-12
     .d-flex
       .d-flex.px-2.text-center
-        i.far.fa-thumbs-up.mt-1 aria-hidden="true"
+        i.far.fa-thumbs-up.mt-1
         p.like_count.mx-2 = "#{@product_like_countup}"
       .d-flex.px-2.text-center
-        i.far.fa-comments.mt-1 aria-hidden="true"
+        i.far.fa-comments.mt-1
         p.review_count.mx-2 = "#{@product.reviews.count}"
       .d-flex.px-2.text-center
-        i.fas.fa-tachometer-alt.mt-1 aria-hidden="true"
+        i.fas.fa-tachometer-alt.mt-1
         p.value_antutu.mx-2 = "#{@product.soc_antutu_score}"
       .d-flex.px-2.text-center
-        i.fas.fa-battery-full.mt-1 aria-hidden="true"
+        i.fas.fa-battery-full.mt-1
         p.value_battery.mx-2 = "#{@product.battery_capacity}mAh"
