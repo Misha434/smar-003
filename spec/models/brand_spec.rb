@@ -5,10 +5,10 @@ RSpec.describe Brand, type: :model do
     @brand = FactoryBot.build(:brand)
   end
   describe 'Name Form filled-out' do
-    it 'is a valid' do
+    it 'is valid' do
       expect(@brand).to be_valid
     end
-    it 'with an attached image is a valid' do
+    it 'with an attached image is valid' do
       @brand.image = fixture_file_upload("files/image/image_test_logo.png")
       expect(@brand).to be_valid
     end
