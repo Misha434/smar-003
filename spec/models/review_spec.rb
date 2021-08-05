@@ -8,61 +8,61 @@ RSpec.describe Review, type: :model do
     @review = FactoryBot.build(:review)
   end
   describe 'Content Form filled-out' do
-    it 'is a valid' do
+    it 'is valid' do
       expect(@review).to be_valid
     end
-    it 'with an attached image is a valid' do
+    it 'with an attached image is valid' do
       @review.image = fixture_file_upload("files/image/image_test_logo.png")
       expect(@review).to be_valid
     end
   end
   describe 'Select Product form' do
     context "about ID range" do
-      it 'is a invalid with empty' do
+      it 'is invalid with empty' do
         review = FactoryBot.build(:review, product_id: nil)
         expect(review).to_not be_valid
       end
-      it 'is a invalid with space' do
+      it 'is invalid with space' do
         review = FactoryBot.build(:review, product_id: " 　")
         expect(review).to_not be_valid
       end
-      it 'is a invalid with not existing product_id: 0' do
+      it 'is invalid with product_id: -1' do
         review = FactoryBot.build(:review, product_id: -1)
         expect(review).to_not be_valid
       end
-      it 'is a invalid with not existing product_id: 0' do
+      it 'is invalid with not existing product_id: 0' do
         review = FactoryBot.build(:review, product_id: 0)
         expect(review).to_not be_valid
       end
-      it 'is a invalid with not existing product_id selected' do
+      it 'is invalid with not existing product_id selected' do
         review = FactoryBot.build(:review, product_id: 2)
         expect(review).to_not be_valid
       end
     end
     context "about data-type" do
-      it 'of string or text is a valid' do
+      it 'of string or text is valid' do
+        review = FactoryBot.build(:review, product_id: "1")
+        expect(review).to be_valid
+        review.save!
+        expect(review.product_id.class).to eq(Integer)
+      end
+      it 'of string or text has full-width charactor is invalid' do
+        review = FactoryBot.build(:review, product_id: "１")
+        expect(review).to_not be_valid
+      end
+      it 'of integer is valid' do
         review = FactoryBot.build(:review, product_id: 1)
         expect(review).to be_valid
       end
-      it 'of string or text has full-width charactor is a invalid' do
-        pending 'E2E test has passed'
-        review = FactoryBot.build(:review, product_id: １)
-        expect(review).to be_valid
-      end
-      it 'of integer is a invalid' do
-        pending "Consider after System Spec"
-        review = FactoryBot.build(:review, product_id: "1")
-        expect(review).to_not be_valid
-      end
-      it 'of float is a invalid' do
+      it 'of float is invalid' do
         review = FactoryBot.build(:review, product_id: 1.1)
         expect(review).to_not be_valid
       end
-      it 'of boolean true is a invalid' do
+      it 'of boolean true is invalid' do
         review = FactoryBot.build(:review, product_id: true)
         expect(review).to_not be_valid
       end
-      it 'of boolean false is a invalid' do
+      it 'of boolean false is invalid' do
         review = FactoryBot.build(:review, product_id: false)
         expect(review).to_not be_valid
       end
@@ -70,51 +70,51 @@ RSpec.describe Review, type: :model do
   end
   describe 'Reviewer User' do
     context "about ID range" do
-      it 'is a invalid with empty' do
+      it 'is invalid with empty' do
         review = FactoryBot.build(:review, user_id: nil)
         expect(review).to_not be_valid
       end
-      it 'is a invalid with space' do
+      it 'is invalid with space' do
         review = FactoryBot.build(:review, user_id: " 　")
         expect(review).to_not be_valid
       end
-      it 'is a invalid with not existing user_id: 0' do
+      it 'is invalid with not existing user_id: -1' do
         review = FactoryBot.build(:review, user_id: -1)
         expect(review).to_not be_valid
       end
-      it 'is a invalid with not existing user_id: 0' do
+      it 'is invalid with not existing user_id: 0' do
         review = FactoryBot.build(:review, user_id: 0)
         expect(review).to_not be_valid
       end
-      it 'is a invalid with not existing user_id selected' do
+      it 'is invalid with not existing user_id selected' do
         review = FactoryBot.build(:review, user_id: 2)
         expect(review).to_not be_valid
       end
     end
     context "about data-type" do
-      it 'of string or text is a valid' do
+      it 'of string or text is valid' do
+        review = FactoryBot.build(:review, user_id: "1")
+        expect(review).to be_valid
+        review.save!
+        expect(review.user_id.class).to eq(Integer)
+      end
+      it 'of string or text has full-width charactor is invalid' do
+        review = FactoryBot.build(:review, user_id: "１")
+        expect(review).to_not be_valid
+      end
+      it 'of integer is valid' do
         review = FactoryBot.build(:review, user_id: 1)
         expect(review).to be_valid
       end
-      it 'of string or text has full-width charactor is a invalid' do
-        pending "It is passed on E2E Test"
-        review = FactoryBot.build(:review, user_id: １)
-        expect(review).to be_valid
-      end
-      it 'of integer is a invalid' do
-        pending "Consider after System Spec"
-        review = FactoryBot.build(:review, user_id: "1")
-        expect(review).to_not be_valid
-      end
-      it 'of float is a invalid' do
+      it 'of float is invalid' do
         review = FactoryBot.build(:review, user_id: 1.1)
         expect(review).to_not be_valid
       end
-      it 'of boolean true is a invalid' do
+      it 'of boolean true is invalid' do
         review = FactoryBot.build(:review, user_id: true)
         expect(review).to_not be_valid
       end
-      it 'of boolean false is a invalid' do
+      it 'of boolean false is invalid' do
         review = FactoryBot.build(:review, user_id: false)
         expect(review).to_not be_valid
       end
@@ -122,54 +122,55 @@ RSpec.describe Review, type: :model do
   end
   describe 'Rate' do
     context "about value range" do
-      it 'is a invalid with empty' do
+      it 'is invalid with empty' do
         review = FactoryBot.build(:review, rate: nil)
         expect(review).to_not be_valid
       end
-      it 'is a invalid with space' do
+      it 'is invalid with space' do
         review = FactoryBot.build(:review, rate: " 　")
         expect(review).to_not be_valid
       end
-      it 'is a invalid with not existing rate: -1' do
+      it 'is invalid with not existing rate: -1' do
         review = FactoryBot.build(:review, rate: -1)
         expect(review).to_not be_valid
       end
-      it 'is a invalid with not existing rate: 0' do
+      it 'is invalid with not existing rate: 0' do
         review = FactoryBot.build(:review, rate: 0)
         expect(review).to_not be_valid
       end
-      it 'is a valid with existing rate: 1' do
+      it 'is valid with existing rate: 1' do
         review = FactoryBot.build(:review, rate: 1)
         expect(review).to be_valid
       end
-      it 'is a valid with existing rate: 5' do
+      it 'is valid with existing rate: 5' do
         review = FactoryBot.build(:review, rate: 5)
         expect(review).to be_valid
       end
-      it 'is a invalid with not existing rate selected' do
+      it 'is invalid with not existing rate selected' do
         review = FactoryBot.build(:review, rate: 6)
         expect(review).to_not be_valid
       end
     end
     context "about data-type" do
-      it 'of string or text is a valid' do
-        review = FactoryBot.build(:review, rate: 3)
+      it 'of string or text is valid' do
+        review = FactoryBot.build(:review, rate: "3")
+        expect(review).to be_valid
+        review.save!
+        expect(review.rate.class).to eq(Integer)
+      end
+      it 'of integer is valid' do
+        review = FactoryBot.build(:review, rate: 1)
         expect(review).to be_valid
       end
-      it 'of integer is a invalid' do
-        pending "Consider after System Spec"
-        review = FactoryBot.build(:review, rate: "1")
-        expect(review).to_not be_valid
-      end
-      it 'of float is a invalid' do
+      it 'of float is invalid' do
         review = FactoryBot.build(:review, rate: 1.1)
         expect(review).to_not be_valid
       end
-      it 'of boolean true is a invalid' do
+      it 'of boolean true is invalid' do
         review = FactoryBot.build(:review, rate: true)
         expect(review).to_not be_valid
       end
-      it 'of boolean false is a invalid' do
+      it 'of boolean false is invalid' do
         review = FactoryBot.build(:review, rate: false)
         expect(review).to_not be_valid
       end
@@ -246,8 +247,8 @@ RSpec.describe Review, type: :model do
         review = FactoryBot.build(:review, content: "👨" * 140)
         expect(review).to be_valid
       end
-      it "is valid (over 5Byte)" do
-        review = FactoryBot.build(:review, content: "👨‍👩‍👦‍👦" * 140)
+      it "is invalid over 140 charactors" do
+        review = FactoryBot.build(:review, content: "👨" * 141)
         expect(review).to_not be_valid
       end
     end
@@ -257,10 +258,11 @@ RSpec.describe Review, type: :model do
       @review.save!
     end
     context "for the same product" do
-      it "is invalid" do
-        pending "Rewrite test after Debug Double Post"
-        review = FactoryBot.create(:review, id: 2)
-        expect(review).to_not be_valid
+      it "should raise error ActiveRecord::RecordNotUnique" do
+        expect do
+          review = FactoryBot.build(:review, id: 2)
+          review.save!
+        end.to raise_error( ActiveRecord::RecordNotUnique )
       end
     end
     context "for other product" do
@@ -279,7 +281,7 @@ RSpec.describe Review, type: :model do
           expect(@review).to be_valid
         end
       end
-      context "has a  format" do
+      context "has a jpeg format" do
         it "is valid" do
           @review.image = fixture_file_upload("files/image/image_test_3kb.jpeg")
           expect(@review).to be_valid
