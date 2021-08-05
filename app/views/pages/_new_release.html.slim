@@ -1,6 +1,8 @@
 .col-12
-  h3
-    | New release
+  .d-flex.align-items-center.my-2
+    i.fas.fa-table.fa-lg
+    h3.m-1.mx-3
+      | New release
 .col-12
   ol.rankings
     - if @products_sorted_by_new_release.nil?
