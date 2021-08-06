@@ -1,0 +1,32 @@
+- provide(:title, 'All Reviews')
+
+.container
+  .row
+    .col-12.col-md-8.offset-md-2
+      h1 All Reviews
+.container
+  .row
+    .col-12.col-md-8.offset-md-2
+      - @reviews.each do |review|
+        .card.mb-1
+          li id="review-#{review.id}"
+            .container.py-2
+              .row
+                .col-12.col-lg-12
+                  span.user
+                    h5.my-0 = link_to review.user.name, review.user
+                  span.timestamp.count--text
+                    | Posted #{time_ago_in_words(review.created_at)} ago
+              .row
+                .col-12.pt-1
+                  span.content
+                    p.mt-1 = review.content
+                  = render 'reviews/posted_image', review: review
+              .row.span.pt-2
+                .col-12
+                  .float-start
+                    div id ="review-like-#{review.id}"
+                      = render 'reviews/like', review: review
+                  .float-end
+                    = render 'reviews/edit', review: review
+      = render 'shared/pagination_bar' 

@@ -6,11 +6,10 @@ Rails.application.routes.draw do
   namespace :reviews do 
     resources :picks, only: :index, defaults: { format: :json }
   end
-  resources :reviews, only: [:create, :destroy, :new, :edit, :update]
   namespace :products do 
     resources :searches, only: :index
   end
-  resources :brands, :products
+  resources :brands, :products, :reviews
   post 'like/:id' => 'likes#create', as: 'create_like'
   delete 'like/:id' => 'likes#destroy', as: 'destroy_like'
 end
