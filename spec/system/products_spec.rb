@@ -1098,7 +1098,6 @@ RSpec.describe Product, type: :system do
           visit current_path
         end
         it 'is available' do
-          pending 'Set after Setting access control for users#show'
           click_on 'Aaron'
           expect(page).to have_content('Aaron')
           expect(page).to have_content('Phone-1')
