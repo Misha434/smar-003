@@ -360,7 +360,14 @@ RSpec.describe Review, type: :system do
         end
       end
       describe 'users#show' do
-        pending 'WIP'
+        it 'has posted review' do
+          @review.save!
+          click_on 'Profile'
+          within('#review-1') do
+            expect(page).to have_content @review.product.name
+            expect(page).to have_content @review.content
+          end
+        end
       end
     end
     describe 'Update Action' do
@@ -905,7 +912,16 @@ RSpec.describe Review, type: :system do
       pending 'WIP'
     end
     describe 'Show Action' do
-      pending 'WIP'
+      it 'has posted review' do
+        @brand.save!
+        @product.save!
+        @review.save!
+        click_on 'Profile'
+        within('#review-1') do
+          expect(page).to have_content @review.product.name
+          expect(page).to have_content @review.content
+        end
+      end
     end
     describe 'Update Action' do
       before do
