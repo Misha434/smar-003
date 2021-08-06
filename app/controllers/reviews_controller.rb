@@ -19,14 +19,8 @@ class ReviewsController < ApplicationController
     @review = Review.new
   end
 
-  def destroy
-    if @review.destroy
-      flash[:success] = "Review is deleted"
-      redirect_to @review.product || root_url
-    else
-      flash[:danger] = "Failed to Delete"
-      render 'reviews/edit'
-    end
+  def index
+    @pagy, @reviews = pagy(Review.includes(:user).with_attached_image.all)
   end
   
   def edit
