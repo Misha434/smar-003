@@ -1,6 +1,8 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!, only: %i[create destroy new edit update]
-  before_action :correct_user, only: %i[destroy edit update]
+  before_action :admin_user, only: %i[index]
+  before_action :correct_user, only: %i[edit update destroy]
+  include Pagy::Backend
 
   def create
     @review = current_user.reviews.build(review_params)
@@ -38,6 +40,16 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def destroy
+    if @review.destroy
+      flash[:success] = "Review is deleted"
+      redirect_to @review.product || root_url
+    else
+      flash[:danger] = "Failed to Delete"
+      render 'reviews/edit'
+    end
+  end
+
   private
 
   def review_params
@@ -45,7 +57,14 @@ class ReviewsController < ApplicationController
   end
 
   def correct_user
-    @review = current_user.reviews.find_by(id: params[:id])
-    redirect_to root_url if @review.nil?
+    if current_user.admin?
+      @review = Review.find_by(id: params[:id])
+    else
+      @review = current_user.reviews.find_by(id: params[:id])
+      if @review.nil?
+        flash[:denger] = "Not Correct user action."
+        redirect_to root_url
+      end
+    end
   end
 end

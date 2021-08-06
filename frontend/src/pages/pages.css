@@ -4,6 +4,21 @@
   margin: 0.5rem;
 }
 
+/* flash message */
+.alert-denger {
+  text-align: center;
+  background-color: #b22222;
+  color: white;
+  border-radius: 0;
+}
+
+.alert-notice {
+  text-align: center;
+  background-color: teal;
+  color: white;
+  border-radius: 0;
+}
+
 li {
   list-style: none;
 }
