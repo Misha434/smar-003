@@ -892,19 +892,6 @@ RSpec.describe Product, type: :system do
           click_on 'Phone-1'
           expect(page).to have_content('Phone-1')
         end
-        xit 'Review count is correct(Review no exist)' do
-          expect(page).to have_content('0 Reviews')
-        end
-        xit 'Review count is correct(1 Review exist)' do
-          FactoryBot.create(:review)
-          visit current_path
-          expect(page).to have_content('1 Review')
-        end
-        xit 'Review count is correct(2 Reviews exist)' do
-          create_review(2)
-          visit current_path
-          expect(page).to have_content('2 Reviews')
-        end
         it 'Edit link is not available' do
           expect(page).to_not have_css('.edit_link')
           visit '/products/1/edit'
