@@ -265,7 +265,7 @@ RSpec.describe "Pages", type: :system do
       before do
         create_product_sort_battery
         create_review(3)
-        visit current_path # Reload Page
+        visit current_path
       end
       it "Rank is correct" do
         check_product_ranking_battery_correction
@@ -278,7 +278,7 @@ RSpec.describe "Pages", type: :system do
       before do
         create_product_sort_antutu
         create_review(3)
-        visit current_path # Reload Page
+        visit current_path
       end
       it "Rank is correct" do
         check_product_ranking_antutu_correction
@@ -294,7 +294,7 @@ RSpec.describe "Pages", type: :system do
       before do
         create_product_sort_new_release
         create_review(3)
-        visit current_path # Reload Page
+        visit current_path
       end
       it "Rank is correct" do
         check_product_ranking_new_release_correction
@@ -321,7 +321,7 @@ RSpec.describe "Pages", type: :system do
           FactoryBot.create(:review, rate: 5)
           FactoryBot.create(:review, id: 2, product_id: 2)
           FactoryBot.create(:review, id: 3, product_id: 3)
-          visit current_path # Reload Page
+          visit current_path
         end
         it "Rank has correct rate, order and star" do
           within('.ranking_rate_average') do
@@ -382,7 +382,7 @@ RSpec.describe "Pages", type: :system do
           FactoryBot.create(:review, id: 2, rate: 5, user_id: 2)
           FactoryBot.create(:review, id: 3, product_id: 2)
           FactoryBot.create(:review, id: 4, product_id: 3)
-          visit current_path # Reload Page
+          visit current_path
         end
         it "Rank has correct rate, order and star" do
           within('.ranking_rate_average') do
@@ -443,7 +443,7 @@ RSpec.describe "Pages", type: :system do
           FactoryBot.create(:review, id: 2, rate: 4, user_id: 2)
           FactoryBot.create(:review, id: 3, product_id: 2)
           FactoryBot.create(:review, id: 4, product_id: 3, rate: 4)
-          visit current_path # Reload Page
+          visit current_path
         end
         it "Rank has correct rate, order and star" do
           within('.ranking_rate_average') do
@@ -499,7 +499,7 @@ RSpec.describe "Pages", type: :system do
           FactoryBot.create(:review, id: 3, rate: 4, user_id: 3)
           FactoryBot.create(:review, id: 4, product_id: 2)
           FactoryBot.create(:review, id: 5, product_id: 3, rate: 4)
-          visit current_path # Reload Page
+          visit current_path
         end
         it "Rank has correct rate, order and star" do
           within('.ranking_rate_average') do
@@ -555,7 +555,7 @@ RSpec.describe "Pages", type: :system do
           FactoryBot.create(:review, id: 3, rate: 4, user_id: 3)
           FactoryBot.create(:review, id: 4, product_id: 2, rate: 4)
           FactoryBot.create(:review, id: 5, product_id: 3)
-          visit current_path # Reload Page
+          visit current_path
         end
         it "Rank has correct rate, order and star" do
           within('.ranking_rate_average') do
@@ -609,7 +609,7 @@ RSpec.describe "Pages", type: :system do
           FactoryBot.create(:review, rate: 2)
           FactoryBot.create(:review, id: 2, product_id: 2, rate: 1)
           FactoryBot.create(:review, id: 3, product_id: 3, rate: 1)
-          visit current_path # Reload Page
+          visit current_path
         end
         it "Rank has correct rate, order and star" do
           within('.ranking_rate_average') do
@@ -665,7 +665,7 @@ RSpec.describe "Pages", type: :system do
           FactoryBot.create(:review, id: 3, rate: 2, product_id: 2, user_id: 3)
           FactoryBot.create(:review, id: 4, product_id: 2, rate: 1)
           FactoryBot.create(:review, id: 5, product_id: 3, rate: 1)
-          visit current_path # Reload Page
+          visit current_path
         end
         it "Rank has correct rate, order and star" do
           within('.ranking_rate_average') do
@@ -721,7 +721,7 @@ RSpec.describe "Pages", type: :system do
           FactoryBot.create(:review, id: 3, rate: 1, product_id: 2, user_id: 3)
           FactoryBot.create(:review, id: 4, product_id: 2, rate: 1)
           FactoryBot.create(:review, id: 5, product_id: 3, rate: 1)
-          visit current_path # Reload Page
+          visit current_path
         end
         it "Rank has correct rate, order and star" do
           within('.ranking_rate_average') do
@@ -821,7 +821,7 @@ RSpec.describe "Pages", type: :system do
       before do
         create_product_sort_battery
         create_review(3)
-        visit current_path # Reload Page
+        visit current_path
       end
       it "Rank is correct" do
         check_product_ranking_battery_correction
@@ -834,7 +834,7 @@ RSpec.describe "Pages", type: :system do
       before do
         create_product_sort_antutu
         create_review(3)
-        visit current_path # Reload Page
+        visit current_path
       end
       it "Rank is correct" do
         check_product_ranking_antutu_correction
@@ -846,11 +846,11 @@ RSpec.describe "Pages", type: :system do
         end
       end
     end
-    describe "Within New lerease Ranking," do
+    describe "Within New release Ranking," do
       before do
         create_product_sort_new_release
         create_review(3)
-        visit current_path # Reload Page
+        visit current_path
       end
       it "Rank is correct" do
         check_product_ranking_new_release_correction
@@ -903,47 +903,49 @@ RSpec.describe "Pages", type: :system do
         expect(page).to have_content('Login')
       end
     end
-    describe "Within Battery Ranking," do
+    describe "Battery Ranking" do
       before do
         create_product_sort_battery
         create_review(3)
-        visit current_path # Reload Page
+        visit current_path
       end
-      it "Rank is correct" do
-        check_product_ranking_battery_correction
+      it "has Login and Signup links" do
+        within('.ranking_battery') do
+          expect(page).to have_content('Read only Login User')
+          click_on 'Login'
+        end
+        expect(page).to have_content('Log in')
+        click_on 'Sma-R'
+        within('.ranking_battery') do
+          click_on 'Signup'
+        end
+        expect(page).to have_content('Sign up')
       end
-      it "Link is valid" do
-        within('.ranking_battery') do
-          click_on 'Phone-4'
+    end
+    describe "Rate Avg Ranking" do
+      before do
+        create_product_sort_battery
+        create_review(3)
+        visit current_path
+      end
+      it "has Login and Signup links" do
+        within('.rate_average') do
+          expect(page).to have_content('Read only Login User')
+          click_on 'Login'
         end
-        expect(page).to have_content('Phone-4')
-        expect(page).to have_content('Brand-4')
-        visit root_path
-        within('.ranking_battery') do
-          click_on 'Phone-3'
+        expect(page).to have_content('Log in')
+        click_on 'Sma-R'
+        within('.rate_average') do
+          click_on 'Signup'
         end
-        expect(page).to have_content('Phone-3')
-        expect(page).to have_content('Brand-3')
-        visit root_path
-        within('.ranking_battery') do
-          click_on 'Phone-2'
-        end
-        expect(page).to have_content('Phone-2')
-        expect(page).to have_content('Brand-2')
-        visit root_path
-        within('.ranking_battery') do
-          click_on 'view more'
-        end
-        within('h2') do
-          expect(page).to have_content('Log in')
-        end
+        expect(page).to have_content('Sign up')
       end
     end
     describe "Within Antutu Ranking," do
       before do
         create_product_sort_antutu
         create_review(3)
-        visit current_path # Reload Page
+        visit current_path
       end
       it "Rank is correct" do
         check_product_ranking_antutu_correction
@@ -959,7 +961,7 @@ RSpec.describe "Pages", type: :system do
       before do
         create_product_sort_new_release
         create_review(3)
-        visit current_path # Reload Page
+        visit current_path
       end
       it "Rank is correct" do
         check_product_ranking_new_release_correction
