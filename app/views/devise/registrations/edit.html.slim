@@ -21,26 +21,37 @@
             div
               | Currently waiting confirmation for: 
               = resource.unconfirmed_email
-          .field
-            = f.label :password
-            i
-              |  (leave blank if you don't want to change it)
-            br
-            = f.password_field :password, autocomplete: "new-password", class: "form-control mb-2"
-            - if @minimum_password_length
-              em
-                = @minimum_password_length
-                |  characters minimum
-          .field
-            = f.label :password_confirmation
-            br
-            = f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control mb-2"
+          .accordion.accordion-flush#accordionFlushExample
+            .accordion-item
+              h2#flush-headingOne.accordion-header
+                button.accordion-button.collapsed aria-controls="flush-collapseOne" aria-expanded="false" data-bs-target="#flush-collapseOne" data-bs-toggle="collapse" type="button" 
+                  u Change Password
+              #flush-collapseOne.accordion-collapse.collapse aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" 
+                .accordion-body
+                  .col-12.my-2
+                    .field
+                      = f.label :password
+                      br
+                      = f.password_field :password, autocomplete: "new-password", class: "form-control mb-2"
+                      - if @minimum_password_length
+                        .form-text
+                          li
+                            | ・#{@minimum_password_length} characters minimum
+                          li
+                            | ・Leave blank if you don't want to change it
+                    .field.mt-3
+                      = f.label :password_confirmation
+                      br
+                      = f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control mb-2"
+                      .form-text
+                        li
+                          | ・Leave blank if you don't want to change it
           .field
             = f.label :current_password
-            i
-              | (we need your current password to confirm your changes)
             br
-            = f.password_field :current_password, autocomplete: "current-password", class: "form-control mb-3"
+            = f.password_field :current_password, autocomplete: "current-password", class: "form-control"
+          .form-text.mb-3
+            | we need your current password to confirm your changes
           .actions.mb-3.d-grid
             = f.submit "Update", class: "btn btn-outline-primary"
         = link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-outline-danger mb-3"
