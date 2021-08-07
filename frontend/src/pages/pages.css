@@ -50,6 +50,10 @@ li {
   padding-left: 0;
 }
 
+.ranking_rate_average {
+  padding-left: 0;
+}
+
 .row .ranking__custom {
   --bs-gutter-x: 0;
 }
