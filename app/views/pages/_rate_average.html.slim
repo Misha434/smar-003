@@ -18,15 +18,9 @@
                 .d-flex
                   p = link_to product.name, product
                 .d-float
-                    = render 'pages/star_indicator', product: product, ranking_index: ranking_index
-                    / [ranking_index - 1] means index of each product avg. rate
-                    = "#{@average_rate[ranking_index - 1].floor(1)}"
-              / .col-4
-              /   = link_to product_image_default(product), product
-              / .col-8
-              /   p = link_to product.name, product
-              /   .d-flex
-              /     span.rate
+                  = render 'pages/star_indicator', product: product, ranking_index: ranking_index
+                  / [ranking_index - 1] means index of each product avg. rate
+                  = "#{@average_rate[ranking_index - 1].floor(1)}"
       li.text-center
         u
           |#{link_to "view more", products_path}
