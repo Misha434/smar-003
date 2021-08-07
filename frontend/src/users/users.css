@@ -1,9 +1,20 @@
 @import "normalize.css/normalize.css";
 
+/* users#show */
 .reviews {
   list-style: none;
 }
 
 .reviews li {
   padding: 0;
+}
+
+/* users#edit */
+
+button.accordion-button {
+  padding-left: 0;
+}
+
+div.accordion-body {
+  padding-left: 0;
 }
