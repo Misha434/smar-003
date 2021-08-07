@@ -10,11 +10,10 @@
           .col-12.mb-3
             = render 'products/search_form'
       .container
-        ul.products
+        ol.products
           .row
             .col-12
-              ol
-                - @products.each do |product|
-                  li id = "#{product.id}"
-                    = render 'products/product', product: product
-                = render 'shared/pagination_bar'
+              - @products.each do |product|
+                li id = "#{product.id}"
+                  = render 'products/product', product: product
+              = render 'shared/pagination_bar'
