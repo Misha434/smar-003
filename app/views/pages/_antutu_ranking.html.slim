@@ -15,7 +15,7 @@
             .col-5.col-sm-4.py-2.d-flex.align-items-center
               = link_to product.name, product
             .col-3.col-sm-4.p-2.d-flex.align-items-center
-              p = "#{product.soc_antutu_score}"
+              p.m-0 = "#{product.soc_antutu_score}"
     li.text-center
       u
         |#{link_to "view more", products_path}
