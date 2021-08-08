@@ -248,7 +248,7 @@ RSpec.describe "Pages", type: :system do
       end
       it "Brands(brands#index) link is valid" do
         click_on "Brands"
-        expect(page).to have_content('ブランド')
+        expect(page).to have_content('All Brands')
       end
       it "Logout link is valid" do
         click_link "Log out"
@@ -804,7 +804,7 @@ RSpec.describe "Pages", type: :system do
       end
       it "Brands(brands#index) link is valid" do
         click_on "Brands"
-        expect(page).to have_content('ブランド')
+        expect(page).to have_content('All Brands')
       end
       it "Logout link is valid" do
         click_link "Log out"
@@ -888,7 +888,7 @@ RSpec.describe "Pages", type: :system do
       end
       it "Brands(brands#index) link is valid" do
         click_on "Brands"
-        expect(page).to have_content('ブランド')
+        expect(page).to have_content('All Brands')
       end
       it "Login link is valid" do
         within('header') do
