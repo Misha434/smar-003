@@ -11,7 +11,7 @@ class ReviewsController < ApplicationController
       redirect_to @review.product
     else
       set_forms_brands_products
-      flash[:danger] = "Fail to create"
+      flash.now[:danger] = "Fail to create"
       render '/reviews/new'
     end
   end
@@ -35,7 +35,7 @@ class ReviewsController < ApplicationController
       redirect_to current_user
     else
       set_forms_brands_products
-      flash[:danger] = "Updated is failed"
+      flash.now[:danger] = "Updated is failed"
       render 'reviews/edit'
     end
   end
@@ -45,7 +45,7 @@ class ReviewsController < ApplicationController
       flash[:success] = "Review is deleted"
       redirect_to @review.product || root_url
     else
-      flash[:danger] = "Failed to Delete"
+      flash.now[:danger] = "Failed to Delete"
       render 'reviews/edit'
     end
   end
