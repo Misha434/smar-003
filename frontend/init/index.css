@@ -42,4 +42,5 @@ body a {
 li.error_msg {
   list-style: disc;
   color: red;
+  text-align: justify;
 }

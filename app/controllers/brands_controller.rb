@@ -14,7 +14,7 @@ class BrandsController < ApplicationController
       flash[:success] = "Add Brand Successfully"
       redirect_to @brand
     else
-      flash[:denger] = "Add Brand is failed"
+      flash.now[:danger] = "Add Brand is failed"
       render 'new'
     end
   end
@@ -30,10 +30,10 @@ class BrandsController < ApplicationController
       flash[:success] = "Brand is deleted"
       redirect_to brands_path
     elsif current_user.admin?
-      flash[:denger] = "Fail to delete Brand"
+      flash.now[:danger] = "Fail to delete Brand"
       render 'edit'
     else
-      flash[:denger] = "Prohibit to Access This Page"
+      flash[:alert] = "Prohibit to Access This Page"
       redirect_to request.referrer || root_url
     end
   end
@@ -45,7 +45,7 @@ class BrandsController < ApplicationController
       flash[:success] = "Brand is updated"
       redirect_to @brand
     else
-      flash[:denger] = "Updating is faild"
+      flash.now[:danger] = "Updating is faild"
       render 'edit'
     end
   end
