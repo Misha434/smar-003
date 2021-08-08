@@ -37,3 +37,9 @@ body a {
 .navbar-nav .nav-link {
   padding-left: 1rem;
 }
+
+/* error massage */
+li.error_msg {
+  list-style: disc;
+  color: red;
+}
