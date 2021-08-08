@@ -12,8 +12,8 @@ class ProductsController < ApplicationController
       @review_rate_average = Review.where('product_id=?', params[:id]).average(:rate)
       @review_rate_average.nil? ? @review_rate_average = '-' : @review_rate_average = @review_rate_average.floor(1)
     else
-      redirect_to products_path
       flash[:danger] = 'Product does not exist'
+      redirect_to products_path
     end
   rescue ActiveRecord::RecordNotFound => e
     @brands = Brand.all
@@ -50,11 +50,12 @@ class ProductsController < ApplicationController
       redirect_to @product
     else
       @brands = Brand.all
+      flash.now[:danger] = "Fail to Add Product"
       render 'new'
     end
   rescue ActiveRecord::RecordNotUnique => e
     @brands = Brand.all
-    flash[:danger] = "Cannot add a same product as same brand"
+    flash.now[:danger] = "Cannot add a same product as same brand"
     render 'new'
   rescue StandardError => e
     puts e
@@ -68,7 +69,7 @@ class ProductsController < ApplicationController
     else
       @brands = Brand.all
       render 'edit'
-      flash[:success] = "Fail to update"
+      flash.now[:success] = "Fail to update"
     end
   end
 
