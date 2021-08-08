@@ -7,12 +7,13 @@ h1 Add a New Brand
       = form_with(model: @brand, local: true) do |f|
         = render 'shared/error_messages', object: f.object
         h3
-          = f.label :name, class: "col-12 col-md-12"
-        = f.text_field :name, class: "col-12 col-md-12"
+          = f.label :name, class: "col-12 col-md-12 mb-2"
+        = f.text_field :name, class: "col-12 col-md-12 mb-2"
         
-        = f.file_field :image, class: "col-12 col-md-12 form-control mb-2", accept: "image/jpeg,image/gif,image/png"
+        .g-grid
+          = f.file_field :image, class: "col-12 col-md-12 form-control mb-2", accept: "image/jpeg,image/gif,image/png"
 
-        = f.submit "Create a new brand", class: "btn btn-primary"
+        = f.submit "Create a new brand", class: "btn btn-primary col-12 col-md-12"
 
       javascript:
         $("#brand_image").bind("change", function() {
