@@ -4,7 +4,10 @@ default: &default
   password: '@asFay4563'
   adapter: mysql2
   encoding: utf8mb4
-  socket: /var/lib/mysql/mysql.sock
+  ## For ENV CentOS7, Amazon Linux 2
+  # socket: /var/lib/mysql/mysql.sock
+  ## For MacOS
+  socket: /tmp/mysql.sock
 development:
   <<: *default
   database: smar_003_development
