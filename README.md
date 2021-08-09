@@ -27,6 +27,8 @@
 ## サービスのスクリーンショット画像 or GIFアニメ（デモ）
 
 ### 製品 項目別ランキング
+![smar-003_home](https://raw.github.com/wiki/Misha434/smar-003/images/smar-003_home.gif)
+
 
 ### 製品検索機能
 
