@@ -8,29 +8,34 @@
           | Sign up
         = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
           = render "devise/shared/error_messages", resource: resource,  object: f.object
-          .field
+          .field.mb-3
             = f.label :name
-            br
             = f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control"
-          .field
+          .field.mb-3
             = f.label :email
-            br
             = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control"
-          .field
+          .field.mb-3
             = f.label :password
-            - if @minimum_password_length
-              em
-                | (
-                = @minimum_password_length
-                |  characters minimum)
-            br
             = f.password_field :password, autocomplete: "new-password", class: "form-control"
-          .field
+            - if @minimum_password_length
+              .form-text
+                p.mb-0 ・Available symbols: !@#%^&* 
+                p  
+                  | ・#{@minimum_password_length} characters minimum 
+          .field.mb-3
             = f.label :password_confirmation
-            br
             = f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control"
-          span.avatar
-            = f.file_field :avatar
+          .field.mb-3
+            span.avatar
+              .d-flex
+                = f.label :avatar
+                .form-text
+                  p.px-2
+                    | (Optional)
+              = f.file_field :avatar
+              .form-text
+                p.mb-0 ・Size: ~ 5MB
+                p ・Image Format: jpeg, gif, png
           / / agreement checkbox Start
           / p.demo
             .flex-row
