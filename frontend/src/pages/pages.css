@@ -57,9 +57,3 @@ li {
 .row .ranking__custom {
   --bs-gutter-x: 0;
 }
-
-.count--text {
-  font-size: 0.4rem;
-  color: gray;
-  margin-bottom: 0;
-}

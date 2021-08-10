@@ -1,23 +1,23 @@
 - provide(:title, @user.name)
 
 .container
-  .row.py-3
+  .row.pt-3
     .col-4.text-center
       = render 'user_image'
-    .col-8.py-4
+    .col-8.pb-4
       .d-flex
         h1.px-3 = @user.name
         - if @user == current_user
           = link_to edit_user_registration_path, class:"user_edit" do
-            i.fas.fa-lg.fa-cog.pt-2.__no_active aria-hidden="true"
+            i.fas.fa-lg.fa-cog.pt-2.__no_active
   .row
     .col-12.col-md-10.offset-md-1
-      .d-flex
+      .d-flex.my-2
         .d-block.px-2.text-center
-          i.far.fa-thumbs-up aria-hidden="true"
+          i.far.fa-thumbs-up
           p.like_count = @user.likes.count
         .d-block.px-2.text-center
-          i.far.fa-comments aria-hidden="true"
+          i.far.fa-comments
           p.review_count = @user.reviews.count
 .container
   .row
