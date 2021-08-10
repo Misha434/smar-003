@@ -30,28 +30,24 @@
               .d-flex
                 = f.label :avatar
                 .form-text
-                  p.px-2
+                  p.px-2.mb-0
                     | (Optional)
               = f.file_field :avatar
               .form-text
                 p.mb-0 ・Size: ~ 5MB
                 p ・Image Format: jpeg, gif, png
-          / / agreement checkbox Start
-          / p.demo
-            .flex-row
-              input type="checkbox" id="agreement" autocomplete="off"
-              label for="agreement"
-                .d-flex
-                  p.px-2 I agree with
-                  p = link_to "Terms of service", terms_path, class: "underlined", target: "_blank", rel: "noopener noreferrer"
-          / / agreement checkbox End
+          .field
+            p.demo
+              .flex-row.mb-0
+                input type="checkbox" id="agreement" autocomplete="off"
+                label for="agreement"
+                  .d-flex
+                    p.px-2.pb-0 I agree with
+                    u = link_to "Terms of service", terms_path, class: "underlined", target: "_blank", rel: "noopener noreferrer"
           .actions
             .d-grid.mb-4
-              / / agreement checkbox Start
-              / = f.submit "Sign up", class: "btn btn-outline-primary", id: "signup--submit", disabled: true
-              / / agreement checkbox End
-              = f.submit "Sign up", class: "btn btn-outline-primary", id: "signup--submit"
-          / javascript:
+              = f.submit "Sign up", class: "btn btn-primary", id: "signup--submit", disabled: true
+          javascript:
             $(function(){
               $("#signup--submit").prop("disabled", true);
               $("#agreement").click(function(){
