@@ -44,3 +44,10 @@ li.error_msg {
   color: red;
   text-align: justify;
 }
+
+/* gray text */
+.count--text {
+  font-size: 0.75rem;
+  color: gray;
+  margin-bottom: 0;
+}

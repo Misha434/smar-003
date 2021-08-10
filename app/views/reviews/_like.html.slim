@@ -1,16 +1,16 @@
 - if user_signed_in?
   - if current_user.liked_by?(review.id)   
     = link_to destroy_like_path(review), method: :DELETE, class: "__active", id: "release-like-disable", remote: true do
-      i.fas.fa-thumbs-up.fa-xs aria-hidden="true"
+      i.fas.fa-thumbs-up.fa-xs
       span class="each-like-countup"
         = review.likes.count
   - else 
     = link_to create_like_path(review), method: :POST, class: "__no_active", id: "like-disable", remote: true do
-      i.fas.fa-thumbs-up.fa-xs.__no_active aria-hidden="true"
+      i.fas.fa-thumbs-up.fa-xs.__no_active
       span class="each-like-countup"
         = review.likes.count
 - else
   .d-flex
-    i.far.fa-thumbs-up.mt-1.__no_active aria-hidden="true"
+    i.far.fa-thumbs-up.mt-1.__no_active
     span class="each-like-countup __no_active"
       = review.likes.count
