@@ -56,9 +56,10 @@
 
 ### フロントエンド
 
-- CSS フレームワーク: Bootstrap 5
-- Icon: Font-Awesome
-- JavaScript ライブラリ: jQuery
+- Bootstrap 5
+- Font-Awesome
+- jQuery
+- JavaScript
 
 ### バックエンド
 
@@ -151,9 +152,12 @@ $ foreman start
 ## 今後の計画
 
 - 日本語対応
-
 - レスポンシブ対応
-
-- SPA化: 開発にあたって、フロント側でバリデーションを実装する際に JavaScript の重要性を感じる場面が多々ありました。 JavaScript の学習をかねてSPA化を行って行きたいです。
-
 - Docker化
+- SPA化
+
+### 追加予定機能
+- 機能別 製品一覧(ソート機能)
+- 口コミ リプライ機能
+- 通知機能
+- 問い合わせ機能
