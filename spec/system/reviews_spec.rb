@@ -909,7 +909,13 @@ RSpec.describe Review, type: :system do
       end
     end
     describe 'Index Action' do
-      pending 'WIP'
+      it 'is not available' do
+        @brand.save!
+        @product.save!
+        @review.save!
+        visit '/reviews'
+        expect(page).to have_content 'Access denied'
+      end
     end
     describe 'Show Action' do
       it 'has posted review' do
@@ -1217,13 +1223,17 @@ RSpec.describe Review, type: :system do
         expect(page).to have_content 'Log in'
       end
     end
-    describe 'Show Action' do
-      pending 'WIP'
+    describe 'Index Action' do
+      it 'require login' do
+        @brand.save!
+        @product.save!
+        @review.save!
+        visit '/reviews'
+        expect(page).to have_content 'Log in'
+      end
     end
     describe 'Edit Action' do
-      before do
-      end
-      it 'is not available' do
+      it 'require login' do
         visit '/reviews/1/edit'
         expect(page).to have_content 'Log in'
       end
