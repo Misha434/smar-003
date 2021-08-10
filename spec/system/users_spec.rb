@@ -36,24 +36,24 @@ RSpec.describe User, type: :system do
           expect(page).to have_content("Battery")
         end
       end
-      describe 'As General User,' do
-        before do
-          within('header') do
-            click_link "Login"
-          end
-          fill_in "Email", with: @general_user.email
-          fill_in "Password", with: @general_user.password
-          click_button "Log in"
+    end
+    describe 'As General User,' do
+      before do
+        within('header') do
+          click_link "Login"
         end
-        it 'in header is invisible' do
-          within('header') do
-            expect(page).to_not have_content("Signup")
-          end
+        fill_in "Email", with: @general_user.email
+        fill_in "Password", with: @general_user.password
+        click_button "Log in"
+      end
+      it 'in header is invisible' do
+        within('header') do
+          expect(page).to_not have_content("Signup")
         end
-        it 'directly is not available, redirect to root_path' do
-          visit '/users/sign_up'
-          expect(page).to have_content("Battery")
-        end
+      end
+      it 'directly is not available, redirect to root_path' do
+        visit '/users/sign_up'
+        expect(page).to have_content("Battery")
       end
     end
     describe 'As Guest User(Not Login yet),' do
@@ -66,7 +66,7 @@ RSpec.describe User, type: :system do
       it 'Signup page is accessable' do
         expect(page).to have_content('Signup')
       end
-      describe 'Signup action' do
+      describe 'Signup action', js: true do
         before do
           fill_in_all_form
         end
@@ -82,7 +82,7 @@ RSpec.describe User, type: :system do
             expect(page).to have_content 'Welcome'
           end
         end
-        describe 'with Name form' do
+        describe 'with Name form', js: true do
           describe 'of charactor count' do
             context 'is 0(zero)' do
               it 'is unavailable' do
@@ -188,78 +188,90 @@ RSpec.describe User, type: :system do
               expect(page).to have_content 'Welcome'
             end
           end
-          describe 'about image field' do
-            describe 'file format' do
-              context 'gif' do
-                it 'is available' do
-                  attach_file "user_avatar",
-                              "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.gif"
-                  click_button "Sign up"
-                  expect(page).to have_content 'Welcome'
+        end
+        describe 'about image field', js: true do
+          describe 'file format' do
+            context 'gif' do
+              it 'is available' do
+                attach_file "user_avatar",
+                            "#{Rails.root}/spec/fixtures/files/image/image_test.gif"
+                click_button "Sign up"
+                expect(page).to have_content 'Welcome'
+                within('header') do
+                  find(:css, "button.dropdown-toggle").click
                   click_on 'Profiles'
-                  expect(page).to have_content @general_user2.name
-                  expect(page).to have_css("img[src$='image_test_3kb.gif']")
                 end
-              end
-              context 'jpeg' do
-                it 'is available' do
-                  attach_file "user_avatar",
-                              "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.jpeg"
-                  click_button "Sign up"
-                  expect(page).to have_content 'Welcome'
-                  click_on 'Profiles'
-                  expect(page).to have_content @general_user2.name
-                  expect(page).to have_css("img[src$='image_test_3kb.jpeg']")
-                end
-              end
-              context 'png' do
-                it 'is available' do
-                  attach_file "user_avatar",
-                              "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.png"
-                  click_button "Sign up"
-                  expect(page).to have_content 'Welcome'
-                  click_on 'Profiles'
-                  expect(page).to have_content @general_user2.name
-                  expect(page).to have_css("img[src$='image_test_3kb.png']")
-                end
-              end
-              context 'svg' do
-                it 'is unavailable' do
-                  attach_file "user_avatar",
-                              "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
-                  click_button "Sign up"
-                  expect(page).to have_content 'Sign up'
-                end
-              end
-              context 'bmp' do
-                it 'is unavailable' do
-                  attach_file "user_avatar",
-                              "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
-                  click_button "Sign up"
-                  expect(page).to have_content 'Sign up'
-                end
+                expect(page).to have_content @general_user2.name
+                expect(page).to have_css("img[src$='image_test.gif']")
               end
             end
-            describe 'file size' do
-              context 'less then 5MB' do
-                it 'is available' do
-                  attach_file "user_avatar",
-                              "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
-                  click_button "Sign up"
-                  expect(page).to have_content 'Welcome'
+            context 'jpeg' do
+              it 'is available' do
+                attach_file "user_avatar",
+                            "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
+                click_button "Sign up"
+                expect(page).to have_content 'Welcome'
+                within('header') do
+                  find(:css, "button.dropdown-toggle").click
                   click_on 'Profiles'
-                  expect(page).to have_content @general_user2.name
-                  expect(page).to have_css("img[src$='image_test_5mb.jpeg']")
                 end
+                expect(page).to have_content @general_user2.name
+                expect(page).to have_css("img[src$='image_test_5mb.jpeg']")
               end
-              context 'greater than 6MB' do
-                it 'is unavailable' do
-                  attach_file "user_avatar",
-                              "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
-                  click_button "Sign up"
-                  expect(page).to have_content 'Sign up'
-                  expect(page).to have_content 'Avatar should be less than 5MB'
+            end
+            context 'png' do
+              it 'is available' do
+                attach_file "user_avatar",
+                            "#{Rails.root}/spec/fixtures/files/image/image_test.png"
+                click_button "Sign up"
+                expect(page).to have_content 'Welcome'
+                within('header') do
+                  find(:css, "button.dropdown-toggle").click
+                  click_on 'Profiles'
                 end
+                expect(page).to have_content @general_user2.name
+                expect(page).to have_css("img[src$='image_test.png']")
+              end
+            end
+            context 'svg' do
+              it 'is unavailable' do
+                attach_file "user_avatar",
+                            "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
+                click_button "Sign up"
+                expect(page).to have_content 'Sign up'
+              end
+            end
+            context 'bmp' do
+              it 'is unavailable' do
+                attach_file "user_avatar",
+                            "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
+                click_button "Sign up"
+                expect(page).to have_content 'Sign up'
+              end
+            end
+          end
+          describe 'file size' do
+            context 'less then 5MB' do
+              it 'is available' do
+                attach_file "user_avatar",
+                            "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
+                click_button "Sign up"
+                expect(page).to have_content 'Welcome'
+                within('header') do
+                  find(:css, "button.dropdown-toggle").click
+                  click_on 'Profiles'
+                end
+                expect(page).to have_content @general_user2.name
+                expect(page).to have_css("img[src$='image_test_5mb.jpeg']")
+              end
+            end
+            context 'greater than 6MB' do
+              it 'is unavailable' do
+                attach_file "user_avatar",
+                            "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
+                click_button "Sign up"
+                expect(page).to have_content 'Sign up'
+                expect(page).to have_content 'Avatar should be less than 5MB'
               end
             end
           end
@@ -267,6 +279,7 @@ RSpec.describe User, type: :system do
       end
     end
   end
+
   private
 
   def fill_in_all_form
@@ -274,8 +287,6 @@ RSpec.describe User, type: :system do
     fill_in "Email", with: 'michael-m@example.com'
     fill_in "Password", with: 'password'
     fill_in "Password confirmation", with: 'password'
-    # # agreement checkbox Start
-    # find(:css, "#agreement").set(true)
-    # # agreement checkbox End
+    find(:css, "#agreement").set(true)
   end
 end
