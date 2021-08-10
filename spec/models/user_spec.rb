@@ -33,17 +33,17 @@ RSpec.describe User, type: :model do
           expect(user).to be_valid
         end
       end
-      context "is 140" do
+      context "is 50" do
         it "is valid" do
           user = FactoryBot.build(:user,
-                                  name: "Adolph Blaine Charles David Earl Frederick Gerald Hubert Irvin John Kenneth Lloyd Martin  Oliver Paul Quincy Randolph Sherman Thomas, Senior")
+                                  name: "Adolph Blainee Charles David Earl Frederick Gerald")
           expect(user).to be_valid
         end
       end
-      context "is 141" do
+      context "is 51" do
         it "is invalid" do
           user = FactoryBot.build(:user,
-                                  name: "Adolphe Blaine Charles David Earl Frederick Gerald Hubert Irvin John Kenneth Lloyd Martin  Oliver Paul Quincy Randolph Sherman Thomas, Senior")
+                                  name: "Adolphe Blainee Charles David Earl Frederick Gerald")
           expect(user).to_not be_valid
         end
       end
@@ -53,45 +53,45 @@ RSpec.describe User, type: :model do
     context "漢字・ひらがな・カタカナ(全角)" do
       it "is valid" do
         user = FactoryBot.build(:user,
-                                name: "吾輩は猫である。名前はまだ無い。どこで生れたか見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。この書生というのは時々我々を捕まえて")
+                                name: "吾輩は猫である。名前はまだ無い。どこで生れたか見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー")
         expect(user).to be_valid
       end
     end
     context "半角カタカナ" do
       it "is valid" do
         user = FactoryBot.build(:user,
-                                name: "ﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂｶﾇ｡ﾅﾝﾃﾞﾓｳｽｸﾞﾗｲｼﾞﾒｼﾞﾒｼﾀﾄｺﾛﾃﾞﾆｬｰﾆｬｰﾅｲﾃｲﾀｺﾄﾀﾞｹﾊｷｵｸｼﾃｲﾙ｡ﾜｶﾞﾊｲﾊｺｺﾃﾞﾊｼﾞﾒﾃﾆﾝｹﾞﾝﾄｲｳﾓﾉｦﾐﾀ｡ｼｶﾓｱﾄﾃﾞｷｸﾄｿﾚﾊｼｮｾｲﾄ")
+                                name: "ﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂｶﾇ｡ﾅﾝﾃﾞﾓｳｽ")
         expect(user).to be_valid
       end
     end
     context "English(Upper/Down Case)" do
       it "is valid" do
         user = FactoryBot.build(:user,
-                                name: "From fairest creatures we desire increase, That thereby beauty's rose might never die, But as the riper should by time decease, His tender h")
+                                name: "From fairest creatures we desire increase, That th")
         expect(user).to be_valid
       end
     end
     context "symbol" do
       it "is valid" do
         user = FactoryBot.build(:user,
-                                name: "。,.・:;?!_〃々〆―‐/～()〔〕{}〈〉《》「」『』【】()〔〕[]{}〈〉《》「」『』【】-±×÷≠<>≦≧∞∴♂♀°′″℃\$￠￡%#&*@§☆★○×●◎◇◆□■△▲▽▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξ")
+                                name: "。,.・:;?!_〃々〆―‐/～()〔〕{}〈〉《》「」『』【】()〔〕[]{}〈〉《》「」『』【】")
         expect(user).to be_valid
       end
     end
     context "Number" do
       it "is valid" do
         user = FactoryBot.build(:user,
-                                name: "88991646493833403４５３１７５１９０２４８７５１０４３６５１８２７４６１８２5583930475933309375106426114774904555295339660573207200961918790742222502268864235692475344959")
+                                name: "88991646493833403４５３１７５１９０２４８７５１０４３６５１８２７４６１８２5583")
         expect(user).to be_valid
       end
     end
     context "Emoji" do
       it "is valid" do
-        user = FactoryBot.build(:user, name: "👨" * 140)
+        user = FactoryBot.build(:user, name: "👨" * 50)
         expect(user).to be_valid
       end
       it "is invalid 141 charactors" do
-        user = FactoryBot.build(:user, name: "👨" * 141)
+        user = FactoryBot.build(:user, name: "👨" * 51)
         expect(user).to_not be_valid
       end
     end
@@ -106,11 +106,7 @@ RSpec.describe User, type: :model do
   describe "Email Form" do
     describe "filled with word length" do
       it { is_expected.to validate_presence_of :email }
-      it { should_not validate_length_of(:email).is_at_least(2) }
-      it do
-        should validate_length_of(:email)
-          .is_at_least(3).is_at_most(254)
-      end
+      it { should validate_length_of(:email).is_at_most(254) }
       it { should_not validate_length_of(:email).is_at_most(255) }
     end
     describe "included Charactor Type" do
@@ -152,7 +148,7 @@ RSpec.describe User, type: :model do
       end
       context "symbol" do
         it "is valid" do
-          user = FactoryBot.build(:user, email: "test1@example.com")
+          user = FactoryBot.build(:user, email: "t_es-t.1@example.com")
           expect(user).to be_valid
         end
         it "others are invalid" do
