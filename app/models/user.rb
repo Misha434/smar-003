@@ -8,9 +8,9 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :products
   has_many :likes
-  validates :name, presence: true, length: { in: 1..140 }
+  validates :name, presence: true, length: { maximum: 140 }
   validates :email, presence: true, uniqueness: { case_sensitive: false },
-                    length: { in: 3..254 }
+                    length: { maximum: 254 }
   VALID_PASSWORD_REGEX = /\A[\w!@#%^&*]{8,}\z/.freeze
   validates :password, presence: true, allow_nil: true, format: { with: VALID_PASSWORD_REGEX }
   validates :password_confirmation, presence: true, allow_nil: true, format: { with: VALID_PASSWORD_REGEX }
