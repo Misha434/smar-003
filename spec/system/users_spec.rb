@@ -170,7 +170,8 @@ RSpec.describe User, type: :system do
               testdata_name = "👨" * 51
               fill_in 'Name', with: testdata_name
               click_button "Sign up"
-              expect(page).to have_content 'Welcome'
+              expect(page).to have_content 'Sign up'
+              expect(page).to have_content "Name is too long"
             end
           end
           context "space" do
