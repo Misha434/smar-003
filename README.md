@@ -151,6 +151,7 @@ $ foreman start
 
 ## 今後の計画
 
+- SSL有効化(ALB?)
 - 日本語対応
 - レスポンシブ対応
 - Docker化
