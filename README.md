@@ -4,7 +4,7 @@
 
 ### Home 画面
 
-![smar-003_home](https://user-images.githubusercontent.com/61964919/127863912-82c82f47-4c6d-4a9a-8626-8ef358af2e89.png)
+![smar-003_home_20210811](https://user-images.githubusercontent.com/61964919/128966548-411d3000-331d-4987-bbef-88d90745be51.png)
 
 ## プロジェクトの概要説明
 
