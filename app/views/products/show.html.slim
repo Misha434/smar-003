@@ -29,8 +29,10 @@
                     = form_with model: @review, local: true do |f|
                       = f.hidden_field :user_id, value: current_user.id
                       = f.hidden_field :product_id, value: @product.id
-                      = f.select(:rate, [["★☆☆☆☆", 1], ["★★☆☆☆", 2], ["★★★☆☆", 3], ["★★★★☆", 4], ["★★★★★", 5]], prompt: "--- Rate ---", class: "form-control")
+                      = f.select(:rate, [["★☆☆☆☆", 1], ["★★☆☆☆", 2], ["★★★☆☆", 3], ["★★★★☆", 4], ["★★★★★", 5]], prompt: "--- Rate ---", class: "form-select")
                       = f.text_field :content, placeholder: "Review ...", class: "form-control mb-2"
+                      field.pb-3
+                      = f.file_field :image, class: "form-control form-control-sm mb-2", accept: "image/jpeg,image/gif,image/png"
                       = f.submit "Post", class: "btn btn-primary g-grid col-12 my-2"
   .row
     = render 'products/review'
