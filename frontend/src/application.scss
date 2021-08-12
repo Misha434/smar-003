@@ -1,2 +1,10 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+.info--dropdown {
+  background-color: #dcdde0;
+  color: darkgray;
+  border: none;
+  padding-top: 0;
+  padding-bottom: 0;
+}

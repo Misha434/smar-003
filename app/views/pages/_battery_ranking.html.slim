@@ -3,6 +3,7 @@
     i.fas.fa-battery-full.fa-lg
     h3.m-1.mx-3
       | Battery
+    = render 'pages/info_battery'
   - if user_signed_in?
     ol.rankings
       - @products_sorted_by_battery.each.with_index(1) do |product, ranking_index|

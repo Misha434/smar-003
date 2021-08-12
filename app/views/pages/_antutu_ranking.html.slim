@@ -3,6 +3,7 @@
     i.fas.fa-tachometer-alt.fa-lg
     h3.m-1.mx-3
       | Antutu
+    = render 'pages/info_antutu'
   ol.rankings
     - @products_sorted_by_antutu.each.with_index(1) do |product, ranking_index|
       li id="ranking-#{ranking_index}"
