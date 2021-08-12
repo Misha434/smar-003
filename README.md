@@ -151,7 +151,8 @@ $ foreman start
 
 ## 今後の計画
 
-- SSL有効化(ALB?)
+- SSL有効化(ALBの利用)
+- DB: EC2 から RDS の利用に切り替え
 - 日本語対応
 - レスポンシブ対応
 - Docker化
