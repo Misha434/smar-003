@@ -36,8 +36,8 @@ end
 
 Product.create!(
   name: "SmartPhone 0",
-  soc_antutu_score: 100,
-  battery_capacity: 1000,
+  soc_antutu_score: 100000,
+  battery_capacity: 5000,
   brand_id: 1,
   release_date: DateTime.now,
   image: ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/product_fujitsu_1.jpeg")),
@@ -46,8 +46,8 @@ Product.create!(
 
 18.times do |n|
   name = Faker::Drone.name
-  soc_antutu_score = rand(100..10000)
-  battery_capacity = rand(1000..5000)
+  soc_antutu_score = rand(211737..820936)
+  battery_capacity = rand(1000..10000)
   brand_id = Faker::Number.within(range: 1..19)
   release_date = DateTime.now - n - 1
   image = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
@@ -69,7 +69,7 @@ Review.create!(
   rate: 3
   )
 10.times do
-  content = Faker::Lorem.sentence(word_count: 5)
+  content = Faker::Lorem.sentence(word_count: 10)
   user_id = Faker::Number.within(range: 2..20)
   product_id = Faker::Number.within(range: 2..19)
   rate = rand(1..5)
