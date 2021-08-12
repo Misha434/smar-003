@@ -3,32 +3,7 @@
     i.fas.fa-tachometer-alt.fa-lg
     h3.m-1.mx-3
       | Antutu
-    .dropdown
-      button.btn.btn-light.dropdown-toggle#dropdownMenuButton.btn-sm.info--dropdown type="button" data-bs-toggle="dropdown" aria-expanded="false"
-        i.fas.fa-info
-      ul.dropdown-menu.px-2 aria-labelledby="dropdownMenuButton"
-        li antutu is performance benchmark for phones and other devices.
-        table.table
-          thread
-            tr
-              th Value
-              th Use case
-          tbody
-            tr
-              td 300,000 ~
-              td Games are comfortable. 
-            tr
-              td 200,000 ~ 300,000
-              td Most games are comfortable. 
-            tr
-              td 120,000 ~ 200,000
-              td Comfortable for everyday use. Heavy 3D games may be awkward. 
-            tr
-              td 80,000 ~ 120,000
-              td Comfortable for everyday use. Heavy 3D games are tough.
-            tr
-              td ~ 80,000
-              td There is no problem for everyday use. Game apps are tough. 
+    = render 'pages/info_antutu'
   ol.rankings
     - @products_sorted_by_antutu.each.with_index(1) do |product, ranking_index|
       li id="ranking-#{ranking_index}"
