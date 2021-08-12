@@ -18,6 +18,8 @@
       .d-flex.px-2.text-center
         i.fas.fa-tachometer-alt.mt-1
         p.value_antutu.mx-2 = "#{@product.soc_antutu_score}"
+        = render 'pages/info_antutu'
       .d-flex.px-2.text-center
         i.fas.fa-battery-full.mt-1
         p.value_battery.mx-2 = "#{@product.battery_capacity}mAh"
+        = render 'pages/info_battery'
