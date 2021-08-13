@@ -1,0 +1,7 @@
+- provide(:title, "Battery ranking")
+.container
+  h3 = yield(:title)
+.container
+  - @products.each do |product|
+    = render 'products/product', product: product
+  = render 'shared/pagination_bar'
