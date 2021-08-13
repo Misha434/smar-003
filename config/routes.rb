@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   namespace :products do 
     resources :searches, only: :index
     namespace :sorts do
+      get 'antutu', action: 'antutu'
       get 'battery', action: 'battery'
     end
   end
