@@ -18,6 +18,9 @@
             i.fas.fa-tachometer-alt.count--text
             p.count--text.px-1
               | #{product.soc_antutu_score}
+          - when "Average Rate ranking"
+            p.count--text.px-1
+              | #{Review.where('product_id=?', product.id).average(:rate)}
           - else
             i.fas.fa-table.count--text
             p.count--text.px-1 = product.release_date.strftime("%Y/%m/%d")

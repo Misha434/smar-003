@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     namespace :sorts do
       get 'antutu', action: 'antutu'
       get 'battery', action: 'battery'
+      get 'rate', action: 'rate'
     end
   end
   resources :brands, :products, :reviews
