@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   end
   namespace :products do 
     resources :searches, only: :index
+    namespace :sorts do
+      get 'battery', action: 'battery'
+    end
   end
   resources :brands, :products, :reviews
   post 'like/:id' => 'likes#create', as: 'create_like'
