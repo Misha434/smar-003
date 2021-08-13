@@ -20,7 +20,7 @@ class BrandsController < ApplicationController
   end
 
   def index
-    @pagy, @brands = pagy(Brand.all)
+    @pagy, @brands = pagy(Brand.with_attached_image.all)
   end
 
   def show; end

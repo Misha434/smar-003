@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def show
     begin
       @user = User.find(params[:id])
-      @reviews = @user.reviews.with_attached_image
+      @reviews = @user.reviews.includes(product: [image_attachment: :blob]).with_attached_image
     rescue ActiveRecord::RecordNotFound => e
       @brands = Brand.all
       flash[:danger] = "User does not exist"

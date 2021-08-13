@@ -1,5 +1,5 @@
 ol.reviews
-  - @select_product_reviews.each do |review|
+  - @select_product_reviews.includes(user: [avatar_attachment: :blob]).each do |review|
     li id ="review-#{review.id}"
       .card.col-12.col-lg-7.offset-lg-1.mb-2.px-3
         .row
