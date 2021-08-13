@@ -13,5 +13,5 @@
   .row
     .col-12.col-md-6
       ol.products
-        - @brand.products.each do |product|
+        - @brand.products.with_attached_image.each do |product|
           = render 'brands/product', product: product
