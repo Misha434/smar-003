@@ -1,7 +1,9 @@
+require 'securerandom'
+
 20.times do |n|
   name  = Faker::Name.name
   email = Faker::Internet.email
-  password = SecureRandom.base64
+  password = SecureRandom.hex(16)
   avatar = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/avatars/avatar-photo-#{n}.jpeg")), filename: "avatar-photo-#{n}.jpeg")
   User.create!(
     name:  name,
