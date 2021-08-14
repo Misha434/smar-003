@@ -1,0 +1,11 @@
+- provide(:title, "Antutu ranking")
+.container
+  h2 = yield(:title)
+.container
+  .row
+    .col-12.mb-3
+      .float-end = render 'products/sorts/dropdown'
+.container
+  - @products.each do |product|
+    = render 'products/product', product: product
+  = render 'shared/pagination_bar'

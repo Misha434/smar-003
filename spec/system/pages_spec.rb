@@ -127,7 +127,7 @@ RSpec.describe "Pages", type: :system do
       click_on 'view more'
     end
     within('h2') do
-      expect(page).to have_content('All Products')
+      expect(page).to have_content('Battery ranking')
     end
   end
 
@@ -169,7 +169,7 @@ RSpec.describe "Pages", type: :system do
     visit root_path
     within('.ranking_antutu') do
       click_on 'view more'
-    end
+    end    
   end
 
   def check_product_ranking_new_release_correction
@@ -286,7 +286,7 @@ RSpec.describe "Pages", type: :system do
       it "Link is valid" do
         check_product_link_ranking_antutu
         within('h2') do
-          expect(page).to have_content('All Products')
+          expect(page).to have_content('Antutu ranking')
         end
       end
     end
@@ -842,7 +842,7 @@ RSpec.describe "Pages", type: :system do
       it "Link is valid" do
         check_product_link_ranking_antutu
         within('h2') do
-          expect(page).to have_content("All Products")
+          expect(page).to have_content('Antutu ranking')
         end
       end
     end

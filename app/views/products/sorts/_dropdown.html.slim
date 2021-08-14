@@ -1,0 +1,13 @@
+.dropdown
+  button#dropdownMenuButton.btn.btn-light.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" type="button" 
+    i.fas.fa-sort.mx-1
+    | sort
+  ul.dropdown-menu aria-labelledby="dropdownMenuButton" 
+    li.dropdown-item
+      = link_to 'new', products_path
+    li.dropdown-item
+      = link_to 'Antutu', products_sorts_antutu_path
+    li.dropdown-item
+      = link_to 'Rate Average', products_sorts_rate_path
+    li.dropdown-item
+      = link_to 'Battery', products_sorts_battery_path
