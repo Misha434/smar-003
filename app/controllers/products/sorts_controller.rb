@@ -11,8 +11,6 @@ class Products::SortsController < ApplicationController
   end
 
   def rate
-    @pagy, @products = pagy(Product.with_attached_image.includes(:brand).all.order('battery_capacity DESC'))
-
     get_product_rate_average = Review.group('product_id').average(:rate).sort_by { |a| -a[1] }
     @products = []
     @average_rate = []

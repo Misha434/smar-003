@@ -19,8 +19,14 @@
             p.count--text.px-1
               | #{product.soc_antutu_score}
           - when "Average Rate ranking"
+            - avarage_rate(product).floor.times do
+              i.fas.fa-star.active_star
+            - if avarage_rate(product) % 1 >= 0.5 
+              i.fas.fa-star-half-alt.active_star_half
+            - (5 - avarage_rate(product).round).times do
+              i.far.fa-star.no_active_star
             p.count--text.px-1
-              | #{Review.where('product_id=?', product.id).average(:rate)}
+              | #{avarage_rate(product)}
           - else
             i.fas.fa-table.count--text
             p.count--text.px-1 = product.release_date.strftime("%Y/%m/%d")
