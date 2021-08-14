@@ -17,5 +17,7 @@
     ul.dropdown-menu.dropdown-menu-right aria-labelledby="dropdownMenuButton1" 
       = link_to new_user_session_path, class: "dropdown-item"
         li Login
+      = link_to users_guest_sign_in_path, method: :post, class: "dropdown-item"
+        li Guest Login
       = link_to new_user_registration_path, class: "dropdown-item"
         li Signup

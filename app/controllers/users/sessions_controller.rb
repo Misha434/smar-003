@@ -22,6 +22,12 @@ module Users
     # def destroy
     #   super
     # end
+  
+    def guest_sign_in
+      user = User.guest
+      sign_in user
+      redirect_to root_path, notice: 'Loged in as Guest User.'
+    end
 
     # protected
 
