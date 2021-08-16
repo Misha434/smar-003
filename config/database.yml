@@ -5,9 +5,9 @@ default: &default
   adapter: mysql2
   encoding: utf8mb4
   ## For ENV CentOS7, Amazon Linux 2
-  socket: /var/lib/mysql/mysql.sock
+  # socket: /var/lib/mysql/mysql.sock
   ## For MacOS
-  #socket: /tmp/mysql.sock
+  socket: /tmp/mysql.sock
 development:
   <<: *default
   database: smar_003_development
