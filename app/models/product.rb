@@ -15,7 +15,7 @@ class Product < ApplicationRecord
                     size: { less_than: 5.megabytes,
                             message: "should be less than 5MB" }
   validates :release_date, presence: true
-  
+
   # def self.csv_attributes
   # 	["name", "brand_id", "soc_antutu_score", "battery_capacity"]
   # end
