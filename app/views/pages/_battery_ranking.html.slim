@@ -20,7 +20,7 @@
                 = "#{product.battery_capacity} mAh"
     li.text-center
       u
-        |#{link_to "view more", products_path}
+        |#{link_to "view more", '/products?q%5Bs%5D=battery_capacity+desc'}
   - else
     .col-12
       .card.p-3
