@@ -1,14 +1,28 @@
 # README
 
 ## Sma-R
-
-### Home 画面
+スマホ比較アプリ
 
 ![smar-003_home_20210811](https://user-images.githubusercontent.com/61964919/128966548-411d3000-331d-4987-bbef-88d90745be51.png)
+
+## 目次
+- [プロジェクトの概要説明](#anchor1)
+- [実装機能 一覧](#anchor2)
+- [サービス GIFアニメ（デモ）](#anchor3)
+- [使用言語、環境、テクノロジー](#anchor4)
+- [ER図](#anchor5)
+- [システム構成図](#anchor6)
+- [使い方](#anchor7)
+- [こだわり・苦戦したポイント](#anchor8)
+- [今後の予定](#anchor9)
+
+<a id="anchor1"></a>
 
 ## プロジェクトの概要説明
 
 スマホを買い換える時に、「バッテリーの持ちがいい」、「予算度外視でサクサク動くものにしたい」自分の望む視点でスマホを直感的に調べるサイトがあればいいなと思い作成しました。
+
+<a id="anchor2"></a>
 
 ## 実装機能 一覧
 
@@ -23,6 +37,8 @@
 |  ブランド  | ブランドごとの製品一覧表示機能 <br> [ ブランド登録・登録内容変更・削除 ]  |
 |  口コミ投稿機能  | 製品ごとの口コミ投稿・投稿内容変更・内容変更・削除  |
 |  口コミいいね機能  | 口コミにいいね(Ajax) |
+
+<a id="anchor3"></a>
 
 ## サービスのスクリーンショット画像 or GIFアニメ（デモ）
 
@@ -47,6 +63,8 @@
 ### 口コミいいね機能
 ![smar-003_post_like_20210809](https://user-images.githubusercontent.com/61964919/128729132-21f19d24-dfd3-4822-8b1f-1a18a635066a.gif)
 
+<a id="anchor4"></a>
+
 ## 使用言語、環境、テクノロジー
 
 ### 趣旨
@@ -67,14 +85,33 @@
 - Rails 6.0.3 (Asset Pipline未使用)
 - MySQL
 
+#### 使用したgem
+| 名称 | 備考 |
+| --- | --- |
+| pagy | ページネーション機能 |
+| rubocop | 静的コード解析ツール |
+| capistrano | デプロイツール |
+| slim | テンプレートエンジン |
+| ransack | 検索機能 |
+| ActiveStorage | ファイル(画像)アップロードツール |
+| RSpec | System Spec (E2Eテスト) <br> Model Spec (モデルテスト) |
 
 ### インフラ
+| 名称 |  | 備考 |
+| --- | --- | --- |
+| AWS EC2 | App サーバー: Unicorn | - |
+|  | Web サーバー: Nginx | - |
+|  | RDBMS: MariaDB | - |
+| AWS Route 53 |  | - |
+| AWS S3 |  | - |
 
-- AWS EC2
-  - アプリケーションサーバー: Unicorn
-  - Webサーバー: Nginx
-- AWS Route 53
+### 開発環境
 
+- AWS Cloud9 (Ubuntu)
+- Vagrant (CentOS 7)
+
+### その他
+#### インフラ使用技術 選定での背景
 当初は Heroku へのデプロイでのリリースを検討していましたが以下の理由で AWS 導入することにしました。
 
 - 可能な限り無料枠を利用・低予算で開発したかった
@@ -82,24 +119,19 @@
   - サーバー起動時間がかかる
   - MySQLのアドオンは容量1GB以上だと有料であること
 
-### その他
-
-| 名称 | 備考 |
-| ---- | ---- |
-| RSpec | System Spec (E2Eテスト) <br> Model Spec (モデルテスト) |
-
-### 開発環境
-
-- AWS Cloud9 (Ubuntu)
-- Vagrant (CentOS 7)
+<a id="anchor5"></a>
 
 ## ER図
 
 ![ER_diagram_20210802](https://user-images.githubusercontent.com/61964919/127835343-8de7124c-3b0c-461f-9e35-e97d18052baa.png)
 
+<a id="anchor6"></a>
+
 ## システム構成図
 
 ![Infrastracture_Diagram_20210802](https://user-images.githubusercontent.com/61964919/127831467-0f09fabb-7116-48d4-97c2-672a809c6716.png)
+
+<a id="anchor7"></a>
 
 ## 使い方
 
@@ -137,6 +169,8 @@ $ foreman start
 
 - Capistranoで自動デプロイを行っています。
 
+<a id="anchor8"></a>
+
 ## こだわり・苦戦したポイント
 
 ### 製品口コミ 平均値表示機能
@@ -149,17 +183,19 @@ $ foreman start
 
 自己プロフィール画面から口コミ投稿する際に、ブランドから製品を絞り込む Ajax処理を実装しました。
 
+<a id="anchor9"></a>
+
 ## 今後の計画
 
-- SSL有効化(ALBの利用)
-- DB: EC2 から RDS の利用に切り替え
-- 日本語対応
-- レスポンシブ対応
-- Docker化
-- SPA化
+- [ ] SSL有効化(ALBの利用)
+- [ ] DB: EC2 から RDS の利用に切り替え
+- [ ] 日本語対応
+- [ ] レスポンシブ対応
+- [ ] Docker化
+- [ ] SPA化
 
 ### 追加予定機能
-- 機能別 製品一覧(ソート機能)
-- 口コミ リプライ機能
-- 通知機能
-- 問い合わせ機能
+- [x] <del>機能別 製品一覧(ソート機能)</del>
+- [ ] 口コミ リプライ機能
+- [ ] 通知機能
+- [ ] 問い合わせ機能
