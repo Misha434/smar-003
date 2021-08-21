@@ -21,6 +21,11 @@
         ol.products
           .row
             .col-12
+              - if @products.empty?
+                p.text-center No Results in All Products
+              - else
+                ol
+                  p.float-start = pluralize(@pagy.vars[:count] , "result")
               - @products.each do |product|
                 li id = "#{product.id}"
                   = render 'products/product', product: product
