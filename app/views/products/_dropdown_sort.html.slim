@@ -1,0 +1,13 @@
+.dropdown
+  button#dropdownMenuButton.btn.btn-light.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" type="button" 
+    i.fas.fa-sort.mx-1
+    | #{ranking_title}
+  ul.dropdown-menu aria-labelledby="dropdownMenuButton" 
+    = sort_link(@q, :release_date, default_order: :desc, hide_indicator: true)
+      li.dropdown-item Release Date
+    = sort_link(@q, :soc_antutu_score, default_order: :desc, hide_indicator: true)
+      li.dropdown-item Antutu
+    = sort_link(@q, :rate_average, default_order: :desc, hide_indicator: true)
+      li.dropdown-item Review Rate
+    = sort_link(@q, :battery_capacity, default_order: :desc, hide_indicator: true)
+      li.dropdown-item Battery
