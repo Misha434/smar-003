@@ -8,7 +8,7 @@
     li.dropdown-item
       = sort_link(@q, :soc_antutu_score, 'Antutu', default_order: :desc)
     li.dropdown-item
-      = sort_link(@, :average_rate, 'Review Rate', default_order: :desc)
+      = sort_link(@q, :rate_average, 'Review Rate', default_order: :desc)
       / = link_to 'Rate Average', products_sorts_rate_path
     li.dropdown-item
       = sort_link(@q, :battery_capacity, 'Battery', default_order: :desc)

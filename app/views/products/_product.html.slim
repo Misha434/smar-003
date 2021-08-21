@@ -33,7 +33,7 @@
                 i.fas.fa-tachometer-alt.count--text
                 p.count--text.px-1
                   | #{product.soc_antutu_score}
-              - when "average_rate desc"
+              - when "rate_average desc"
                 - avarage_rate(product).to_i.times do
                   i.fas.fa-star.active_star
                 - if avarage_rate(product) % 1 >= 0.5 

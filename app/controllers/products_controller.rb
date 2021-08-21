@@ -26,21 +26,6 @@ class ProductsController < ApplicationController
   def index    
     @q = Product.with_attached_image.includes(:brand).ransack(params[:q])
     @pagy, @products = pagy(@q.result(distinct: true))
-    unless params[:q].nil?
-      product_amount = Review.group('product_id').average(:rate).size
-      @products_sort_rate_average = []
-      product_id = 0
-      case params[:q][:s]
-      when "average_rate desc"
-        product_amount.times do |product_hash|
-          @products_sort_rate_average << Review.group('product_id').average(:rate).sort_by { |a| -a[1]}[product_hash][product_id]
-        end
-      when "average_rate asc"
-        product_amount.times do |product_hash|
-          @products_sort_rate_average << Review.group('product_id').average(:rate).sort_by { |a| a[1]}[product_hash][product_id]
-        end
-      end
-    end
   end
 
   def edit
