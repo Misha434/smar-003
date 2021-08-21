@@ -126,7 +126,7 @@ RSpec.describe "Pages", type: :system do
     within('.ranking_battery') do
       click_on 'view more'
     end
-    within('h2') do
+    within('h4') do
       expect(page).to have_content('Battery ranking')
     end
   end
@@ -285,7 +285,7 @@ RSpec.describe "Pages", type: :system do
       end
       it "Link is valid" do
         check_product_link_ranking_antutu
-        within('h2') do
+        within('h4') do
           expect(page).to have_content('Antutu ranking')
         end
       end
@@ -841,7 +841,7 @@ RSpec.describe "Pages", type: :system do
       end
       it "Link is valid" do
         check_product_link_ranking_antutu
-        within('h2') do
+        within('h4') do
           expect(page).to have_content('Antutu ranking')
         end
       end
