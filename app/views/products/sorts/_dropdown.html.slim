@@ -4,10 +4,11 @@
     | sort
   ul.dropdown-menu aria-labelledby="dropdownMenuButton" 
     li.dropdown-item
-      = link_to 'new', products_path
+      = sort_link(@q, :release_date, 'Release Date', default_order: :desc)
     li.dropdown-item
-      = link_to 'Antutu', products_sorts_antutu_path
+      = sort_link(@q, :soc_antutu_score, 'Antutu', default_order: :desc)
     li.dropdown-item
-      = link_to 'Rate Average', products_sorts_rate_path
+      = sort_link(@q, :rate_average, 'Review Rate', default_order: :desc)
+      / = link_to 'Rate Average', products_sorts_rate_path
     li.dropdown-item
-      = link_to 'Battery', products_sorts_battery_path
+      = sort_link(@q, :battery_capacity, 'Battery', default_order: :desc)

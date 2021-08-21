@@ -10,12 +10,12 @@ Rails.application.routes.draw do
     resources :picks, only: :index, defaults: { format: :json }
   end
   namespace :products do 
-    resources :searches, only: :index
-    namespace :sorts do
-      get 'antutu', action: 'antutu'
-      get 'battery', action: 'battery'
-      get 'rate', action: 'rate'
-    end
+    get 'search', to: 'products#search'
+    # namespace :sorts do
+    #   get 'antutu', action: 'antutu'
+    #   get 'battery', action: 'battery'
+    #   get 'rate', action: 'rate'
+    # end
   end
   resources :brands, :products, :reviews
   post 'like/:id' => 'likes#create', as: 'create_like'
