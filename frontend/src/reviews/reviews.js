@@ -1,14 +1,5 @@
 import "./reviews.css";
 
-// Image size Varidation
-$("#review_image").on("change", () => {
-  const sizeInMegaBytes = this.files[0].size / 1024 / 1024;
-  if (sizeInMegaBytes > 5) {
-    alert("Maximum file size is 5MB. Please choose a smaller file.");
-    $("#review_image").val("");
-  }
-});
-
 // Product form Filtered selected Brand
 $(() => {
   const selectField = $(".js-select_field").on("change", () => {
