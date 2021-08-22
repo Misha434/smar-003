@@ -47,17 +47,6 @@
           .actions
             .d-grid.mb-4
               = f.submit "Sign up", class: "btn btn-primary", id: "signup--submit", disabled: true
-          javascript:
-            $(function(){
-              $("#signup--submit").prop("disabled", true);
-              $("#agreement").click(function(){
-                if ($(this).prop("checked") == false) {
-                  $("#signup--submit").prop("disabled", true);
-                } else {
-                $("#signup--submit").prop("disabled", false);
-                }
-              });
-            });
     .row
       .col-12.col-md-8.offset-md-2
         = render "devise/shared/links"
