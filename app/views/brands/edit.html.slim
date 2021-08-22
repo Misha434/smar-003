@@ -15,11 +15,3 @@ h1 Edit a New Brand
       
       = link_to @brand, method: :delete, data:{confirm: 'You sure?'}, class: 'd-grid delete_link' do
         button.btn.btn-outline-danger.mb-3 Delete
-      javascript:
-        $("#brand_image").bind("change", function() {
-        var size_in_megabytes = this.files[0].size/1024/1024;
-        if (size_in_megabytes > 5) {
-          alert("Maximum file size is 5MB. Please choose a smaller file.");
-          $("#brand_image").val("");
-          }
-        });
