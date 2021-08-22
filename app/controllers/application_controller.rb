@@ -6,10 +6,10 @@ class ApplicationController < ActionController::Base
 
   def admin_user
     @user = authenticate_user!
-    unless @user.admin?
-      flash[:danger] = "Access denied"
-      redirect_to @user || request.referrer
-    end
+    return if @user.admin?
+
+    flash[:danger] = "Access denied"
+    redirect_to @user || request.referrer
   end
 
   def set_q

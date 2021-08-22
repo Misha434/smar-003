@@ -4,23 +4,18 @@ module ProductsHelper
   end
 
   def ranking_title
-    unless params[:q].nil?
-      case params[:q][:s]
-      when "release_date asc"
-        "New Release"
-      when "release_date desc"
-        "New Release"
-      when "battery_capacity asc"
-        "Battery ranking"
-      when "battery_capacity desc"
-        "Battery ranking"
-      when "soc_antutu_score asc"
-        "Antutu ranking"
-      when "soc_antutu_score desc"
-        "Antutu ranking"
-      when "rate_average desc"
-      when "rate_average asc"
-      end
-    end
+    return if params[:q].nil?
+
+    sort_by = {
+      'release_date asc' => 'New Release',
+      'release_date desc' => 'New Release',
+      'battery_capacity asc' => 'Battery ranking',
+      'battery_capacity desc' => 'Battery ranking',
+      'soc_antutu_score asc' => 'Antutu ranking',
+      'soc_antutu_score desc' => 'Antutu ranking',
+      'rate_average asc' => 'Review Rate ranking',
+      'rate_average desc' => 'Review Rate ranking'
+    }
+    sort_by[params[:q][:s]]
   end
 end

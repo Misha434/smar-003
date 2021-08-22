@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :system do
-  def create_brand(i)
-    i = i.to_i
-    i.times do |n|
+  def create_brand(brand_amount)
+    brand_amount = brand_amount.to_i
+    brand_amount.times do |n|
       name = "Brand-#{n + 1}"
       Brand.create!(
         id: n + 1,
@@ -12,9 +12,9 @@ RSpec.describe Product, type: :system do
     end
   end
 
-  def create_product(i)
-    i = i.to_i
-    i.times do |n|
+  def create_product(product_amount)
+    product_amount = product_amount.to_i
+    product_amount.times do |n|
       id = n + 1
       name = "Phone-#{n + 1}"
       soc_antutu_score = 100

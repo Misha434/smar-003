@@ -16,6 +16,7 @@ class ProductsController < ApplicationController
       redirect_to products_path
     end
   rescue ActiveRecord::RecordNotFound => e
+    puts e
     @brands = Brand.all
     flash[:danger] = "Product does not exist"
     redirect_to request.referrer || root_path
@@ -32,6 +33,7 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @brands = Brand.all
   rescue ActiveRecord::RecordNotFound => e
+    puts e
     @brands = Brand.all
     flash[:danger] = "Product does not exist"
     redirect_to request.referrer || root_path
@@ -55,6 +57,7 @@ class ProductsController < ApplicationController
       render 'new'
     end
   rescue ActiveRecord::RecordNotUnique => e
+    puts e
     @brands = Brand.all
     flash.now[:danger] = "Cannot add a same product as same brand"
     render 'new'

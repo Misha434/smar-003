@@ -74,9 +74,9 @@ RSpec.describe "Pages", type: :system do
     end
   end
 
-  def create_review(i)
-    i = i.to_i
-    i.times do |n|
+  def create_review(review_amount)
+    review_amount = review_amount.to_i
+    review_amount.times do |n|
       content = "review #{n + 1}"
       Review.create!(
         user_id: 1,
