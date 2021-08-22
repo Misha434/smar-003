@@ -20,30 +20,12 @@
     .d-grid
       = f.submit "Post", class: "btn btn-primary mb-3"
 
-  javascript:
-    $("#review_image").bind("change", function() {
-    var size_in_megabytes = this.files[0].size/1024/1024;
-    if (size_in_megabytes > 5) {
-      alert("Maximum file size is 5MB. Please choose a smaller file.");
-      $("#review_image").val("");
-      }
-    });
-    $(function () {
-      var selectField = $('.js-select_field').on('change', function (){
-      var brand_id = selectField.val();
-      $.ajax({
-        type: 'GET',
-        url: '/reviews/picks',
-        data: { brand_id: brand_id },
-        dataType: 'json'
-      })
-      .done(function (data) {
-        $('#review_product_id').children().remove();
-        $(data.product).each(function(i) {
-        $('.js-receive_field').removeAttr('disabled');
-        $('.js-receive_field').append(
-          $("<option>").val(`${data.product[i].id}`).text(`${data.product[i].name}`));
-          });
-          });
-        });
+    / Image size Varidation
+    javascript:
+      $("#review_image").on("change", function sizeVaridation() {
+        const sizeInMegaBytes = this.files[0].size / 1024 / 1024;
+        if (sizeInMegaBytes > 5) {
+          alert("Maximum file size is 5MB. Please choose a smaller file.");
+          $("#review_image").val("");
+        }
       });
