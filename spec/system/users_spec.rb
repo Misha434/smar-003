@@ -77,7 +77,7 @@ RSpec.describe User, type: :system do
           end
           it '(with avatar image)is available' do
             attach_file "user_avatar",
-            "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
+                        "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
             click_button "Sign up"
             expect(page).to have_content 'Welcome'
           end

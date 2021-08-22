@@ -62,10 +62,10 @@ class BrandsController < ApplicationController
 
   def set_brand
     @brand = Brand.find(params[:id])
-    rescue ActiveRecord::RecordNotFound => e
-      flash[:danger] = "Brand does not exist"
-      redirect_to request.referrer || brands_path
-    rescue StandardError => e
-      puts e
+  rescue ActiveRecord::RecordNotFound => e
+    flash[:danger] = "Brand does not exist"
+    redirect_to request.referrer || brands_path
+  rescue StandardError => e
+    puts e
   end
 end

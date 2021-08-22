@@ -958,7 +958,7 @@ RSpec.describe Brand, type: :system do
       brand_id = 1
       release_date = DateTime.now
       image = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
-      filename: "product-photo-#{n}.jpeg")
+                                                     filename: "product-photo-#{n}.jpeg")
       Product.create!(
         name: name,
         soc_antutu_score: soc_antutu_score,

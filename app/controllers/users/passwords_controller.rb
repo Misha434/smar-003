@@ -6,7 +6,8 @@ module Users
 
     def ensure_normal_user
       if params[:user][:email].downcase == 'guest@example.com'
-        redirect_to new_user_session_path, alert: 'Guest User cannot reset Password'
+        redirect_to new_user_session_path,
+                    alert: 'Guest User cannot reset Password'
       end
     end
     # GET /resource/password/new

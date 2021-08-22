@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, only: :index
   before_action :admin_user, only: :index
   include Pagy::Backend
-  
+
   def index
     @pagy, @users = pagy(User.with_attached_avatar.all)
   end

@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
       @select_product_reviews = @product.reviews.includes(:user).with_attached_image
       @product_like_countup = Like.likes_count(params[:id])
       @review_rate_average = Review.where('product_id=?', params[:id]).average(:rate)
-      @review_rate_average.nil? ? @review_rate_average = '-' : @review_rate_average = @review_rate_average.floor(1)
+      @review_rate_average = @review_rate_average.nil? ? '-' : @review_rate_average.floor(1)
     else
       flash[:danger] = 'Product does not exist'
       redirect_to products_path
@@ -23,7 +23,7 @@ class ProductsController < ApplicationController
     puts e
   end
 
-  def index    
+  def index
     @q = Product.with_attached_image.includes(:brand).ransack(params[:q])
     @pagy, @products = pagy(@q.result(distinct: true))
   end
@@ -92,5 +92,4 @@ class ProductsController < ApplicationController
   def set_q
     @q = Product.ransack(params[:q])
   end
-
 end

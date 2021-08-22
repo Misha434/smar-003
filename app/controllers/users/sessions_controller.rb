@@ -22,7 +22,7 @@ module Users
     # def destroy
     #   super
     # end
-  
+
     def guest_sign_in
       user = User.guest
       sign_in user
