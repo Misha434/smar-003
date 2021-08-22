@@ -8,9 +8,9 @@
 
 # Offense count: 1
 # Configuration parameters: AllowSafeAssignment.
-Lint/AssignmentInCondition:
-  Exclude:
-    - 'app/controllers/products_controller.rb'
+# Lint/AssignmentInCondition:
+#   Exclude:
+#     - 'app/controllers/products_controller.rb'
 
 # Offense count: 2
 # Configuration parameters: AllowComments.
