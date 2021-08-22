@@ -47,6 +47,12 @@
                         li
                           | ・Leave blank if you don't want to change it
           .field
+            = f.label :avater
+            = f.file_field :avatar, class: "form-control mb-4", accept: "image/jpeg,image/gif,image/png"
+              .form-text
+                p.mb-0 ・Size: ~ 5MB
+                p ・Image Format: jpeg, gif, png
+          .field
             = f.label :current_password
             br
             = f.password_field :current_password, autocomplete: "current-password", class: "form-control"
@@ -56,3 +62,12 @@
             = f.submit "Update", class: "btn btn-outline-primary"
         = link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-outline-danger mb-3"
       = link_to "Back", :back
+      / Image size Varidation
+      javascript:
+        $("#avater_image").on("change", function sizeVaridation() {
+          const sizeInMegaBytes = this.files[0].size / 1024 / 1024;
+          if (sizeInMegaBytes > 5) {
+            alert("Maximum file size is 5MB. Please choose a smaller file.");
+            $("#review_image").val("");
+          }
+        });
