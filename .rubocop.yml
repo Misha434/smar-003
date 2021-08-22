@@ -35,6 +35,7 @@ Style/AsciiComments:
     - 'spec/models/user_spec.rb'
     - 'spec/requests/pages_request_spec.rb'
     - 'spec/system/pages_index_spec.rb'
+    - 'spec/system/users_spec_backup.rb'
 Style/ExpandPathArguments:
   Exclude:
     - 'bin/bundle'
@@ -75,12 +76,18 @@ Style/Documentation:
     - 'app/controllers/reviews_controller.rb'
     - 'app/controllers/users/registrations_controller.rb'
     - 'app/controllers/users_controller.rb'
+    - 'app/controllers/users/passwords_controller.rb'
+    - 'app/controllers/users/sessions_controller.rb'
     - 'app/helpers/application_helper.rb'
     - 'app/helpers/brands_helper.rb'
     - 'app/helpers/sessions_helper.rb'
+    - 'app/helpers/products_helper.rb'
     - 'app/models/application_record.rb'
     - 'app/models/brand.rb'
     - 'app/models/user.rb'
+    - 'app/models/like.rb'
+    - 'app/models/product.rb'
+    - 'app/models/review.rb'
 Naming/AsciiIdentifiers:
   Exclude:
     - 'spec/models/review_spec.rb'
@@ -89,3 +96,16 @@ Naming/MethodParameterName:
     - 'spec/system/brands_spec.rb'
     - 'spec/system/products_spec.rb'
     - 'spec/system/reviews_spec.rb'
+Naming/VariableNumber:
+  Exclude:
+    - 'spec/system/likes_spec.rb'
+    - 'spec/system/users_spec.rb'
+IfUnlessModifier:
+  Enabled: false
+Lint/AssignmentInCondition:
+  Exclude:
+    - 'app/controllers/products_controller.rb'
+Layout/LineLength:
+  Max: 189
+Metrics/AbcSize:
+  Max: 43

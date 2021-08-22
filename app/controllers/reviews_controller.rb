@@ -24,11 +24,11 @@ class ReviewsController < ApplicationController
   def index
     @pagy, @reviews = pagy(Review.includes(:user).with_attached_image.all)
   end
-  
+
   def edit
     set_forms_brands_products
   end
-  
+
   def update
     if @review.update(review_params)
       flash[:success] = "Review is updated"
@@ -67,5 +67,4 @@ class ReviewsController < ApplicationController
       end
     end
   end
-
 end

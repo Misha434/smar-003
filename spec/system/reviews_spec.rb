@@ -12,9 +12,9 @@ RSpec.describe Review, type: :system do
     fill_in 'review[content]', with: @review.content
   end
 
-  def create_review(i)
-    i = i.to_i
-    i.times do |n|
+  def create_review(review_amount)
+    review_amount = review_amount.to_i
+    review_amount.times do |n|
       content = "review #{n + 1}"
       Brand.create!(
         id: n + 1,
@@ -23,9 +23,9 @@ RSpec.describe Review, type: :system do
     end
   end
 
-  def create_product(i)
-    i = i.to_i
-    i.times do |n|
+  def create_product(product_amount)
+    product_amount = product_amount.to_i
+    product_amount.times do |n|
       name = "Phone-#{n + 1}"
       soc_antutu_score = 100
       battery_capacity = (n + 1) * 1000

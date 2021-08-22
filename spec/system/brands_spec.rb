@@ -949,16 +949,16 @@ RSpec.describe Brand, type: :system do
     end
   end
 
-  def create_product(i)
-    i = i.to_i
-    i.times do |n|
+  def create_product(product_amount)
+    product_amount = product_amount.to_i
+    product_amount.times do |n|
       name = "Phone-#{n + 1}"
       soc_antutu_score = 100
       battery_capacity = (n + 1) * 1000
       brand_id = 1
       release_date = DateTime.now
       image = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
-      filename: "product-photo-#{n}.jpeg")
+                                                     filename: "product-photo-#{n}.jpeg")
       Product.create!(
         name: name,
         soc_antutu_score: soc_antutu_score,

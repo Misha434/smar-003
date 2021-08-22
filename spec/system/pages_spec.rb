@@ -74,9 +74,9 @@ RSpec.describe "Pages", type: :system do
     end
   end
 
-  def create_review(i)
-    i = i.to_i
-    i.times do |n|
+  def create_review(review_amount)
+    review_amount = review_amount.to_i
+    review_amount.times do |n|
       content = "review #{n + 1}"
       Review.create!(
         user_id: 1,
@@ -169,7 +169,7 @@ RSpec.describe "Pages", type: :system do
     visit root_path
     within('.ranking_antutu') do
       click_on 'view more'
-    end    
+    end
   end
 
   def check_product_ranking_new_release_correction
@@ -310,12 +310,12 @@ RSpec.describe "Pages", type: :system do
       before do
         FactoryBot.create(:product)
         2.times do |n|
-          FactoryBot.create(:user, id: n + 2, email: "test-#{ n + 2 }@example.com")
-          FactoryBot.create(:product, id: n + 2 , name: "Phone-#{ n + 2 }")
+          FactoryBot.create(:user, id: n + 2, email: "test-#{n + 2}@example.com")
+          FactoryBot.create(:product, id: n + 2, name: "Phone-#{n + 2}")
         end
       end
-      # Test Format: RateAvg ( EachReviewRate / Reviewer Amount ) 
-      # eg (2 persons give rate 1.0): 1.0 ( 1 + 1 / 2 ) 
+      # Test Format: RateAvg ( EachReviewRate / Reviewer Amount )
+      # eg (2 persons give rate 1.0): 1.0 ( 1 + 1 / 2 )
       context '5.0 ( 5 / 1 )' do
         before do
           FactoryBot.create(:review, rate: 5)

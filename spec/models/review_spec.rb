@@ -262,7 +262,7 @@ RSpec.describe Review, type: :model do
         expect do
           review = FactoryBot.build(:review, id: 2)
           review.save!
-        end.to raise_error( ActiveRecord::RecordNotUnique )
+        end.to raise_error(ActiveRecord::RecordNotUnique)
       end
     end
     context "for other product" do
