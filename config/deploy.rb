@@ -24,12 +24,12 @@ set :repo_url, "git@github.com:Misha434/smar-003.git"
 # append :linked_files, "config/database.yml"
 
 # Default value for linked_dirs is []
-append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system", "public/uploads"
 
 # SSH接続設定
 set :ssh_options, {
   auth_methods: ['publickey'], 
-  keys: ['~/.ssh/smar-003-001.pem'] 
+  keys: ['~/.ssh/my-key.pem'] 
 }
 
 # 保存しておく世代の設定
