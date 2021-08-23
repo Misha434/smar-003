@@ -26,6 +26,8 @@ set :repo_url, "git@github.com:Misha434/smar-003.git"
 # Default value for linked_dirs is []
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system", "public/uploads"
 
+append :linked_files, 'config/master.key'
+
 # SSH接続設定
 set :ssh_options, {
   auth_methods: ['publickey'], 
