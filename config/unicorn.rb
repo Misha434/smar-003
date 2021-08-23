@@ -5,7 +5,7 @@ root_path = File.expand_path('../../../', __FILE__)
 worker_processes 2
 
 # アプリケーションの設置されているディレクトリを指定
-working_directory "#{root_path}/current"
+working_directory root_path
 
 # プロセスIDの保存先を指定
 pid "#{root_path}/shared/tmp/pids/unicorn.pid"
