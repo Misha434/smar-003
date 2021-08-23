@@ -2,9 +2,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   adapter: mysql2
   encoding: utf8mb4
-  ## For ENV CentOS7, Amazon Linux 2
-  username: <%= ENV['AWS_RDS_USERNAME'] %>
-  password: <%= ENV['AWS_RDS_PASSWORD'] %>
+  ## For ENV CentOS7
   socket: /var/lib/mysql/mysql.sock
   ## For MacOS
   # username: root
@@ -19,4 +17,7 @@ test:
 production:
   <<: *default
   database: smar_003_production
-  # password: <%= ENV['DATABASE_PASSWORD'] %>
+  socket: /var/lib/mysql/mysql.sock
+  username: <%= ENV['AWS_RDS_USERNAME'] %>
+  password: <%= ENV['AWS_RDS_PASSWORD'] %>
+  host:  <%= ENV['AWS_RDS_END_POINT'] %>
