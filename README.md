@@ -131,7 +131,7 @@
 
 ## システム構成図
 
-![Infrastracture_Diagram_20210824](https://user-images.githubusercontent.com/61964919/130583154-04ce7a8f-8ba8-4552-8f19-e07674d1b407.png)
+![Infrastracture_Diagram_20210824](https://user-images.githubusercontent.com/61964919/130624628-da443786-522e-48fd-bd4c-9564276f098d.png)
 
 
 <a id="anchor7"></a>
