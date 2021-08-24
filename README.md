@@ -1,4 +1,4 @@
-![smar_logo_larger](https://user-images.githubusercontent.com/61964919/130584296-671671a5-fd15-4f1f-a945-2d222146e32e.png)
+![logo_with_margin](https://user-images.githubusercontent.com/61964919/130588238-21854f7a-0496-4b89-b59a-94c7b2d6ab93.png)
 
 ## <h2 style="text-align: center"> スマホ比較アプリ</p>
 
