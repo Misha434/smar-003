@@ -1,8 +1,7 @@
 ![logo_with_margin](https://user-images.githubusercontent.com/61964919/130588238-21854f7a-0496-4b89-b59a-94c7b2d6ab93.png)
 
-## <h2 style="text-align: center"> スマホ比較アプリ</p>
+<h2 style="text-align: center"> スマホ比較アプリ</p>
 
----
 
 ## 目次
 - [プロジェクトの概要説明](#anchor1)
@@ -15,7 +14,6 @@
 - [こだわり・苦戦したポイント](#anchor8)
 - [今後の予定](#anchor9)
 
----
 
 <a id="anchor1"></a>
 
@@ -90,21 +88,24 @@
 | 名称 | 備考 |
 | --- | --- |
 | pagy | ページネーション機能 |
-| rubocop | 静的コード解析ツール |
-| capistrano | デプロイツール |
-| slim | テンプレートエンジン |
 | ransack | 検索機能 |
 | ActiveStorage | ファイル(画像)アップロードツール |
 | RSpec | System Spec (E2Eテスト) <br> Model Spec (モデルテスト) |
+| rubocop | 静的コード解析ツール |
+| capistrano | デプロイツール |
+| slim | テンプレートエンジン |
 
 ### インフラ
+
+- AWS
+
 | 名称 |  | 備考 |
 | --- | --- | --- |
-| AWS EC2 | App サーバー: Unicorn | - |
+| EC2 | App サーバー: Unicorn | - |
 |  | Web サーバー: Nginx | - |
-|  | RDBMS: MariaDB | - |
-| AWS Route 53 |  | - |
-| AWS S3 |  | - |
+| RDS | RDBMS: MySQL | - |
+| Route 53 | DNSサービス | - |
+| S3 | ストレージ機能 | - |
 
 ### 開発環境
 
@@ -124,7 +125,7 @@
 
 ## ER図
 
-![ER_diagram_20210802](https://user-images.githubusercontent.com/61964919/127835343-8de7124c-3b0c-461f-9e35-e97d18052baa.png)
+![ER_diagram_210824](https://user-images.githubusercontent.com/61964919/130623494-373cff7e-2501-414d-8a51-4ce8016e2f6b.png)
 
 <a id="anchor6"></a>
 
@@ -190,14 +191,14 @@ $ foreman start
 ## 今後の計画
 
 - [ ] SSL有効化(ALBの利用)
-- [ ] DB: EC2 から RDS の利用に切り替え
+- [x] ~~DB: EC2 から RDS の利用に切り替え~~
 - [ ] 日本語対応
 - [ ] レスポンシブ対応
 - [ ] Docker化
 - [ ] SPA化
 
 ### 追加予定機能
-- [x] <del>機能別 製品一覧(ソート機能)</del>
+- [x] ~~機能別 製品一覧(ソート機能)~~
 - [ ] 口コミ リプライ機能
 - [ ] 通知機能
 - [ ] 問い合わせ機能
