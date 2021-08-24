@@ -1,9 +1,8 @@
-# README
+![smar_logo_larger](https://user-images.githubusercontent.com/61964919/130584296-671671a5-fd15-4f1f-a945-2d222146e32e.png)
 
-## Sma-R
-スマホ比較アプリ
+## <h2 style="text-align: center"> スマホ比較アプリ</p>
 
-![smar-003_home_20210811](https://user-images.githubusercontent.com/61964919/128966548-411d3000-331d-4987-bbef-88d90745be51.png)
+---
 
 ## 目次
 - [プロジェクトの概要説明](#anchor1)
@@ -15,6 +14,8 @@
 - [使い方](#anchor7)
 - [こだわり・苦戦したポイント](#anchor8)
 - [今後の予定](#anchor9)
+
+---
 
 <a id="anchor1"></a>
 
@@ -67,7 +68,7 @@
 
 ## 使用言語、環境、テクノロジー
 
-### 趣旨
+### 意識したポイント
 
 - バックエンドエンジニア志望なので、主に Rails や Ruby の扱い方をメインに学習・実践しました。
 - アプリ内のパフォーマンスを意識して、N + 1 問題が発生しないよう考慮しながらコーディングしました。
@@ -129,7 +130,8 @@
 
 ## システム構成図
 
-![Infrastracture_Diagram_20210802](https://user-images.githubusercontent.com/61964919/127831467-0f09fabb-7116-48d4-97c2-672a809c6716.png)
+![Infrastracture_Diagram_20210824](https://user-images.githubusercontent.com/61964919/130583154-04ce7a8f-8ba8-4552-8f19-e07674d1b407.png)
+
 
 <a id="anchor7"></a>
 
