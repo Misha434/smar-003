@@ -1,0 +1,51 @@
+version: '3'
+services: 
+  web:
+    build: .
+    command: rails s -b '0.0.0.0'
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: webpacker
+    volumes:
+      - .:/smar-003:cached
+      - rails_cache:/smar-003/tmp/cache
+      - node_modules:/smar-003/node_modules:cached
+      - bundle:/bundle:cached
+    tmpfs:
+      - /tmp
+    tty: true
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    links:
+      - db
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - '3306:3306'
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - mysql-data:/var/lib/mysql
+  webpacker:
+    build: .
+    command: ./bin/webpack-dev-server
+    volumes:
+      - .:/smar-003:cached
+      - node_modules:/smar-003/node_modules:cached
+    environment:
+      RAILS_ENV: development
+      NODE_ENV: development
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+    tty: false
+    stdin_open: false
+    ports:
+      - "3035:3035"
+    links:
+      - db
+volumes:
+  rails_cache:
+  node_modules:
+  bundle:
+  mysql-data:
+    driver: local
