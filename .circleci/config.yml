@@ -1,0 +1,103 @@
+version: 2.1 # Use 2.1 to enable using orbs and other features.
+
+# Declare the orbs that we'll use in our config.
+# read more about orbs: https://circleci.com/docs/2.0/using-orbs/
+orbs:
+  ruby: circleci/ruby@1.0
+  node: circleci/node@2
+  browser-tools: circleci/browser-tools@1.0.1
+
+jobs:
+  build: # our first job, named "build"
+    docker:
+      - image: circleci/ruby:2.6.3-node-browsers # use a tailored CircleCI docker image.
+
+    working_directory: ~/smar-003
+
+    steps:
+      - checkout # pull down our git code.
+      - ruby/install-deps
+          bundler-version: '1.17.2'
+      # use the ruby orb to install dependencies
+      # use the node orb to install our packages
+      # specifying that we use `yarn` and to cache dependencies with `yarn.lock`
+      # learn more: https://circleci.com/docs/2.0/caching/
+      - run:
+          name: "Update Node.js"
+          command: |
+            curl -sSL "https://nodejs.org/dist/v14.17.5/node-v14.17.5-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v14.17.5-linux-x64/bin/node
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
+
+  test:  # our next job, called "test"
+    # we run "parallel job containers" to enable speeding up our tests;
+    # this splits our tests across multiple containers.
+    parallelism: 3
+    # here we set TWO docker images.
+    docker:
+      - image: circleci/ruby:2.6.3-node-browsers # this is our primary docker image, where step commands run.
+    # environment variables specific to Ruby/Rails, applied to the primary container.
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      RAILS_ENV: test
+    # A series of steps to run, some are similar to those in "build".
+    steps:
+      - checkout
+      - ruby/install-deps:
+          bundler-version: '1.17.2'
+      - run:
+          name: "Update Node.js"
+          command: |
+            curl -sSL "https://nodejs.org/dist/v14.17.5/node-v14.17.5-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v14.17.5-linux-x64/bin/node
+      - node/install-packages:
+          pkg-manager: yarn
+      # runのたびに実行
+      - run:
+          name: Update & Install OS packages
+          command: |
+              sudo apt-get update
+              sudo apt-get -y install imagemagick
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
+      # Here we make sure that the secondary container boots
+      # up before we run operations on the database.
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://db:3306 -timeout 1m
+      - run:
+          name: DB Setup
+          command: |
+              bundle exec rails create
+              bundle exec rails db:schema:load --trace
+      # Run rspec in parallel
+      - ruby/rubocop-check
+      - ruby/rspec-test
+  
+  # deploy:
+  #   executor: heroku/default
+  #   steps:
+  #     - checkout
+  #     - heroku/install
+  #     - heroku/deploy-via-git:
+  #         maintenance-mode: true
+  #     - run:
+  #         name: DB migrate
+  #         command: heroku run rails db:migrate --app $HEROKU_APP_NAME
+# We use workflows to orchestrate the jobs that we declared above.
+workflows:
+  version: 2
+  build_and_test:     # The name of our workflow is "build_and_test"
+    jobs:             # The list of jobs we run as part of this workflow.
+      - build         # Run build first.
+      - test:         # Then run test,
+          requires:   # Test requires that build passes for it to run.
+            - build   # Finally, run the build job.
+      # - deploy:
+      #     requires:
+      #       - build
+      #       - test
+      #     filters:
+      #       branches:
+      #         only: main
