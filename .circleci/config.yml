@@ -58,11 +58,11 @@ jobs:
       - ruby/install-deps:
           bundler-version: '1.17.2'
       # runのたびに実行
-      - run:
-          name: Update & Install OS packages
-          command: |
-              sudo apt-get update
-              sudo apt-get -y install imagemagick
+      # - run:
+      #     name: Update & Install OS packages
+      #     command: |
+      #         sudo apt-get update
+      #         sudo apt-get -y install imagemagick
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       # Here we make sure that the secondary container boots
