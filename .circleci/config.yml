@@ -75,11 +75,10 @@ jobs:
           command: bundle exec rails db:schema:load --trace
       # Run rspec in parallel
       - ruby/rspec-test
-  
+
   deploy:
     docker:
       - image: circleci/ruby:2.5.1-node-browsers
-        
     steps:
       - checkout
       - ruby/install-deps:
