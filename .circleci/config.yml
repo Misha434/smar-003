@@ -29,7 +29,7 @@ jobs:
             curl -sSL "https://nodejs.org/dist/v14.17.5/node-v14.17.5-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v14.17.5-linux-x64/bin/node
       - node/install-packages:
           pkg-manager: yarn
-          cache-key: "yarn.lock"
+          # cache-key: "yarn.lock"
 
   test:  # our next job, called "test"
     # we run "parallel job containers" to enable speeding up our tests;
