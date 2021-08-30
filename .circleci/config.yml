@@ -79,6 +79,9 @@ jobs:
       - run:
           name: DB Setup
           command: bundle exec rails db:schema:load --trace
+      - run:
+          name: DB Setup
+          command: bundle install rspec_junit_formatter
       # Run rspec in parallel
       - ruby/rspec-test
   
