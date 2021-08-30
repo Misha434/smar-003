@@ -17,19 +17,20 @@ jobs:
 
     steps:
       - checkout # pull down our git code.
+      - run:
+          name: "Update Node.js"
+          command: |
+            curl -sSL "https://nodejs.org/dist/v14.17.5/node-v14.17.5-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v14.17.5-linux-x64/bin/node
+      - run:
+          name: install yarn dependencies
+          command: |
+            yarn install --check-files
       - ruby/install-deps:
           bundler-version: '1.17.2'
       # use the ruby orb to install dependencies
       # use the node orb to install our packages
       # specifying that we use `yarn` and to cache dependencies with `yarn.lock`
       # learn more: https://circleci.com/docs/2.0/caching/
-      - run:
-          name: "Update Node.js"
-          command: |
-            curl -sSL "https://nodejs.org/dist/v14.17.5/node-v14.17.5-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v14.17.5-linux-x64/bin/node
-      - node/install-packages:
-          pkg-manager: yarn
-          # cache-key: "yarn.lock"
 
   test:  # our next job, called "test"
     # we run "parallel job containers" to enable speeding up our tests;
@@ -46,14 +47,16 @@ jobs:
     # A series of steps to run, some are similar to those in "build".
     steps:
       - checkout
-      - ruby/install-deps:
-          bundler-version: '1.17.2'
       - run:
           name: "Update Node.js"
           command: |
             curl -sSL "https://nodejs.org/dist/v14.17.5/node-v14.17.5-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v14.17.5-linux-x64/bin/node
-      - node/install-packages:
-          pkg-manager: yarn
+      - run:
+          name: install yarn dependencies
+          command: |
+            yarn install --check-files
+      - ruby/install-deps:
+          bundler-version: '1.17.2'
       # runのたびに実行
       - run:
           name: Update & Install OS packages
