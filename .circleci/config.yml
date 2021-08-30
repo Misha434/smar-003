@@ -63,12 +63,6 @@ jobs:
             yarn install --check-files
       - ruby/install-deps:
           bundler-version: '1.17.2'
-      # runのたびに実行
-      # - run:
-      #     name: Update & Install OS packages
-      #     command: |
-      #         sudo apt-get update
-      #         sudo apt-get -y install imagemagick
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       # Here we make sure that the secondary container boots
@@ -82,16 +76,16 @@ jobs:
       # Run rspec in parallel
       - ruby/rspec-test
   
-  # deploy:
-  #   executor: heroku/default
-  #   steps:
-  #     - checkout
-  #     - heroku/install
-  #     - heroku/deploy-via-git:
-  #         maintenance-mode: true
-  #     - run:
-  #         name: DB migrate
-  #         command: heroku run rails db:migrate --app $HEROKU_APP_NAME
+  deploy:
+    executor: default
+    steps:
+      - setup
+      - add_ssh_keys:
+        fingerprints:
+          - f4:72:fd:dc:3f:a0:78:e8:57:db:25:95:61:0c:14:00
+      - deploy:
+          name: Capistrano deploy
+          command: bundle exec cap production deploy
 # We use workflows to orchestrate the jobs that we declared above.
 workflows:
   version: 2
@@ -101,10 +95,10 @@ workflows:
       - test:         # Then run test,
           requires:   # Test requires that build passes for it to run.
             - build   # Finally, run the build job.
-      # - deploy:
-      #     requires:
-      #       - build
-      #       - test
-      #     filters:
-      #       branches:
-      #         only: main
+      - deploy:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: main
