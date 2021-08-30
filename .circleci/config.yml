@@ -39,6 +39,11 @@ jobs:
     # here we set TWO docker images.
     docker:
       - image: circleci/ruby:2.6.3-node-browsers # this is our primary docker image, where step commands run.
+      - image: circleci/mysql:8.0.4  # MySQLのバージョンに合わせる
+        name: db
+        command: mysqld --default-authentication-plugin=mysql_native_password  # MySQL8を用いる場合必要
+        environment:
+          MYSQL_ROOT_PASSWORD: password
     # environment variables specific to Ruby/Rails, applied to the primary container.
     environment:
       BUNDLE_JOBS: "3"
