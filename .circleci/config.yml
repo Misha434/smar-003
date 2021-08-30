@@ -77,14 +77,17 @@ jobs:
       - ruby/rspec-test
   
   deploy:
-    executor: default
     steps:
       - add_ssh_keys:
           fingerprints:
             - "f4:72:fd:dc:3f:a0:78:e8:57:db:25:95:61:0c:14:00"
-      - deploy:
+      - run:
           name: Capistrano deploy
-          command: bundle exec cap production deploy
+          command: |
+            if [ "${CIRCLE_BRANCH}" != "master" ]; then
+              exit 0
+            fi
+            bundle exec cap production deploy
 # We use workflows to orchestrate the jobs that we declared above.
 workflows:
   version: 2
