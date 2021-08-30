@@ -77,7 +77,14 @@ jobs:
       - ruby/rspec-test
   
   deploy:
+    docker:
+      - image: circleci/ruby:2.5.1-node-browsers
+        environment:
+          BUNDLER_VERSION: 2.1.4
     steps:
+      - checkout
+      - ruby/install-deps:
+          bundler-version: '1.17.2'
       - add_ssh_keys:
           fingerprints:
             - "f4:72:fd:dc:3f:a0:78:e8:57:db:25:95:61:0c:14:00"
@@ -88,6 +95,7 @@ jobs:
               exit 0
             fi
             bundle exec cap production deploy
+
 # We use workflows to orchestrate the jobs that we declared above.
 workflows:
   version: 2
@@ -99,7 +107,6 @@ workflows:
             - build   # Finally, run the build job.
       - deploy:
           requires:
-            - build
             - test
           filters:
             branches:
