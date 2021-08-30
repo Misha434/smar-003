@@ -33,6 +33,7 @@ gem 'pagy'
 gem 'ransack'
 gem 'slim-rails'
 
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   # Use mysql as the database for Active Record
@@ -41,6 +42,8 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 4.0.1'
+  # for CicleCI test process
+  gem 'rspec_junit_formatter'
 end
 
 group :development do

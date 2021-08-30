@@ -11,24 +11,26 @@ jobs:
   build: # our first job, named "build"
     docker:
       - image: circleci/ruby:2.6.3-node-browsers # use a tailored CircleCI docker image.
-
+        environment:
+          BUNDLER_VERSION: 1.17.2
     working_directory: ~/smar-003
 
     steps:
       - checkout # pull down our git code.
-      - ruby/install-deps
+      - run:
+          name: "Update Node.js"
+          command: |
+            curl -sSL "https://nodejs.org/dist/v14.17.5/node-v14.17.5-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v14.17.5-linux-x64/bin/node
+      - run:
+          name: install yarn dependencies
+          command: |
+            yarn install --check-files
+      - ruby/install-deps:
           bundler-version: '1.17.2'
       # use the ruby orb to install dependencies
       # use the node orb to install our packages
       # specifying that we use `yarn` and to cache dependencies with `yarn.lock`
       # learn more: https://circleci.com/docs/2.0/caching/
-      - run:
-          name: "Update Node.js"
-          command: |
-            curl -sSL "https://nodejs.org/dist/v14.17.5/node-v14.17.5-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v14.17.5-linux-x64/bin/node
-      - node/install-packages:
-          pkg-manager: yarn
-          cache-key: "yarn.lock"
 
   test:  # our next job, called "test"
     # we run "parallel job containers" to enable speeding up our tests;
@@ -37,6 +39,12 @@ jobs:
     # here we set TWO docker images.
     docker:
       - image: circleci/ruby:2.6.3-node-browsers # this is our primary docker image, where step commands run.
+      - image: circleci/mysql:8.0.4  # MySQLのバージョンに合わせる
+        name: db
+        command: mysqld --default-authentication-plugin=mysql_native_password  # MySQL8を用いる場合必要
+        environment:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: smar_003_test
     # environment variables specific to Ruby/Rails, applied to the primary container.
     environment:
       BUNDLE_JOBS: "3"
@@ -45,20 +53,22 @@ jobs:
     # A series of steps to run, some are similar to those in "build".
     steps:
       - checkout
-      - ruby/install-deps:
-          bundler-version: '1.17.2'
       - run:
           name: "Update Node.js"
           command: |
             curl -sSL "https://nodejs.org/dist/v14.17.5/node-v14.17.5-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v14.17.5-linux-x64/bin/node
-      - node/install-packages:
-          pkg-manager: yarn
-      # runのたびに実行
       - run:
-          name: Update & Install OS packages
+          name: install yarn dependencies
           command: |
-              sudo apt-get update
-              sudo apt-get -y install imagemagick
+            yarn install --check-files
+      - ruby/install-deps:
+          bundler-version: '1.17.2'
+      # runのたびに実行
+      # - run:
+      #     name: Update & Install OS packages
+      #     command: |
+      #         sudo apt-get update
+      #         sudo apt-get -y install imagemagick
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       # Here we make sure that the secondary container boots
@@ -68,11 +78,8 @@ jobs:
           command: dockerize -wait tcp://db:3306 -timeout 1m
       - run:
           name: DB Setup
-          command: |
-              bundle exec rails create
-              bundle exec rails db:schema:load --trace
+          command: bundle exec rails db:schema:load --trace
       # Run rspec in parallel
-      - ruby/rubocop-check
       - ruby/rspec-test
   
   # deploy:
