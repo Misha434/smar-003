@@ -6,6 +6,7 @@ orbs:
   ruby: circleci/ruby@1.0
   node: circleci/node@2
   browser-tools: circleci/browser-tools@1.0.1
+  aws-cli: circleci/aws-cli@2.0.0
 
 jobs:
   build: # our first job, named "build"
@@ -83,16 +84,15 @@ jobs:
       - checkout
       - ruby/install-deps:
           bundler-version: '1.17.2'
+      - aws-cli/setup
       - add_ssh_keys:
           fingerprints:
             - "f4:72:fd:dc:3f:a0:78:e8:57:db:25:95:61:0c:14:00"
       - run:
           name: Capistrano deploy
           command: |
-            if [ "${CIRCLE_BRANCH}" != "master" ]; then
-              exit 0
-            fi
-            bundle exec cap production deploy
+            ./deploy.sh
+
 # We use workflows to orchestrate the jobs that we declared above.
 workflows:
   version: 2
