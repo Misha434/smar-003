@@ -93,7 +93,6 @@ jobs:
               exit 0
             fi
             bundle exec cap production deploy
-
 # We use workflows to orchestrate the jobs that we declared above.
 workflows:
   version: 2
