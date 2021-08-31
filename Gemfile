@@ -74,6 +74,7 @@ group :test do
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'webdrivers'
+  gem 'rspec-retry'
 end
 
 group :production do

@@ -78,7 +78,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/ruby:2.5.1-node-browsers
+      - image: circleci/ruby:2.6.3-node-browsers
     steps:
       - checkout
       - ruby/install-deps:
