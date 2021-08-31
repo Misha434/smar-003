@@ -94,7 +94,7 @@ jobs:
       - run: 
           name: debug ssh access
           command: |
-            ssh ${USER_NAME}@${HOST_NAME}
+            ssh ${HOST_NAME}
       # - run:
       #     name: Capistrano deploy
       #     command: |
