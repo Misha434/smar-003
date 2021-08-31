@@ -13,6 +13,8 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'rspec/retry'
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
@@ -91,4 +93,17 @@ RSpec.configure do |config|
   #   # test failures related to randomization by passing the same `--seed` value
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
+  # run retry only on features
+  config.verbose_retry = true
+  config.display_try_failure_messages = true
+  config.around :each, type: :system do |ex|
+    ex.run_with_retry retry: 3
+  end
+  config.retry_callback = proc do |ex|
+    # run some additional clean up task - can be filtered by example metadata
+    if ex.metadata[:js]
+      Capybara.reset!     
+    end
+  end
+
 end
