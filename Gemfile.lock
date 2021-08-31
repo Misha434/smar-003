@@ -255,7 +255,11 @@ GEM
       rspec-expectations (~> 3.10)
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
+    rspec-retry (0.6.2)
+      rspec-core (> 3.3)
     rspec-support (3.10.2)
+    rspec_junit_formatter (0.4.1)
+      rspec-core (>= 2, < 4, != 2.12.0)
     rubocop (1.6.1)
       parallel (~> 1.10)
       parser (>= 2.7.1.5)
@@ -376,6 +380,8 @@ DEPENDENCIES
   rails (~> 6.0.3, >= 6.0.3.7)
   ransack
   rspec-rails (~> 4.0.1)
+  rspec-retry
+  rspec_junit_formatter
   rubocop
   rubocop-performance
   rubocop-rails
