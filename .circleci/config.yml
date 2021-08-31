@@ -73,7 +73,7 @@ jobs:
           command: dockerize -wait tcp://db:3306 -timeout 1m
       - run:
           name: Set specific database.yml
-          command: mv config/database.yml.ci config/database.yml
+          command: mv .circleci/database.yml.ci config/database.yml
       - run:
           name: DB Setup
           command: bundle exec rails db:schema:load --trace
