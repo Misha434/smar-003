@@ -5,7 +5,8 @@ if [ "${CIRCLE_BRANCH}" != "master" ]; then
   exit 0
 fi
 
-SECURITY_GROUP="sg-01c183b7eeba9b829"
+# SECURITY_GROUP="sg-01c183b7eeba9b829"
+SECURITY_GROUP="sg-07697b0d2a359fab9"
 IP=`curl -s ifconfig.me`  # 現在起動しているコンテナのIPアドレスを代入
 
 # コンテナのIPアドレスからのsshを許可
