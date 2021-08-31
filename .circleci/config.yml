@@ -72,6 +72,9 @@ jobs:
           name: Wait for DB
           command: dockerize -wait tcp://db:3306 -timeout 1m
       - run:
+          name: Set specific database.yml
+          command: mv config/database.yml.ci config/database.yml
+      - run:
           name: DB Setup
           command: bundle exec rails db:schema:load --trace
       # Run rspec in parallel
@@ -88,10 +91,14 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "f4:72:fd:dc:3f:a0:78:e8:57:db:25:95:61:0c:14:00"
-      - run:
-          name: Capistrano deploy
+      - run: 
+          name: debug ssh access
           command: |
-            ./deploy.sh
+            ssh ${USER_NAME}@${HOST_NAME}
+      # - run:
+      #     name: Capistrano deploy
+      #     command: |
+      #       ./deploy.sh
 # We use workflows to orchestrate the jobs that we declared above.
 workflows:
   version: 2

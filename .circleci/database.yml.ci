@@ -1,0 +1,9 @@
+test:
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: 5
+  timeout: 10000
+  database: smar_003_test
+  username: root
+  password: 'password'
+  host: db
