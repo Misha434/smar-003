@@ -6,13 +6,8 @@ default: &default
   username: root
   password: 'password'
   host: db
-  # socket: /var/lib/mysql/mysql.sock
+  socket: /var/lib/mysql/mysql.sock
   ## For ENV CentOS7 & AWS
-  # socket: /var/lib/mysql/mysql.sock
-  ## For AWS
-  # username: <%= ENV['AWS_RDS_USERNAME'] %>
-  # password: <%= ENV['AWS_RDS_PASSWORD'] %>
-  # host:  <%= ENV['AWS_RDS_END_POINT'] %>
   # socket: /var/lib/mysql/mysql.sock
   ## For MacOS
   # username: root
@@ -27,3 +22,8 @@ test:
 production:
   <<: *default
   database: smar_003_production
+  ## For AWS
+  username: <%= ENV['AWS_RDS_USERNAME'] %>
+  password: <%= ENV['AWS_RDS_PASSWORD'] %>
+  host:  <%= ENV['AWS_RDS_END_POINT'] %>
+  socket: /var/lib/mysql/mysql.sock
