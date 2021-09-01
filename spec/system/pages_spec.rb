@@ -863,7 +863,29 @@ RSpec.describe "Pages", type: :system do
       end
     end
   end
-  describe "Visit the site as Guest User," do
+  describe "Guest(Trial) User" do
+    before do
+      FactoryBot.create(:user)
+      visit root_path
+    end
+    it 'is available to log it in' do
+      within('.ranking_battery') do
+        click_on 'Guest Login'
+      end
+      expect(page).to have_content('Loged in as Guest User.')
+    end
+    it 'is available to log it out' do
+      within('.ranking_battery') do
+        click_on 'Guest Login'
+      end
+      within('header') do
+        find(:css, ".dropdown-toggle").click
+        click_on 'Log out'
+      end
+      expect(page).to have_content('Signed out successfully.')
+    end
+  end
+  describe "Visit the site as Not-login User," do
     before do
       FactoryBot.create(:user)
       visit root_path
