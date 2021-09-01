@@ -7,8 +7,8 @@ services:
       WEBPACKER_DEV_SERVER_HOST: webpacker
     volumes:
       - .:/smar-003:cached
-      - rails_cache:/smar-003/tmp/cache
       - node_modules:/smar-003/node_modules:cached
+      - yarn_cache:/usr/local/share/.cache/yarn/v6:cached
       - bundle:/bundle:cached
     tmpfs:
       - /tmp
@@ -32,6 +32,7 @@ services:
     command: ./bin/webpack-dev-server
     volumes:
       - .:/smar-003:cached
+      - bundle:/bundle:cached
       - node_modules:/smar-003/node_modules:cached
     environment:
       RAILS_ENV: development
@@ -44,8 +45,8 @@ services:
     links:
       - db
 volumes:
-  rails_cache:
-  node_modules:
   bundle:
+  node_modules:
   mysql-data:
     driver: local
+  yarn_cache:
