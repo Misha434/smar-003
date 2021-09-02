@@ -7,7 +7,7 @@
     .col-8.pb-4
       .d-flex
         h1.px-3 = @user.name
-        - if @user == current_user
+        - if @user == (current_user && @user.email != "guest@example.com")
           = link_to edit_user_registration_path, class:"user_edit" do
             i.fas.fa-lg.fa-cog.pt-2.__no_active
   .row
