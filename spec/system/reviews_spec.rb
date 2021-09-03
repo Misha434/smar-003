@@ -54,11 +54,11 @@ RSpec.describe Review, type: :system do
       @admin_user = FactoryBot.create(:user, admin: true)
       within('header') do
         find(:css, "button.dropdown-toggle").click
-        click_on "Login"
+        click_on "ログイン"
       end
       fill_in "Email", with: @admin_user.email
-      fill_in "Password", with: @admin_user.password
-      click_button "Log in"
+      fill_in "パスワード", with: @admin_user.password
+      click_button "ログイン"
       expect(page).to have_content 'Signed in'
     end
     describe 'Create Action' do
@@ -117,19 +117,19 @@ RSpec.describe Review, type: :system do
             it 'Brand is enpty, should be invalid' do
               select '--- Brand ---'
               click_button "Post"
-              expect(page).to have_content 'Post Review'
+              expect(page).to have_content 'レビュー投稿'
             end
             it 'Product is enpty, should be invalid' do
               select 'Example Exp'
               click_button "Post"
-              expect(page).to have_content 'Post Review'
+              expect(page).to have_content 'レビュー投稿'
             end
             it 'is enpty should be invalid (after selected Product)' do
               select 'Apple'
               select 'Phone-2'
               select '--- Brand ---'
               click_button "Post"
-              expect(page).to have_content 'Post Review'
+              expect(page).to have_content 'レビュー投稿'
             end
           end
         end
@@ -183,7 +183,7 @@ RSpec.describe Review, type: :system do
               it 'is unavailable' do
                 fill_in 'review[content]', with: ''
                 click_button "Post"
-                expect(page).to have_content 'Post Review'
+                expect(page).to have_content 'レビュー投稿'
                 expect(page).to have_content "Content can't be blank"
               end
             end
@@ -207,7 +207,7 @@ RSpec.describe Review, type: :system do
                 testdata_content = 'Aarone and associates Example Company East Asia Inc Aaron and associates Example Company East Asia Inc associates Exact Company East Asia Inc'
                 fill_in 'review[content]', with: testdata_content
                 click_button "Post"
-                expect(page).to have_content 'Post Review'
+                expect(page).to have_content 'レビュー投稿'
                 expect(page).to have_content "Content is too long"
               end
             end
@@ -265,7 +265,7 @@ RSpec.describe Review, type: :system do
               testdata_content = "👨" * 141
               fill_in 'review[content]', with: testdata_content
               click_button "Post"
-              expect(page).to have_content 'Post Review'
+              expect(page).to have_content 'レビュー投稿'
               expect(page).to have_content 'too long'
             end
           end
@@ -273,7 +273,7 @@ RSpec.describe Review, type: :system do
             it "only is unavailable" do
               fill_in 'review[content]', with: ' 　'
               click_button "Post"
-              expect(page).to have_content 'Post Review'
+              expect(page).to have_content 'レビュー投稿'
               expect(page).to have_content "can't be blank"
             end
           end
@@ -284,7 +284,7 @@ RSpec.describe Review, type: :system do
             end
             it 'is unavailable' do
               fill_in 'review[content]', with: @review.content
-              expect(page).to have_content 'Post Review'
+              expect(page).to have_content 'レビュー投稿'
             end
           end
         end
@@ -325,7 +325,7 @@ RSpec.describe Review, type: :system do
                 attach_file "review_image",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
                 click_button "Post"
-                expect(page).to have_content 'Post Review'
+                expect(page).to have_content 'レビュー投稿'
                 expect(page).to have_content 'Image must be a valid image format'
               end
             end
@@ -334,7 +334,7 @@ RSpec.describe Review, type: :system do
                 attach_file "review_image",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
                 click_button "Post"
-                expect(page).to have_content 'Post Review'
+                expect(page).to have_content 'レビュー投稿'
                 expect(page).to have_content 'Image must be a valid image format'
               end
             end
@@ -394,7 +394,7 @@ RSpec.describe Review, type: :system do
       end
       describe 'from products#show' do
         before do
-          click_on 'All Products'
+          click_on '製品一覧'
           click_on 'Phone-1'
           within('#review-1') do
             find(:css, '.review_edit_link').click
@@ -413,7 +413,7 @@ RSpec.describe Review, type: :system do
           within('header') do
             find(:css, "button.navbar-toggler").click
           end
-          click_on 'All Products'
+          click_on '製品一覧'
           click_on 'Phone-1'
           within('#review-1') do
             find(:css, '.review_edit_link').click
@@ -639,7 +639,7 @@ RSpec.describe Review, type: :system do
       end
       describe 'in products#show' do
         it 'is available' do
-          click_on 'All Products'
+          click_on '製品一覧'
           click_on 'Phone-1'
           find(:css, '.review_edit_link').click
           expect(page).to have_content 'Edit Review'
@@ -651,7 +651,7 @@ RSpec.describe Review, type: :system do
         describe 'works dependency' do
           before do
             @like.save!
-            click_on 'All Products'
+            click_on '製品一覧'
             click_on 'Phone-1'
             within('.like_count') do
               expect(page).to have_content '1'
@@ -691,11 +691,11 @@ RSpec.describe Review, type: :system do
       @registrated_user = FactoryBot.create(:user)
       within('header') do
         find(:css, "button.dropdown-toggle").click
-        click_on "Login"
+        click_on "ログイン"
       end
       fill_in "Email", with: @registrated_user.email
-      fill_in "Password", with: @registrated_user.password
-      click_button "Log in"
+      fill_in "パスワード", with: @registrated_user.password
+      click_button "ログイン"
       expect(page).to have_content 'Signed in'
     end
     describe 'Create Action' do
@@ -731,7 +731,7 @@ RSpec.describe Review, type: :system do
               it 'is unavailable' do
                 fill_in 'review[content]', with: ''
                 click_button "Post"
-                expect(page).to have_content 'Post Review'
+                expect(page).to have_content 'レビュー投稿'
                 expect(page).to have_content "Content can't be blank"
               end
             end
@@ -755,7 +755,7 @@ RSpec.describe Review, type: :system do
                 testdata_content = 'Aarone and associates Example Company East Asia Inc Aaron and associates Example Company East Asia Inc associates Exact Company East Asia Inc'
                 fill_in 'review[content]', with: testdata_content
                 click_button "Post"
-                expect(page).to have_content 'Post Review'
+                expect(page).to have_content 'レビュー投稿'
                 expect(page).to have_content "Content is too long"
               end
             end
@@ -813,7 +813,7 @@ RSpec.describe Review, type: :system do
               testdata_content = "👨" * 141
               fill_in 'review[content]', with: testdata_content
               click_button "Post"
-              expect(page).to have_content 'Post Review'
+              expect(page).to have_content 'レビュー投稿'
               expect(page).to have_content 'too long'
             end
           end
@@ -821,7 +821,7 @@ RSpec.describe Review, type: :system do
             it "only is unavailable" do
               fill_in 'review[content]', with: ' 　'
               click_button "Post"
-              expect(page).to have_content 'Post Review'
+              expect(page).to have_content 'レビュー投稿'
               expect(page).to have_content "can't be blank"
             end
           end
@@ -832,7 +832,7 @@ RSpec.describe Review, type: :system do
             end
             it 'is unavailable' do
               fill_in 'review[content]', with: @review.content
-              expect(page).to have_content 'Post Review'
+              expect(page).to have_content 'レビュー投稿'
             end
           end
         end
@@ -873,7 +873,7 @@ RSpec.describe Review, type: :system do
                 attach_file "review_image",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
                 click_button "Post"
-                expect(page).to have_content 'Post Review'
+                expect(page).to have_content 'レビュー投稿'
                 expect(page).to have_content 'Image must be a valid image format'
               end
             end
@@ -882,7 +882,7 @@ RSpec.describe Review, type: :system do
                 attach_file "review_image",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
                 click_button "Post"
-                expect(page).to have_content 'Post Review'
+                expect(page).to have_content 'レビュー投稿'
                 expect(page).to have_content 'Image must be a valid image format'
               end
             end
@@ -952,7 +952,7 @@ RSpec.describe Review, type: :system do
       end
       describe 'from products#show' do
         before do
-          click_on 'All Products'
+          click_on '製品一覧'
           click_on 'Phone-1'
           within('#review-1') do
             find(:css, '.review_edit_link').click
@@ -968,7 +968,7 @@ RSpec.describe Review, type: :system do
       end
       describe 'Edit form validation' do
         before do
-          click_on 'All Products'
+          click_on '製品一覧'
           click_on 'Phone-1'
           within('#review-1') do
             find(:css, '.review_edit_link').click
@@ -1160,7 +1160,7 @@ RSpec.describe Review, type: :system do
       end
       describe 'in products#show' do
         it 'is available' do
-          click_on 'All Products'
+          click_on '製品一覧'
           click_on 'Phone-1'
           find(:css, '.review_edit_link').click
           expect(page).to have_content 'Edit Review'
@@ -1172,7 +1172,7 @@ RSpec.describe Review, type: :system do
         describe 'works dependency' do
           before do
             @like.save!
-            click_on 'All Products'
+            click_on '製品一覧'
             click_on 'Phone-1'
             within('.like_count') do
               expect(page).to have_content '1'
@@ -1219,8 +1219,8 @@ RSpec.describe Review, type: :system do
     describe 'Create Action' do
       it 'require login' do
         visit '/reviews/new'
-        expect(page).to_not have_content 'Post Review'
-        expect(page).to have_content 'Log in'
+        expect(page).to_not have_content 'レビュー投稿'
+        expect(page).to have_content 'ログイン'
       end
     end
     describe 'Index Action' do
@@ -1229,19 +1229,19 @@ RSpec.describe Review, type: :system do
         @product.save!
         @review.save!
         visit '/reviews'
-        expect(page).to have_content 'Log in'
+        expect(page).to have_content 'ログイン'
       end
     end
     describe 'Edit Action' do
       it 'require login' do
         visit '/reviews/1/edit'
-        expect(page).to have_content 'Log in'
+        expect(page).to have_content 'ログイン'
       end
     end
     describe 'Delete Action' do
       it 'can access brand destroy page' do
         page.driver.submit :delete, '/reviews/1', {}
-        expect(page).to have_content 'Log in'
+        expect(page).to have_content 'ログイン'
       end
     end
   end

@@ -20,51 +20,51 @@ RSpec.describe User, type: :system do
         before do
           within('header') do
             find(:css, "button.dropdown-toggle").click
-            click_on "Login"
+            click_on "ログイン"
           end
           fill_in "Email", with: @admin_user.email
-          fill_in "Password", with: @admin_user.password
-          click_button "Log in"
+          fill_in "パスワード", with: @admin_user.password
+          click_button "ログイン"
         end
         it 'in header is invisible' do
           within('header') do
-            expect(page).to_not have_content("Signup")
+            expect(page).to_not have_content("新規登録")
           end
         end
         it 'directly is not available, redirect to root_path' do
           visit '/users/sign_up'
-          expect(page).to have_content("Battery")
+          expect(page).to have_content("バッテリー容量")
         end
       end
     end
     describe 'As General User,' do
       before do
         within('header') do
-          click_link "Login"
+          click_link "ログイン"
         end
         fill_in "Email", with: @general_user.email
-        fill_in "Password", with: @general_user.password
-        click_button "Log in"
+        fill_in "パスワード", with: @general_user.password
+        click_button "ログイン"
       end
       it 'in header is invisible' do
         within('header') do
-          expect(page).to_not have_content("Signup")
+          expect(page).to_not have_content("新規登録")
         end
       end
       it 'directly is not available, redirect to root_path' do
         visit '/users/sign_up'
-        expect(page).to have_content("Battery")
+        expect(page).to have_content("バッテリー容量")
       end
     end
     describe 'As Guest User(Not Login yet),' do
       before do
         within('header') do
           find(:css, "button.dropdown-toggle").click
-          click_link "Signup"
+          click_link "新規登録"
         end
       end
       it 'Signup page is accessable' do
-        expect(page).to have_content('Signup')
+        expect(page).to have_content('新規登録')
       end
       describe 'Signup action', js: true do
         before do
@@ -200,7 +200,7 @@ RSpec.describe User, type: :system do
                 expect(page).to have_content 'Welcome'
                 within('header') do
                   find(:css, "button.dropdown-toggle").click
-                  click_on 'Profiles'
+                  click_on 'プロフィール'
                 end
                 expect(page).to have_content @general_user2.name
                 expect(page).to have_css("img[src$='image_test.gif']")
@@ -214,7 +214,7 @@ RSpec.describe User, type: :system do
                 expect(page).to have_content 'Welcome'
                 within('header') do
                   find(:css, "button.dropdown-toggle").click
-                  click_on 'Profiles'
+                  click_on 'プロフィール'
                 end
                 expect(page).to have_content @general_user2.name
                 expect(page).to have_css("img[src$='image_test_5mb.jpeg']")
@@ -228,7 +228,7 @@ RSpec.describe User, type: :system do
                 expect(page).to have_content 'Welcome'
                 within('header') do
                   find(:css, "button.dropdown-toggle").click
-                  click_on 'Profiles'
+                  click_on 'プロフィール'
                 end
                 expect(page).to have_content @general_user2.name
                 expect(page).to have_css("img[src$='image_test.png']")
@@ -260,7 +260,7 @@ RSpec.describe User, type: :system do
                 expect(page).to have_content 'Welcome'
                 within('header') do
                   find(:css, "button.dropdown-toggle").click
-                  click_on 'Profiles'
+                  click_on 'プロフィール'
                 end
                 expect(page).to have_content @general_user2.name
                 expect(page).to have_css("img[src$='image_test_5mb.jpeg']")
@@ -292,11 +292,11 @@ RSpec.describe User, type: :system do
     context 'Admin User' do
       it 'can login action' do
         within('header') do
-          click_on 'Login'
+          click_on 'ログイン'
         end
         fill_in 'Email', with: @admin_user.email
-        fill_in 'Password', with: @admin_user.password
-        click_on 'Log in'
+        fill_in 'パスワード', with: @admin_user.password
+        fill_in 'ログイン'
         expect(page).to have_content 'Signed in successfully.'
       end
     end
@@ -304,22 +304,22 @@ RSpec.describe User, type: :system do
     context 'Registrated (Created account) User' do
       it 'can login' do
         within('header') do
-          click_on 'Login'
+          click_on 'ログイン'
         end
         fill_in 'Email', with: @general_user.email
-        fill_in 'Password', with: @general_user.password
-        click_on 'Log in'
+        fill_in 'パスワード', with: @general_user.password
+        fill_in 'ログイン'
         expect(page).to have_content 'Signed in successfully.'
       end
       it 'can logout' do
         within('header') do
-          click_on 'Login'
+          click_on 'ログイン'
         end
         fill_in 'Email', with: @general_user.email
-        fill_in 'Password', with: @general_user.password
-        click_on 'Log in'
+        fill_in 'パスワード', with: @general_user.password
+        fill_in 'ログイン'
         within('header') do
-          click_on 'Log out'
+          click_on 'ログアウト'
         end
         expect(page).to have_content 'Signed out successfully.'
       end
@@ -328,14 +328,14 @@ RSpec.describe User, type: :system do
     context 'Guest (one-click login) User,' do
       it 'can login' do
         within('header') do
-          click_on 'Guest Login'
+          click_on 'ゲストログイン'
         end
         expect(page).to have_content 'Loged in as Guest User.'
       end
       it 'can logout' do
         within('header') do
-          click_on 'Guest Login'
-          click_on 'Log out'
+          click_on 'ゲストログイン'
+          click_on 'ログアウト'
         end
         expect(page).to have_content 'Signed out successfully.'
       end
@@ -354,16 +354,16 @@ RSpec.describe User, type: :system do
       before do
         within('header') do
           # find(:css, '.dropdown-toggle').click
-          click_on 'Login'
+          click_on 'ログイン'
         end
 
         fill_in 'Email', with: @general_user.email
-        fill_in 'Password', with: @general_user.password
-        click_on 'Log in'
+        fill_in 'パスワード', with: @general_user.password
+        fill_in 'ログイン'
 
         # find(:css, '.dropdown-toggle').click
         within('header') do
-          click_on 'Profiles'
+          click_on 'プロフィール'
         end
 
         find(:css, '.user_edit').click
@@ -376,7 +376,7 @@ RSpec.describe User, type: :system do
 
         expect(page).to have_content 'Your account has been updated successfully.'
         within('header') do
-          click_on 'Profiles'
+          click_on 'プロフィール'
         end
         expect(page).to have_content 'BuzzFizz'
       end
@@ -390,19 +390,19 @@ RSpec.describe User, type: :system do
         expect(page).to have_content 'Your account has been updated successfully.'
 
         within('header') do
-          click_on 'Log out'
+          click_on 'ログアウト'
         end
         within('header') do
-          click_on 'Login'
+          click_on 'ログイン'
         end
         fill_in 'Email', with: @general_user.email
-        fill_in 'Password', with: @general_user.password
-        click_on 'Log in'
+        fill_in 'パスワード', with: @general_user.password
+        fill_in 'ログイン'
         expect(page).to have_content 'Invalid Email or password.'
 
         fill_in 'Email', with: changed_email
-        fill_in 'Password', with: @general_user.password
-        click_on 'Log in'
+        fill_in 'パスワード', with: @general_user.password
+        fill_in 'ログイン'
         expect(page).to have_content 'Signed in successfully.'
       end
 
@@ -410,26 +410,26 @@ RSpec.describe User, type: :system do
         changed_password = '!@#%^&*pAsS'
 
         click_on 'Change Password'
-        fill_in 'Password', with: changed_password
-        fill_in 'Password confirmation', with: changed_password
+        fill_in 'パスワード', with: changed_password
+        fill_in 'パスワード再入力', with: changed_password
         fill_in 'Current password', with: @general_user.password
         click_on 'Update'
 
         expect(page).to have_content 'Your account has been updated successfully.'
         within('header') do
-          click_on 'Log out'
+          click_on 'ログアウト'
         end
         within('header') do
-          click_on 'Login'
+          click_on 'ログイン'
         end
         fill_in 'Email', with: @general_user.email
-        fill_in 'Password', with: @general_user.password
-        click_on 'Log in'
+        fill_in 'パスワード', with: @general_user.password
+        fill_in 'ログイン'
         expect(page).to have_content 'Invalid Email or password.'
 
         fill_in 'Email', with: @general_user.email
-        fill_in 'Password', with: changed_password
-        click_on 'Log in'
+        fill_in 'パスワード', with: changed_password
+        fill_in 'ログイン'
         expect(page).to have_content 'Signed in successfully.'
       end
     end

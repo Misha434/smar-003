@@ -7,14 +7,14 @@ module ProductsHelper
     return if params[:q].nil?
 
     sort_by = {
-      'release_date asc' => 'New Release',
-      'release_date desc' => 'New Release',
-      'battery_capacity asc' => 'Battery ranking',
-      'battery_capacity desc' => 'Battery ranking',
-      'soc_antutu_score asc' => 'Antutu ranking',
-      'soc_antutu_score desc' => 'Antutu ranking',
-      'rate_average asc' => 'Review Rate ranking',
-      'rate_average desc' => 'Review Rate ranking'
+      'release_date asc' => '新発売',
+      'release_date desc' => '新発売',
+      'battery_capacity asc' => 'バッテリー容量',
+      'battery_capacity desc' => 'バッテリー容量',
+      'soc_antutu_score asc' => 'Antutu',
+      'soc_antutu_score desc' => 'Antutu',
+      'rate_average asc' => 'レビュー平均',
+      'rate_average desc' => 'レビュー平均'
     }
     sort_by[params[:q][:s]]
   end

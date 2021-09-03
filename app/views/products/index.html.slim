@@ -1,7 +1,7 @@
-- provide(:title, 'All Products')
+- provide(:title, '製品一覧')
 
 .container
-  h2.text-center All Products
+  h2.text-center 製品一覧
 .container
   .row
     .col-12
@@ -12,20 +12,17 @@
       .container
         .row
           .col-12.mb-3
-            h4.text-center = ranking_title
-      .container
-        .row
-          .col-12.mb-3
             .float-end = render 'products/dropdown_sort'
       .container
         ol.products
           .row
             .col-12
               - if @products.empty?
-                p.text-center No Results in All Products
+                p.text-center 該当商品 なし
               - else
                 ol
-                  p.float-start = pluralize(@pagy.vars[:count] , "result")
+                  p.float-start
+                    | #{@pagy.vars[:count]}件
               - @products.each do |product|
                 li id = "#{product.id}"
                   = render 'products/product', product: product

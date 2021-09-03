@@ -1,29 +1,26 @@
-- provide(:title, 'Log in')
+- provide(:title, 'ログイン')
 
 .container
   .row
     .col-12.col-md-8.offset-md-2
       .card.px-3.my-3
-        h2.text-center.mt-3
-          | Log in
+        h2.text-center.mt-3 = yield(:title)
         = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
           = render "devise/shared/error_messages", resource: resource,  object: f.object
           .field
-            p
-              = f.label :email
-            p
-              = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email Address"
+            = f.label :email
+            = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control mb-3", placeholder: "Email"
           .field
-            = f.label :password
+            = f.label :password, "パスワード"
             br
-            = f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "Password"
+            = f.password_field :password, autocomplete: "current-password", class: "form-control mb-3", placeholder: "パスワード"
           - if devise_mapping.rememberable?
             .field
               = f.check_box :remember_me
-              = f.label :remember_me
+              = f.label :remember_me, "ログイン状態を保持"
           .actions
             .d-grid.mb-4
-              = f.submit "Log in", class: "btn btn-outline-primary"
+              = f.submit "#{yield(:title)}", class: "btn btn-outline-primary"
   .row
     .col-12.col-md-8.offset-md-2
       = render "devise/shared/links"

@@ -2,7 +2,7 @@
   .d-flex.align-items-center.my-2
     i.fas.fa-chart-line.fa-lg
     h3.m-1.mx-3
-      | Rate Average
+      | レビュー平均
 - if user_signed_in?
   .col-12
     ol.ranking_rate_average
@@ -23,7 +23,7 @@
                   = "#{@average_rate[ranking_index - 1].floor(1)}"
       li.text-center
         u
-          |#{link_to "view more", products_path}
+          |#{link_to "続きを表示", products_path}
 - else
   .col-12
     .card.p-3

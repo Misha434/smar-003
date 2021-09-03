@@ -280,7 +280,7 @@ RSpec.describe Product, type: :model do
       end
     end
   end
-  describe "Battery Capacity" do
+  describe "バッテリー容量 Capacity" do
     describe "under data-type(string)" do
       describe "Charactor Type" do
         context "漢字・ひらがな・カタカナ(全角)" do
@@ -379,7 +379,7 @@ RSpec.describe Product, type: :model do
       end
     end
   end
-  describe "Release date" do
+  describe "New Release" do
     describe "has data-type(string)" do
       context 'with datetime format' do
         it "is valid" do
