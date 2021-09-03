@@ -1,8 +1,8 @@
-- provide(:title, 'All Brands')
+- provide(:title, 'ブランド一覧')
 .container
   .row
     .col-12
-      h2.text-center All Brands
+      h2.text-center = yield(:title)
 
 .container
   ol.brands.px-0

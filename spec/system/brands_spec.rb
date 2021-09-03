@@ -576,7 +576,7 @@ RSpec.describe Brand, type: :system do
         it 'is available' do
           find(:css, '.delete_link').click
           expect(page).to_not have_content 'Edit a New Brand'
-          expect(page).to have_content 'All Brands'
+          expect(page).to have_content 'ブランド一覧'
           expect(page).to_not have_content 'Apple'
         end
         describe 'works dependency' do
@@ -584,7 +584,7 @@ RSpec.describe Brand, type: :system do
             find(:css, '.delete_link').click
           end
           it 'in products#index' do
-            expect(page).to have_content 'All Brands'
+            expect(page).to have_content 'ブランド一覧'
             expect(page).to_not have_content 'Apple'
             click_on 'Brands'
             expect(page).to_not have_content 'Phone-1'
