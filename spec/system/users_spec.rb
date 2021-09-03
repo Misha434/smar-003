@@ -72,13 +72,13 @@ RSpec.describe User, type: :system do
         end
         describe 'with all form filled in' do
           it 'is available' do
-            click_button "Sign up"
+            click_button "新規登録"
             expect(page).to have_content 'Welcome'
           end
           it '(with avatar image)is available' do
             attach_file "user_avatar",
                         "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
-            click_button "Sign up"
+            click_button "新規登録"
             expect(page).to have_content 'Welcome'
           end
         end
@@ -87,15 +87,15 @@ RSpec.describe User, type: :system do
             context 'is 0(zero)' do
               it 'is unavailable' do
                 fill_in 'Name', with: ''
-                click_button "Sign up"
-                expect(page).to have_content 'Sign up'
+                click_button "新規登録"
+                expect(page).to have_content '新規登録'
                 expect(page).to have_content "Name can't be blank"
               end
             end
             context 'is 1' do
               it 'is available' do
                 fill_in 'Name', with: 'X'
-                click_button "Sign up"
+                click_button "新規登録"
                 expect(page).to have_content 'Welcome'
               end
             end
@@ -103,7 +103,7 @@ RSpec.describe User, type: :system do
               it 'is available' do
                 testdata_name = 'Aaron and associates Example Company East Asia Inc'
                 fill_in 'Name', with: testdata_name
-                click_button "Sign up"
+                click_button "新規登録"
                 expect(page).to have_content 'Welcome'
               end
             end
@@ -111,8 +111,8 @@ RSpec.describe User, type: :system do
               it 'is unavailable' do
                 testdata_name = 'Philip and associates Example Company East Asia Inc'
                 fill_in 'Name', with: testdata_name
-                click_button "Sign up"
-                expect(page).to have_content 'Sign up'
+                click_button "新規登録"
+                expect(page).to have_content '新規登録'
                 expect(page).to have_content "Name is too long"
               end
             end
@@ -122,7 +122,7 @@ RSpec.describe User, type: :system do
               it 'is available' do
                 testdata_name = '株式会社東アジア・フィリップ・スミス・アンド・すずきたろう・アンド・さとうじろう・アソシエイツインク'
                 fill_in 'Name', with: testdata_name
-                click_button "Sign up"
+                click_button "新規登録"
                 expect(page).to have_content 'Welcome'
               end
             end
@@ -130,7 +130,7 @@ RSpec.describe User, type: :system do
               it 'is available' do
                 testdata_name = 'ﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂｶﾇ｡ﾅﾝﾃﾞﾓｳｽ'
                 fill_in 'Name', with: testdata_name
-                click_button "Sign up"
+                click_button "新規登録"
                 expect(page).to have_content 'Welcome'
               end
             end
@@ -139,7 +139,7 @@ RSpec.describe User, type: :system do
             it "is available" do
               testdata_name = "From fairest creatures we desire increase, That th"
               fill_in 'Name', with: testdata_name
-              click_button "Sign up"
+              click_button "新規登録"
               expect(page).to have_content 'Welcome'
             end
           end
@@ -147,7 +147,7 @@ RSpec.describe User, type: :system do
             it "is available" do
               testdata_name = "▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμν"
               fill_in 'Name', with: testdata_name
-              click_button "Sign up"
+              click_button "新規登録"
               expect(page).to have_content 'Welcome'
             end
           end
@@ -155,7 +155,7 @@ RSpec.describe User, type: :system do
             it "is available" do
               testdata_name = "88991646493833403４５３１７５１９０２４８７５１０４３６５１８２７４６１８２5583"
               fill_in 'Name', with: testdata_name
-              click_button "Sign up"
+              click_button "新規登録"
               expect(page).to have_content 'Welcome'
             end
           end
@@ -163,29 +163,29 @@ RSpec.describe User, type: :system do
             it "is available" do
               testdata_name = "👨" * 50
               fill_in 'Name', with: testdata_name
-              click_button "Sign up"
+              click_button "新規登録"
               expect(page).to have_content 'Welcome'
             end
             it "is unavailable 51 charactors" do
               testdata_name = "👨" * 51
               fill_in 'Name', with: testdata_name
-              click_button "Sign up"
-              expect(page).to have_content 'Sign up'
+              click_button "新規登録"
+              expect(page).to have_content '新規登録'
               expect(page).to have_content "Name is too long"
             end
           end
           context "space" do
             it "only is unavailable" do
               fill_in 'Name', with: ' 　'
-              click_button "Sign up"
-              expect(page).to have_content 'Sign up'
+              click_button "新規登録"
+              expect(page).to have_content '新規登録'
             end
           end
           describe 'registrated' do
             it 'is available' do
               fill_in 'Name', with: @general_user.name
               fill_in 'Email', with: 'test-2@example.com'
-              click_button "Sign up"
+              click_button "新規登録"
               expect(page).to have_content 'Welcome'
             end
           end
@@ -196,7 +196,7 @@ RSpec.describe User, type: :system do
               it 'is available' do
                 attach_file "user_avatar",
                             "#{Rails.root}/spec/fixtures/files/image/image_test.gif"
-                click_button "Sign up"
+                click_button "新規登録"
                 expect(page).to have_content 'Welcome'
                 within('header') do
                   find(:css, "button.dropdown-toggle").click
@@ -210,7 +210,7 @@ RSpec.describe User, type: :system do
               it 'is available' do
                 attach_file "user_avatar",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
-                click_button "Sign up"
+                click_button "新規登録"
                 expect(page).to have_content 'Welcome'
                 within('header') do
                   find(:css, "button.dropdown-toggle").click
@@ -224,7 +224,7 @@ RSpec.describe User, type: :system do
               it 'is available' do
                 attach_file "user_avatar",
                             "#{Rails.root}/spec/fixtures/files/image/image_test.png"
-                click_button "Sign up"
+                click_button "新規登録"
                 expect(page).to have_content 'Welcome'
                 within('header') do
                   find(:css, "button.dropdown-toggle").click
@@ -238,16 +238,16 @@ RSpec.describe User, type: :system do
               it 'is unavailable' do
                 attach_file "user_avatar",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
-                click_button "Sign up"
-                expect(page).to have_content 'Sign up'
+                click_button "新規登録"
+                expect(page).to have_content '新規登録'
               end
             end
             context 'bmp' do
               it 'is unavailable' do
                 attach_file "user_avatar",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
-                click_button "Sign up"
-                expect(page).to have_content 'Sign up'
+                click_button "新規登録"
+                expect(page).to have_content '新規登録'
               end
             end
           end
@@ -256,7 +256,7 @@ RSpec.describe User, type: :system do
               it 'is available' do
                 attach_file "user_avatar",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
-                click_button "Sign up"
+                click_button "新規登録"
                 expect(page).to have_content 'Welcome'
                 within('header') do
                   find(:css, "button.dropdown-toggle").click
@@ -270,8 +270,8 @@ RSpec.describe User, type: :system do
               it 'is unavailable' do
                 attach_file "user_avatar",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
-                click_button "Sign up"
-                expect(page).to have_content 'Sign up'
+                click_button "新規登録"
+                expect(page).to have_content '新規登録'
                 expect(page).to have_content 'Avatar should be less than 5MB'
               end
             end
