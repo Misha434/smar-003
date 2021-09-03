@@ -93,6 +93,7 @@ RSpec.configure do |config|
   #   # test failures related to randomization by passing the same `--seed` value
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
+
   # run retry only on features
   config.verbose_retry = true
   config.display_try_failure_messages = true

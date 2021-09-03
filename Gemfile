@@ -73,7 +73,7 @@ group :test do
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'launchy'
   gem 'shoulda-matchers'
-  gem 'webdrivers'
+  gem 'webdrivers', require: !ENV['SELENIUM_REMOTE_URL']
   gem 'rspec-retry'
 end
 
