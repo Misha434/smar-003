@@ -9,41 +9,41 @@
         = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
           = render "devise/shared/error_messages", resource: resource,  object: f.object
           .field.mb-3
-            = f.label :name
+            = f.label :name, "ユーザー名"
             = f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control"
           .field.mb-3
             = f.label :email
             = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control"
           .field.mb-3
-            = f.label :password
+            = f.label :password, "パスワード"
             = f.password_field :password, autocomplete: "new-password", class: "form-control"
             - if @minimum_password_length
               .form-text
-                p.mb-0 ・Available symbols: !@#%^&* 
+                p.mb-0 ・利用可能な記号: !@#%^&* 
                 p  
-                  | ・#{@minimum_password_length} characters minimum 
+                  | ・#{@minimum_password_length} 文字以上 
           .field.mb-3
-            = f.label :password_confirmation
+            = f.label :password_confirmation, "パスワード再入力"
             = f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control"
           .field.mb-3
             span.avatar
               .d-flex
-                = f.label :avatar
+                = f.label :avatar, "ユーザー画像"
                 .form-text
                   p.px-2.mb-0
-                    | (Optional)
+                    | (任意)
               = f.file_field :avatar, class: "form-control", accept: "image/jpeg,image/gif,image/png"
               .form-text
-                p.mb-0 ・Size: ~ 5MB
-                p ・Image Format: jpeg, gif, png
+                p.mb-0 ・最大容量: ~ 5MB
+                p ・フォーマット: jpeg, gif, png
           .field
             p.demo
               .flex-row.mb-0
                 input type="checkbox" id="agreement" autocomplete="off"
                 label for="agreement"
                   .d-flex
-                    p.px-2.pb-0 I agree with
-                    u = link_to "Terms of service", terms_path, class: "underlined", target: "_blank", rel: "noopener noreferrer"
+                    u = link_to "利用規約", terms_path, class: "underlined", target: "_blank", rel: "noopener noreferrer"
+                    p.px-2.pb-0 に同意します。
           .actions
             .d-grid.mb-4
               = f.submit "新規登録", class: "btn btn-primary", id: "signup--submit", disabled: true

@@ -86,7 +86,7 @@ RSpec.describe User, type: :system do
           describe 'of charactor count' do
             context 'is 0(zero)' do
               it 'is unavailable' do
-                fill_in 'Name', with: ''
+                fill_in 'ユーザー', with: ''
                 click_button "新規登録"
                 expect(page).to have_content '新規登録'
                 expect(page).to have_content "Name can't be blank"
@@ -94,7 +94,7 @@ RSpec.describe User, type: :system do
             end
             context 'is 1' do
               it 'is available' do
-                fill_in 'Name', with: 'X'
+                fill_in 'ユーザー名', with: 'X'
                 click_button "新規登録"
                 expect(page).to have_content 'Welcome'
               end
@@ -102,7 +102,7 @@ RSpec.describe User, type: :system do
             context 'is 50' do
               it 'is available' do
                 testdata_name = 'Aaron and associates Example Company East Asia Inc'
-                fill_in 'Name', with: testdata_name
+                fill_in 'ユーザー名', with: testdata_name
                 click_button "新規登録"
                 expect(page).to have_content 'Welcome'
               end
@@ -110,7 +110,7 @@ RSpec.describe User, type: :system do
             context 'is 51' do
               it 'is unavailable' do
                 testdata_name = 'Philip and associates Example Company East Asia Inc'
-                fill_in 'Name', with: testdata_name
+                fill_in 'ユーザー名', with: testdata_name
                 click_button "新規登録"
                 expect(page).to have_content '新規登録'
                 expect(page).to have_content "Name is too long"
@@ -121,7 +121,7 @@ RSpec.describe User, type: :system do
             context 'is 漢字・ひらがな・全角カタカナ' do
               it 'is available' do
                 testdata_name = '株式会社東アジア・フィリップ・スミス・アンド・すずきたろう・アンド・さとうじろう・アソシエイツインク'
-                fill_in 'Name', with: testdata_name
+                fill_in 'ユーザー名', with: testdata_name
                 click_button "新規登録"
                 expect(page).to have_content 'Welcome'
               end
@@ -129,7 +129,7 @@ RSpec.describe User, type: :system do
             context 'is 半角カタカナ' do
               it 'is available' do
                 testdata_name = 'ﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂｶﾇ｡ﾅﾝﾃﾞﾓｳｽ'
-                fill_in 'Name', with: testdata_name
+                fill_in 'ユーザー名', with: testdata_name
                 click_button "新規登録"
                 expect(page).to have_content 'Welcome'
               end
@@ -138,7 +138,7 @@ RSpec.describe User, type: :system do
           context "English(Upper/Down Case)" do
             it "is available" do
               testdata_name = "From fairest creatures we desire increase, That th"
-              fill_in 'Name', with: testdata_name
+              fill_in 'ユーザー名', with: testdata_name
               click_button "新規登録"
               expect(page).to have_content 'Welcome'
             end
@@ -146,7 +146,7 @@ RSpec.describe User, type: :system do
           context "symbol" do
             it "is available" do
               testdata_name = "▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμν"
-              fill_in 'Name', with: testdata_name
+              fill_in 'ユーザー名', with: testdata_name
               click_button "新規登録"
               expect(page).to have_content 'Welcome'
             end
@@ -154,7 +154,7 @@ RSpec.describe User, type: :system do
           context "Number" do
             it "is available" do
               testdata_name = "88991646493833403４５３１７５１９０２４８７５１０４３６５１８２７４６１８２5583"
-              fill_in 'Name', with: testdata_name
+              fill_in 'ユーザー名', with: testdata_name
               click_button "新規登録"
               expect(page).to have_content 'Welcome'
             end
@@ -162,13 +162,13 @@ RSpec.describe User, type: :system do
           context "Emoji" do
             it "is available" do
               testdata_name = "👨" * 50
-              fill_in 'Name', with: testdata_name
+              fill_in 'ユーザー名', with: testdata_name
               click_button "新規登録"
               expect(page).to have_content 'Welcome'
             end
             it "is unavailable 51 charactors" do
               testdata_name = "👨" * 51
-              fill_in 'Name', with: testdata_name
+              fill_in 'ユーザー名', with: testdata_name
               click_button "新規登録"
               expect(page).to have_content '新規登録'
               expect(page).to have_content "Name is too long"
@@ -176,14 +176,14 @@ RSpec.describe User, type: :system do
           end
           context "space" do
             it "only is unavailable" do
-              fill_in 'Name', with: ' 　'
+              fill_in 'ユーザー名', with: ' 　'
               click_button "新規登録"
               expect(page).to have_content '新規登録'
             end
           end
           describe 'registrated' do
             it 'is available' do
-              fill_in 'Name', with: @general_user.name
+              fill_in 'ユーザー名', with: @general_user.name
               fill_in 'Email', with: 'test-2@example.com'
               click_button "新規登録"
               expect(page).to have_content 'Welcome'
@@ -284,10 +284,10 @@ RSpec.describe User, type: :system do
   private
 
   def fill_in_all_form
-    fill_in "Name", with: 'Michael Smith'
+    fill_in "ユーザー名", with: 'Michael Smith'
     fill_in "Email", with: 'michael-m@example.com'
-    fill_in "Password", with: 'password'
-    fill_in "Password confirmation", with: 'password'
+    fill_in "パスワード", with: 'password'
+    fill_in "パスワード再入力", with: 'password'
     find(:css, "#agreement").set(true)
   end
 end
