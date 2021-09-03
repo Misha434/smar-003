@@ -103,8 +103,7 @@ RSpec.configure do |config|
   config.retry_callback = proc do |ex|
     # run some additional clean up task - can be filtered by example metadata
     if ex.metadata[:js]
-      Capybara.reset!     
+      Capybara.reset!
     end
   end
-
 end
