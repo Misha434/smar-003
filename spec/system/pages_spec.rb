@@ -248,7 +248,7 @@ RSpec.describe "Pages", type: :system do
       end
       it "Brands(brands#index) link is valid" do
         click_on "Brands"
-        expect(page).to have_content('All Brands')
+        expect(page).to have_content('ブランド一覧')
       end
       it "Logout link is valid" do
         click_link "Log out"
@@ -804,7 +804,7 @@ RSpec.describe "Pages", type: :system do
       end
       it "Brands(brands#index) link is valid" do
         click_on "Brands"
-        expect(page).to have_content('All Brands')
+        expect(page).to have_content('ブランド一覧')
       end
       it "Logout link is valid" do
         click_link "Log out"
@@ -910,7 +910,7 @@ RSpec.describe "Pages", type: :system do
       end
       it "Brands(brands#index) link is valid" do
         click_on "Brands"
-        expect(page).to have_content('All Brands')
+        expect(page).to have_content('ブランド一覧')
       end
       it "Login link is valid" do
         within('header') do
@@ -941,7 +941,7 @@ RSpec.describe "Pages", type: :system do
         within('.ranking_battery') do
           click_on 'Signup'
         end
-        expect(page).to have_content('Sign up')
+        expect(page).to have_content('新規登録')
       end
     end
     describe "Rate Avg Ranking" do
@@ -960,7 +960,7 @@ RSpec.describe "Pages", type: :system do
         within('.rate_average') do
           click_on 'Signup'
         end
-        expect(page).to have_content('Sign up')
+        expect(page).to have_content('新規登録')
       end
     end
     describe "Within Antutu Ranking," do
