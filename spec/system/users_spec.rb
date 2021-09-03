@@ -280,6 +280,160 @@ RSpec.describe User, type: :system do
       end
     end
   end
+  
+  describe 'Sign_in Page:' do
+    before do
+      @brand = FactoryBot.create(:brand)
+      @admin_user = FactoryBot.create(:user, name: "admin", admin: true)
+      @general_user = FactoryBot.create(:user, id: 2, name: "general", email: 'test-1@example.com')
+      visit root_path
+    end
+    
+    context 'Admin User' do
+      it 'can login action' do
+        within('header') do
+          click_on 'Login'
+        end
+        fill_in 'Email', with: @admin_user.email
+        fill_in 'Password', with: @admin_user.password
+        click_on 'Log in'
+        expect(page).to have_content 'Signed in successfully.'
+      end
+    end
+
+    context 'Registrated (Created account) User' do
+      it 'can login' do
+        within('header') do
+          click_on 'Login'
+        end
+        fill_in 'Email', with: @general_user.email
+        fill_in 'Password', with: @general_user.password
+        click_on 'Log in'
+        expect(page).to have_content 'Signed in successfully.'
+      end
+      it 'can logout' do
+        within('header') do
+          click_on 'Login'
+        end
+        fill_in 'Email', with: @general_user.email
+        fill_in 'Password', with: @general_user.password
+        click_on 'Log in'
+        within('header') do
+          click_on 'Log out'
+        end
+        expect(page).to have_content 'Signed out successfully.'
+      end
+    end
+    
+    context 'Guest (one-click login) User,' do
+      it 'can login' do
+        within('header') do
+          click_on 'Guest Login'
+        end
+        expect(page).to have_content 'Loged in as Guest User.'
+      end
+      it 'can logout' do
+        within('header') do
+          click_on 'Guest Login'
+          click_on 'Log out'
+        end
+        expect(page).to have_content 'Signed out successfully.'
+      end
+    end
+  end
+  
+  describe '#edit:' do
+    before do
+      @brand = FactoryBot.create(:brand)
+      @admin_user = FactoryBot.create(:user, name: "admin", admin: true)
+      @general_user = FactoryBot.create(:user, id: 2, name: "general", email: 'test-1@example.com')
+      visit root_path
+    end
+    
+    describe 'General(registrated) User,' do
+      before do
+        within('header') do
+          # find(:css, '.dropdown-toggle').click
+          click_on 'Login'
+        end
+        
+        fill_in 'Email', with: @general_user.email
+        fill_in 'Password', with: @general_user.password
+        click_on 'Log in'
+        
+        # find(:css, '.dropdown-toggle').click
+        within('header') do
+          click_on 'Profiles'
+        end
+        
+        find(:css, '.user_edit').click
+      end
+      
+      it 'can change Name' do
+        fill_in 'Name', with: 'BuzzFizz'
+        fill_in 'Current password', with: @general_user.password
+        click_on 'Update'
+        
+        expect(page).to have_content 'Your account has been updated successfully.'
+        within('header') do
+          click_on 'Profiles'
+        end
+        expect(page).to have_content 'BuzzFizz'
+      end
+      
+      it 'can change Email' do
+        changed_email = 'general-2@example.com'
+        fill_in 'Email', with: changed_email
+        fill_in 'Current password', with: @general_user.password
+        click_on 'Update'
+
+        expect(page).to have_content 'Your account has been updated successfully.'
+
+        within('header') do
+          click_on 'Log out'
+        end
+        within('header') do
+          click_on 'Login'
+        end
+        fill_in 'Email', with: @general_user.email
+        fill_in 'Password', with: @general_user.password
+        click_on 'Log in'
+        expect(page).to have_content 'Invalid Email or password.'
+
+        fill_in 'Email', with: changed_email
+        fill_in 'Password', with: @general_user.password
+        click_on 'Log in'
+        expect(page).to have_content 'Signed in successfully.'
+      end
+      
+      it 'can change Password' do
+        changed_password = '!@#%^&*pAsS'
+        
+        click_on 'Change Password'
+        fill_in 'Password', with: changed_password
+        fill_in 'Password confirmation', with: changed_password
+        fill_in 'Current password', with: @general_user.password
+        click_on 'Update'
+        
+        expect(page).to have_content 'Your account has been updated successfully.'
+        within('header') do
+          click_on 'Log out'
+        end
+        within('header') do
+          click_on 'Login'
+        end
+        fill_in 'Email', with: @general_user.email
+        fill_in 'Password', with: @general_user.password
+        click_on 'Log in'
+        expect(page).to have_content 'Invalid Email or password.'
+
+        fill_in 'Email', with: @general_user.email
+        fill_in 'Password', with: changed_password
+        click_on 'Log in'
+        expect(page).to have_content 'Signed in successfully.'
+      end
+    end
+  end
 
   private
 
@@ -291,3 +445,4 @@ RSpec.describe User, type: :system do
     find(:css, "#agreement").set(true)
   end
 end
+
