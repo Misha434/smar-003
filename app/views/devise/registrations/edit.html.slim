@@ -62,7 +62,7 @@
             | 本人確認のためパスワード(パスワード変更時は変更前パスワード)を入力してください
             / | we need your current password to confirm your changes
           .actions.mb-3.d-grid
-            = f.submit yield(:title), class: "btn btn-outline-primary post-button"
+            = f.submit "#{yield(:title)}", class: "btn btn-outline-primary post-button"
         = link_to "退会", registration_path(resource_name), data: { confirm: "退会処理後データは復活できません。本当に退会してもよろしいですか？" }, method: :delete, class: "btn btn-outline-danger mb-3"
       = link_to "戻る", :back
       / Image size Varidation
