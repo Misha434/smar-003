@@ -73,13 +73,13 @@ RSpec.describe User, type: :system do
         describe 'with all form filled in' do
           it 'is available' do
             click_button "新規登録"
-            expect(page).to have_content 'Welcome'
+            expect(page).to have_content 'アカウント登録が完了しました。'
           end
           it '(with avatar image)is available' do
             attach_file "user_avatar",
                         "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
             click_button "新規登録"
-            expect(page).to have_content 'Welcome'
+            expect(page).to have_content 'アカウント登録が完了しました。'
           end
         end
         describe 'with Name form', js: true do
@@ -89,14 +89,14 @@ RSpec.describe User, type: :system do
                 fill_in 'ユーザー', with: ''
                 click_button "新規登録"
                 expect(page).to have_content '新規登録'
-                expect(page).to have_content "Name can't be blank"
+                expect(page).to have_content "ユーザー名 が入力されていません。"
               end
             end
             context 'is 1' do
               it 'is available' do
                 fill_in 'ユーザー名', with: 'X'
                 click_button "新規登録"
-                expect(page).to have_content 'Welcome'
+                expect(page).to have_content 'アカウント登録が完了しました。'
               end
             end
             context 'is 50' do
@@ -104,7 +104,7 @@ RSpec.describe User, type: :system do
                 testdata_name = 'Aaron and associates Example Company East Asia Inc'
                 fill_in 'ユーザー名', with: testdata_name
                 click_button "新規登録"
-                expect(page).to have_content 'Welcome'
+                expect(page).to have_content 'アカウント登録が完了しました。'
               end
             end
             context 'is 51' do
@@ -113,7 +113,7 @@ RSpec.describe User, type: :system do
                 fill_in 'ユーザー名', with: testdata_name
                 click_button "新規登録"
                 expect(page).to have_content '新規登録'
-                expect(page).to have_content "Name is too long"
+                expect(page).to have_content "ユーザー名 が長すぎます。"
               end
             end
           end
@@ -123,7 +123,7 @@ RSpec.describe User, type: :system do
                 testdata_name = '株式会社東アジア・フィリップ・スミス・アンド・すずきたろう・アンド・さとうじろう・アソシエイツインク'
                 fill_in 'ユーザー名', with: testdata_name
                 click_button "新規登録"
-                expect(page).to have_content 'Welcome'
+                expect(page).to have_content 'アカウント登録が完了しました。'
               end
             end
             context 'is 半角カタカナ' do
@@ -131,7 +131,7 @@ RSpec.describe User, type: :system do
                 testdata_name = 'ﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂｶﾇ｡ﾅﾝﾃﾞﾓｳｽ'
                 fill_in 'ユーザー名', with: testdata_name
                 click_button "新規登録"
-                expect(page).to have_content 'Welcome'
+                expect(page).to have_content 'アカウント登録が完了しました。'
               end
             end
           end
@@ -140,7 +140,7 @@ RSpec.describe User, type: :system do
               testdata_name = "From fairest creatures we desire increase, That th"
               fill_in 'ユーザー名', with: testdata_name
               click_button "新規登録"
-              expect(page).to have_content 'Welcome'
+              expect(page).to have_content 'アカウント登録が完了しました。'
             end
           end
           context "symbol" do
@@ -148,7 +148,7 @@ RSpec.describe User, type: :system do
               testdata_name = "▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμν"
               fill_in 'ユーザー名', with: testdata_name
               click_button "新規登録"
-              expect(page).to have_content 'Welcome'
+              expect(page).to have_content 'アカウント登録が完了しました。'
             end
           end
           context "Number" do
@@ -156,7 +156,7 @@ RSpec.describe User, type: :system do
               testdata_name = "88991646493833403４５３１７５１９０２４８７５１０４３６５１８２７４６１８２5583"
               fill_in 'ユーザー名', with: testdata_name
               click_button "新規登録"
-              expect(page).to have_content 'Welcome'
+              expect(page).to have_content 'アカウント登録が完了しました。'
             end
           end
           context "Emoji" do
@@ -164,14 +164,14 @@ RSpec.describe User, type: :system do
               testdata_name = "👨" * 50
               fill_in 'ユーザー名', with: testdata_name
               click_button "新規登録"
-              expect(page).to have_content 'Welcome'
+              expect(page).to have_content 'アカウント登録が完了しました。'
             end
             it "is unavailable 51 charactors" do
               testdata_name = "👨" * 51
               fill_in 'ユーザー名', with: testdata_name
               click_button "新規登録"
               expect(page).to have_content '新規登録'
-              expect(page).to have_content "Name is too long"
+              expect(page).to have_content "ユーザー名 が長すぎます。"
             end
           end
           context "space" do
@@ -186,7 +186,7 @@ RSpec.describe User, type: :system do
               fill_in 'ユーザー名', with: @general_user.name
               fill_in 'Email', with: 'test-2@example.com'
               click_button "新規登録"
-              expect(page).to have_content 'Welcome'
+              expect(page).to have_content 'アカウント登録が完了しました。'
             end
           end
         end
@@ -197,7 +197,7 @@ RSpec.describe User, type: :system do
                 attach_file "user_avatar",
                             "#{Rails.root}/spec/fixtures/files/image/image_test.gif"
                 click_button "新規登録"
-                expect(page).to have_content 'Welcome'
+                expect(page).to have_content 'アカウント登録が完了しました。'
                 within('header') do
                   find(:css, "button.dropdown-toggle").click
                   click_on 'プロフィール'
@@ -211,7 +211,7 @@ RSpec.describe User, type: :system do
                 attach_file "user_avatar",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
                 click_button "新規登録"
-                expect(page).to have_content 'Welcome'
+                expect(page).to have_content 'アカウント登録が完了しました。'
                 within('header') do
                   find(:css, "button.dropdown-toggle").click
                   click_on 'プロフィール'
@@ -225,7 +225,7 @@ RSpec.describe User, type: :system do
                 attach_file "user_avatar",
                             "#{Rails.root}/spec/fixtures/files/image/image_test.png"
                 click_button "新規登録"
-                expect(page).to have_content 'Welcome'
+                expect(page).to have_content 'アカウント登録が完了しました。'
                 within('header') do
                   find(:css, "button.dropdown-toggle").click
                   click_on 'プロフィール'
@@ -257,7 +257,7 @@ RSpec.describe User, type: :system do
                 attach_file "user_avatar",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
                 click_button "新規登録"
-                expect(page).to have_content 'Welcome'
+                expect(page).to have_content 'アカウント登録が完了しました。'
                 within('header') do
                   find(:css, "button.dropdown-toggle").click
                   click_on 'プロフィール'
@@ -299,7 +299,7 @@ RSpec.describe User, type: :system do
         within('.card') do
           click_on 'ログイン'
         end
-        expect(page).to have_content 'Signed in successfully.'
+        expect(page).to have_content 'ログインしました。'
       end
     end
 
@@ -313,7 +313,7 @@ RSpec.describe User, type: :system do
         within('.card') do
           click_on 'ログイン'
         end
-        expect(page).to have_content 'Signed in successfully.'
+        expect(page).to have_content 'ログインしました。'
       end
       it 'can logout' do
         within('header') do
@@ -327,7 +327,7 @@ RSpec.describe User, type: :system do
         within('header') do
           click_on 'ログアウト'
         end
-        expect(page).to have_content 'Signed out successfully.'
+        expect(page).to have_content 'ログアウトしました。'
       end
     end
 
@@ -336,12 +336,12 @@ RSpec.describe User, type: :system do
         within('header') do
           click_on 'ゲストログイン'
         end
-        expect(page).to have_content 'Loged in as Guest User.'
+        expect(page).to have_content 'ゲストユーザーとしてログインしました'
       end
       it 'can logout' do
         within('header') do; click_on 'ゲストログイン'; end
         within('header') do; click_on 'ログアウト'; end
-        expect(page).to have_content 'Signed out successfully.'
+        expect(page).to have_content 'ログアウトしました。'
       end
     end
   end
@@ -380,7 +380,7 @@ RSpec.describe User, type: :system do
         fill_in 'パスワード (変更前パスワード)', with: @general_user.password
         click_on 'プロフィール編集'
 
-        expect(page).to have_content 'Your account has been updated successfully.'
+        expect(page).to have_content 'アカウント情報を変更しました。'
         within('header') do
           click_on 'プロフィール'
         end
@@ -393,7 +393,7 @@ RSpec.describe User, type: :system do
         fill_in 'パスワード (変更前パスワード)', with: @general_user.password
         click_on 'プロフィール編集'
 
-        expect(page).to have_content 'Your account has been updated successfully.'
+        expect(page).to have_content 'アカウント情報を変更しました。'
 
         within('header') do
           click_on 'ログアウト'
@@ -406,14 +406,14 @@ RSpec.describe User, type: :system do
         within('.card') do
           click_on 'ログイン'
         end
-        expect(page).to have_content 'Invalid Email or password.'
+        expect(page).to have_content 'Emailまたはパスワードが違います。'
 
         fill_in 'Email', with: changed_email
         fill_in 'パスワード', with: @general_user.password
         within('.card') do
           click_on 'ログイン'
         end
-        expect(page).to have_content 'Signed in successfully.'
+        expect(page).to have_content 'ログインしました。'
       end
 
       it 'can change Password' do
@@ -424,7 +424,7 @@ RSpec.describe User, type: :system do
         fill_in 'パスワード再入力', with: changed_password
         fill_in 'パスワード (変更前パスワード)', with: @general_user.password
         click_button 'プロフィール編集'
-        expect(page).to have_content 'Your account has been updated successfully.'
+        expect(page).to have_content 'アカウント情報を変更しました。'
         within('header') do
           find(:css, 'button.dropdown-toggle').click
           click_on 'ログアウト'
@@ -438,14 +438,14 @@ RSpec.describe User, type: :system do
         within('.card') do
           click_on 'ログイン'
         end
-        expect(page).to have_content 'Invalid Email or password.'
+        expect(page).to have_content 'Emailまたはパスワードが違います。'
 
         fill_in 'Email', with: @general_user.email
         fill_in 'パスワード', with: changed_password
         within('.card') do
           click_on 'ログイン'
         end
-        expect(page).to have_content 'Signed in successfully.'
+        expect(page).to have_content 'ログインしました。'
       end
     end
   end

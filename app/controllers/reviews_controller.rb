@@ -7,11 +7,11 @@ class ReviewsController < ApplicationController
   def create
     @review = current_user.reviews.build(review_params)
     if @review.save
-      flash[:success] = "Review is created"
+      flash[:notice] = "レビューを投稿しました"
       redirect_to @review.product
     else
       set_forms_brands_products
-      flash.now[:danger] = "Fail to create"
+      flash.now[:denger] = "レビュー投稿が失敗しました"
       render '/reviews/new'
     end
   end
@@ -31,21 +31,21 @@ class ReviewsController < ApplicationController
 
   def update
     if @review.update(review_params)
-      flash[:success] = "Review is updated"
+      flash[:notice] = "レビューが更新されました"
       redirect_to current_user
     else
       set_forms_brands_products
-      flash.now[:danger] = "Updated is failed"
+      flash.now[:denger] = "更新失敗しました"
       render 'reviews/edit'
     end
   end
 
   def destroy
     if @review.destroy
-      flash[:success] = "Review is deleted"
+      flash[:notice] = "レビューが消去されました"
       redirect_to @review.product || root_url
     else
-      flash.now[:danger] = "Failed to Delete"
+      flash.now[:denger] = "レビュー消去が失敗しました"
       render 'reviews/edit'
     end
   end
@@ -62,7 +62,7 @@ class ReviewsController < ApplicationController
     else
       @review = current_user.reviews.find_by(id: params[:id])
       if @review.nil?
-        flash[:denger] = "Not Correct user action."
+        flash[:denger] = "不正ユーザーのアクセスです"
         redirect_to root_url
       end
     end

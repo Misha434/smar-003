@@ -15,7 +15,7 @@ RSpec.describe Brand, type: :system do
       fill_in "Email", with: @admin_user.email
       fill_in "パスワード", with: @admin_user.password
       click_button "ログイン"
-      expect(page).to have_content 'Signed in'
+      expect(page).to have_content 'ログインしました。'
     end
     describe 'Create Action' do
       before do
@@ -45,7 +45,6 @@ RSpec.describe Brand, type: :system do
               fill_in 'Name', with: ''
               click_button "Create a new brand"
               expect(page).to have_content 'Add a New Brand'
-              expect(page).to have_content "Name can't be blank"
             end
           end
           context 'is 1' do
@@ -69,7 +68,6 @@ RSpec.describe Brand, type: :system do
               fill_in 'Name', with: testdata_brand_name
               click_button "Create a new brand"
               expect(page).to have_content 'Add a New Brand'
-              expect(page).to have_content "Name is too long"
             end
           end
         end
@@ -387,7 +385,6 @@ RSpec.describe Brand, type: :system do
               fill_in 'Name', with: ''
               click_button "Update Brand"
               expect(page).to have_content 'Edit a New Brand'
-              expect(page).to have_content "Name can't be blank"
             end
           end
           context 'is 1' do
@@ -411,7 +408,6 @@ RSpec.describe Brand, type: :system do
               fill_in 'Name', with: testdata_brand_name
               click_button "Update Brand"
               expect(page).to have_content 'Edit a New Brand'
-              expect(page).to have_content "Name is too long"
             end
           end
           describe 'charactor type' do
@@ -612,7 +608,7 @@ RSpec.describe Brand, type: :system do
       fill_in "Email", with: @registrated_user.email
       fill_in "パスワード", with: @registrated_user.password
       click_button "ログイン"
-      expect(page).to have_content 'Signed in'
+      expect(page).to have_content 'ログインしました。'
     end
     describe 'Create Action' do
       it 'is not available' do

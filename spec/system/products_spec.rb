@@ -58,7 +58,7 @@ RSpec.describe Product, type: :system do
       fill_in "Email", with: @admin_user.email
       fill_in "パスワード", with: @admin_user.password
       click_button "ログイン"
-      expect(page).to have_content 'Signed in'
+      expect(page).to have_content 'ログインしました。'
     end
     describe 'Create Action' do
       before do
@@ -868,7 +868,7 @@ RSpec.describe Product, type: :system do
       fill_in "Email", with: @registrated_user.email
       fill_in "パスワード", with: @registrated_user.password
       click_button "ログイン"
-      expect(page).to have_content 'Signed in'
+      expect(page).to have_content 'ログインしました。'
     end
     describe 'Create Action' do
       it 'is not available' do
@@ -1040,7 +1040,7 @@ RSpec.describe Product, type: :system do
       end
       it 'requires Login' do
         expect(page).to have_content('ログイン')
-        expect(page).to have_content('You need to sign in or sign up before continuing')
+        expect(page).to have_content('ログインもしくはアカウント登録してください。')
       end
       it 'is available after login' do
         fill_in "Email", with: @registrated_user.email

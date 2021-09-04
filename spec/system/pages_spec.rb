@@ -214,7 +214,7 @@ RSpec.describe "Pages", type: :system do
   before do
     create_brand
   end
-  describe "Signed in as Admin User," do
+  describe "ログインしました。 as Admin User," do
     before do
       @admin_user = FactoryBot.create(:user, admin: true)
       visit root_path
@@ -866,7 +866,7 @@ RSpec.describe "Pages", type: :system do
       within('.ranking_battery') do
         click_on 'ゲストログイン'
       end
-      expect(page).to have_content('Loged in as Guest User.')
+      expect(page).to have_content('ゲストユーザーとしてログインしました')
     end
     it 'is available to log it out' do
       within('.ranking_battery') do
@@ -876,7 +876,7 @@ RSpec.describe "Pages", type: :system do
         find(:css, "button.dropdown-toggle").click
         click_on 'ログアウト'
       end
-      expect(page).to have_content('Signed out successfully.')
+      expect(page).to have_content('ログアウトしました。')
     end
   end
   describe "Visit the site as Not-login User," do

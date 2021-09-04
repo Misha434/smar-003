@@ -59,7 +59,7 @@ RSpec.describe Review, type: :system do
       fill_in "Email", with: @admin_user.email
       fill_in "パスワード", with: @admin_user.password
       click_button "ログイン"
-      expect(page).to have_content 'Signed in'
+      expect(page).to have_content 'ログインしました。'
     end
     describe 'Create Action' do
       before do
@@ -184,7 +184,7 @@ RSpec.describe Review, type: :system do
                 fill_in 'review[content]', with: ''
                 click_button "投稿"
                 expect(page).to have_content 'レビュー投稿'
-                expect(page).to have_content "Content can't be blank"
+                expect(page).to have_content "投稿内容 が入力されていません。"
               end
             end
             context 'is 1' do
@@ -208,7 +208,7 @@ RSpec.describe Review, type: :system do
                 fill_in 'review[content]', with: testdata_content
                 click_button "投稿"
                 expect(page).to have_content 'レビュー投稿'
-                expect(page).to have_content "Content is too long"
+                expect(page).to have_content "投稿内容 が長すぎます"
               end
             end
           end
@@ -266,7 +266,7 @@ RSpec.describe Review, type: :system do
               fill_in 'review[content]', with: testdata_content
               click_button "投稿"
               expect(page).to have_content 'レビュー投稿'
-              expect(page).to have_content 'too long'
+              expect(page).to have_content '投稿内容 が長すぎます。'
             end
           end
           context "space" do
@@ -274,7 +274,7 @@ RSpec.describe Review, type: :system do
               fill_in 'review[content]', with: ' 　'
               click_button "投稿"
               expect(page).to have_content 'レビュー投稿'
-              expect(page).to have_content "can't be blank"
+              expect(page).to have_content "投稿内容 が入力されていません。"
             end
           end
           describe 'registrated' do
@@ -458,8 +458,8 @@ RSpec.describe Review, type: :system do
             it 'is unavailable' do
               fill_in 'review[content]', with: ''
               click_button "Edit"
-              expect(page).to have_content 'Edit Review'
-              expect(page).to have_content "Content can't be blank"
+              expect(page).to have_content 'レビュー編集'
+              expect(page).to have_content "投稿内容 が入力されていません。"
             end
           end
           context 'is 1' do
@@ -482,8 +482,8 @@ RSpec.describe Review, type: :system do
               testdata_content = '吾輩は猫である。名前はまだ無い。どこで生れたか見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。この書生というのは時々我々を捕まえては'
               fill_in 'review[content]', with: testdata_content
               click_button "Edit"
-              expect(page).to have_content 'Edit Review'
-              expect(page).to have_content "Content is too long"
+              expect(page).to have_content 'レビュー編集'
+              expect(page).to have_content "投稿内容 が長すぎます"
             end
           end
           describe 'charactor type' do
@@ -539,13 +539,13 @@ RSpec.describe Review, type: :system do
               testdata_content = "👨" * 141
               fill_in 'review[content]', with: testdata_content
               click_button "Edit"
-              expect(page).to have_content 'Edit Review'
+              expect(page).to have_content 'レビュー編集'
             end
           end
           context "space" do
             it "only is unavailable" do
               fill_in 'review[content]', with: ' 　'
-              expect(page).to have_content 'Edit Review'
+              expect(page).to have_content 'レビュー編集'
             end
           end
           describe 'registrated' do
@@ -555,7 +555,7 @@ RSpec.describe Review, type: :system do
             end
             it 'is unavailable' do
               fill_in 'review[content]', with: @review.content
-              expect(page).to have_content 'Edit Review'
+              expect(page).to have_content 'レビュー編集'
             end
           end
           describe 'about image field' do
@@ -595,7 +595,7 @@ RSpec.describe Review, type: :system do
                   attach_file "review_image",
                               "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
                   click_button "Edit"
-                  expect(page).to have_content 'Edit Review'
+                  expect(page).to have_content 'レビュー編集'
                 end
               end
               context 'bmp' do
@@ -603,7 +603,7 @@ RSpec.describe Review, type: :system do
                   attach_file "review_image",
                               "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
                   click_button "Edit"
-                  expect(page).to have_content 'Edit Review'
+                  expect(page).to have_content 'レビュー編集'
                 end
               end
             end
@@ -622,7 +622,7 @@ RSpec.describe Review, type: :system do
                   attach_file "review_image",
                               "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
                   click_button "Edit"
-                  expect(page).to have_content 'Edit Review'
+                  expect(page).to have_content 'レビュー編集'
                   expect(page).to have_content 'Image should be less than 5MB'
                 end
               end
@@ -642,10 +642,10 @@ RSpec.describe Review, type: :system do
           click_on '製品一覧'
           click_on 'Phone-1'
           find(:css, '.review_edit_link').click
-          expect(page).to have_content 'Edit Review'
+          expect(page).to have_content 'レビュー編集'
           find(:css, '.delete_link').click
           expect(page).to have_content 'Phone-1'
-          expect(page).to have_content 'Review is deleted'
+          expect(page).to have_content 'レビューが消去されました'
           expect(page).to_not have_content 'Awesome'
         end
         describe 'works dependency' do
@@ -696,7 +696,7 @@ RSpec.describe Review, type: :system do
       fill_in "Email", with: @registrated_user.email
       fill_in "パスワード", with: @registrated_user.password
       click_button "ログイン"
-      expect(page).to have_content 'Signed in'
+      expect(page).to have_content 'ログインしました。'
     end
     describe 'Create Action' do
       before do
@@ -732,7 +732,7 @@ RSpec.describe Review, type: :system do
                 fill_in 'review[content]', with: ''
                 click_button "投稿"
                 expect(page).to have_content 'レビュー投稿'
-                expect(page).to have_content "Content can't be blank"
+                expect(page).to have_content "投稿内容 が入力されていません。"
               end
             end
             context 'is 1' do
@@ -756,7 +756,7 @@ RSpec.describe Review, type: :system do
                 fill_in 'review[content]', with: testdata_content
                 click_button "投稿"
                 expect(page).to have_content 'レビュー投稿'
-                expect(page).to have_content "Content is too long"
+                expect(page).to have_content "投稿内容 が長すぎます"
               end
             end
           end
@@ -814,7 +814,7 @@ RSpec.describe Review, type: :system do
               fill_in 'review[content]', with: testdata_content
               click_button "投稿"
               expect(page).to have_content 'レビュー投稿'
-              expect(page).to have_content 'too long'
+              expect(page).to have_content '投稿内容 が長すぎます。'
             end
           end
           context "space" do
@@ -822,7 +822,7 @@ RSpec.describe Review, type: :system do
               fill_in 'review[content]', with: ' 　'
               click_button "投稿"
               expect(page).to have_content 'レビュー投稿'
-              expect(page).to have_content "can't be blank"
+              expect(page).to have_content "投稿内容 が入力されていません。"
             end
           end
           describe 'registrated' do
@@ -979,8 +979,8 @@ RSpec.describe Review, type: :system do
             it 'is unavailable' do
               fill_in 'review[content]', with: ''
               click_button "Edit"
-              expect(page).to have_content 'Edit Review'
-              expect(page).to have_content "Content can't be blank"
+              expect(page).to have_content 'レビュー編集'
+              expect(page).to have_content "投稿内容 が入力されていません。"
             end
           end
           context 'is 1' do
@@ -1003,8 +1003,8 @@ RSpec.describe Review, type: :system do
               testdata_content = '吾輩は猫である。名前はまだ無い。どこで生れたか見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。この書生というのは時々我々を捕まえては'
               fill_in 'review[content]', with: testdata_content
               click_button "Edit"
-              expect(page).to have_content 'Edit Review'
-              expect(page).to have_content "Content is too long"
+              expect(page).to have_content 'レビュー編集'
+              expect(page).to have_content "投稿内容 が長すぎます"
             end
           end
           describe 'charactor type' do
@@ -1060,13 +1060,13 @@ RSpec.describe Review, type: :system do
               testdata_content = "👨" * 141
               fill_in 'review[content]', with: testdata_content
               click_button "Edit"
-              expect(page).to have_content 'Edit Review'
+              expect(page).to have_content 'レビュー編集'
             end
           end
           context "space" do
             it "only is unavailable" do
               fill_in 'review[content]', with: ' 　'
-              expect(page).to have_content 'Edit Review'
+              expect(page).to have_content 'レビュー編集'
             end
           end
           describe 'registrated' do
@@ -1076,7 +1076,7 @@ RSpec.describe Review, type: :system do
             end
             it 'is unavailable' do
               fill_in 'review[content]', with: @review.content
-              expect(page).to have_content 'Edit Review'
+              expect(page).to have_content 'レビュー編集'
             end
           end
           describe 'about image field' do
@@ -1116,7 +1116,7 @@ RSpec.describe Review, type: :system do
                   attach_file "review_image",
                               "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
                   click_button "Edit"
-                  expect(page).to have_content 'Edit Review'
+                  expect(page).to have_content 'レビュー編集'
                 end
               end
               context 'bmp' do
@@ -1124,7 +1124,7 @@ RSpec.describe Review, type: :system do
                   attach_file "review_image",
                               "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
                   click_button "Edit"
-                  expect(page).to have_content 'Edit Review'
+                  expect(page).to have_content 'レビュー編集'
                 end
               end
             end
@@ -1143,7 +1143,7 @@ RSpec.describe Review, type: :system do
                   attach_file "review_image",
                               "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
                   click_button "Edit"
-                  expect(page).to have_content 'Edit Review'
+                  expect(page).to have_content 'レビュー編集'
                   expect(page).to have_content 'Image should be less than 5MB'
                 end
               end
@@ -1163,10 +1163,10 @@ RSpec.describe Review, type: :system do
           click_on '製品一覧'
           click_on 'Phone-1'
           find(:css, '.review_edit_link').click
-          expect(page).to have_content 'Edit Review'
+          expect(page).to have_content 'レビュー編集'
           find(:css, '.delete_link').click
           expect(page).to have_content 'Phone-1'
-          expect(page).to have_content 'Review is deleted'
+          expect(page).to have_content 'レビューが消去されました'
           expect(page).to_not have_content 'Awesome'
         end
         describe 'works dependency' do
