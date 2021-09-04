@@ -423,9 +423,7 @@ RSpec.describe User, type: :system do
         fill_in 'パスワード', with: changed_password
         fill_in 'パスワード再入力', with: changed_password
         fill_in 'パスワード (変更前パスワード)', with: @general_user.password
-        within('.actions') do
-          click_on 'プロフィール編集'
-        end
+        find('.post-button').click
         expect(page).to have_content 'Your account has been updated successfully.'
         within('header') do
           find(:css, 'button.dropdown-toggle').click
