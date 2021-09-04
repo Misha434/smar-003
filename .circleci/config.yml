@@ -66,6 +66,9 @@ jobs:
           bundler-version: '1.17.2'
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
+      - run:
+          command: chromedriver
+          background: true
       # Here we make sure that the secondary container boots
       # up before we run operations on the database.
       - run:
