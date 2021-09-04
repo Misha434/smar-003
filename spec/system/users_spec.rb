@@ -419,7 +419,7 @@ RSpec.describe User, type: :system do
       it 'can change Password', js: true do
         changed_password = '!@#%^&*pAsS'
 
-        click_on 'パスワード 変更'
+        find('.accordion-button').click
         fill_in 'パスワード', with: changed_password
         fill_in 'パスワード再入力', with: changed_password
         fill_in 'パスワード (変更前パスワード)', with: @general_user.password
