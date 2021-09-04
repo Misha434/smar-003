@@ -33,7 +33,6 @@ gem 'pagy'
 gem 'ransack'
 gem 'slim-rails'
 
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   # Use mysql as the database for Active Record
@@ -72,9 +71,9 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'launchy'
-  gem 'shoulda-matchers'
-  gem 'webdrivers'
   gem 'rspec-retry'
+  gem 'shoulda-matchers'
+  gem 'webdrivers', require: !ENV['SELENIUM_REMOTE_URL']
 end
 
 group :production do

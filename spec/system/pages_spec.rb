@@ -124,11 +124,9 @@ RSpec.describe "Pages", type: :system do
     expect(page).to have_content('Brand-2')
     visit root_path
     within('.ranking_battery') do
-      click_on 'view more'
+      click_on '続きを表示'
     end
-    within('h4') do
-      expect(page).to have_content('Battery ranking')
-    end
+    expect(page).to have_content('バッテリー容量')
   end
 
   def check_product_ranking_antutu_correction
@@ -168,7 +166,7 @@ RSpec.describe "Pages", type: :system do
     expect(page).to have_content('Brand-2')
     visit root_path
     within('.ranking_antutu') do
-      click_on 'view more'
+      click_on '続きを表示'
     end
   end
 
@@ -209,7 +207,7 @@ RSpec.describe "Pages", type: :system do
     expect(page).to have_content('Brand-3')
     visit root_path
     within('.ranking_new_release') do
-      click_on 'view more'
+      click_on '続きを表示'
     end
   end
 
@@ -222,11 +220,11 @@ RSpec.describe "Pages", type: :system do
       visit root_path
       within('header') do
         find(:css, "button.dropdown-toggle").click
-        click_on "Login"
+        click_on "ログイン"
       end
       fill_in "Email", with: @admin_user.email
-      fill_in "Password", with: @admin_user.password
-      click_button "Log in"
+      fill_in "パスワード", with: @admin_user.password
+      click_button "ログイン"
     end
     context "Title" do
       it "is correct" do
@@ -238,26 +236,26 @@ RSpec.describe "Pages", type: :system do
         within('header') do
           click_on "Sma-R"
         end
-        expect(page).to have_content('Battery')
+        expect(page).to have_content('バッテリー容量')
         expect(page).to have_content('Antutu')
-        expect(page).to have_content('New release')
+        expect(page).to have_content('新発売')
       end
-      it "All Products(products#index) link is valid" do
-        click_on "All Products"
-        expect(page).to have_content('All Products')
+      it "製品一覧(products#index) link is valid" do
+        click_on "製品一覧"
+        expect(page).to have_content('製品一覧')
       end
-      it "Brands(brands#index) link is valid" do
-        click_on "Brands"
-        expect(page).to have_content('All Brands')
+      it "ブランド一覧(brands#index) link is valid" do
+        click_on "ブランド一覧"
+        expect(page).to have_content('ブランド一覧')
       end
       it "Logout link is valid" do
-        click_link "Log out"
-        expect(page).to have_content('Battery')
+        click_link "ログアウト"
+        expect(page).to have_content('バッテリー容量')
         expect(page).to have_content('Antutu')
-        expect(page).to have_content('New release')
+        expect(page).to have_content('新発売')
         within('header') do
-          expect(page).to have_content('Login')
-          expect(page).to have_content('Signup')
+          expect(page).to have_content('ログイン')
+          expect(page).to have_content('新規登録')
         end
       end
     end
@@ -285,9 +283,7 @@ RSpec.describe "Pages", type: :system do
       end
       it "Link is valid" do
         check_product_link_ranking_antutu
-        within('h4') do
-          expect(page).to have_content('Antutu ranking')
-        end
+        expect(page).to have_content('Antutu')
       end
     end
     describe "Within New lerease Ranking," do
@@ -302,7 +298,7 @@ RSpec.describe "Pages", type: :system do
       it "Link is valid" do
         check_product_link_new_release
         within('h2') do
-          expect(page).to have_content('All Products')
+          expect(page).to have_content('製品一覧')
         end
       end
     end
@@ -371,9 +367,9 @@ RSpec.describe "Pages", type: :system do
           expect(page).to have_content('Brand-1')
           visit root_path
           within('.ranking_rate_average') do
-            click_on 'view more'
+            click_on '続きを表示'
           end
-          expect(page).to have_content('All Products')
+          expect(page).to have_content('製品一覧')
         end
       end
       context '5.0 ( 5 + 5 / 2 )' do
@@ -432,9 +428,9 @@ RSpec.describe "Pages", type: :system do
           expect(page).to have_content('Brand-1')
           visit root_path
           within('.ranking_rate_average') do
-            click_on 'view more'
+            click_on '続きを表示'
           end
-          expect(page).to have_content('All Products')
+          expect(page).to have_content('製品一覧')
         end
       end
       context '4.5 ( 5 + 4 / 2 )' do
@@ -488,7 +484,7 @@ RSpec.describe "Pages", type: :system do
           expect(page).to have_content('Brand-1')
           visit root_path
           within('.ranking_rate_average') do
-            click_on 'view more'
+            click_on '続きを表示'
           end
         end
       end
@@ -544,7 +540,7 @@ RSpec.describe "Pages", type: :system do
           expect(page).to have_content('Brand-1')
           visit root_path
           within('.ranking_rate_average') do
-            click_on 'view more'
+            click_on '続きを表示'
           end
         end
       end
@@ -600,7 +596,7 @@ RSpec.describe "Pages", type: :system do
           expect(page).to have_content('Brand-1')
           visit root_path
           within('.ranking_rate_average') do
-            click_on 'view more'
+            click_on '続きを表示'
           end
         end
       end
@@ -654,7 +650,7 @@ RSpec.describe "Pages", type: :system do
           expect(page).to have_content('Brand-1')
           visit root_path
           within('.ranking_rate_average') do
-            click_on 'view more'
+            click_on '続きを表示'
           end
         end
       end
@@ -710,7 +706,7 @@ RSpec.describe "Pages", type: :system do
           expect(page).to have_content('Brand-1')
           visit root_path
           within('.ranking_rate_average') do
-            click_on 'view more'
+            click_on '続きを表示'
           end
         end
       end
@@ -766,7 +762,7 @@ RSpec.describe "Pages", type: :system do
           expect(page).to have_content('Brand-1')
           visit root_path
           within('.ranking_rate_average') do
-            click_on 'view more'
+            click_on '続きを表示'
           end
         end
       end
@@ -778,11 +774,11 @@ RSpec.describe "Pages", type: :system do
       @registrated_user = FactoryBot.create(:user)
       visit root_path
       within('header') do
-        click_on "Login"
+        click_on "ログイン"
       end
       fill_in "Email", with: @registrated_user.email
-      fill_in "Password", with: @registrated_user.password
-      click_button "Log in"
+      fill_in "パスワード", with: @registrated_user.password
+      click_button "ログイン"
     end
     context "Title" do
       it "is correct" do
@@ -794,26 +790,26 @@ RSpec.describe "Pages", type: :system do
         within('header') do
           click_on "Sma-R"
         end
-        expect(page).to have_content('Battery')
+        expect(page).to have_content('バッテリー容量')
         expect(page).to have_content('Antutu')
-        expect(page).to have_content('New release')
+        expect(page).to have_content('新発売')
       end
-      it "All Products(products#index) link is valid" do
-        click_on "All Products"
-        expect(page).to have_content('All Products')
+      it "製品一覧(products#index) link is valid" do
+        click_on "製品一覧"
+        expect(page).to have_content('製品一覧')
       end
-      it "Brands(brands#index) link is valid" do
-        click_on "Brands"
-        expect(page).to have_content('All Brands')
+      it "ブランド一覧(brands#index) link is valid" do
+        click_on "ブランド一覧"
+        expect(page).to have_content('ブランド一覧')
       end
       it "Logout link is valid" do
-        click_link "Log out"
-        expect(page).to have_content('Battery')
+        click_link "ログアウト"
+        expect(page).to have_content('バッテリー容量')
         expect(page).to have_content('Antutu')
-        expect(page).to have_content('New release')
+        expect(page).to have_content('新発売')
         within('header') do
-          expect(page).to have_content('Login')
-          expect(page).to have_content('Signup')
+          expect(page).to have_content('ログイン')
+          expect(page).to have_content('新規登録')
         end
       end
     end
@@ -841,9 +837,7 @@ RSpec.describe "Pages", type: :system do
       end
       it "Link is valid" do
         check_product_link_ranking_antutu
-        within('h4') do
-          expect(page).to have_content('Antutu ranking')
-        end
+        expect(page).to have_content('Antutu')
       end
     end
     describe "Within New release Ranking," do
@@ -858,7 +852,7 @@ RSpec.describe "Pages", type: :system do
       it "Link is valid" do
         check_product_link_new_release
         within('h2') do
-          expect(page).to have_content('All Products')
+          expect(page).to have_content('製品一覧')
         end
       end
     end
@@ -870,17 +864,17 @@ RSpec.describe "Pages", type: :system do
     end
     it 'is available to log it in' do
       within('.ranking_battery') do
-        click_on 'Guest Login'
+        click_on 'ゲストログイン'
       end
       expect(page).to have_content('Loged in as Guest User.')
     end
     it 'is available to log it out' do
       within('.ranking_battery') do
-        click_on 'Guest Login'
+        click_on 'ゲストログイン'
       end
       within('header') do
-        find(:css, ".dropdown-toggle").click
-        click_on 'Log out'
+        find(:css, "button.dropdown-toggle").click
+        click_on 'ログアウト'
       end
       expect(page).to have_content('Signed out successfully.')
     end
@@ -900,29 +894,29 @@ RSpec.describe "Pages", type: :system do
         within('header') do
           click_on "Sma-R"
         end
-        expect(page).to have_content('Battery')
+        expect(page).to have_content('バッテリー容量')
         expect(page).to have_content('Antutu')
-        expect(page).to have_content('New release')
+        expect(page).to have_content('新発売')
       end
-      it "All Products(products#index) link require Login" do
-        click_on "All Products"
-        expect(page).to have_content('Log in')
+      it "製品一覧(products#index) link require Login" do
+        click_on "製品一覧"
+        expect(page).to have_content('ログイン')
       end
-      it "Brands(brands#index) link is valid" do
-        click_on "Brands"
-        expect(page).to have_content('All Brands')
+      it "ブランド一覧(brands#index) link is valid" do
+        click_on "ブランド一覧"
+        expect(page).to have_content('ブランド一覧')
       end
       it "Login link is valid" do
         within('header') do
-          click_link "Login"
+          click_link "ログイン"
         end
-        expect(page).to have_content('Login')
+        expect(page).to have_content('ログイン')
       end
-      it "Signup link is valid" do
+      it "Sign up link is valid" do
         within('header') do
-          click_link "Signup"
+          click_link "新規登録"
         end
-        expect(page).to have_content('Login')
+        expect(page).to have_content('ログイン')
       end
     end
     describe "Battery Ranking" do
@@ -933,15 +927,15 @@ RSpec.describe "Pages", type: :system do
       end
       it "has Login and Signup links" do
         within('.ranking_battery') do
-          expect(page).to have_content('Read only Login User')
-          click_on 'Login'
+          expect(page).to have_content('ログインユーザー限定公開')
+          click_on 'ログイン'
         end
-        expect(page).to have_content('Log in')
+        expect(page).to have_content('ログイン')
         click_on 'Sma-R'
         within('.ranking_battery') do
-          click_on 'Signup'
+          click_on '新規登録'
         end
-        expect(page).to have_content('Sign up')
+        expect(page).to have_content('新規登録')
       end
     end
     describe "Rate Avg Ranking" do
@@ -952,15 +946,15 @@ RSpec.describe "Pages", type: :system do
       end
       it "has Login and Signup links" do
         within('.rate_average') do
-          expect(page).to have_content('Read only Login User')
-          click_on 'Login'
+          expect(page).to have_content('ログインユーザー限定公開')
+          click_on 'ログイン'
         end
-        expect(page).to have_content('Log in')
+        expect(page).to have_content('ログイン')
         click_on 'Sma-R'
         within('.rate_average') do
-          click_on 'Signup'
+          click_on '新規登録'
         end
-        expect(page).to have_content('Sign up')
+        expect(page).to have_content('新規登録')
       end
     end
     describe "Within Antutu Ranking," do
@@ -975,7 +969,7 @@ RSpec.describe "Pages", type: :system do
       it "Link is valid" do
         check_product_link_ranking_antutu
         within('h2') do
-          expect(page).to have_content('Log in')
+          expect(page).to have_content('ログイン')
         end
       end
     end
@@ -987,12 +981,12 @@ RSpec.describe "Pages", type: :system do
       end
       it "Rank is correct" do
         check_product_ranking_new_release_correction
-        expect(page).to have_content('All Products')
+        expect(page).to have_content('製品一覧')
       end
       it "Link is valid" do
         check_product_link_new_release
         within('h2') do
-          expect(page).to have_content('Log in')
+          expect(page).to have_content('ログイン')
         end
       end
     end

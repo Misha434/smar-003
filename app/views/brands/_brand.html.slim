@@ -5,8 +5,7 @@ li id = "brand-#{brand.id}"
         = logo_image_default(brand)
       .col-8.col-md-8
         p = link_to brand.name, brand
-        p = link_to pluralize(brand.products.count,
-          "Product"), brand, class: "count--text"
+        p = link_to "登録製品: #{brand.products.count}", brand, class: "count--text"
     - if user_signed_in? && current_user.admin?
       .row
         .col-12

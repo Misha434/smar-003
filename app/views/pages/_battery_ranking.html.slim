@@ -2,7 +2,7 @@
   .d-flex.align-items-center.my-2
     i.fas.fa-battery-full.fa-lg
     h3.m-1.mx-3
-      | Battery
+      | バッテリー容量
     = render 'pages/info_battery'
   - if user_signed_in?
     ol.rankings
@@ -20,7 +20,7 @@
                 = "#{product.battery_capacity} mAh"
     li.text-center
       u
-        |#{link_to "view more", '/products?q%5Bs%5D=battery_capacity+desc'}
+        |#{link_to "続きを表示", '/products?q%5Bs%5D=battery_capacity+desc'}
   - else
     .col-12
       .card.p-3

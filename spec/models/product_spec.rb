@@ -379,7 +379,7 @@ RSpec.describe Product, type: :model do
       end
     end
   end
-  describe "Release date" do
+  describe "New Release" do
     describe "has data-type(string)" do
       context 'with datetime format' do
         it "is valid" do

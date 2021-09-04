@@ -20,51 +20,51 @@ RSpec.describe User, type: :system do
         before do
           within('header') do
             find(:css, "button.dropdown-toggle").click
-            click_on "Login"
+            click_on "ログイン"
           end
           fill_in "Email", with: @admin_user.email
-          fill_in "Password", with: @admin_user.password
-          click_button "Log in"
+          fill_in "パスワード", with: @admin_user.password
+          click_button "ログイン"
         end
         it 'in header is invisible' do
           within('header') do
-            expect(page).to_not have_content("Signup")
+            expect(page).to_not have_content("新規登録")
           end
         end
         it 'directly is not available, redirect to root_path' do
           visit '/users/sign_up'
-          expect(page).to have_content("Battery")
+          expect(page).to have_content("バッテリー容量")
         end
       end
     end
     describe 'As General User,' do
       before do
         within('header') do
-          click_link "Login"
+          click_link "ログイン"
         end
         fill_in "Email", with: @general_user.email
-        fill_in "Password", with: @general_user.password
-        click_button "Log in"
+        fill_in "パスワード", with: @general_user.password
+        click_button "ログイン"
       end
       it 'in header is invisible' do
         within('header') do
-          expect(page).to_not have_content("Signup")
+          expect(page).to_not have_content("新規登録")
         end
       end
       it 'directly is not available, redirect to root_path' do
         visit '/users/sign_up'
-        expect(page).to have_content("Battery")
+        expect(page).to have_content("バッテリー容量")
       end
     end
     describe 'As Guest User(Not Login yet),' do
       before do
         within('header') do
           find(:css, "button.dropdown-toggle").click
-          click_link "Signup"
+          click_link "新規登録"
         end
       end
       it 'Signup page is accessable' do
-        expect(page).to have_content('Signup')
+        expect(page).to have_content('新規登録')
       end
       describe 'Signup action', js: true do
         before do
@@ -72,13 +72,13 @@ RSpec.describe User, type: :system do
         end
         describe 'with all form filled in' do
           it 'is available' do
-            click_button "Sign up"
+            click_button "新規登録"
             expect(page).to have_content 'Welcome'
           end
           it '(with avatar image)is available' do
             attach_file "user_avatar",
                         "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
-            click_button "Sign up"
+            click_button "新規登録"
             expect(page).to have_content 'Welcome'
           end
         end
@@ -86,33 +86,33 @@ RSpec.describe User, type: :system do
           describe 'of charactor count' do
             context 'is 0(zero)' do
               it 'is unavailable' do
-                fill_in 'Name', with: ''
-                click_button "Sign up"
-                expect(page).to have_content 'Sign up'
+                fill_in 'ユーザー', with: ''
+                click_button "新規登録"
+                expect(page).to have_content '新規登録'
                 expect(page).to have_content "Name can't be blank"
               end
             end
             context 'is 1' do
               it 'is available' do
-                fill_in 'Name', with: 'X'
-                click_button "Sign up"
+                fill_in 'ユーザー名', with: 'X'
+                click_button "新規登録"
                 expect(page).to have_content 'Welcome'
               end
             end
             context 'is 50' do
               it 'is available' do
                 testdata_name = 'Aaron and associates Example Company East Asia Inc'
-                fill_in 'Name', with: testdata_name
-                click_button "Sign up"
+                fill_in 'ユーザー名', with: testdata_name
+                click_button "新規登録"
                 expect(page).to have_content 'Welcome'
               end
             end
             context 'is 51' do
               it 'is unavailable' do
                 testdata_name = 'Philip and associates Example Company East Asia Inc'
-                fill_in 'Name', with: testdata_name
-                click_button "Sign up"
-                expect(page).to have_content 'Sign up'
+                fill_in 'ユーザー名', with: testdata_name
+                click_button "新規登録"
+                expect(page).to have_content '新規登録'
                 expect(page).to have_content "Name is too long"
               end
             end
@@ -121,16 +121,16 @@ RSpec.describe User, type: :system do
             context 'is 漢字・ひらがな・全角カタカナ' do
               it 'is available' do
                 testdata_name = '株式会社東アジア・フィリップ・スミス・アンド・すずきたろう・アンド・さとうじろう・アソシエイツインク'
-                fill_in 'Name', with: testdata_name
-                click_button "Sign up"
+                fill_in 'ユーザー名', with: testdata_name
+                click_button "新規登録"
                 expect(page).to have_content 'Welcome'
               end
             end
             context 'is 半角カタカナ' do
               it 'is available' do
                 testdata_name = 'ﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂｶﾇ｡ﾅﾝﾃﾞﾓｳｽ'
-                fill_in 'Name', with: testdata_name
-                click_button "Sign up"
+                fill_in 'ユーザー名', with: testdata_name
+                click_button "新規登録"
                 expect(page).to have_content 'Welcome'
               end
             end
@@ -138,54 +138,54 @@ RSpec.describe User, type: :system do
           context "English(Upper/Down Case)" do
             it "is available" do
               testdata_name = "From fairest creatures we desire increase, That th"
-              fill_in 'Name', with: testdata_name
-              click_button "Sign up"
+              fill_in 'ユーザー名', with: testdata_name
+              click_button "新規登録"
               expect(page).to have_content 'Welcome'
             end
           end
           context "symbol" do
             it "is available" do
               testdata_name = "▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμν"
-              fill_in 'Name', with: testdata_name
-              click_button "Sign up"
+              fill_in 'ユーザー名', with: testdata_name
+              click_button "新規登録"
               expect(page).to have_content 'Welcome'
             end
           end
           context "Number" do
             it "is available" do
               testdata_name = "88991646493833403４５３１７５１９０２４８７５１０４３６５１８２７４６１８２5583"
-              fill_in 'Name', with: testdata_name
-              click_button "Sign up"
+              fill_in 'ユーザー名', with: testdata_name
+              click_button "新規登録"
               expect(page).to have_content 'Welcome'
             end
           end
           context "Emoji" do
             it "is available" do
               testdata_name = "👨" * 50
-              fill_in 'Name', with: testdata_name
-              click_button "Sign up"
+              fill_in 'ユーザー名', with: testdata_name
+              click_button "新規登録"
               expect(page).to have_content 'Welcome'
             end
             it "is unavailable 51 charactors" do
               testdata_name = "👨" * 51
-              fill_in 'Name', with: testdata_name
-              click_button "Sign up"
-              expect(page).to have_content 'Sign up'
+              fill_in 'ユーザー名', with: testdata_name
+              click_button "新規登録"
+              expect(page).to have_content '新規登録'
               expect(page).to have_content "Name is too long"
             end
           end
           context "space" do
             it "only is unavailable" do
-              fill_in 'Name', with: ' 　'
-              click_button "Sign up"
-              expect(page).to have_content 'Sign up'
+              fill_in 'ユーザー名', with: ' 　'
+              click_button "新規登録"
+              expect(page).to have_content '新規登録'
             end
           end
           describe 'registrated' do
             it 'is available' do
-              fill_in 'Name', with: @general_user.name
+              fill_in 'ユーザー名', with: @general_user.name
               fill_in 'Email', with: 'test-2@example.com'
-              click_button "Sign up"
+              click_button "新規登録"
               expect(page).to have_content 'Welcome'
             end
           end
@@ -196,11 +196,11 @@ RSpec.describe User, type: :system do
               it 'is available' do
                 attach_file "user_avatar",
                             "#{Rails.root}/spec/fixtures/files/image/image_test.gif"
-                click_button "Sign up"
+                click_button "新規登録"
                 expect(page).to have_content 'Welcome'
                 within('header') do
                   find(:css, "button.dropdown-toggle").click
-                  click_on 'Profiles'
+                  click_on 'プロフィール'
                 end
                 expect(page).to have_content @general_user2.name
                 expect(page).to have_css("img[src$='image_test.gif']")
@@ -210,11 +210,11 @@ RSpec.describe User, type: :system do
               it 'is available' do
                 attach_file "user_avatar",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
-                click_button "Sign up"
+                click_button "新規登録"
                 expect(page).to have_content 'Welcome'
                 within('header') do
                   find(:css, "button.dropdown-toggle").click
-                  click_on 'Profiles'
+                  click_on 'プロフィール'
                 end
                 expect(page).to have_content @general_user2.name
                 expect(page).to have_css("img[src$='image_test_5mb.jpeg']")
@@ -224,11 +224,11 @@ RSpec.describe User, type: :system do
               it 'is available' do
                 attach_file "user_avatar",
                             "#{Rails.root}/spec/fixtures/files/image/image_test.png"
-                click_button "Sign up"
+                click_button "新規登録"
                 expect(page).to have_content 'Welcome'
                 within('header') do
                   find(:css, "button.dropdown-toggle").click
-                  click_on 'Profiles'
+                  click_on 'プロフィール'
                 end
                 expect(page).to have_content @general_user2.name
                 expect(page).to have_css("img[src$='image_test.png']")
@@ -238,16 +238,16 @@ RSpec.describe User, type: :system do
               it 'is unavailable' do
                 attach_file "user_avatar",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
-                click_button "Sign up"
-                expect(page).to have_content 'Sign up'
+                click_button "新規登録"
+                expect(page).to have_content '新規登録'
               end
             end
             context 'bmp' do
               it 'is unavailable' do
                 attach_file "user_avatar",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
-                click_button "Sign up"
-                expect(page).to have_content 'Sign up'
+                click_button "新規登録"
+                expect(page).to have_content '新規登録'
               end
             end
           end
@@ -256,11 +256,11 @@ RSpec.describe User, type: :system do
               it 'is available' do
                 attach_file "user_avatar",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_5mb.jpeg"
-                click_button "Sign up"
+                click_button "新規登録"
                 expect(page).to have_content 'Welcome'
                 within('header') do
                   find(:css, "button.dropdown-toggle").click
-                  click_on 'Profiles'
+                  click_on 'プロフィール'
                 end
                 expect(page).to have_content @general_user2.name
                 expect(page).to have_css("img[src$='image_test_5mb.jpeg']")
@@ -270,8 +270,8 @@ RSpec.describe User, type: :system do
               it 'is unavailable' do
                 attach_file "user_avatar",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_6mb.jpeg"
-                click_button "Sign up"
-                expect(page).to have_content 'Sign up'
+                click_button "新規登録"
+                expect(page).to have_content '新規登録'
                 expect(page).to have_content 'Avatar should be less than 5MB'
               end
             end
@@ -281,13 +281,182 @@ RSpec.describe User, type: :system do
     end
   end
 
+  describe 'Sign_in Page:' do
+    before do
+      @brand = FactoryBot.create(:brand)
+      @admin_user = FactoryBot.create(:user, name: "admin", admin: true)
+      @general_user = FactoryBot.create(:user, id: 2, name: "general", email: 'test-1@example.com')
+      visit root_path
+    end
+
+    context 'Admin User' do
+      it 'can login action' do
+        within('header') do
+          click_on 'ログイン'
+        end
+        fill_in 'Email', with: @admin_user.email
+        fill_in 'パスワード', with: @admin_user.password
+        within('.card') do
+          click_on 'ログイン'
+        end
+        expect(page).to have_content 'Signed in successfully.'
+      end
+    end
+
+    context 'Registrated (Created account) User' do
+      it 'can login' do
+        within('header') do
+          click_on 'ログイン'
+        end
+        fill_in 'Email', with: @general_user.email
+        fill_in 'パスワード', with: @general_user.password
+        within('.card') do
+          click_on 'ログイン'
+        end
+        expect(page).to have_content 'Signed in successfully.'
+      end
+      it 'can logout' do
+        within('header') do
+          click_on 'ログイン'
+        end
+        fill_in 'Email', with: @general_user.email
+        fill_in 'パスワード', with: @general_user.password
+        within('.card') do
+          click_on 'ログイン'
+        end
+        within('header') do
+          click_on 'ログアウト'
+        end
+        expect(page).to have_content 'Signed out successfully.'
+      end
+    end
+
+    context 'Guest (one-click login) User,' do
+      it 'can login' do
+        within('header') do
+          click_on 'ゲストログイン'
+        end
+        expect(page).to have_content 'Loged in as Guest User.'
+      end
+      it 'can logout' do
+        within('header') do; click_on 'ゲストログイン'; end
+        within('header') do; click_on 'ログアウト'; end
+        expect(page).to have_content 'Signed out successfully.'
+      end
+    end
+  end
+
+  describe '#edit:' do
+    before do
+      # @brand = FactoryBot.create(:brand)
+      @admin_user = FactoryBot.create(:user, name: "admin", admin: true)
+      @general_user = FactoryBot.create(:user, id: 2, name: "general", email: 'test-1@example.com')
+      visit root_path
+    end
+
+    describe 'General(registrated) User,' do
+      before do
+        within('header') do
+          find(:css, 'button.dropdown-toggle').click
+          click_on 'ログイン'
+        end
+
+        fill_in 'Email', with: @general_user.email
+        fill_in 'パスワード', with: @general_user.password
+        within('.card') do
+          click_on 'ログイン'
+        end
+
+        within('header') do
+          find(:css, 'button.dropdown-toggle').click
+          click_on 'プロフィール'
+        end
+
+        find(:css, '.user_edit').click
+      end
+
+      it 'can change Name' do
+        fill_in 'ユーザー名', with: 'BuzzFizz'
+        fill_in 'パスワード (変更前パスワード)', with: @general_user.password
+        click_on 'プロフィール編集'
+
+        expect(page).to have_content 'Your account has been updated successfully.'
+        within('header') do
+          click_on 'プロフィール'
+        end
+        expect(page).to have_content 'BuzzFizz'
+      end
+
+      it 'can change Email' do
+        changed_email = 'general-2@example.com'
+        fill_in 'Email', with: changed_email
+        fill_in 'パスワード (変更前パスワード)', with: @general_user.password
+        click_on 'プロフィール編集'
+
+        expect(page).to have_content 'Your account has been updated successfully.'
+
+        within('header') do
+          click_on 'ログアウト'
+        end
+        within('header') do
+          click_on 'ログイン'
+        end
+        fill_in 'Email', with: @general_user.email
+        fill_in 'パスワード', with: @general_user.password
+        within('.card') do
+          click_on 'ログイン'
+        end
+        expect(page).to have_content 'Invalid Email or password.'
+
+        fill_in 'Email', with: changed_email
+        fill_in 'パスワード', with: @general_user.password
+        within('.card') do
+          click_on 'ログイン'
+        end
+        expect(page).to have_content 'Signed in successfully.'
+      end
+
+      it 'can change Password' do
+        changed_password = '!@#%^&*pAsS'
+
+        find('.accordion-button').click
+        fill_in 'パスワード', with: changed_password
+        fill_in 'パスワード再入力', with: changed_password
+        fill_in 'パスワード (変更前パスワード)', with: @general_user.password
+        click_button 'プロフィール編集'
+        expect(page).to have_content 'Your account has been updated successfully.'
+        within('header') do
+          find(:css, 'button.dropdown-toggle').click
+          click_on 'ログアウト'
+        end
+        within('header') do
+          find(:css, 'button.dropdown-toggle').click
+          click_on 'ログイン'
+        end
+        fill_in 'Email', with: @general_user.email
+        fill_in 'パスワード', with: @general_user.password
+        within('.card') do
+          click_on 'ログイン'
+        end
+        expect(page).to have_content 'Invalid Email or password.'
+
+        fill_in 'Email', with: @general_user.email
+        fill_in 'パスワード', with: changed_password
+        within('.card') do
+          click_on 'ログイン'
+        end
+        expect(page).to have_content 'Signed in successfully.'
+      end
+    end
+  end
+
   private
 
   def fill_in_all_form
-    fill_in "Name", with: 'Michael Smith'
+    fill_in "ユーザー名", with: 'Michael Smith'
     fill_in "Email", with: 'michael-m@example.com'
-    fill_in "Password", with: 'password'
-    fill_in "Password confirmation", with: 'password'
+    fill_in "パスワード", with: 'password'
+    fill_in "パスワード再入力", with: 'password'
     find(:css, "#agreement").set(true)
   end
 end

@@ -22,17 +22,22 @@
             .accordion-item
               h2#flush-headingOne.accordion-header
                 button.accordion-button.collapsed aria-controls="flush-collapseOne" aria-expanded="false" data-bs-target="#flush-collapseOne" data-bs-toggle="collapse" type="button" 
-                  | Review Form
+                  | レビュー投稿 フォーム
               #flush-collapseOne.accordion-collapse.collapse aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" 
-                .accordion-body
+                .accordion-body.pb-0
                   .col-12.my-2
                     = form_with model: @review, local: true do |f|
                       = f.hidden_field :user_id, value: current_user.id
                       = f.hidden_field :product_id, value: @product.id
-                      = f.select(:rate, [["★☆☆☆☆", 1], ["★★☆☆☆", 2], ["★★★☆☆", 3], ["★★★★☆", 4], ["★★★★★", 5]], prompt: "--- Rate ---", class: "form-select")
-                      = f.text_field :content, placeholder: "Review ...", class: "form-control mb-2"
+                      = f.label :rate, "評価点数", class: "mx-2"
+                      = f.select :rate, [["★☆☆☆☆", 1], ["★★☆☆☆", 2], ["★★★☆☆", 3], ["★★★★☆", 4], ["★★★★★", 5]], prompt: "--- 選択してください ---", class: "form-control"
+                      = f.text_area :content, placeholder: "レビュー内容", class: "form-control my-2 form_height"
                       field.pb-3
+                      = f.label :image, "添付画像(任意)", class: "mx-2"
                       = f.file_field :image, class: "form-control form-control-sm mb-2", accept: "image/jpeg,image/gif,image/png"
-                      = f.submit "Post", class: "btn btn-primary g-grid col-12 my-2"
+                      .form-text
+                        p.mb-0 ・最大容量: ~ 5MB
+                        p ・フォーマット: jpeg, gif, png
+                      = f.submit "投稿", class: "btn btn-primary g-grid col-12 my-2"
   .row
     = render 'products/review'

@@ -10,11 +10,11 @@ RSpec.describe Brand, type: :system do
     before do
       @admin_user = FactoryBot.create(:user, admin: true)
       within('header') do
-        click_on "Login"
+        click_on "ログイン"
       end
       fill_in "Email", with: @admin_user.email
-      fill_in "Password", with: @admin_user.password
-      click_button "Log in"
+      fill_in "パスワード", with: @admin_user.password
+      click_button "ログイン"
       expect(page).to have_content 'Signed in'
     end
     describe 'Create Action' do
@@ -219,7 +219,7 @@ RSpec.describe Brand, type: :system do
     end
     describe 'Index Action' do
       before do
-        click_on 'Brands'
+        click_on 'ブランド一覧'
       end
       describe 'each brand' do
         before do
@@ -231,17 +231,17 @@ RSpec.describe Brand, type: :system do
           expect(page).to have_content('Apple')
         end
         it 'Product count is correct(product no exist)' do
-          expect(page).to have_content('0 Products')
+          expect(page).to have_content('登録製品: 0')
         end
         it 'Product count is correct(1 product exist)' do
           FactoryBot.create(:product)
           visit current_path
-          expect(page).to have_content('1 Product')
+          expect(page).to have_content('登録製品: 1')
         end
         it 'Product count is correct(2 products exist)' do
           create_product(2)
           visit current_path
-          expect(page).to have_content('2 Products')
+          expect(page).to have_content('登録製品: 2')
         end
         it 'Edit link is available' do
           find(:css, '.edit_link').click
@@ -285,7 +285,7 @@ RSpec.describe Brand, type: :system do
       before do
         @brand.save!
         @product.save!
-        click_on 'Brands'
+        click_on 'ブランド一覧'
         click_on 'Apple'
         visit current_path
       end
@@ -332,7 +332,7 @@ RSpec.describe Brand, type: :system do
           it 'is correct' do
             FactoryBot.create(:review)
             visit current_path
-            expect(page).to have_content('1 review')
+            expect(page).to have_content('レビュー数: 1')
           end
         end
         context 'if 2 reviews exist' do
@@ -342,7 +342,7 @@ RSpec.describe Brand, type: :system do
             FactoryBot.create(:review, id: 2, user_id: 2)
             visit current_path
             within('#product-1') do
-              expect(page).to have_content('2 reviews')
+              expect(page).to have_content('レビュー数: 2')
             end
           end
         end
@@ -352,7 +352,7 @@ RSpec.describe Brand, type: :system do
       before do
         @brand.save!
         @product.save!
-        click_on 'Brands'
+        click_on 'ブランド一覧'
       end
       describe 'from brands#index' do
         it 'is available' do
@@ -566,7 +566,7 @@ RSpec.describe Brand, type: :system do
         @product.save!
         FactoryBot.create(:review)
         FactoryBot.create(:like, user_id: 1, review_id: 1)
-        click_on 'Brands'
+        click_on 'ブランド一覧'
         click_on 'Apple'
         within('.brand_title') do
           find(:css, '.edit_link').click
@@ -576,7 +576,7 @@ RSpec.describe Brand, type: :system do
         it 'is available' do
           find(:css, '.delete_link').click
           expect(page).to_not have_content 'Edit a New Brand'
-          expect(page).to have_content 'All Brands'
+          expect(page).to have_content 'ブランド一覧'
           expect(page).to_not have_content 'Apple'
         end
         describe 'works dependency' do
@@ -584,13 +584,13 @@ RSpec.describe Brand, type: :system do
             find(:css, '.delete_link').click
           end
           it 'in products#index' do
-            expect(page).to have_content 'All Brands'
+            expect(page).to have_content 'ブランド一覧'
             expect(page).to_not have_content 'Apple'
-            click_on 'Brands'
+            click_on 'ブランド一覧'
             expect(page).to_not have_content 'Phone-1'
           end
           it 'in users#show' do
-            click_on 'Profiles'
+            click_on 'プロフィール'
             expect(page).to_not have_content 'Phone-1'
             within('.like_count') do
               expect(page).to have_content '0'
@@ -607,11 +607,11 @@ RSpec.describe Brand, type: :system do
     before do
       @registrated_user = FactoryBot.create(:user)
       within('header') do
-        click_on "Login"
+        click_on "ログイン"
       end
       fill_in "Email", with: @registrated_user.email
-      fill_in "Password", with: @registrated_user.password
-      click_button "Log in"
+      fill_in "パスワード", with: @registrated_user.password
+      click_button "ログイン"
       expect(page).to have_content 'Signed in'
     end
     describe 'Create Action' do
@@ -624,7 +624,7 @@ RSpec.describe Brand, type: :system do
     end
     describe 'Index Action' do
       before do
-        click_on 'Brands'
+        click_on 'ブランド一覧'
       end
       describe 'each brand' do
         before do
@@ -636,17 +636,17 @@ RSpec.describe Brand, type: :system do
           expect(page).to have_content('Apple')
         end
         it 'Product count is correct(product no exist)' do
-          expect(page).to have_content('0 Products')
+          expect(page).to have_content('登録製品: 0')
         end
         it 'Product count is correct(1 product exist)' do
           FactoryBot.create(:product)
           visit current_path
-          expect(page).to have_content('1 Product')
+          expect(page).to have_content('登録製品: 1')
         end
         it 'Product count is correct(2 products exist)' do
           create_product(2)
           visit current_path
-          expect(page).to have_content('2 Products')
+          expect(page).to have_content('登録製品: 2')
         end
         it 'Edit link is not available' do
           expect(page).to_not have_css('.edit_link')
@@ -689,7 +689,7 @@ RSpec.describe Brand, type: :system do
       before do
         @brand.save!
         @product.save!
-        click_on 'Brands'
+        click_on 'ブランド一覧'
         click_on 'Apple'
         visit current_path
       end
@@ -730,7 +730,7 @@ RSpec.describe Brand, type: :system do
           it 'is correct' do
             FactoryBot.create(:review)
             visit current_path
-            expect(page).to have_content('1 review')
+            expect(page).to have_content('レビュー数: 1')
           end
         end
         context 'if 2 reviews exist' do
@@ -740,7 +740,7 @@ RSpec.describe Brand, type: :system do
             FactoryBot.create(:review, id: 2, user_id: 2)
             visit current_path
             within('#product-1') do
-              expect(page).to have_content('2 reviews')
+              expect(page).to have_content('レビュー数: 2')
             end
           end
         end
@@ -776,16 +776,16 @@ RSpec.describe Brand, type: :system do
       it 'is not available' do
         visit '/brands/new'
         expect(page).to_not have_content 'Add a New Brand'
-        expect(page).to have_content 'Log in'
+        expect(page).to have_content 'ログイン'
         fill_in "Email", with: @registrated_user.email
-        fill_in "Password", with: @registrated_user.password
-        click_button "Log in"
+        fill_in "パスワード", with: @registrated_user.password
+        click_button "ログイン"
         expect(page).to have_content 'Access denied'
       end
     end
     describe 'Index Action' do
       before do
-        click_on 'Brands'
+        click_on 'ブランド一覧'
       end
       describe 'each brand' do
         before do
@@ -797,17 +797,17 @@ RSpec.describe Brand, type: :system do
           expect(page).to have_content('Apple')
         end
         it 'Product count is correct(product no exist)' do
-          expect(page).to have_content('0 Products')
+          expect(page).to have_content('登録製品: 0')
         end
         it 'Product count is correct(1 product exist)' do
           FactoryBot.create(:product)
           visit current_path
-          expect(page).to have_content('1 Product')
+          expect(page).to have_content('登録製品: 1')
         end
         it 'Product count is correct(2 products exist)' do
           create_product(2)
           visit current_path
-          expect(page).to have_content('2 Products')
+          expect(page).to have_content('登録製品: 2')
         end
         it 'Edit link is not available' do
           expect(page).to_not have_css('.edit_link')
@@ -850,7 +850,7 @@ RSpec.describe Brand, type: :system do
       before do
         @brand.save!
         @product.save!
-        click_on 'Brands'
+        click_on 'ブランド一覧'
         click_on 'Apple'
         visit current_path
       end
@@ -891,7 +891,7 @@ RSpec.describe Brand, type: :system do
           it 'is correct' do
             FactoryBot.create(:review)
             visit current_path
-            expect(page).to have_content('1 review')
+            expect(page).to have_content('レビュー数: 1')
           end
         end
         context 'if 2 reviews exist' do
@@ -901,7 +901,7 @@ RSpec.describe Brand, type: :system do
             FactoryBot.create(:review, id: 2, user_id: 2)
             visit current_path
             within('#product-1') do
-              expect(page).to have_content('2 reviews')
+              expect(page).to have_content('レビュー数: 2')
             end
           end
         end
@@ -913,10 +913,10 @@ RSpec.describe Brand, type: :system do
       end
       it 'is not available' do
         visit '/brands/1/edit'
-        expect(page).to have_content 'Log in'
+        expect(page).to have_content 'ログイン'
         fill_in "Email", with: @registrated_user.email
-        fill_in "Password", with: @registrated_user.password
-        click_button "Log in"
+        fill_in "パスワード", with: @registrated_user.password
+        click_button "ログイン"
         expect(page).to have_content 'Access denied'
       end
     end
@@ -926,11 +926,11 @@ RSpec.describe Brand, type: :system do
       end
       it 'is not available' do
         page.driver.submit :delete, '/brands/1', {}
-        expect(page).to have_content 'Log in'
+        expect(page).to have_content 'ログイン'
         fill_in "Email", with: @registrated_user.email
-        fill_in "Password", with: @registrated_user.password
-        click_button "Log in"
-        click_on "Brands"
+        fill_in "パスワード", with: @registrated_user.password
+        click_button "ログイン"
+        click_on "ブランド一覧"
         expect(page).to have_content 'Apple'
       end
     end

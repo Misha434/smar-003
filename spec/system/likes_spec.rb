@@ -13,8 +13,8 @@ RSpec.describe Like, type: :system do
       @review_3 = FactoryBot.create(:review, id: 3, product_id: 3)
       visit '/users/sign_in'
       fill_in "Email", with: @user.email
-      fill_in "Password", with: @user.password
-      click_button "Log in"
+      fill_in "パスワード", with: @user.password
+      click_button "ログイン"
       visit '/products/1'
     end
     describe 'Product Page' do

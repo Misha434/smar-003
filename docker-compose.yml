@@ -5,6 +5,7 @@ services:
     command: rails s -b '0.0.0.0'
     environment:
       WEBPACKER_DEV_SERVER_HOST: webpacker
+      SELENIUM_REMOTE_URL: http://webdriver_chrome:5090/wd/hub
     volumes:
       - .:/smar-003:cached
       - node_modules:/smar-003/node_modules:cached
@@ -16,6 +17,7 @@ services:
     stdin_open: true
     ports:
       - "3000:3000"
+      - "4000:4000"
     links:
       - db
   db:
@@ -44,6 +46,12 @@ services:
       - "3035:3035"
     links:
       - db
+  selenium_chrome:
+    image: selenium/standalone-chrome-debug
+    logging:
+      driver: none
+    ports:
+      - "5900:5900"
 volumes:
   bundle:
   node_modules:
