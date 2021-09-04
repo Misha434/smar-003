@@ -115,7 +115,7 @@ RSpec.describe Review, type: :system do
               expect(page).to have_content 'Phone-3'
             end
             it 'Brand is enpty, should be invalid' do
-              select '--- Brand ---'
+              select '--- ブランド ---'
               click_button "投稿"
               expect(page).to have_content 'レビュー投稿'
             end
@@ -127,7 +127,7 @@ RSpec.describe Review, type: :system do
             it 'is enpty should be invalid (after selected Product)' do
               select 'Apple'
               select 'Phone-2'
-              select '--- Brand ---'
+              select '--- ブランド ---'
               click_button "投稿"
               expect(page).to have_content 'レビュー投稿'
             end
