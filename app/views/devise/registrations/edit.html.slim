@@ -1,22 +1,22 @@
-- provide(:title, 'Edit Profile')
+- provide(:title, 'プロフィール編集')
 
 .container
   .row
     .col-12.col-md-8.offset-md-2
       .card.px-3.my-3
         h2.text-center.mt-3
-          | Edit 
-          = resource_name.to_s.humanize
+          = yield(:title)
+          / = resource_name.to_s.humanize
         = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
           = render "devise/shared/error_messages", object: f.object
           .field
-            = f.label :name
+            = f.label :name, "ユーザー名"
             br
-            = f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control mb-2"
+            = f.text_field :name, autofocus: true, placeholder: "ユーザー名", autocomplete: "name", class: "form-control mb-2"
           .field
             = f.label :email
             br
-            = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control mb-2"
+            = f.email_field :email, autofocus: true, placeholder: "Email", autocomplete: "email", class: "form-control mb-2"
           - if devise_mapping.confirmable? && resource.pending_reconfirmation?
             div
               | Currently waiting confirmation for: 
@@ -25,43 +25,46 @@
             .accordion-item
               h2#flush-headingOne.accordion-header
                 button.accordion-button.collapsed aria-controls="flush-collapseOne" aria-expanded="false" data-bs-target="#flush-collapseOne" data-bs-toggle="collapse" type="button" 
-                  u Change Password
+                  u パスワード 変更
               #flush-collapseOne.accordion-collapse.collapse aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" 
                 .accordion-body
                   .col-12.my-2
                     .field
-                      = f.label :password
+                      = f.label :password, "パスワード"
                       br
                       = f.password_field :password, autocomplete: "new-password", class: "form-control mb-2"
                       - if @minimum_password_length
                         .form-text
                           li
-                            | ・#{@minimum_password_length} characters minimum
+                            | ・#{@minimum_password_length} 文字以上
                           li
-                            | ・Leave blank if you don't want to change it
+                            | ・パスワード変更なし なら入力不要
+                          li
+                            | ・利用可能な記号: !@#%^&* 
                     .field.mt-3
-                      = f.label :password_confirmation
+                      = f.label :password_confirmation, "パスワード再入力"
                       br
                       = f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control mb-2"
                       .form-text
                         li
-                          | ・Leave blank if you don't want to change it
+                          | ・パスワード変更なし なら入力不要
           .field
-            = f.label :avater
+            = f.label :avater, 'プロフィール画像'
             = f.file_field :avatar, class: "form-control mb-4", accept: "image/jpeg,image/gif,image/png"
               .form-text
-                p.mb-0 ・Size: ~ 5MB
-                p ・Image Format: jpeg, gif, png
+                p.mb-0 ・容量: ~ 5MB
+                p ・フォーマット: jpeg, gif, png
           .field
-            = f.label :current_password
+            = f.label :current_password, 'パスワード (変更前パスワード)'
             br
             = f.password_field :current_password, autocomplete: "current-password", class: "form-control"
           .form-text.mb-3
-            | we need your current password to confirm your changes
+            | 本人確認のためパスワード(パスワード変更時は変更前パスワード)を入力してください
+            / | we need your current password to confirm your changes
           .actions.mb-3.d-grid
-            = f.submit "Update", class: "btn btn-outline-primary"
-        = link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-outline-danger mb-3"
-      = link_to "Back", :back
+            = f.submit yield(:title), class: "btn btn-outline-primary"
+        = link_to "退会", registration_path(resource_name), data: { confirm: "退会処理後データは復活できません。本当に退会してもよろしいですか？" }, method: :delete, class: "btn btn-outline-danger mb-3"
+      = link_to "戻る", :back
       / Image size Varidation
       javascript:
         $("#avater_image").on("change", function sizeVaridation() {

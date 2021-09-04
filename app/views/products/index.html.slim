@@ -1,7 +1,7 @@
 - provide(:title, '製品一覧')
 
 .container
-  h2.text-center 製品一覧
+  h2.text-center = yield(:title)
 .container
   .row
     .col-12

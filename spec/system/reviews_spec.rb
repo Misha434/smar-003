@@ -362,7 +362,7 @@ RSpec.describe Review, type: :system do
       describe 'users#show' do
         it 'has posted review' do
           @review.save!
-          click_on 'Profile'
+          click_on 'プロフィール'
           within('#review-1') do
             expect(page).to have_content @review.product.name
             expect(page).to have_content @review.content
@@ -378,7 +378,7 @@ RSpec.describe Review, type: :system do
       end
       describe 'from users#show' do
         before do
-          click_on 'Profile'
+          click_on 'プロフィール'
           within('#review-1') do
             find(:css, '.review_edit_link').click
           end
@@ -656,7 +656,7 @@ RSpec.describe Review, type: :system do
             within('.like_count') do
               expect(page).to have_content '1'
             end
-            click_on 'Profile'
+            click_on 'プロフィール'
             within('.like_count') do
               expect(page).to have_content '1'
             end
@@ -676,7 +676,7 @@ RSpec.describe Review, type: :system do
             end
           end
           it 'in users#show' do
-            click_on 'Profile'
+            click_on 'プロフィール'
             expect(page).to have_content '0'
             within('.like_count') do
               expect(page).to have_content '0'
@@ -922,7 +922,7 @@ RSpec.describe Review, type: :system do
         @brand.save!
         @product.save!
         @review.save!
-        click_on 'Profile'
+        click_on 'プロフィール'
         within('#review-1') do
           expect(page).to have_content @review.product.name
           expect(page).to have_content @review.content
@@ -937,7 +937,7 @@ RSpec.describe Review, type: :system do
       end
       describe 'from users#show' do
         before do
-          click_on 'Profile'
+          click_on 'プロフィール'
           within('#review-1') do
             find(:css, '.review_edit_link').click
           end
@@ -1177,7 +1177,7 @@ RSpec.describe Review, type: :system do
             within('.like_count') do
               expect(page).to have_content '1'
             end
-            click_on 'Profile'
+            click_on 'プロフィール'
             within('.like_count') do
               expect(page).to have_content '1'
             end
@@ -1197,7 +1197,7 @@ RSpec.describe Review, type: :system do
             end
           end
           it 'in users#show' do
-            click_on 'Profile'
+            click_on 'プロフィール'
             expect(page).to have_content '0'
             within('.like_count') do
               expect(page).to have_content '0'

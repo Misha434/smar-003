@@ -280,7 +280,7 @@ RSpec.describe Product, type: :model do
       end
     end
   end
-  describe "バッテリー容量 Capacity" do
+  describe "Battery Capacity" do
     describe "under data-type(string)" do
       describe "Charactor Type" do
         context "漢字・ひらがな・カタカナ(全角)" do

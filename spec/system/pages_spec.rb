@@ -873,7 +873,7 @@ RSpec.describe "Pages", type: :system do
         click_on 'ゲストログイン'
       end
       within('header') do
-        find(:css, ".dropdown-toggle").click
+        find(:css, "button.dropdown-toggle").click
         click_on 'ログアウト'
       end
       expect(page).to have_content('Signed out successfully.')

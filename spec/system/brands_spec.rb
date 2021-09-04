@@ -231,17 +231,17 @@ RSpec.describe Brand, type: :system do
           expect(page).to have_content('Apple')
         end
         it 'Product count is correct(product no exist)' do
-          expect(page).to have_content('0 Products')
+          expect(page).to have_content('登録製品: 0')
         end
         it 'Product count is correct(1 product exist)' do
           FactoryBot.create(:product)
           visit current_path
-          expect(page).to have_content('1 Product')
+          expect(page).to have_content('登録製品: 1')
         end
         it 'Product count is correct(2 products exist)' do
           create_product(2)
           visit current_path
-          expect(page).to have_content('2 Products')
+          expect(page).to have_content('登録製品: 2')
         end
         it 'Edit link is available' do
           find(:css, '.edit_link').click
@@ -332,7 +332,7 @@ RSpec.describe Brand, type: :system do
           it 'is correct' do
             FactoryBot.create(:review)
             visit current_path
-            expect(page).to have_content('1 review')
+            expect(page).to have_content('レビュー数: 1')
           end
         end
         context 'if 2 reviews exist' do
@@ -342,7 +342,7 @@ RSpec.describe Brand, type: :system do
             FactoryBot.create(:review, id: 2, user_id: 2)
             visit current_path
             within('#product-1') do
-              expect(page).to have_content('2 reviews')
+              expect(page).to have_content('レビュー数: 2')
             end
           end
         end
@@ -636,17 +636,17 @@ RSpec.describe Brand, type: :system do
           expect(page).to have_content('Apple')
         end
         it 'Product count is correct(product no exist)' do
-          expect(page).to have_content('0 Products')
+          expect(page).to have_content('登録製品: 0')
         end
         it 'Product count is correct(1 product exist)' do
           FactoryBot.create(:product)
           visit current_path
-          expect(page).to have_content('1 Product')
+          expect(page).to have_content('登録製品: 1')
         end
         it 'Product count is correct(2 products exist)' do
           create_product(2)
           visit current_path
-          expect(page).to have_content('2 Products')
+          expect(page).to have_content('登録製品: 2')
         end
         it 'Edit link is not available' do
           expect(page).to_not have_css('.edit_link')
@@ -730,7 +730,7 @@ RSpec.describe Brand, type: :system do
           it 'is correct' do
             FactoryBot.create(:review)
             visit current_path
-            expect(page).to have_content('1 review')
+            expect(page).to have_content('レビュー数: 1')
           end
         end
         context 'if 2 reviews exist' do
@@ -740,7 +740,7 @@ RSpec.describe Brand, type: :system do
             FactoryBot.create(:review, id: 2, user_id: 2)
             visit current_path
             within('#product-1') do
-              expect(page).to have_content('2 reviews')
+              expect(page).to have_content('レビュー数: 2')
             end
           end
         end
@@ -797,17 +797,17 @@ RSpec.describe Brand, type: :system do
           expect(page).to have_content('Apple')
         end
         it 'Product count is correct(product no exist)' do
-          expect(page).to have_content('0 Products')
+          expect(page).to have_content('登録製品: 0')
         end
         it 'Product count is correct(1 product exist)' do
           FactoryBot.create(:product)
           visit current_path
-          expect(page).to have_content('1 Product')
+          expect(page).to have_content('登録製品: 1')
         end
         it 'Product count is correct(2 products exist)' do
           create_product(2)
           visit current_path
-          expect(page).to have_content('2 Products')
+          expect(page).to have_content('登録製品: 2')
         end
         it 'Edit link is not available' do
           expect(page).to_not have_css('.edit_link')
@@ -891,7 +891,7 @@ RSpec.describe Brand, type: :system do
           it 'is correct' do
             FactoryBot.create(:review)
             visit current_path
-            expect(page).to have_content('1 review')
+            expect(page).to have_content('レビュー数: 1')
           end
         end
         context 'if 2 reviews exist' do
@@ -901,7 +901,7 @@ RSpec.describe Brand, type: :system do
             FactoryBot.create(:review, id: 2, user_id: 2)
             visit current_path
             within('#product-1') do
-              expect(page).to have_content('2 reviews')
+              expect(page).to have_content('レビュー数: 2')
             end
           end
         end

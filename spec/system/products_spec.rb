@@ -360,7 +360,7 @@ RSpec.describe Product, type: :system do
               click_on '検索'
             end
             it 'make result count collectly' do
-              expect(page).to have_content('1 result')
+              expect(page).to have_content('1件')
             end
             it 'show an available product link' do
               click_on 'Test-12'
@@ -978,7 +978,7 @@ RSpec.describe Product, type: :system do
           it 'is correct' do
             FactoryBot.create(:review)
             visit current_path
-            expect(page).to have_content('1 review')
+            expect(page).to have_content('レビュー数: 1')
           end
         end
         context 'if 2 reviews exist' do
@@ -988,7 +988,7 @@ RSpec.describe Product, type: :system do
             FactoryBot.create(:review, id: 2, user_id: 2)
             visit current_path
             within('#product-1') do
-              expect(page).to have_content('2 reviews')
+              expect(page).to have_content('レビュー数: 2')
             end
           end
         end

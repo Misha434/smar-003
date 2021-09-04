@@ -296,7 +296,9 @@ RSpec.describe User, type: :system do
         end
         fill_in 'Email', with: @admin_user.email
         fill_in 'パスワード', with: @admin_user.password
-        fill_in 'ログイン'
+        within('.card') do
+          click_on 'ログイン'
+        end
         expect(page).to have_content 'Signed in successfully.'
       end
     end
@@ -308,7 +310,9 @@ RSpec.describe User, type: :system do
         end
         fill_in 'Email', with: @general_user.email
         fill_in 'パスワード', with: @general_user.password
-        fill_in 'ログイン'
+        within('.card') do
+          click_on 'ログイン'
+        end
         expect(page).to have_content 'Signed in successfully.'
       end
       it 'can logout' do
@@ -317,7 +321,9 @@ RSpec.describe User, type: :system do
         end
         fill_in 'Email', with: @general_user.email
         fill_in 'パスワード', with: @general_user.password
-        fill_in 'ログイン'
+        within('.card') do
+          click_on 'ログイン'
+        end
         within('header') do
           click_on 'ログアウト'
         end
@@ -333,10 +339,8 @@ RSpec.describe User, type: :system do
         expect(page).to have_content 'Loged in as Guest User.'
       end
       it 'can logout' do
-        within('header') do
-          click_on 'ゲストログイン'
-          click_on 'ログアウト'
-        end
+        within('header') do; click_on 'ゲストログイン'; end
+        within('header') do; click_on 'ログアウト'; end
         expect(page).to have_content 'Signed out successfully.'
       end
     end
@@ -344,7 +348,7 @@ RSpec.describe User, type: :system do
 
   describe '#edit:' do
     before do
-      @brand = FactoryBot.create(:brand)
+      # @brand = FactoryBot.create(:brand)
       @admin_user = FactoryBot.create(:user, name: "admin", admin: true)
       @general_user = FactoryBot.create(:user, id: 2, name: "general", email: 'test-1@example.com')
       visit root_path
@@ -353,16 +357,18 @@ RSpec.describe User, type: :system do
     describe 'General(registrated) User,' do
       before do
         within('header') do
-          # find(:css, '.dropdown-toggle').click
+          find(:css, 'button.dropdown-toggle').click
           click_on 'ログイン'
         end
 
         fill_in 'Email', with: @general_user.email
         fill_in 'パスワード', with: @general_user.password
-        fill_in 'ログイン'
+        within('.card') do
+          click_on 'ログイン'
+        end
 
-        # find(:css, '.dropdown-toggle').click
         within('header') do
+          find(:css, 'button.dropdown-toggle').click
           click_on 'プロフィール'
         end
 
@@ -370,9 +376,9 @@ RSpec.describe User, type: :system do
       end
 
       it 'can change Name' do
-        fill_in 'Name', with: 'BuzzFizz'
-        fill_in 'Current password', with: @general_user.password
-        click_on 'Update'
+        fill_in 'ユーザー名', with: 'BuzzFizz'
+        fill_in 'パスワード (変更前パスワード)', with: @general_user.password
+        click_on 'プロフィール編集'
 
         expect(page).to have_content 'Your account has been updated successfully.'
         within('header') do
@@ -384,8 +390,8 @@ RSpec.describe User, type: :system do
       it 'can change Email' do
         changed_email = 'general-2@example.com'
         fill_in 'Email', with: changed_email
-        fill_in 'Current password', with: @general_user.password
-        click_on 'Update'
+        fill_in 'パスワード (変更前パスワード)', with: @general_user.password
+        click_on 'プロフィール編集'
 
         expect(page).to have_content 'Your account has been updated successfully.'
 
@@ -397,39 +403,49 @@ RSpec.describe User, type: :system do
         end
         fill_in 'Email', with: @general_user.email
         fill_in 'パスワード', with: @general_user.password
-        fill_in 'ログイン'
+        within('.card') do
+          click_on 'ログイン'
+        end
         expect(page).to have_content 'Invalid Email or password.'
 
         fill_in 'Email', with: changed_email
         fill_in 'パスワード', with: @general_user.password
-        fill_in 'ログイン'
+        within('.card') do
+          click_on 'ログイン'
+        end
         expect(page).to have_content 'Signed in successfully.'
       end
 
-      it 'can change Password' do
+      it 'can change Password', js: true do
         changed_password = '!@#%^&*pAsS'
 
-        click_on 'Change Password'
+        click_on 'パスワード 変更'
         fill_in 'パスワード', with: changed_password
         fill_in 'パスワード再入力', with: changed_password
-        fill_in 'Current password', with: @general_user.password
-        click_on 'Update'
+        fill_in 'パスワード (変更前パスワード)', with: @general_user.password
+        click_on 'プロフィール編集'
 
         expect(page).to have_content 'Your account has been updated successfully.'
         within('header') do
+          find(:css, 'button.dropdown-toggle').click
           click_on 'ログアウト'
         end
         within('header') do
+          find(:css, 'button.dropdown-toggle').click
           click_on 'ログイン'
         end
         fill_in 'Email', with: @general_user.email
         fill_in 'パスワード', with: @general_user.password
-        fill_in 'ログイン'
+        within('.card') do
+          click_on 'ログイン'
+        end
         expect(page).to have_content 'Invalid Email or password.'
 
         fill_in 'Email', with: @general_user.email
         fill_in 'パスワード', with: changed_password
-        fill_in 'ログイン'
+        within('.card') do
+          click_on 'ログイン'
+        end
         expect(page).to have_content 'Signed in successfully.'
       end
     end
