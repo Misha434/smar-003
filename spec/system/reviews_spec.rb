@@ -73,7 +73,7 @@ RSpec.describe Review, type: :system do
         end
         context 'filled in content field' do
           it 'is available' do
-            click_button "Post"
+            click_button "投稿"
             expect(page).to have_content 'Phone-1'
             expect(page).to have_content 'Awesome'
           end
@@ -82,7 +82,7 @@ RSpec.describe Review, type: :system do
           it 'is available', js: true do
             attach_file "review_image",
                         "#{Rails.root}/spec/fixtures/files/image/image_test_logo.png"
-            click_button "Post"
+            click_button "投稿"
             expect(page).to have_content 'Aaron'
             expect(page).to have_content 'Awesome'
             expect(page).to have_css("img[src$='image_test_logo.png']")
@@ -101,7 +101,7 @@ RSpec.describe Review, type: :system do
             it 'Product are indicated correctry(selected Apple)' do
               select 'Apple'
               select 'Phone-2'
-              click_button "Post"
+              click_button "投稿"
               expect(page).to have_content 'Aaron'
               expect(page).to have_content 'Awesome'
               expect(page).to have_content 'Phone-2'
@@ -109,26 +109,26 @@ RSpec.describe Review, type: :system do
             it 'Product are indicated correctry(selected Example Inc)' do
               select 'Example Inc'
               select 'Phone-3'
-              click_button "Post"
+              click_button "投稿"
               expect(page).to have_content 'Aaron'
               expect(page).to have_content 'Awesome'
               expect(page).to have_content 'Phone-3'
             end
             it 'Brand is enpty, should be invalid' do
               select '--- Brand ---'
-              click_button "Post"
+              click_button "投稿"
               expect(page).to have_content 'レビュー投稿'
             end
             it 'Product is enpty, should be invalid' do
               select 'Example Exp'
-              click_button "Post"
+              click_button "投稿"
               expect(page).to have_content 'レビュー投稿'
             end
             it 'is enpty should be invalid (after selected Product)' do
               select 'Apple'
               select 'Phone-2'
               select '--- Brand ---'
-              click_button "Post"
+              click_button "投稿"
               expect(page).to have_content 'レビュー投稿'
             end
           end
@@ -137,7 +137,7 @@ RSpec.describe Review, type: :system do
           describe 'Form' do
             it 'selected 1 is available' do
               select '★☆☆☆☆'
-              click_button "Post"
+              click_button "投稿"
               within("#review-#{Review.last.id}") do
                 expect(page).to have_selector('.active_star', count: 1)
                 expect(page).to have_selector('.no_active_star', count: 4)
@@ -145,7 +145,7 @@ RSpec.describe Review, type: :system do
             end
             it 'selected 2 is available' do
               select '★★☆☆☆'
-              click_button "Post"
+              click_button "投稿"
               within("#review-#{Review.last.id}") do
                 expect(page).to have_selector('.active_star', count: 2)
                 expect(page).to have_selector('.no_active_star', count: 3)
@@ -153,7 +153,7 @@ RSpec.describe Review, type: :system do
             end
             it 'selected 3 is available' do
               select '★★★☆☆'
-              click_button "Post"
+              click_button "投稿"
               within("#review-#{Review.last.id}") do
                 expect(page).to have_selector('.active_star', count: 3)
                 expect(page).to have_selector('.no_active_star', count: 2)
@@ -161,7 +161,7 @@ RSpec.describe Review, type: :system do
             end
             it 'selected 4 is available' do
               select '★★★★☆'
-              click_button "Post"
+              click_button "投稿"
               within("#review-#{Review.last.id}") do
                 expect(page).to have_selector('.active_star', count: 4)
                 expect(page).to have_selector('.no_active_star', count: 1)
@@ -169,7 +169,7 @@ RSpec.describe Review, type: :system do
             end
             it 'selected 5 is available' do
               select '★★★★★'
-              click_button "Post"
+              click_button "投稿"
               within("#review-#{Review.last.id}") do
                 expect(page).to have_selector('.active_star', count: 5)
                 expect(page).to_not have_selector('.no_active_star')
@@ -182,7 +182,7 @@ RSpec.describe Review, type: :system do
             context 'is 0(zero)' do
               it 'is unavailable' do
                 fill_in 'review[content]', with: ''
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content 'レビュー投稿'
                 expect(page).to have_content "Content can't be blank"
               end
@@ -190,7 +190,7 @@ RSpec.describe Review, type: :system do
             context 'is 1' do
               it 'is available' do
                 fill_in 'review[content]', with: 'X'
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content 'X'
               end
             end
@@ -198,7 +198,7 @@ RSpec.describe Review, type: :system do
               it 'is available' do
                 testdata_content = 'Aaron and associates Example Company East Asia Inc Aaron and associates Example Company East Asia Inc associates Exact Company East Asia Inc'
                 fill_in 'review[content]', with: testdata_content
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content testdata_content
               end
             end
@@ -206,7 +206,7 @@ RSpec.describe Review, type: :system do
               it 'is unavailable' do
                 testdata_content = 'Aarone and associates Example Company East Asia Inc Aaron and associates Example Company East Asia Inc associates Exact Company East Asia Inc'
                 fill_in 'review[content]', with: testdata_content
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content 'レビュー投稿'
                 expect(page).to have_content "Content is too long"
               end
@@ -217,7 +217,7 @@ RSpec.describe Review, type: :system do
               it 'is available' do
                 testdata_content = '吾輩は猫である。名前はまだ無い。どこで生れたかとんと見当けんとうがつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。この書生というのは時々'
                 fill_in 'review[content]', with: testdata_content
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content testdata_content
               end
             end
@@ -225,7 +225,7 @@ RSpec.describe Review, type: :system do
               it 'is available' do
                 testdata_content = 'ﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂｶﾇ｡ﾅﾝﾃﾞﾓｳｽﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂｶﾇ｡ﾅﾝﾃﾞﾓｳｽﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂ'
                 fill_in 'review[content]', with: testdata_content
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content testdata_content
               end
             end
@@ -234,7 +234,7 @@ RSpec.describe Review, type: :system do
             it "is available" do
               testdata_content = "From fairest creatures we desire increase, That thereby beauty’s rose might never die, But as the riper should by time decease, His tender h"
               fill_in 'review[content]', with: testdata_content
-              click_button "Post"
+              click_button "投稿"
               expect(page).to have_content testdata_content
             end
           end
@@ -242,7 +242,7 @@ RSpec.describe Review, type: :system do
             it "is available" do
               testdata_content = "▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμν▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμν▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγ"
               fill_in 'review[content]', with: testdata_content
-              click_button "Post"
+              click_button "投稿"
               expect(page).to have_content testdata_content
             end
           end
@@ -250,7 +250,7 @@ RSpec.describe Review, type: :system do
             it "is available" do
               testdata_content = "88991646493833403４５３１７５１９０２４８７５１０４３６５１８２７４６１８２558388991646493833403４５３１７５１９０２４８７５１０４３６５１８２７４６１８２558388991646493833403４５３１７５１９０２４８７５１０４３６５１８２"
               fill_in 'review[content]', with: testdata_content
-              click_button "Post"
+              click_button "投稿"
               expect(page).to have_content testdata_content
             end
           end
@@ -258,13 +258,13 @@ RSpec.describe Review, type: :system do
             it "is available" do
               testdata_content = "👨" * 140
               fill_in 'review[content]', with: testdata_content
-              click_button "Post"
+              click_button "投稿"
               expect(page).to have_content testdata_content
             end
             it "is unavailable 141 charactors" do
               testdata_content = "👨" * 141
               fill_in 'review[content]', with: testdata_content
-              click_button "Post"
+              click_button "投稿"
               expect(page).to have_content 'レビュー投稿'
               expect(page).to have_content 'too long'
             end
@@ -272,7 +272,7 @@ RSpec.describe Review, type: :system do
           context "space" do
             it "only is unavailable" do
               fill_in 'review[content]', with: ' 　'
-              click_button "Post"
+              click_button "投稿"
               expect(page).to have_content 'レビュー投稿'
               expect(page).to have_content "can't be blank"
             end
@@ -297,7 +297,7 @@ RSpec.describe Review, type: :system do
               it 'is available' do
                 attach_file "review_image",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_review.gif"
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content @review.content
                 expect(page).to have_css("img[src$='image_test_review.gif']")
               end
@@ -306,7 +306,7 @@ RSpec.describe Review, type: :system do
               it 'is available' do
                 attach_file "review_image",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_review.jpeg"
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content @review.content
                 expect(page).to have_css("img[src$='image_test_review.jpeg']")
               end
@@ -315,7 +315,7 @@ RSpec.describe Review, type: :system do
               it 'is available' do
                 attach_file "review_image",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_review.png"
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content @review.content
                 expect(page).to have_css("img[src$='image_test_review.png']")
               end
@@ -324,7 +324,7 @@ RSpec.describe Review, type: :system do
               it 'is unavailable' do
                 attach_file "review_image",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content 'レビュー投稿'
                 expect(page).to have_content 'Image must be a valid image format'
               end
@@ -333,7 +333,7 @@ RSpec.describe Review, type: :system do
               it 'is unavailable' do
                 attach_file "review_image",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content 'レビュー投稿'
                 expect(page).to have_content 'Image must be a valid image format'
               end
@@ -344,7 +344,7 @@ RSpec.describe Review, type: :system do
               it 'is available' do
                 attach_file "review_image",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_review_5mb.jpeg"
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content @review.content
                 expect(page).to have_css("img[src$='image_test_review_5mb.jpeg']")
               end
@@ -710,7 +710,7 @@ RSpec.describe Review, type: :system do
         end
         context 'filled in content field' do
           it 'is available' do
-            click_button "Post"
+            click_button "投稿"
             expect(page).to have_content 'Phone-1'
             expect(page).to have_content 'Awesome'
           end
@@ -719,7 +719,7 @@ RSpec.describe Review, type: :system do
           it 'is available', js: true do
             attach_file "review_image",
                         "#{Rails.root}/spec/fixtures/files/image/image_test_logo.png"
-            click_button "Post"
+            click_button "投稿"
             expect(page).to have_content 'Aaron'
             expect(page).to have_content 'Awesome'
             expect(page).to have_css("img[src$='image_test_logo.png']")
@@ -730,7 +730,7 @@ RSpec.describe Review, type: :system do
             context 'is 0(zero)' do
               it 'is unavailable' do
                 fill_in 'review[content]', with: ''
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content 'レビュー投稿'
                 expect(page).to have_content "Content can't be blank"
               end
@@ -738,7 +738,7 @@ RSpec.describe Review, type: :system do
             context 'is 1' do
               it 'is available' do
                 fill_in 'review[content]', with: 'X'
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content 'X'
               end
             end
@@ -746,7 +746,7 @@ RSpec.describe Review, type: :system do
               it 'is available' do
                 testdata_content = 'Aaron and associates Example Company East Asia Inc Aaron and associates Example Company East Asia Inc associates Exact Company East Asia Inc'
                 fill_in 'review[content]', with: testdata_content
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content testdata_content
               end
             end
@@ -754,7 +754,7 @@ RSpec.describe Review, type: :system do
               it 'is unavailable' do
                 testdata_content = 'Aarone and associates Example Company East Asia Inc Aaron and associates Example Company East Asia Inc associates Exact Company East Asia Inc'
                 fill_in 'review[content]', with: testdata_content
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content 'レビュー投稿'
                 expect(page).to have_content "Content is too long"
               end
@@ -765,7 +765,7 @@ RSpec.describe Review, type: :system do
               it 'is available' do
                 testdata_content = '吾輩は猫である。名前はまだ無い。どこで生れたかとんと見当けんとうがつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。この書生というのは時々'
                 fill_in 'review[content]', with: testdata_content
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content testdata_content
               end
             end
@@ -773,7 +773,7 @@ RSpec.describe Review, type: :system do
               it 'is available' do
                 testdata_content = 'ﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂｶﾇ｡ﾅﾝﾃﾞﾓｳｽﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂｶﾇ｡ﾅﾝﾃﾞﾓｳｽﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ｡ﾅﾏｴﾊﾏﾀﾞﾅｲ｡ﾄﾞｺﾃﾞｳﾏﾚﾀｶｹﾝﾄｳｶﾞﾂ'
                 fill_in 'review[content]', with: testdata_content
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content testdata_content
               end
             end
@@ -782,7 +782,7 @@ RSpec.describe Review, type: :system do
             it "is available" do
               testdata_content = "From fairest creatures we desire increase, That thereby beauty’s rose might never die, But as the riper should by time decease, His tender h"
               fill_in 'review[content]', with: testdata_content
-              click_button "Post"
+              click_button "投稿"
               expect(page).to have_content testdata_content
             end
           end
@@ -790,7 +790,7 @@ RSpec.describe Review, type: :system do
             it "is available" do
               testdata_content = "▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμν▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμν▼※〒→←↑↓∇∵Å‰†‡ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγ"
               fill_in 'review[content]', with: testdata_content
-              click_button "Post"
+              click_button "投稿"
               expect(page).to have_content testdata_content
             end
           end
@@ -798,7 +798,7 @@ RSpec.describe Review, type: :system do
             it "is available" do
               testdata_content = "88991646493833403４５３１７５１９０２４８７５１０４３６５１８２７４６１８２558388991646493833403４５３１７５１９０２４８７５１０４３６５１８２７４６１８２558388991646493833403４５３１７５１９０２４８７５１０４３６５１８２"
               fill_in 'review[content]', with: testdata_content
-              click_button "Post"
+              click_button "投稿"
               expect(page).to have_content testdata_content
             end
           end
@@ -806,13 +806,13 @@ RSpec.describe Review, type: :system do
             it "is available" do
               testdata_content = "👨" * 140
               fill_in 'review[content]', with: testdata_content
-              click_button "Post"
+              click_button "投稿"
               expect(page).to have_content testdata_content
             end
             it "is unavailable 141 charactors" do
               testdata_content = "👨" * 141
               fill_in 'review[content]', with: testdata_content
-              click_button "Post"
+              click_button "投稿"
               expect(page).to have_content 'レビュー投稿'
               expect(page).to have_content 'too long'
             end
@@ -820,7 +820,7 @@ RSpec.describe Review, type: :system do
           context "space" do
             it "only is unavailable" do
               fill_in 'review[content]', with: ' 　'
-              click_button "Post"
+              click_button "投稿"
               expect(page).to have_content 'レビュー投稿'
               expect(page).to have_content "can't be blank"
             end
@@ -845,7 +845,7 @@ RSpec.describe Review, type: :system do
               it 'is available' do
                 attach_file "review_image",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_review.gif"
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content @review.content
                 expect(page).to have_css("img[src$='image_test_review.gif']")
               end
@@ -854,7 +854,7 @@ RSpec.describe Review, type: :system do
               it 'is available' do
                 attach_file "review_image",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_review.jpeg"
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content @review.content
                 expect(page).to have_css("img[src$='image_test_review.jpeg']")
               end
@@ -863,7 +863,7 @@ RSpec.describe Review, type: :system do
               it 'is available' do
                 attach_file "review_image",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_review.png"
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content @review.content
                 expect(page).to have_css("img[src$='image_test_review.png']")
               end
@@ -872,7 +872,7 @@ RSpec.describe Review, type: :system do
               it 'is unavailable' do
                 attach_file "review_image",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.svg"
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content 'レビュー投稿'
                 expect(page).to have_content 'Image must be a valid image format'
               end
@@ -881,7 +881,7 @@ RSpec.describe Review, type: :system do
               it 'is unavailable' do
                 attach_file "review_image",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_3kb.bmp"
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content 'レビュー投稿'
                 expect(page).to have_content 'Image must be a valid image format'
               end
@@ -892,7 +892,7 @@ RSpec.describe Review, type: :system do
               it 'is available' do
                 attach_file "review_image",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_review_5mb.jpeg"
-                click_button "Post"
+                click_button "投稿"
                 expect(page).to have_content @review.content
                 expect(page).to have_css("img[src$='image_test_review_5mb.jpeg']")
               end
