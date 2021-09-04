@@ -77,6 +77,9 @@ jobs:
       - run:
           name: DB Setup
           command: bundle exec rails db:schema:load --trace
+      - run:
+          name: Attach config for JavaScript test
+          command: mv spec/support/capybara_deploy.rb spec/support/capybara.rb
       # Run rspec in parallel
       - ruby/rspec-test
 

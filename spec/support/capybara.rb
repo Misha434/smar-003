@@ -1,4 +1,4 @@
-Capybara.javascript_driver = :selenium_chrome
+# Capybara.javascript_driver = :selenium_chrome
 
 require "selenium/webdriver"
 
@@ -24,18 +24,18 @@ RSpec.configure do |config|
   end
 
   ## for MacOS
-  config.before(:each, type: :system, js: true) do
-    driven_by :selenium_chrome_headless
-  end
+  # config.before(:each, type: :system, js: true) do
+  #   driven_by :selenium_chrome_headless
+  # end
 
   ## for Docker
-  # config.before(:each, type: :system, js: true) do
-  #   # driven_by :selenium_chrome_in_container
-  #   driven_by :headless_selenium_chrome_in_container
-  #   # Capybara.server_host = "0.0.0.0"
-  #   # Capybara.server_port = 4000
-  #   Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
-  #   # Capybara.app_host = 'http://web:4000'
-  #   Capybara.app_host = "http://#{Capybara.server_host}"
-  # end
+  config.before(:each, type: :system, js: true) do
+    # driven_by :selenium_chrome_in_container
+    driven_by :headless_selenium_chrome_in_container
+    # Capybara.server_host = "0.0.0.0"
+    # Capybara.server_port = 4000
+    Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
+    # Capybara.app_host = 'http://web:4000'
+    Capybara.app_host = "http://#{Capybara.server_host}"
+  end
 end
