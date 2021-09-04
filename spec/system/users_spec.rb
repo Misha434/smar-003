@@ -416,7 +416,7 @@ RSpec.describe User, type: :system do
         expect(page).to have_content 'Signed in successfully.'
       end
 
-      it 'can change Password', js: true do
+      it 'can change Password' do
         changed_password = '!@#%^&*pAsS'
 
         find('.accordion-button').click
