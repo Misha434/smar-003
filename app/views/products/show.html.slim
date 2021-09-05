@@ -2,22 +2,25 @@
 
 .container.py-3
   .row
-    .col-4
-      = product_image_default(@product)
-    .col-8
-      .d-flex.product_title
-        h2 = @product.name
-        - if user_signed_in? && current_user.admin?
-          = link_to edit_product_path(@product), class: "edit_link" do
-            i.fas.fa-pencil-alt.fa-xs.pull-right
-      p.brand_link = link_to @product.brand.name, @product.brand
-    .col-12
+    .col-12.offset-md-1.col-md-10.offset-md-1.offset-lg-2.col-lg-8.offset-lg-2
+      .row
+        .col-4
+          = product_image_default(@product)
+        .col-8
+          .d-flex.product_title
+            h2 = @product.name
+            - if user_signed_in? && current_user.admin?
+              = link_to edit_product_path(@product), class: "edit_link" do
+                i.fas.fa-pencil-alt.fa-xs.pull-right
+          p.brand_link = link_to @product.brand.name, @product.brand
+  .row
+    .col-12.offset-md-1.col-md-10.offset-md-1.offset-lg-2.col-lg-8.offset-lg-2
       = render 'products/product_info'
 .container
   - if user_signed_in? && current_user.reviews.where('product_id=?', params[:id]).empty?
     .row.m-1
-      .card
-        .row
+      .col-12.offset-md-1.col-md-10.offset-md-1.offset-lg-2.col-lg-8.offset-lg-2
+        .card.px-2.mx-1
           .accordion.accordion-flush#accordionFlushExample
             .accordion-item
               h2#flush-headingOne.accordion-header
@@ -40,4 +43,5 @@
                         p ・フォーマット: jpeg, gif, png
                       = f.submit "投稿", class: "btn btn-primary g-grid col-12 my-2"
   .row
-    = render 'products/review'
+    .col-12.offset-md-1.col-md-10.offset-md-1.offset-lg-2.col-lg-8.offset-lg-2
+      = render 'products/review'
