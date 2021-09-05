@@ -1,17 +1,18 @@
 - provide(:title, @brand.name)
 .container.brand_title
   .row.p-2
-    .col-3
-      .logo--frame
-        = logo_image_default(@brand)
-    .col-9.d-flex.mt-3
-      h2 = @brand.name
-      - if user_signed_in? && current_user.admin?
-        = link_to edit_brand_path(@brand), class: "edit_link px-2" do
-          i.fas.fa-pencil-alt.fa-xs.pull-right
-.container
+    .col-12.offset-md-1.col-md-10.offset-md-1.offset-lg-3.col-lg-6.offset-lg-3
+      .row.p-2
+        .col-3
+          .logo--frame
+            = logo_image_default(@brand)
+        .col-9.d-flex.mt-3
+          h2 = @brand.name
+          - if user_signed_in? && current_user.admin?
+            = link_to edit_brand_path(@brand), class: "edit_link px-2" do
+              i.fas.fa-pencil-alt.fa-xs.pull-right
   .row
-    .col-12.col-md-6
+    .col-12.offset-md-1.col-md-10.offset-md-1.offset-lg-3.col-lg-6.offset-lg-3
       ol.products
         - @brand.products.with_attached_image.each do |product|
           = render 'brands/product', product: product
