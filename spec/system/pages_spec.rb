@@ -214,7 +214,7 @@ RSpec.describe "Pages", type: :system do
   before do
     create_brand
   end
-  describe "ログインしました。 as Admin User," do
+  describe "Signed in as Admin User," do
     before do
       @admin_user = FactoryBot.create(:user, admin: true)
       visit root_path

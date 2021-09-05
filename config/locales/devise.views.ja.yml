@@ -31,6 +31,7 @@ ja:
     models:
       user: ユーザー
       brand: ブランド
+      product: 製品
       review: レビュー
   devise:
     confirmations:
@@ -147,5 +148,8 @@ ja:
         one: エラーが発生したため %{resource} は保存されませんでした。
         other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした。"
       too_long: が長すぎます。
+      too_short: が短すぎます。
       can't_be_blank: が入力されていません。
       blank: が入力されていません。
+      invalid: が無効な形式になっています。
+      confirmation: と一致しません。
