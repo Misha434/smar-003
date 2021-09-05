@@ -81,6 +81,11 @@ jobs:
           name: Attach config for JavaScript test
           command: mv .circleci/capybara_deploy.rb spec/support/capybara.rb
       - run:
+        name: Run ESLint
+        command: |
+          mkdir -p /tmp/test-reports/eslint
+          node_modules/.bin/eslint . --format junit --output-file /tmp/test-reports/eslint/results.xml
+      - run:
           name: Run Rubocop
           command: bundle exec rubocop
       # Run rspec in parallel
