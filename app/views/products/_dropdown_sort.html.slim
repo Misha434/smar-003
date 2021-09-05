@@ -2,7 +2,7 @@
   button#dropdownMenuButton.btn.btn-light.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" type="button" 
     i.fas.fa-sort.mx-1
     | #{ranking_title}
-  ul.dropdown-menu aria-labelledby="dropdownMenuButton" 
+  ul.dropdown-menu.dropdown-menu-end aria-labelledby="dropdownMenuButton" 
     = sort_link(@q, :release_date, default_order: :desc, hide_indicator: true)
       li.dropdown-item 新発売
     = sort_link(@q, :soc_antutu_score, default_order: :desc, hide_indicator: true)

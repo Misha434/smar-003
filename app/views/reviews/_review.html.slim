@@ -8,7 +8,7 @@
           span.user 
             h5.my-0 = link_to review.product.name, review.product
           span.timestamp.count--text
-            | Posted #{time_ago_in_words(review.created_at)} ago
+            | 投稿: #{time_ago_in_words(review.created_at)}前
       .row
         .col-12.mt-2
           span.rate

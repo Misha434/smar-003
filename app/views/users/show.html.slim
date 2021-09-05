@@ -2,16 +2,18 @@
 
 .container
   .row.pt-3
-    .col-4.text-center
-      = render 'user_image'
-    .col-8.pb-4
-      .d-flex
-        h1.px-3 = @user.name
-        - if (@user == current_user) && (@user.email != "guest@example.com")
-          = link_to edit_user_registration_path, class:"user_edit" do
-            i.fas.fa-lg.fa-cog.pt-2.__no_active
+    .col-12.offset-md-1.col-md-10.offset-md-1.offset-lg-2.col-lg-8.offset-lg-2
+      .row
+        .col-3.col-md-2.text-center
+          = render 'user_image'
+        .col-9.offset-md-2.col-md-7.offset-md-1.pb-4
+          .d-flex
+            h1.px-3.mt-3 = @user.name
+            - if (@user == current_user) && (@user.email != "guest@example.com")
+              = link_to edit_user_registration_path, class:"user_edit" do
+                i.fas.fa-lg.fa-cog.pt-2.__no_active
   .row
-    .col-12.col-md-10.offset-md-1
+    .col-12.offset-md-1.col-md-10.offset-md-1.offset-lg-2.col-lg-8.offset-lg-2
       .d-flex.my-2
         .d-block.px-2.text-center
           i.far.fa-thumbs-up
@@ -21,11 +23,16 @@
           p.review_count = @user.reviews.count
 .container
   .row
-    .col-12.col-lg-6.offset-lg-1
-      ol.reviews.p-0
-        = render @reviews
-    .col-lg-4.d-none.d-lg-block
-      = render 'reviews/form'
+    - if user_signed_in? && @user == current_user
+      .col-12.col-lg-6.offset-lg-1
+        ol.reviews.p-0
+          = render @reviews
+      .col-lg-4.d-none.d-lg-block
+        = render 'reviews/form'
+    - else
+      .col-12.offset-md-1.col-md-10.offset-md-1.offset-lg-2.col-lg-8.offset-lg-2
+        ol.reviews.p-0
+          = render @reviews
 
 - if @user == current_user
   footer
