@@ -80,6 +80,9 @@ jobs:
       - run:
           name: Attach config for JavaScript test
           command: mv .circleci/capybara_deploy.rb spec/support/capybara.rb
+      - run:
+          name: Run Rubocop
+          command: bundle exec rubocop
       # Run rspec in parallel
       - ruby/rspec-test
       - store_artifacts:
