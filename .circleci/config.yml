@@ -84,9 +84,6 @@ jobs:
       - ruby/rspec-test
       - store_artifacts:
           path: tmp/capybara/
-      - run:
-        name: exec Rubocop
-        command: bundle exec rubocop
 
   deploy:
     docker:
