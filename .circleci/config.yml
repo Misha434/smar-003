@@ -28,7 +28,6 @@ jobs:
             yarn install --check-files
       - ruby/install-deps:
           bundler-version: '1.17.2'
-      - ruby/rubocop-check
       # use the ruby orb to install dependencies
       # use the node orb to install our packages
       # specifying that we use `yarn` and to cache dependencies with `yarn.lock`
@@ -81,6 +80,9 @@ jobs:
       - run:
           name: Attach config for JavaScript test
           command: mv .circleci/capybara_deploy.rb spec/support/capybara.rb
+      - run:
+          name: Run Rubocop
+          command: rubocop
       # Run rspec in parallel
       - ruby/rspec-test
       - store_artifacts:
