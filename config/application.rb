@@ -41,5 +41,6 @@ module Smar003
       g.helper          false
       g.channel         assets: false
     end
+    config.i18n.default_locale = :ja
   end
 end

@@ -58,7 +58,7 @@ RSpec.describe Product, type: :system do
       fill_in "Email", with: @admin_user.email
       fill_in "パスワード", with: @admin_user.password
       click_button "ログイン"
-      expect(page).to have_content 'Signed in'
+      expect(page).to have_content 'ログインしました。'
     end
     describe 'Create Action' do
       before do
@@ -96,7 +96,7 @@ RSpec.describe Product, type: :system do
               fill_in 'Name', with: ''
               click_button "Create New Product"
               expect(page).to have_content 'Add New Product'
-              expect(page).to have_content "Name can't be blank"
+              expect(page).to have_content "Name が入力されていません。"
             end
           end
           context 'is 1' do
@@ -125,7 +125,7 @@ RSpec.describe Product, type: :system do
               fill_in 'Name', with: testdata_product_name
               click_button "Create New Product"
               expect(page).to have_content 'Add New Product'
-              expect(page).to have_content "Name is too long"
+              expect(page).to have_content "Name が長すぎます。"
             end
           end
         end
@@ -205,7 +205,7 @@ RSpec.describe Product, type: :system do
             fill_in 'Name', with: ' 　'
             click_button "Create New Product"
             expect(page).to have_content 'Add New Product'
-            expect(page).to have_content "Name can't be blank"
+            expect(page).to have_content "Name が入力されていません。"
           end
         end
         describe 'registrated' do
@@ -642,7 +642,7 @@ RSpec.describe Product, type: :system do
               fill_in 'Name', with: ''
               click_button "Update Product"
               expect(page).to have_content 'Edit Product'
-              expect(page).to have_content "Name can't be blank"
+              expect(page).to have_content "Name が入力されていません。"
             end
           end
           context 'is 1' do
@@ -666,7 +666,7 @@ RSpec.describe Product, type: :system do
               fill_in 'Name', with: testdata_product_name
               click_button "Update Product"
               expect(page).to have_content 'Edit Product'
-              expect(page).to have_content "Name is too long"
+              expect(page).to have_content "Name が長すぎます。"
             end
           end
           describe 'charactor type' do
@@ -868,7 +868,7 @@ RSpec.describe Product, type: :system do
       fill_in "Email", with: @registrated_user.email
       fill_in "パスワード", with: @registrated_user.password
       click_button "ログイン"
-      expect(page).to have_content 'Signed in'
+      expect(page).to have_content 'ログインしました。'
     end
     describe 'Create Action' do
       it 'is not available' do
@@ -1040,7 +1040,7 @@ RSpec.describe Product, type: :system do
       end
       it 'requires Login' do
         expect(page).to have_content('ログイン')
-        expect(page).to have_content('You need to sign in or sign up before continuing')
+        expect(page).to have_content('ログインもしくはアカウント登録してください。')
       end
       it 'is available after login' do
         fill_in "Email", with: @registrated_user.email

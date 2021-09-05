@@ -82,6 +82,8 @@ jobs:
           command: mv .circleci/capybara_deploy.rb spec/support/capybara.rb
       # Run rspec in parallel
       - ruby/rspec-test
+      - store_artifacts:
+          path: tmp/capybara/
 
   deploy:
     docker:

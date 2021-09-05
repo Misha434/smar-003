@@ -121,6 +121,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-i18n (1.10.0)
+      devise (>= 4.8.0)
     diff-lcs (1.4.4)
     erubi (1.10.0)
     factory_bot (6.2.0)
@@ -363,6 +365,7 @@ DEPENDENCIES
   capistrano3-unicorn
   capybara (>= 3.26)
   devise (~> 4.7, >= 4.7.3)
+  devise-i18n
   factory_bot_rails
   faker (~> 2.16)
   foreman
