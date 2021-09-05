@@ -339,8 +339,8 @@ RSpec.describe User, type: :system do
         expect(page).to have_content 'ゲストユーザーとしてログインしました'
       end
       it 'can logout' do
-        within('header') do; click_on 'ゲストログイン'; end
-        within('header') do; click_on 'ログアウト'; end
+        within('header') { click_on 'ゲストログイン' }
+        within('header') { click_on 'ログアウト' }
         expect(page).to have_content 'ログアウトしました。'
       end
     end

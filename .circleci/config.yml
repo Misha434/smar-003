@@ -82,7 +82,7 @@ jobs:
           command: mv .circleci/capybara_deploy.rb spec/support/capybara.rb
       - run:
           name: Run Rubocop
-          command: rubocop
+          command: bundle exec rubocop
       # Run rspec in parallel
       - ruby/rspec-test
       - store_artifacts:
