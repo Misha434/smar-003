@@ -1,29 +1,30 @@
 - provide(:title, '製品一覧')
 
 .container
-  h2.text-center = yield(:title)
+  .row
+    .col-12.offset-md-1.col-md-10.offset-md-1.offset-lg-3.col-lg-6.offset-lg-3
+      h2.text-center.mt-2 = yield(:title)
 .container
   .row
-    .col-12
-      .container
+    .col-12.offset-md-1.col-md-10.offset-md-1.offset-lg-3.col-lg-6.offset-lg-3
+      = render 'products/search_form'
+  .row
+    .col-12.offset-md-1.col-md-10.offset-md-1.offset-lg-3.col-lg-6.offset-lg-3.my-3
+      .float-end = render 'products/dropdown_sort'
+  .row
+    .col-12.offset-md-1.col-md-10.offset-md-1.offset-lg-3.col-lg-6.offset-lg-3.mb-3
+      ol.products
         .row
-          .col-12.mb-3
-            = render 'products/search_form'
-      .container
+          .col-12
+            - if @products.empty?
+              p.text-center 該当商品 なし
+            - else
+              ol
+                p.float-start
+                  | #{@pagy.vars[:count]}件
         .row
-          .col-12.mb-3
-            .float-end = render 'products/dropdown_sort'
-      .container
-        ol.products
-          .row
-            .col-12
-              - if @products.empty?
-                p.text-center 該当商品 なし
-              - else
-                ol
-                  p.float-start
-                    | #{@pagy.vars[:count]}件
-              - @products.each do |product|
-                li id = "#{product.id}"
-                  = render 'products/product', product: product
-              = render 'shared/pagination_bar'
+          .col-12
+            - @products.each do |product|
+              li id = "#{product.id}"
+                = render 'products/product', product: product
+            = render 'shared/pagination_bar'
