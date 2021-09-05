@@ -81,6 +81,7 @@ jobs:
           name: Attach config for JavaScript test
           command: mv .circleci/capybara_deploy.rb spec/support/capybara.rb
       # Run rspec in parallel
+      - ruby/rubocop-check
       - ruby/rspec-test
       - store_artifacts:
           path: tmp/capybara/
