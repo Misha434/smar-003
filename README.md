@@ -1,6 +1,6 @@
 ![logo_with_margin](https://user-images.githubusercontent.com/61964919/130588238-21854f7a-0496-4b89-b59a-94c7b2d6ab93.png)
 
-<h2 style="text-align: center"> スマホ比較アプリ</p>
+<h2 style="text-align: center"> スマホ比較アプリ</h2>
 
 
 ## 目次
@@ -19,13 +19,11 @@
 
 ## プロジェクトの概要説明
 
-スマホを買い換える時に、「バッテリーの持ちがいい」、「予算度外視でサクサク動くものにしたい」自分の望む視点でスマホを直感的に調べるサイトがあればいいなと思い作成しました。
+スマホを買い換える時に、「バッテリーの持ちがいい」、「サクサク動くものにしたい」自分の望む視点でスマホを直感的に調べるサイトがあればいいなと思い作成しました。
 
 <a id="anchor2"></a>
 
 ## 実装機能 一覧
-
-ビューはスマホ利用を主要として作成しました。今後タブレット以上の大きさにも対応させる予定です。
 
 |  機能  |  概要 ( [ ]内は管理者のみ )  |
 | ---- | ---- |
@@ -34,8 +32,9 @@
 |  製品情報表示  | スペック詳細情報確認・いいね&口コミ数表示 <br> [ 製品登録・登録内容変更・削除 ]  |
 |  製品検索機能  | 製品一覧から製品名で検索 |
 |  ブランド  | ブランドごとの製品一覧表示機能 <br> [ ブランド登録・登録内容変更・削除 ]  |
-|  口コミ投稿機能  | 製品ごとの口コミ投稿・投稿内容変更・内容変更・削除  |
+|  口コミ投稿機能  | 製品ごとの口コミ投稿・投稿内容変更・削除  |
 |  口コミいいね機能  | 口コミにいいね(Ajax) |
+|  レスポンシブ対応  | - |
 
 <a id="anchor3"></a>
 
@@ -94,6 +93,7 @@
 | rubocop | 静的コード解析ツール |
 | capistrano | デプロイツール |
 | slim | テンプレートエンジン |
+| Bullet | N + 1 問題検出ツール |
 
 ### インフラ
 
@@ -106,6 +106,17 @@
 | RDS | RDBMS: MySQL | - |
 | Route 53 | DNSサービス | - |
 | S3 | ストレージ機能 | - |
+| ELB (ALB) | 負荷分散機能 | - |
+| Certificate Manager | SSL証明書 サービス | - |
+
+- CircleCI(CI/CD ツール)
+##### git push 等 実行時の挙動
+
+| branch | アクション |  |
+| --- | --- | --- |
+| local -> remote-branch | push | 自動テスト (RSpec, Rubocop) |
+| remote-branch -> remote master | merge | 自動テスト (RSpec, Rubocop) |
+|  |  | 自動デプロイ(Capistrano) |
 
 ### 開発環境
 
@@ -113,6 +124,9 @@
 - Vagrant (CentOS 7)
 
 ### その他
+
+
+
 #### インフラ使用技術 選定での背景
 当初は Heroku へのデプロイでのリリースを検討していましたが以下の理由で AWS 導入することにしました。
 
@@ -131,18 +145,25 @@
 
 ## システム構成図
 
-![Infrastracture_Diagram_20210824](https://user-images.githubusercontent.com/61964919/130624628-da443786-522e-48fd-bd4c-9564276f098d.png)
-
+![Infrastracture_Diagram_20210906](https://user-images.githubusercontent.com/61964919/132186932-927de9f5-a5f3-48fb-9fc7-d59ab98fad67.png)
 
 <a id="anchor7"></a>
 
 ## 使い方
 
-### インストール方法
+### インストール・開発環境下での実行方法
 
 ```
 
 $ git clone https://github.com/Misha434/smar-003.git
+
+$ cd smar-003
+
+### Docker 環境
+
+$ docker-compose up -d
+
+### Docker 未使用の場合
 
 $ yarn install --check-file
 
@@ -190,10 +211,10 @@ $ foreman start
 
 ## 今後の計画
 
-- [ ] SSL有効化(ALBの利用)
+- [x] ~~SSL有効化(ALBの利用)~~
 - [x] ~~DB: EC2 から RDS の利用に切り替え~~
-- [ ] 日本語対応
-- [ ] レスポンシブ対応
+- [x] ~~日本語対応~~
+- [x] ~~レスポンシブ対応~~
 - [ ] Docker化
 - [ ] SPA化
 
