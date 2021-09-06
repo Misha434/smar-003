@@ -2,6 +2,8 @@
 
 <h2 style="text-align: center"> スマホ比較アプリ</h2>
 
+![service_summary_image_210906](https://user-images.githubusercontent.com/61964919/132218158-f9f9ce9d-3fb8-4888-972b-1718bbdb6fee.png)
+
 
 ## 目次
 - [プロジェクトの概要説明](#anchor1)
@@ -38,8 +40,10 @@
 
 <a id="anchor3"></a>
 
-## サービスのスクリーンショット画像 or GIFアニメ（デモ）
+## サービスのスクリーンショット画像 or デモGIF 動画
 
+- レスポンシブ対応 (スマホ・タブレット・PC)
+![pages_home_210906](https://user-images.githubusercontent.com/61964919/132216450-133f326d-6193-4490-81d3-b773563d5c54.png)
 ### 製品 項目別ランキング
 ![smar-003_home](https://user-images.githubusercontent.com/61964919/128722445-b39a837f-000d-4a80-80da-bf7c68d80780.gif)
 
