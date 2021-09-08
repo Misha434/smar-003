@@ -24,7 +24,7 @@
                   | #{@pagy.vars[:count]}件
         .row
           .col-12
-            - @products.each do |product|
-              li id = "#{product.id}"
+            - @products.each.with_index(1) do |product, ranking_index|
+              li id = "#{ranking_index}"
                 = render 'products/product', product: product
             = render 'shared/pagination_bar'
