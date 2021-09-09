@@ -303,7 +303,7 @@ RSpec.describe Product, type: :system do
       describe 'Search feature' do
         before do
           create_product(11)
-          FactoryBot.create(:product, id: 12, name: "Test-12")
+          FactoryBot.create(:product, id: 12, name: "Test-12", battery_capacity: 90_000)
           visit current_path
         end
         describe "Searching" do
@@ -328,6 +328,17 @@ RSpec.describe Product, type: :system do
               click_on 'Next'
               click_on 'Test-12'
               expect(page).to have_content('Test-12')
+            end
+            it 'can sort by battery capacity' do
+              click_on 'バッテリー容量'
+              within('#1') do
+                expect(page).to have_content('Test-12')
+                expect(page).to have_content('90000')
+              end
+              within('#2') do
+                expect(page).to have_content('Phone-11')
+                expect(page).to have_content('11000')
+              end
             end
           end
           context "form filled with Phone" do
