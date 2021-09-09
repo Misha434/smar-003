@@ -303,7 +303,7 @@ RSpec.describe Product, type: :system do
       describe 'Search feature' do
         before do
           create_product(11)
-          FactoryBot.create(:product, id: 12, name: "Test-12", battery_capacity: 90000)
+          FactoryBot.create(:product, id: 12, name: "Test-12", battery_capacity: 90_000)
           visit current_path
         end
         describe "Searching" do
