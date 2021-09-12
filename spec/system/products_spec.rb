@@ -17,10 +17,10 @@ RSpec.describe Product, type: :system do
     product_amount.times do |n|
       id = n + 1
       name = "Phone-#{n + 1}"
-      soc_antutu_score = 100
+      soc_antutu_score = 1_000_000 - 1000 * n
       battery_capacity = (n + 1) * 1000
       brand_id = 1
-      release_date = DateTime.now
+      release_date = DateTime.now - n
       image = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/products/product-photo-#{n}.jpeg")),
                                                      filename: "product-photo-#{n}.jpeg")
       Product.create!(
@@ -442,6 +442,111 @@ RSpec.describe Product, type: :system do
             expect(page).to have_content('Phone-11')
             expect(page).to have_content('Apple')
           end
+        end
+      end
+      describe 'sort feature' do
+        before do
+          create_product(12)
+          5.times do |n|
+            FactoryBot.create(:user, id: n + 2, name: "general_user#{n}", email: "test-#{n}@example.jp")
+          end
+          FactoryBot.create(:review, id: 1, user_id: 1, product_id: 3, rate: 5)
+          FactoryBot.create(:review, id: 2, user_id: 1, product_id: 2, rate: 5)
+          FactoryBot.create(:review, id: 3, user_id: 2, product_id: 2, rate: 4)
+          FactoryBot.create(:review, id: 4, user_id: 2, product_id: 1, rate: 4)
+          visit current_path
+        end
+        it '(Antutu score) order is correct' do
+          click_on 'Antutu'
+          within('#1') do
+            expect(page).to have_content('Phone-1')
+            expect(page).to have_content('1000000')
+          end
+          within('#2') do
+            expect(page).to have_content('Phone-2')
+            expect(page).to have_content('999000')
+          end
+          within('#3') do
+            expect(page).to have_content('Phone-3')
+            expect(page).to have_content('998000')
+          end
+        end
+        it '(Antutu score) product link is working' do
+          click_on 'Antutu'
+          within('#2') do
+            click_on 'Phone-2'
+          end
+          expect(page).to have_content('Phone-2')
+          expect(page).to have_content('Awesome')
+        end
+        it '(Antutu score) brand link is working' do
+          click_on 'Antutu'
+          within('#3') do
+            click_on 'Apple'
+          end
+          expect(page).to have_content('Apple')
+          expect(page).to have_content('Phone-12')
+        end
+        it '(Battery capacity) order is correct' do
+          click_on 'バッテリー容量'
+          within('#1') do
+            expect(page).to have_content('Phone-12')
+            expect(page).to have_content('12000 mAh')
+          end
+          within('#2') do
+            expect(page).to have_content('Phone-11')
+            expect(page).to have_content('11000 mAh')
+          end
+          within('#3') do
+            expect(page).to have_content('Phone-10')
+            expect(page).to have_content('10000 mAh')
+          end
+        end
+        it '(Battery capacity) product link is working' do
+          click_on 'バッテリー容量'
+          within('#2') do
+            click_on 'Phone-11'
+          end
+          expect(page).to have_content('Phone-11')
+        end
+        it '(Battery capacity) brand link is working' do
+          click_on 'バッテリー容量'
+          within('#3') do
+            click_on 'Apple'
+          end
+          expect(page).to have_content('Apple')
+          expect(page).to have_content('Phone-10')
+        end
+        it '(Average Rate) order is correct' do
+          click_on 'レビュー平均'
+          within('#1') do
+            expect(page).to have_content('Phone-3')
+            expect(page).to have_content('5.0')
+          end
+          within('#2') do
+            expect(page).to have_content('Phone-2')
+            expect(page).to have_content('4.5')
+          end
+          within('#3') do
+            expect(page).to have_content('Phone-1')
+            expect(page).to have_content('4.0')
+          end
+        end
+        it '(Average Rate) product link is working' do
+          click_on 'レビュー平均'
+          within('#2') do
+            click_on 'Phone-2'
+          end
+          expect(page).to have_content('Phone-2')
+          expect(page).to have_content('Awesome')
+        end
+        it '(Average Rate) brand link is working' do
+          click_on 'レビュー平均'
+          within('#3') do
+            click_on 'Apple'
+          end
+          expect(page).to have_content('Apple')
+          expect(page).to have_content('Phone-2')
         end
       end
     end
