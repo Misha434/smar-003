@@ -18,6 +18,7 @@ Brand.create!(
   name: "brand-0"
   )
 
+Faker::Config.locale = :en
 19.times do |n|
   name = Faker::Company.name
   image = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("frontend/images/brands/brand-photo-#{n}.jpeg")),
@@ -55,6 +56,8 @@ Product.create!(
     release_date: release_date
   )
 end
+
+Faker::Config.locale = :ja
 
 Review.create!(
   content: "Good",

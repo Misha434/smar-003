@@ -4,9 +4,9 @@
   .row
     .col-12.offset-md-1.col-md-10.offset-md-1.offset-lg-2.col-lg-8.offset-lg-2
       .row
-        .col-2.col-md-2.col-lg-2
+        .col-3.col-md-2.col-lg-2
           = product_image_default(@product)
-        .col-10.offset-md-2.col-md-7.offset-md-1.offset-lg-1.col-lg-8
+        .col-9.offset-md-2.col-md-7.offset-md-1.offset-lg-1.col-lg-8
           .d-flex.product_title
             h2 = @product.name
             - if user_signed_in? && current_user.admin?
