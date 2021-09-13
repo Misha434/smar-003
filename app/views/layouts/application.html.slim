@@ -6,6 +6,8 @@ html lang="ja"
       = full_title(yield(:title))
     = render 'layouts/rails_default'
     = render 'layouts/shim'
+    - if Rails.env.production?
+      = render 'layouts/google_analytics'
   body
     = render 'layouts/header'
     - flash.each do |message_type, message|
