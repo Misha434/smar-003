@@ -7,7 +7,7 @@ html lang="ja"
     = render 'layouts/rails_default'
     = render 'layouts/shim'
     - if Rails.env.production?
-      = render './google_analytics'
+      = render 'layouts/google_analytics'
   body
     = render 'layouts/header'
     - flash.each do |message_type, message|
