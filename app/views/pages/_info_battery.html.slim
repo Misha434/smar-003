@@ -1,21 +1,50 @@
-.dropdown
-  button.btn.btn-light.dropdown-toggle#dropdownMenuButton.btn-sm.info--dropdown type="button" data-bs-toggle="dropdown" aria-expanded="false"
-    i.fas.fa-info
-  ul.dropdown-menu.px-2 aria-labelledby="dropdownMenuButton"
-    li 容量とバッテリーの持ち時間の目安
-    table.table
-      thread
-        tr
-          th 製品
-          th バッテリー容量
-          th ビデオ再生可能時間
-      tbody
-        tr
-          td iPhone X
-          td 2716 mAh
-          td 13 時間
-        tr
-          td iPhone 11
-          td 3110 mAH
-          td 17 時間
-    u = link_to "Ref: 9to5mac", "https://9to5mac.com/2020/04/16/iphone-battery-life-compared/"
+button.pt-0.btn.btn-secondaly.btn-sm data-bs-target="#info_battery" data-bs-toggle="modal" type="button"
+  i.fas.fa-info.count--text
+
+#info_battery.modal.fade aria-hidden="true" aria-labelledby="exampleModalLabel" tabindex="-1" 
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5#exampleModalLabel.modal-title バッテリー容量と持ち時間の目安
+        button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button" 
+      .modal-body
+        table.table
+          thread
+            tr
+              th 製品
+              th バッテリー容量
+              th ビデオ再生可能時間
+          tbody
+            tr
+              td iPhone X
+              td 2716 mAh
+              td 13 時間
+            tr
+              td iPhone 11
+              td 3110 mAH
+              td 17 時間
+        u = link_to "Ref: 9to5mac", "https://9to5mac.com/2020/04/16/iphone-battery-life-compared/"
+      .modal-footer
+        button.btn.btn-secondary data-bs-dismiss="modal" type="button"  閉じる
+
+/ .dropdown
+/   button.btn.btn-light.dropdown-toggle#dropdownMenuButton.btn-sm.info--dropdown type="button" data-bs-toggle="dropdown" aria-expanded="false"
+/     i.fas.fa-info
+/   ul.dropdown-menu.px-2 aria-labelledby="dropdownMenuButton"
+/     li 容量とバッテリーの持ち時間の目安
+/     table.table
+/       thread
+/         tr
+/           th 製品
+/           th バッテリー容量
+/           th ビデオ再生可能時間
+/       tbody
+/         tr
+/           td iPhone X
+/           td 2716 mAh
+/           td 13 時間
+/         tr
+/           td iPhone 11
+/           td 3110 mAH
+/           td 17 時間
+/     u = link_to "Ref: 9to5mac", "https://9to5mac.com/2020/04/16/iphone-battery-life-compared/"

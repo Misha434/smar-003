@@ -11,15 +11,15 @@
     .d-flex
       .d-flex.px-2.text-center
         i.far.fa-thumbs-up.mt-1
-        p.like_count.mx-1 = "#{@product_like_countup}"
+        p.like_count.mx-1.mb-0 = "#{@product_like_countup}"
       .d-flex.px-2.text-center
         i.far.fa-comments.mt-1
-        p.review_count.mx-1 = "#{@product.reviews.count}"
+        p.review_count.mx-1.mb-0 = "#{@product.reviews.count}"
       .d-flex.px-2.text-center
         i.fas.fa-tachometer-alt.mt-1
-        p.value_antutu.mx-1 = "#{@product.soc_antutu_score}"
+        p.value_antutu.mx-1.mb-0 = "#{@product.soc_antutu_score}"
         = render 'pages/info_antutu'
       .d-flex.px-2.text-center
         i.fas.fa-battery-full.mt-1
-        p.value_battery.mx-1 = "#{@product.battery_capacity}mAh"
+        p.value_battery.mx-1.mb-0 = "#{@product.battery_capacity}mAh"
         = render 'pages/info_battery'

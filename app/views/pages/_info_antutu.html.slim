@@ -1,26 +1,34 @@
-.dropdown
-  button.btn.btn-light.dropdown-toggle#dropdownMenuButton.btn-sm.info--dropdown type="button" data-bs-toggle="dropdown" aria-expanded="false"
-    i.fas.fa-info
-  ul.dropdown-menu.px-2 aria-labelledby="dropdownMenuButton"
-    li Antutu は スマートフォンの動作パフォーマンスのベンチマークです。
-    table.table
-      thread
-        tr
-          th 数値
-          th 適した用途
-      tbody
-        tr
-          td 300,000 ~
-          td どんなゲームも快適に動く。
-        tr
-          td 200,000 ~ 300,000
-          td だいたいのゲームは快適に動く。
-        tr
-          td 120,000 ~ 200,000
-          td 日常に使う分には十分快適に使える。3Dなど重負荷なゲームの動作環境としては少し不便。
-        tr
-          td 80,000 ~ 120,000
-          td 日常に使う分には十分快適に使える。3Dゲームの動作環境としては厳しい。
-        tr
-          td ~ 80,000
-          td 日常使用では問題なく使える。ゲームの動作環境としては厳しい。
+button.btn.btn-secondaly.btn-sm.pt-0 data-bs-target="#exampleModal" data-bs-toggle="modal" type="button" 
+  i.fas.fa-info.count--text
+
+#exampleModal.modal.fade aria-hidden="true" aria-labelledby="exampleModalLabel" tabindex="-1" 
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5#exampleModalLabel.modal-title Antutu
+        button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button" 
+      .modal-body
+        | Antutu は スマートフォンの動作パフォーマンスのベンチマークです。
+        table.table
+          thread
+            tr
+              th 数値
+              th 適した用途
+          tbody
+            tr
+              td 300,000 ~
+              td どんなゲームも快適に動く。
+            tr
+              td 200,000 ~ 300,000
+              td だいたいのゲームは快適に動く。
+            tr
+              td 120,000 ~ 200,000
+              td 日常に使う分には十分快適に使える。3Dなど重負荷なゲームの動作環境としては少し不便。
+            tr
+              td 80,000 ~ 120,000
+              td 日常に使う分には十分快適に使える。3Dゲームの動作環境としては厳しい。
+            tr
+              td ~ 80,000
+              td 日常使用では問題なく使える。ゲームの動作環境としては厳しい。
+      .modal-footer
+        button.btn.btn-secondary data-bs-dismiss="modal" type="button"  閉じる
