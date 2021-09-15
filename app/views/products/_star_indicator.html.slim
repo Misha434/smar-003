@@ -1,11 +1,11 @@
-- if @review_rate_average == '-'
+- if @product.rate_average == 0
   i.fas.fa-star.mt-1
 - else
-  - @review_rate_average.floor.times do
+  - @product.rate_average.floor.times do
     i.fas.fa-star.active_star.mt-1
   / 0.5 means base value for half-star should be indicated
-  - if (@review_rate_average - @review_rate_average.floor) >= 0.5
+  - if @product.rate_average % 1 >= 0.5
     i.fas.fa-star-half-alt.active_star.mt-1
   / 5 means max value of rating
-  - (5 - @review_rate_average.round).times do
+  - (5 - @product.rate_average.round).times do
     i.far.fa-star.no_active_star.mt-1

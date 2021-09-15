@@ -9,8 +9,8 @@ class ProductsController < ApplicationController
       @review = current_user.reviews.build if user_signed_in?
       @select_product_reviews = @product.reviews.includes(:user).with_attached_image
       @product_like_countup = Like.likes_count(params[:id])
-      @review_rate_average = Review.where('product_id=?', params[:id]).average(:rate)
-      @review_rate_average = @review_rate_average.nil? ? '-' : @review_rate_average.floor(1)
+      # @review_rate_average = Review.where('product_id=?', params[:id]).average(:rate)
+      # @review_rate_average = @review_rate_average.nil? ? '-' : @review_rate_average.floor(1)
     else
       flash[:danger] = 'Product does not exist'
       redirect_to products_path

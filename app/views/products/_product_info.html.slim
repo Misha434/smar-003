@@ -6,7 +6,7 @@
         .mx-2.release_date = "#{@product.release_date.strftime("%Y/%m/%d")}"
       .d-flex.px-2.text-center
         = render 'products/star_indicator'
-        .value_rate_avarage.mx-2 = "#{@review_rate_average} / 5.0"
+        .value_rate_avarage.mx-2 = "#{@product.rate_average} / 5.0"
   .col-12
     .d-flex
       .d-flex.px-2.text-center
