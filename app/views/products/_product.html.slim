@@ -34,14 +34,14 @@
                 p.count--text.px-1
                   | #{product.soc_antutu_score}
               - when "rate_average desc"
-                = render 'products/star_indicator' 
+                = render 'products/star_indicator', product: product
                 - if product.rate_average > 0
                   p.count--text.px-1
                     | #{product.rate_average}
                 - else
                   p.count--text.px-1 -
               - when "rate_average asc"
-                = render 'products/star_indicator'
+                = render 'products/star_indicator', product: product
                 - if product.rate_average > 0
                   p.count--text.px-1
                     | #{product.rate_average}
