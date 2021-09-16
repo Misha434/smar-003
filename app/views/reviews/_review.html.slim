@@ -12,11 +12,7 @@
       .row
         .col-12.mt-2
           span.rate
-            - review.rate.times do
-              = content_tag(:i,"",class: "fas fa-star active_star")
-            / 5 means max value of rating
-            - (5 - review.rate).times do
-              = content_tag(:i,"",class: "far fa-star no_active_star")
+            = render 'reviews/star_indicator'
       .row
         .col-12.pt-1
           span.content
