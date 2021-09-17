@@ -522,14 +522,23 @@ RSpec.describe Product, type: :system do
           within('#1') do
             expect(page).to have_content('Phone-3')
             expect(page).to have_content('5.0')
+            expect(page).to have_selector('.active_star', count: 5)
+            expect(page).to_not have_selector('.active_star_half')
+            expect(page).to_not have_selector('.no_active_star')
           end
           within('#2') do
             expect(page).to have_content('Phone-2')
             expect(page).to have_content('4.5')
+            expect(page).to have_selector('.active_star', count: 4)
+            expect(page).to have_selector('.active_star_half', count: 1)
+            expect(page).to_not have_selector('.no_active_star')
           end
           within('#3') do
             expect(page).to have_content('Phone-1')
             expect(page).to have_content('4.0')
+            expect(page).to have_selector('.active_star', count: 4)
+            expect(page).to_not have_selector('.active_star_half')
+            expect(page).to have_selector('.no_active_star', count: 1)
           end
         end
         it '(Average Rate) product link is working' do
@@ -644,7 +653,6 @@ RSpec.describe Product, type: :system do
           FactoryBot.create(:user, id: 3, email: 'test@example.jp')
           FactoryBot.create(:user, id: 4, email: 'test-1@example.com')
           @review = FactoryBot.build(:review)
-          within('.review_rate')
         end
         context 'if 0 reviews exist' do
           it 'indicate -' do
@@ -655,48 +663,78 @@ RSpec.describe Product, type: :system do
           it 'indicate 1.0' do
             FactoryBot.create(:review, rate: 1)
             visit current_path
-            expect(page).to have_content('1.0')
+            within('.info_review_rate') do
+              expect(page).to have_content('1.0')
+              expect(page).to have_selector('.active_star', count: 1)
+              expect(page).to_not have_selector('.active_star_half')
+              expect(page).to have_selector('.no_active_star', count: 4)
+            end
           end
         end
         context 'when 1 review has rate 3' do
           it 'indicate 3.0' do
             @review.save!
             visit current_path
-            expect(page).to have_content('3.0')
+            within('.info_review_rate') do
+              expect(page).to have_content('3.0')
+              expect(page).to have_selector('.active_star', count: 3)
+              expect(page).to_not have_selector('.active_star_half')
+              expect(page).to have_selector('.no_active_star', count: 2)
+            end
           end
         end
         context 'when 1 review has rate 5' do
           it 'indicate 5.0' do
-            FactoryBot.create(:review)
+            FactoryBot.create(:review, rate: 5)
             visit current_path
-            expect(page).to have_content('5.0')
+            within('.info_review_rate') do
+              expect(page).to have_content('5.0')
+              expect(page).to have_selector('.active_star', count: 5)
+              expect(page).to_not have_selector('.active_star_half')
+              expect(page).to_not have_selector('.no_active_star')
+            end
           end
         end
-        context 'when 2 review has rate 3, 4' do
+        context 'when 2 reviews have rate 3, 4' do
           it 'indicate 3.5' do
             @review.save!
             FactoryBot.create(:review, id: 2, user_id: 2, rate: 4)
             visit current_path
-            expect(page).to have_content('3.5')
+            within('.info_review_rate') do
+              expect(page).to have_content('3.5')
+              expect(page).to have_selector('.active_star', count: 3)
+              expect(page).to have_selector('.active_star_half')
+              expect(page).to have_selector('.no_active_star', count: 1)
+            end
           end
         end
-        context 'when 3 review has rate 3, 4, 4' do
+        context 'when 3 reviews have rate 3, 4, 4' do
           it 'indicate 3.6' do
             @review.save!
             FactoryBot.create(:review, id: 2, user_id: 2, rate: 4)
             FactoryBot.create(:review, id: 3, user_id: 3, rate: 4)
             visit current_path
-            expect(page).to have_content('3.6')
+            within('.info_review_rate') do
+              expect(page).to have_content('3.6')
+              expect(page).to have_selector('.active_star', count: 3)
+              expect(page).to have_selector('.active_star_half')
+              expect(page).to have_selector('.no_active_star', count: 1)
+            end
           end
         end
-        context 'when 4 review has rate 3, 4, 4, 4' do
+        context 'when 4 reviews have rate 3, 4, 4, 4' do
           it 'indicate 3.7' do
             @review.save!
             FactoryBot.create(:review, id: 2, user_id: 2, rate: 4)
             FactoryBot.create(:review, id: 3, user_id: 3, rate: 4)
             FactoryBot.create(:review, id: 4, user_id: 4, rate: 4)
             visit current_path
-            expect(page).to have_content('3.7')
+            within('.info_review_rate') do
+              expect(page).to have_content('3.7')
+              expect(page).to have_selector('.active_star', count: 3)
+              expect(page).to have_selector('.active_star_half')
+              expect(page).to have_selector('.no_active_star', count: 1)
+            end
           end
         end
       end

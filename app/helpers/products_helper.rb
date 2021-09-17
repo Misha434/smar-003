@@ -20,7 +20,7 @@ module ProductsHelper
   end
 
   def star_indicator(product)
-    if product.rate_average == 0
+    if product.rate_average.zero?
       content_tag(:i, class: "fas fa-star mt-1")
     else
       product.rate_average.floor.times do
