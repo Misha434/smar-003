@@ -16,7 +16,7 @@ class Product < ApplicationRecord
                             message: "should be less than 5MB" }
   validates :release_date, presence: true
 
-  def update_rate_average    
+  def update_rate_average
     reviews_rate = reviews.average(:rate)
     reviews_rate ||= 0
     update!(rate_average: reviews_rate)
