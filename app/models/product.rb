@@ -18,6 +18,7 @@ class Product < ApplicationRecord
 
   def update_rate_average
     reviews_rate = reviews.average(:rate)
+    reviews_rate ||= 0
     update!(rate_average: reviews_rate)
   end
 

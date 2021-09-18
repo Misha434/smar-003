@@ -34,27 +34,17 @@
                 p.count--text.px-1
                   | #{product.soc_antutu_score}
               - when "rate_average desc"
-                - avarage_rate(product).to_i.times do
-                  i.fas.fa-star.active_star
-                - if avarage_rate(product) % 1 >= 0.5 
-                  i.fas.fa-star-half-alt.active_star_half
-                - (5 - avarage_rate(product).round).times do
-                  i.far.fa-star.no_active_star
-                - if avarage_rate(product) > 0
+                = render 'products/star_indicator', product: product
+                - if product.rate_average.positive?
                   p.count--text.px-1
-                    | #{avarage_rate(product)}
+                    | #{product.rate_average}
                 - else
                   p.count--text.px-1 -
               - when "rate_average asc"
-                - avarage_rate(product).to_i.times do
-                  i.fas.fa-star.active_star
-                - if avarage_rate(product) % 1 >= 0.5 
-                  i.fas.fa-star-half-alt.active_star_half
-                - (5 - avarage_rate(product).round).times do
-                  i.far.fa-star.no_active_star
-                - if avarage_rate(product) > 0
+                = render 'products/star_indicator', product: product
+                - if product.rate_average.positive?
                   p.count--text.px-1
-                    | #{avarage_rate(product)}
+                    | #{product.rate_average}
                 - else
                   p.count--text.px-1 -
               - else
