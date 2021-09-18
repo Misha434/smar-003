@@ -1,11 +1,8 @@
-- if product.rate_average == 0
-  i.fas.fa-star.mt-1
-- else
-  - product.rate_average.floor.times do
-    i.fas.fa-star.active_star.mt-1
-  / 0.5 means base value for half-star should be indicated
-  - if product.rate_average % 1 >= 0.5
-    i.fas.fa-star-half-alt.active_star_half.mt-1
-  / 5 means max value of rating
-  - (5 - product.rate_average.round).times do
-    i.far.fa-star.no_active_star.mt-1
+- product.rate_average.floor.times do
+  i.fas.fa-star.active_star.mt-1
+/ 0.5 means base value for half-star should be indicated
+- if product.rate_average % 1 >= 0.5
+  i.fas.fa-star-half-alt.active_star_half.mt-1
+/ 5 means max value of rating
+- (5 - product.rate_average.round).times do
+  i.far.fa-star.no_active_star.mt-1

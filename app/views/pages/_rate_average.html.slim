@@ -18,7 +18,7 @@
                 .d-flex
                   p = link_to product.name, product
                 .d-float
-                  = render 'pages/star_indicator', product: product
+                  = render 'products/star_indicator', product: product
                   / [ranking_index - 1] means index of each product avg. rate
                   = "#{product.rate_average}"
       li.text-center
