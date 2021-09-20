@@ -14,7 +14,7 @@ ol.reviews
         .row
           .col-12.my-1
             span.rate
-              = render 'reviews/star_indicator', review: review
+              = render 'reviews/_each_review_star_indicator', review: review
         .row
           .col-12
             p = review.content
