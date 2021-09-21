@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :products
   has_many :likes
+  has_many :compares
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, uniqueness: { case_sensitive: false },
                     length: { maximum: 254 }
