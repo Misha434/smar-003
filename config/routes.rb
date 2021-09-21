@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     # end
   end
   resources :brands, :products, :reviews
+  post 'compare/:id' => 'compares#create', as: 'create_compare'
+  delete 'compare/:id' => 'compares#destroy', as: 'destroy_compare'
   post 'like/:id' => 'likes#create', as: 'create_like'
   delete 'like/:id' => 'likes#destroy', as: 'destroy_like'
 end
