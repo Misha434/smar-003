@@ -28,6 +28,10 @@ class User < ApplicationRecord
     likes.where(review_id: review_id).exists?
   end
 
+  def marked_by?(product_id)
+    compares.where('product_id=?', product_id).exists?
+  end
+
   def self.guest
     find_or_create_by!(email: 'guest@example.com') do |user|
       user.name = "Guest"
