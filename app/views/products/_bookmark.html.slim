@@ -1,0 +1,7 @@
+- if user_signed_in?
+  - if current_user.marked_by?(product)
+    = link_to destroy_compare_path(product), method: :DELETE, class: "btn btn-secondary", id: "release-compare-disable", local: true do
+      i.fas.fa-bookmark
+  - else
+    = link_to create_compare_path(product), method: :POST, class: "btn btn-outline-secondary", id: "compare-disable", local: true do
+      i.far.fa-bookmark
