@@ -9,6 +9,7 @@ class ProductsController < ApplicationController
       @review = current_user.reviews.build if user_signed_in?
       @select_product_reviews = @product.reviews.includes(:user).with_attached_image
       @product_like_countup = Like.likes_count(params[:id])
+      @products_for_compare = Compare.where('user_id=?', current_user.id).includes(product: [image_attachment: :blob], product: :brand).all
       # @review_rate_average = Review.where('product_id=?', params[:id]).average(:rate)
       # @review_rate_average = @review_rate_average.nil? ? '-' : @review_rate_average.floor(1)
     else
