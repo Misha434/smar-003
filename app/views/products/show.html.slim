@@ -17,6 +17,94 @@
     .col-12.offset-md-1.col-md-10.offset-md-1.offset-lg-2.col-lg-8.offset-lg-2
       = render 'products/product_info'
 .container
+  - if user_signed_in?
+    .col-12.offset-md-1.col-md-10.offset-md-1.offset-lg-2.col-lg-8.offset-lg-2
+      .btn-group
+        div id ="product-bookmark-#{@product.id}"
+          = render 'products/bookmark', product: @product
+        button#bookmark--dropdown.btn.btn-outline-secondary.dropdown-toggle.dropdown-toggle-split data-bs-toggle="dropdown" aria-expanded="false"
+          .visually-hidden Toggle Dropdown
+        ul.dropdown-menu
+          li
+            a#bookmark--table--link.dropdown-item data-bs-target="#compare_table" data-bs-toggle="modal" 登録一覧
+
+    #compare_table.modal tabindex="-1"
+      .modal-dialog
+        .modal-content
+          .modal-header
+            h5.modal-title お気に入り一覧
+            button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button"
+          .modal-body
+            - if current_user.compares.exists?
+              table.table.table-striped.text-center
+                thead
+                  tr
+                    td.compare--img1 scope="col-4"  = product_image_default(@products_for_compare[0].product)
+                    th scope="col-4"
+                    td.compare--img2 scope="col-4"
+                      - if @products_for_compare[1].blank?
+                        | -
+                      - else
+                        = product_image_default(@products_for_compare[1].product)
+                tbody
+                  tr
+                    td.compare--product1 #{@products_for_compare[0].product.name}
+                    th scope="row"  製品名
+                    td.compare--product2 scope="row"
+                      - if @products_for_compare[1].nil?
+                        | -
+                      - else
+                        | #{@products_for_compare[1].product.name}
+                  tr
+                    td.compare--brand1 #{@products_for_compare[0].product.brand.name}
+                    th scope="row"  ブランド
+                    td.compare--brand2 scope="row"
+                      - if @products_for_compare[1].nil?
+                        | -
+                      - else
+                        | #{@products_for_compare[1].product.brand.name}
+                  tr
+                    td.compare--battery1 #{@products_for_compare[0].product.battery_capacity}
+                    th scope="row"
+                      | バッテリー (mAh)
+                    td.compare--battery2 scope="row"
+                      - if @products_for_compare[1].nil?
+                        | -
+                      - else
+                        | #{@products_for_compare[1].product.battery_capacity}
+                  tr
+                    td.compare--antutu1 #{@products_for_compare[0].product.soc_antutu_score}
+                    th scope="row"  Antutu
+                    td.compare--antutu2 scope="row"
+                      - if @products_for_compare[1].nil?
+                        | -
+                      - else
+                        | #{@products_for_compare[1].product.soc_antutu_score}
+                  tr
+                    td.compare--release1 #{@products_for_compare[0].product.release_date.strftime("%Y/%m/%d")}
+                    th scope="row"  発売日
+                    td.compare--release2 scope="row"
+                      - if @products_for_compare[1].nil?
+                        | -
+                      - else
+                        | #{@products_for_compare[1].product.release_date.strftime("%Y/%m/%d")}
+                  tr
+                    td.compare--delete1 scope="row"
+                      = link_to destroy_compare_path(@products_for_compare[0].product.id), class: "btn btn-outline-danger", method: :DELETE, data: {confirm: '解除します。よろしいですか?'} do
+                        | 解除
+                    th scope="row"
+                    td.compare--delete2 scope="row"
+                      - if @products_for_compare[1].nil?
+                        | -
+                      - else
+                        = link_to destroy_compare_path(@products_for_compare[1].product.id), class: "btn btn-outline-danger", method: :DELETE, data: {confirm: '解除します。よろしいですか?'} do
+                          | 解除
+            - else
+              p まだ登録されていません
+          .modal-footer
+            button.btn.btn-secondary data-bs-dismiss="modal" type="button"  閉じる
+
+.container
   - if user_signed_in? && current_user.reviews.where('product_id=?', params[:id]).empty?
     .row.my-1
       .col-12.offset-md-1.col-md-10.offset-md-1.offset-lg-2.col-lg-8.offset-lg-2

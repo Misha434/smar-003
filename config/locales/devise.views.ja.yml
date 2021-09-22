@@ -29,11 +29,15 @@ ja:
       review:
         content: 投稿内容
         rate: レビュー点数
+      compare:
+        user: ユーザー
+        product: 製品
     models:
       user: ユーザー
       brand: ブランド
       product: 製品
       review: レビュー
+      compare: 比較
   devise:
     confirmations:
       confirmed: メールアドレスが確認できました。
@@ -155,6 +159,8 @@ ja:
       blank: が入力されていません。
       invalid: が無効な形式になっています。
       confirmation: と一致しません。
+      required: を入力してください。
+      record_invalid: は無効です。
   datetime:
     distance_in_words:
       half_a_minute: "30秒前後"
