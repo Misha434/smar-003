@@ -2,6 +2,25 @@
   - if current_user.marked_by?(product)
     = link_to destroy_compare_path(product), method: :DELETE, class: "btn btn-secondary", id: "release-compare-disable", local: true do
       i.fas.fa-bookmark
+
+    javascript:
+      $(function(){
+        $('a#release-compare-disable').on('click',function(){
+          $(this).click(function(){
+            $(this).prop('disabled', true);
+          });
+        });
+      });
+
   - else
     = link_to create_compare_path(product), method: :POST, class: "btn btn-outline-secondary", id: "compare-disable", local: true do
       i.far.fa-bookmark
+
+    javascript:
+      $(function(){
+        $('a#compare-disable').on('click',function(){
+          $(this).click(function(){
+            $(this).prop('disabled', true);
+          });
+        });
+      });
