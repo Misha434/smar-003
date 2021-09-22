@@ -26,7 +26,7 @@
           .visually-hidden Toggle Dropdown
         ul.dropdown-menu
           li
-            a.dropdown-item data-bs-target="#compare_table" data-bs-toggle="modal" 登録一覧
+            a#bookmark--table--link.dropdown-item data-bs-target="#compare_table" data-bs-toggle="modal" 登録一覧
 
     #compare_table.modal tabindex="-1"
       .modal-dialog
@@ -39,65 +39,65 @@
               table.table.table-striped.text-center
                 thead
                   tr
-                    td scope="col-4"  = product_image_default(@products_for_compare[0].product)
+                    td.compare--img1 scope="col-4"  = product_image_default(@products_for_compare[0].product)
                     th scope="col-4"
-                    td scope="col-4"
+                    td.compare--img2 scope="col-4"
                       - if @products_for_compare[1].blank?
                         | -
                       - else
                         = product_image_default(@products_for_compare[1].product)
                 tbody
                   tr
-                    td #{@products_for_compare[0].product.name}
+                    td.compare--product1 #{@products_for_compare[0].product.name}
                     th scope="row"  製品名
-                    td scope="row"
+                    td.compare--product2 scope="row"
                       - if @products_for_compare[1].nil?
                         | -
                       - else
                         | #{@products_for_compare[1].product.name}
                   tr
-                    td #{@products_for_compare[0].product.brand.name}
+                    td.compare--brand1 #{@products_for_compare[0].product.brand.name}
                     th scope="row"  ブランド
-                    td scope="row"
+                    td.compare--brand2 scope="row"
                       - if @products_for_compare[1].nil?
                         | -
                       - else
                         | #{@products_for_compare[1].product.brand.name}
                   tr
-                    td #{@products_for_compare[0].product.battery_capacity}
+                    td.compare--battery1 #{@products_for_compare[0].product.battery_capacity}
                     th scope="row"
                       | バッテリー (mAh)
-                    td scope="row"
+                    td.compare--battery2 scope="row"
                       - if @products_for_compare[1].nil?
                         | -
                       - else
                         | #{@products_for_compare[1].product.battery_capacity}
                   tr
-                    td #{@products_for_compare[0].product.soc_antutu_score}
+                    td.compare--antutu1 #{@products_for_compare[0].product.soc_antutu_score}
                     th scope="row"  Antutu
-                    td scope="row"
+                    td.compare--antutu2 scope="row"
                       - if @products_for_compare[1].nil?
                         | -
                       - else
                         | #{@products_for_compare[1].product.soc_antutu_score}
                   tr
-                    td #{@products_for_compare[0].product.release_date.strftime("%Y/%m/%d")}
+                    td.compare--release1 #{@products_for_compare[0].product.release_date.strftime("%Y/%m/%d")}
                     th scope="row"  発売日
-                    td scope="row"
+                    td.compare--release2 scope="row"
                       - if @products_for_compare[1].nil?
                         | -
                       - else
                         | #{@products_for_compare[1].product.release_date.strftime("%Y/%m/%d")}
                   tr
-                    td
-                      = link_to destroy_compare_path(@products_for_compare[0].product.id), class: "btn btn-danger", method: :DELETE, data: {confirm: 'You sure?'} do
+                    td.compare--delete1 scope="row"
+                      = link_to destroy_compare_path(@products_for_compare[0].product.id), class: "btn btn-outline-danger", method: :DELETE, data: {confirm: '解除します。よろしいですか?'} do
                         | 解除
                     th scope="row"
-                    td scope="row"
+                    td.compare--delete2 scope="row"
                       - if @products_for_compare[1].nil?
                         | -
                       - else
-                        = link_to destroy_compare_path(@products_for_compare[1].product.id), class: "btn btn-danger", method: :DELETE, data: {confirm: 'You sure?'} do
+                        = link_to destroy_compare_path(@products_for_compare[1].product.id), class: "btn btn-outline-danger", method: :DELETE, data: {confirm: '解除します。よろしいですか?'} do
                           | 解除
             - else
               p まだ登録されていません
