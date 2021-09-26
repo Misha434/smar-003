@@ -11,11 +11,6 @@ Rails.application.routes.draw do
   end
   namespace :products do 
     get 'search', to: 'products#search'
-    # namespace :sorts do
-    #   get 'antutu', action: 'antutu'
-    #   get 'battery', action: 'battery'
-    #   get 'rate', action: 'rate'
-    # end
   end
   resources :brands do
 	  post :import, on: :collection
