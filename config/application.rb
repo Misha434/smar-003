@@ -41,6 +41,7 @@ module Smar003
       g.helper          false
       g.channel         assets: false
     end
+    require 'csv'
     config.i18n.default_locale = :ja
   end
 end

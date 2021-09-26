@@ -17,7 +17,10 @@ Rails.application.routes.draw do
     #   get 'rate', action: 'rate'
     # end
   end
-  resources :brands, :products, :reviews
+  resources :brands do
+	  post :import, on: :collection
+	end
+  resources :products, :reviews
   post 'compare/:id' => 'compares#create', as: 'create_compare'
   delete 'compare/:id' => 'compares#destroy', as: 'destroy_compare'
   post 'like/:id' => 'likes#create', as: 'create_like'

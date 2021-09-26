@@ -15,6 +15,13 @@
 
         .g-grid
           = f.submit "Create a new brand", class: "btn btn-primary col-12 col-md-12"
+  .row
+    .col-12.col-md-6.col-md-offset-3.card.text-center.py-3
+      h3 CSV form
+      = form_tag import_brands_path, multipart: true, class: 'mb-2' do
+        /= render 'shared/error_messages', object: f.object
+        = file_field_tag :file , accept: 'text/csv'
+        = submit_tag "Import", class: "btn btn-primary"
 
         // brand image_size varidation
         javascript:

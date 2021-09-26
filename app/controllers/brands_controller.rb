@@ -1,6 +1,6 @@
 class BrandsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit destroy]
-  before_action :admin_user, only: %i[new create edit update destroy]
+  before_action :admin_user, only: %i[new create edit update destroy import]
   before_action :set_brand, only: %i[show destroy edit update]
   include Pagy::Backend
 
