@@ -6,7 +6,7 @@
       = f.collection_select(:brand_id, @brands, :id, :name, {prompt: "--- ブランド ---"}, {class: "js-select_field form-control"})
 
     .field.pb-3
-      = f.collection_select(:product_id, @products, :id, :name, {prompt: "--- 製品 ---"}, {class: "js-receive_field form-control", disabled: true})
+      = f.collection_select(:product_id, @products, :id, :name, {prompt: "--- 製品 ---"}, {class: "js-receive_field form-control"})
 
     .field.pb-3
       = f.select(:rate, [["★☆☆☆☆", 1], ["★★☆☆☆", 2], ["★★★☆☆", 3], ["★★★★☆", 4], ["★★★★★", 5]], { prompt: "--- レビュー点数 ---" }, { class: "form-select" })
