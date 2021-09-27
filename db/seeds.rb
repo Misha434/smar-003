@@ -66,7 +66,9 @@ Review.create!(
   rate: 3
   )
 10.times do
-  content = Faker::Lorem.sentence(word_count: 10)
+  good_bad = ["いい", "普通", "まあまあ", "そこそこ", "それなり"][rand(0..4)]
+  use_case = ["ゲームをやるの", "日常使い", "電話のみ", "動画をみる", "LINEのみ"][rand(0..4)]
+  content = "バッテリー持ちは#{good_bad}、動作は#{good_bad}。#{use_case}には#{good_bad}。（これはデモデータです）"
   user_id = Faker::Number.within(range: 2..20)
   product_id = Faker::Number.within(range: 2..19)
   rate = rand(1..5)
