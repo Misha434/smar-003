@@ -142,7 +142,7 @@
 
 ## ER図
 
-![ER_diagram_210824](https://user-images.githubusercontent.com/61964919/130623494-373cff7e-2501-414d-8a51-4ce8016e2f6b.png)
+![ER_diagram_210927](https://user-images.githubusercontent.com/61964919/134922029-41632c1a-3e61-495c-897b-40981918761f.png)
 
 <a id="anchor6"></a>
 
