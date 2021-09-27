@@ -7,8 +7,8 @@
         .col-3.col-md-2.text-center
           = render 'user_image'
         .col-9.offset-md-2.col-md-7.offset-md-1.pb-4
-          .d-flex
-            h1.px-3.mt-3 = @user.name
+          .d-flex.mt-3
+            h1.px-3 = @user.name
             - if (@user == current_user) && (@user.email != "guest@example.com")
               = link_to edit_user_registration_path, class:"user_edit" do
                 i.fas.fa-lg.fa-cog.pt-2.__no_active
