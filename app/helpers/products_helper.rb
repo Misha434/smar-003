@@ -1,6 +1,6 @@
 module ProductsHelper
   def average_rate(product)
-    product.rate_average.zero? ? "-" : product.rate_average.round(1)
+    product.rate_average.zero? ? "-" : product.rate_average.floor(1)
   end
 
   def ranking_title
