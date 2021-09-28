@@ -19,7 +19,7 @@
                   p = link_to product.name, product
                 .d-float
                   = render 'products/average_star_indicator', product: product
-                  = "#{product.rate_average}"
+                  = "#{average_rate(product)}"
       li.text-center
         u
           |#{ link_to "続きを表示", "/products?q%5Bs%5D=rate_average+desc"}
