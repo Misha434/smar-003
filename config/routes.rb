@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resources :brands do
 	  post :import, on: :collection
 	end
-  resources :products
+  resources :products do
     post :import, on: :collection
   end
   resources :reviews
