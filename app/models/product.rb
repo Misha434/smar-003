@@ -23,19 +23,19 @@ class Product < ApplicationRecord
     update!(rate_average: reviews_rate)
   end
 
-  # def self.csv_attributes
-  # 	["name", "brand_id", "soc_antutu_score", "battery_capacity"]
-  # end
+  def self.csv_attributes
+  	["name", "brand_id", "soc_antutu_score", "battery_capacity", "release_date"]
+  end
 
-  # def self.import(file)
-  # 	CSV.foreach(file.path, headers: true) do |row|
-  # 		product = new
-  # 		product.attributes = row.to_hash.slice(*csv_attributes)
-  # 		begin
-  # 			product.save!
-  # 		rescue => e
-  # 			puts e.class
-  # 		end
-  # 	end
-  # end
+  def self.import(file)
+  	CSV.foreach(file.path, headers: true) do |row|
+  		product = new
+  		product.attributes = row.to_hash.slice(*csv_attributes)
+  		begin
+  			product.save!
+  		rescue => e
+  			puts e.class
+  		end
+  	end
+  end
 end

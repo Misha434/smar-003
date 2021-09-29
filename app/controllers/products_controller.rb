@@ -85,6 +85,10 @@ class ProductsController < ApplicationController
     @pagy, @results = pagy(@q.result.with_attached_image.includes(:brand))
   end
 
+  def import
+    redirect_to products_path, notice: "Import is Succeeded" if Product.import(params[:file])
+  end
+
   private
 
   def product_params
