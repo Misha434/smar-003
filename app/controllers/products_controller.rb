@@ -10,8 +10,6 @@ class ProductsController < ApplicationController
       @select_product_reviews = @product.reviews.includes(:user).with_attached_image
       @product_like_countup = Like.likes_count(params[:id])
       @products_for_compare = Compare.where('user_id=?', current_user.id).includes(product: [:brand, { image_attachment: :blob }]).all
-      # @review_rate_average = Review.where('product_id=?', params[:id]).average(:rate)
-      # @review_rate_average = @review_rate_average.nil? ? '-' : @review_rate_average.floor(1)
     else
       flash[:danger] = 'Product does not exist'
       redirect_to products_path
