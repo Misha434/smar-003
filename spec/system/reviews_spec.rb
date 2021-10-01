@@ -353,7 +353,7 @@ RSpec.describe Review, type: :system do
               it 'is unavailable' do
                 attach_file "review_image",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_review_6mb.jpeg"
-                expect(page.driver.browser.switch_to.alert.text).to eq "Maximum file size is 5MB. Please choose a smaller file."
+                expect(page.driver.browser.switch_to.alert.text).to eq "画像の容量は5MBまでです。他の画像を選択してください。"
               end
             end
           end
@@ -901,7 +901,7 @@ RSpec.describe Review, type: :system do
               it 'is unavailable' do
                 attach_file "review_image",
                             "#{Rails.root}/spec/fixtures/files/image/image_test_review_6mb.jpeg"
-                expect(page.driver.browser.switch_to.alert.text).to eq "Maximum file size is 5MB. Please choose a smaller file."
+                expect(page.driver.browser.switch_to.alert.text).to eq "画像の容量は5MBまでです。他の画像を選択してください。"
               end
             end
           end

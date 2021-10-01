@@ -21,7 +21,7 @@ h1 Edit a New Brand
         $("#brand_image").bind("change", function sizeVaridation() {
           const sizeInMegaBytes = this.files[0].size / 1024 / 1024;
           if (sizeInMegaBytes > 5) {
-            alert("Maximum file size is 5MB. Please choose a smaller file.");
+            alert("画像の容量は5MBまでです。他の画像を選択してください。");
             $("#brand_image").val("");
           }
         });
