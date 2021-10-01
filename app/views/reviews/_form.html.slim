@@ -9,7 +9,14 @@
       = f.collection_select(:product_id, @products, :id, :name, {prompt: "--- 製品 ---"}, {class: "js-receive_field form-control"})
 
     .field.pb-3
-      = f.select(:rate, [["★☆☆☆☆", 1], ["★★☆☆☆", 2], ["★★★☆☆", 3], ["★★★★☆", 4], ["★★★★★", 5]], { prompt: "--- レビュー点数 ---" }, { class: "form-select" })
+      = f.select(:rate, [["★☆☆☆☆", 1],
+                         ["★★☆☆☆", 2],
+                         ["★★★☆☆", 3],
+                         ["★★★★☆", 4],
+                         ["★★★★★", 5],
+                         ],
+                         { prompt: "--- レビュー点数 ---" },
+                         { class: "form-select" })
 
     .field.pb-3
       = f.text_area :content, placeholder: "レビュー内容", class: "form-control"
