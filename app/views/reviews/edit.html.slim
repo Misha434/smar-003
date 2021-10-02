@@ -22,8 +22,15 @@
                 disabled: true})
 
             .field.pb-3
-              = f.select(:rate, [["★☆☆☆☆", 1], ["★★☆☆☆", 2], ["★★★☆☆", 3], ["★★★★☆", 4], ["★★★★★", 5]], prompt: "--- Rate ---", class: "form-control")
-            
+              = f.select(:rate, [["★☆☆☆☆", 1],
+                                 ["★★☆☆☆", 2],
+                                 ["★★★☆☆", 3],
+                                 ["★★★★☆", 4],
+                                 ["★★★★★", 5],
+                                 ],
+                                  { prompt: "--- レビュー点数 ---" },
+                                  { class: "form-control" })
+
             .field.pb-3
               = f.text_area :content, placeholder: "Write down some comment.", class: "form-control" 
             
@@ -40,7 +47,7 @@
             $("#review_image").on("change", function sizeVaridation() {
               const sizeInMegaBytes = this.files[0].size / 1024 / 1024;
               if (sizeInMegaBytes > 5) {
-                alert("Maximum file size is 5MB. Please choose a smaller file.");
+                alert("画像の容量は5MBまでです。他の画像を選択してください。");
                 $("#review_image").val("");
               }
             });
