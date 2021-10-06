@@ -8,7 +8,7 @@ class Like < ApplicationRecord
                                       greater_than_or_equal_to: 1 }
   validates :review_id, presence: true,
                         numericality: { only_integer: true,
-                                         greater_than_or_equal_to: 1 }
+                                        greater_than_or_equal_to: 1 }
 
   def self.likes_count(product_id)
     Like.joins(review: :product).includes(%i[review product]).where('product_id=?', product_id).count
