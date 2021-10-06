@@ -16,8 +16,24 @@ RSpec.describe Like, type: :model do
       @like = Like.create(id: 1, user_id: '', review_id: 1)
       expect(@like).to_not be_valid
     end
+    it 'is not working without user_id: 0' do
+      @like = Like.create(id: 1, user_id: 0, review_id: 1)
+      expect(@like).to_not be_valid
+    end
+    it 'is not working without user_id: -1' do
+      @like = Like.create(id: 1, user_id: 0, review_id: 1)
+      expect(@like).to_not be_valid
+    end
     it 'is not working without review_id' do
       @like = Like.create(id: 1, user_id: 1, review_id: '')
+      expect(@like).to_not be_valid
+    end
+    it 'is not working without review_id: 0' do
+      @like = Like.create(id: 1, user_id: 1, review_id: 0)
+      expect(@like).to_not be_valid
+    end
+    it 'is not working without review_id: -1' do
+      @like = Like.create(id: 1, user_id: 1, review_id: -1)
       expect(@like).to_not be_valid
     end
   end
