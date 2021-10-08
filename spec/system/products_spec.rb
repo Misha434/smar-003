@@ -1007,7 +1007,7 @@ RSpec.describe Product, type: :system do
           it 'in products#show' do
             visit '/products/1'
             expect(page).to have_content '製品一覧'
-            expect(page).to have_content 'Product does not exist'
+            expect(page).to have_content '入力した製品は存在しません'
           end
         end
       end
