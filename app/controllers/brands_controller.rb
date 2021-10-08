@@ -64,7 +64,7 @@ class BrandsController < ApplicationController
     @brand = Brand.find(params[:id])
   rescue ActiveRecord::RecordNotFound => e
     puts e
-    flash[:danger] = "Brand does not exist"
+    flash[:danger] = "入力したブランドは存在しません"
     redirect_to request.referrer || brands_path
   rescue StandardError => e
     puts e

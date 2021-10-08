@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     rescue ActiveRecord::RecordNotFound => e
       puts e
       @brands = Brand.all
-      flash[:danger] = "User does not exist"
+      flash[:danger] = "入力したユーザーは存在しません"
       redirect_to request.referrer || root_path
     rescue StandardError => e
       puts e

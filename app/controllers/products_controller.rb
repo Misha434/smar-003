@@ -11,13 +11,13 @@ class ProductsController < ApplicationController
       @product_like_countup = Like.likes_count(params[:id])
       @products_for_compare = Compare.where('user_id=?', current_user.id).includes(product: [:brand, { image_attachment: :blob }]).all
     else
-      flash[:danger] = 'Product does not exist'
+      flash[:danger] = '入力した製品は存在しません'
       redirect_to products_path
     end
   rescue ActiveRecord::RecordNotFound => e
     puts e
     @brands = Brand.all
-    flash[:danger] = "Product does not exist"
+    flash[:danger] = "入力した製品は存在しません"
     redirect_to request.referrer || root_path
   rescue StandardError => e
     puts e
@@ -34,7 +34,7 @@ class ProductsController < ApplicationController
   rescue ActiveRecord::RecordNotFound => e
     puts e
     @brands = Brand.all
-    flash[:danger] = "Product does not exist"
+    flash[:danger] = "入力した製品は存在しません"
     redirect_to request.referrer || root_path
   rescue StandardError => e
     puts e
