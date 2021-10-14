@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show]
   get '/terms', to: 'pages#terms'
 	root 'pages#home'
+  get '/sendgrid', to: 'pages#sendgrid'
+
   namespace :reviews do 
     resources :picks, only: :index, defaults: { format: :json }
   end
