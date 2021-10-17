@@ -50,8 +50,8 @@ Rails.application.configure do
     :address => 'smtp.sendgrid.net',
     :port => '587',
     :authentication => :plain,
-    :user_name => Rails.application.credentials.dig(:user_name),
-    :password => Rails.application.credentials.dig(:password),
+    :user_name => Rails.application.credentials.dig(:sendgrid, :user_name),
+    :password => Rails.application.credentials.dig(:sendgrid, :password),
     :domain => 'smar-003.xyz',
     :enable_starttls_auto => true
   }
