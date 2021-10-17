@@ -1,22 +1,27 @@
-h2
-  | Change your password
-= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
-  = render "devise/shared/error_messages", object: f.object
-  = f.hidden_field :reset_password_token
-  .field
-    = f.label :password, "New password"
-    br
-    - if @minimum_password_length
-      em
-        | (
-        = @minimum_password_length
-        |  characters minimum)
-      br
-    = f.password_field :password, autofocus: true, autocomplete: "new-password"
-  .field
-    = f.label :password_confirmation, "Confirm new password"
-    br
-    = f.password_field :password_confirmation, autocomplete: "new-password"
-  .actions
-    = f.submit "Change my password"
-= render "devise/shared/links"
+- provide(:title, "パスワード再設定")
+
+.col-12.offset-md-1.col-md-10.offset-md-1.offset-lg-3.col-lg-6.offset-lg-3
+  .row
+    h2.my-1.text-center
+      = yield(:title)
+  .row  
+    .card.my-2.p-3
+      = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+        = render "devise/shared/error_messages", object: f.object
+        = f.hidden_field :reset_password_token
+
+        .field.mb-3
+          = f.label :password, "新パスワード"
+          = f.password_field :password, autocomplete: "new-password", class: "form-control"
+          - if @minimum_password_length
+            .form-text
+              p.mb-0 ・利用可能な記号: !@#%^&* 
+              p  
+                | ・#{@minimum_password_length} 文字以上 
+        .field.mb-3
+          = f.label :password_confirmation, "新パスワード再入力"
+          = f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control"
+        .actions
+          .d-grid.mb-2
+            = f.submit "#{yield(:title)}", class: "btn btn-primary"
+    = render "devise/shared/links"
