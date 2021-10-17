@@ -34,6 +34,8 @@ gem 'pagy'
 gem 'ransack'
 gem 'slim-rails'
 
+gem 'sendgrid-ruby'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   # Use mysql as the database for Active Record

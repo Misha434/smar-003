@@ -45,7 +45,19 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.default_url_options = { host: 'localhost', port: 5000 }
+
+  ActionMailer::Base.smtp_settings = {
+    :address => 'smtp.sendgrid.net',
+    :port => '587',
+    :authentication => :plain,
+    :user_name => Rails.application.credentials.dig(:user_name),
+    :password => Rails.application.credentials.dig(:password),
+    :domain => 'smar-003.xyz',
+    :enable_starttls_auto => true
+  }
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
