@@ -6,13 +6,13 @@
       .card.px-3.my-3
         h2.text-center.mt-3 = yield(:title)
 
-        = link_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: "btn btn-outline-success my-3"
-        
+        = render 'devise/shared/guest_login_button'
+
         = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
           = render "devise/shared/error_messages", resource: resource,  object: f.object
-          .field
+          .field.my-3
             = f.label :email
-            = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control mb-3", placeholder: "Email"
+            = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email"
           .field
             = f.label :password, "パスワード"
             br
