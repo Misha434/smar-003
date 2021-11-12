@@ -332,8 +332,17 @@ RSpec.describe User, type: :system do
     end
 
     context 'Guest (one-click login) User,' do
-      it 'can login' do
+      it 'can login on header' do
         within('header') do
+          click_on 'ゲストログイン'
+        end
+        expect(page).to have_content 'ゲストユーザーとしてログインしました'
+      end
+      it 'can login on users#log_in' do
+        within('header') do
+          click_on 'ログイン'
+        end
+        within('.card') do
           click_on 'ゲストログイン'
         end
         expect(page).to have_content 'ゲストユーザーとしてログインしました'
