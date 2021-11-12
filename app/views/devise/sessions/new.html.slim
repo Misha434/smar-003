@@ -5,6 +5,9 @@
     .col-12.col-md-8.offset-md-2
       .card.px-3.my-3
         h2.text-center.mt-3 = yield(:title)
+
+        = link_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: "btn btn-outline-success my-3"
+        
         = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
           = render "devise/shared/error_messages", resource: resource,  object: f.object
           .field
