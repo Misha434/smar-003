@@ -3,7 +3,7 @@ class ComparesController < ApplicationController
   before_action :authenticate_user!, only: %i[create destroy]
 
   def create
-    @compare = Compare.new(user_id: current_user.id, product_id: params[:id])
+    @compare = current_user.compares.new(product_id: params[:id])
     if @compare.save(compare_params)
       flash[:notice] = "登録に成功しました"
     else
@@ -15,7 +15,7 @@ class ComparesController < ApplicationController
   end
 
   def destroy
-    @compare = Compare.find_by(user_id: current_user.id, product_id: params[:id])
+    @compare = current_user.compares.find_by(product_id: params[:id])
     if @compare.destroy
       flash[:notice] = "登録解除しました"
     else
